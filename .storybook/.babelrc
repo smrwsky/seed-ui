@@ -1,0 +1,4 @@
+{
+  "plugins": [["@babel/plugin-proposal-class-properties", { "loose": true }], "@vanilla-extract/babel-plugin"],
+  "presets": [["@babel/preset-env", { "loose": true }], "@babel/preset-react"]
+}
