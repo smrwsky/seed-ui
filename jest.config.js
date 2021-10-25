@@ -3,7 +3,7 @@ const baseConfig = require('./jest.config.base');
 module.exports = {
   ...baseConfig,
   collectCoverage: true,
-  projects: ['<rootDir>/services/crm/jest.config.js'],
+  projects: ['<rootDir>/packages/**/jest.config.js'],
   coverageDirectory: '<rootDir>/coverage',
   collectCoverageFrom: [
     '<rootDir>/services/**/*.{ts,tsx,js}',
