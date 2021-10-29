@@ -39,21 +39,17 @@ export type SizingProps = Pick<
   'height' | 'maxHeight' | 'maxWidth' | 'minHeight' | 'minWidth' | 'width'
 >;
 
-const alignItems = {
-  baseline: 'baseline',
-  center: 'center',
-  end: 'flex-end',
-  start: 'start',
-  stretch: 'start',
-} as const;
+const alignItems = [
+  'baseline',
+  'center',
+  'end',
+  'flex-end',
+  'flex-start',
+  'start',
+  'stretch',
+] as const;
 
-const alignSelf = {
-  baseline: 'baseline',
-  center: 'center',
-  end: 'flex-end',
-  start: 'start',
-  stretch: 'start',
-} as const;
+const alignSelf = [...alignItems, 'self-end', 'self-start'] as const;
 
 const display = ['block', 'none'] as const;
 
@@ -64,15 +60,14 @@ const flexDirection = [
   'row-reverse',
 ] as const;
 
-const justifyContent = {
-  'center': 'center',
-  'end': 'flex-end',
-  'space-around': 'space-around',
-  'space-between': 'space-between',
-  'space-evenly': 'space-evenly',
-  'start': 'flex-start',
-  'stretch': 'stretch',
-} as const;
+const justifyContent = [
+  ...alignItems,
+  'space-around',
+  'space-between',
+  'space-evenly',
+] as const;
+
+const justifySelf = alignSelf;
 
 const position = ['absolute', 'fixed', 'relative', 'static', 'sticky'] as const;
 
@@ -88,6 +83,7 @@ const responsiveProperties = defineProperties({
     flexDirection,
     height,
     justifyContent,
+    justifySelf,
     position,
     width,
     bottom: offset,

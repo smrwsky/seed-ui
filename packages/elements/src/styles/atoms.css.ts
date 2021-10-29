@@ -42,43 +42,35 @@ export type SizingProps = Pick<
   'height' | 'maxHeight' | 'maxWidth' | 'minHeight' | 'minWidth' | 'width'
 >;
 
-const alignItems = {
-  baseline: 'baseline',
-  center: 'center',
-  end: 'flex-end',
-  start: 'start',
-  stretch: 'start',
-} as const;
+const alignItems = [
+  'baseline',
+  'center',
+  'end',
+  'flex-end',
+  'flex-start',
+  'start',
+  'stretch',
+] as const;
 
-const alignSelf = {
-  baseline: 'baseline',
-  center: 'center',
-  end: 'flex-end',
-  start: 'start',
-  stretch: 'start',
-} as const;
+const alignSelf = [...alignItems, 'self-end', 'self-start'] as const;
 
-const display = {
-  block: 'block',
-  none: 'none',
-} as const;
+const display = ['block', 'none'] as const;
 
-const flexDirection = {
-  column: 'column',
-  columnReverse: 'column-reverse',
-  row: 'row',
-  rowReverse: 'row-reverse',
-} as const;
+const flexDirection = [
+  'column',
+  'column-reverse',
+  'row',
+  'row-reverse',
+] as const;
 
-const justifyContent = {
-  center: 'center',
-  end: 'flex-end',
-  spaceAround: 'space-around',
-  spaceBetween: 'space-between',
-  spaceEvenly: 'space-evenly',
-  start: 'flex-start',
-  stretch: 'stretch',
-} as const;
+const justifyContent = [
+  ...alignItems,
+  'space-around',
+  'space-between',
+  'space-evenly',
+] as const;
+
+const justifySelf = alignSelf;
 
 const position = {
   absolute: 'absolute',
@@ -107,6 +99,7 @@ const responsiveProperties = defineProperties({
     flexDirection,
     height,
     justifyContent,
+    justifySelf,
     order,
     position,
     textAlign,
