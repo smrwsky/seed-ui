@@ -37,6 +37,7 @@ export type ColWidth = ResponsiveValue<ColWidthValue>;
 export interface ColProps extends React.HTMLAttributes<HTMLElement> {
   alignSelf?: Atoms['alignSelf'];
   display?: Atoms['display'];
+  flex?: Atoms['flex'];
   justifySelf?: Atoms['justifySelf'];
   order?: Atoms['order'];
   width?: ColWidth;
@@ -46,6 +47,7 @@ function Col(
   {
     alignSelf,
     display,
+    flex = 'none',
     justifySelf,
     order,
     width,
@@ -64,6 +66,7 @@ function Col(
         atoms({
           alignSelf,
           display,
+          flex,
           justifySelf,
           order,
           width,

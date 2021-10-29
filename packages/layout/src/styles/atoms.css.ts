@@ -53,6 +53,11 @@ const alignSelf = [...alignItems, 'self-end', 'self-start'] as const;
 
 const display = ['block', 'none'] as const;
 
+const flex = {
+  none: 'none',
+  fill: '1 0 0',
+};
+
 const flexDirection = [
   'column',
   'column-reverse',
@@ -80,6 +85,7 @@ const responsiveProperties = defineProperties({
     alignItems,
     alignSelf,
     display,
+    flex,
     flexDirection,
     height,
     justifyContent,
