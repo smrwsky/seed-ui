@@ -1,5 +1,11 @@
 # @seed-ui/layout
 
+## 0.3.4
+
+### Patch Changes
+
+- fca7214: Added flex property to Col component.
+
 ## 0.3.3
 
 ### Patch Changes
