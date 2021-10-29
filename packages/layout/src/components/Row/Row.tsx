@@ -28,11 +28,11 @@ export type RowGutterValue =
 export type RowGutter = ResponsiveValue<RowGutterValue>;
 
 export interface RowProps extends React.HTMLAttributes<HTMLElement> {
-  align?: Atoms['alignItems'];
+  alignItems?: Atoms['alignItems'];
   gutter?: RowGutter;
   gutterX?: RowGutter;
   gutterY?: RowGutter;
-  justify?: Atoms['justifyContent'];
+  justifyContent?: Atoms['justifyContent'];
 }
 
 const getRowMT = (n: RowGutterValue): RowGutterValue | undefined =>
@@ -46,11 +46,11 @@ const getColPX = (n: RowGutterValue): RowGutterValue | undefined =>
 
 function Row(
   {
-    align,
+    alignItems,
     gutter,
     gutterX,
     gutterY,
-    justify,
+    justifyContent,
     children,
     ...elemProps
   }: RowProps,
@@ -66,8 +66,8 @@ function Row(
       className={cx(
         S.root,
         atoms({
-          alignItems: align,
-          justifyContent: justify,
+          alignItems,
+          justifyContent,
           mt: gy && mapResponsiveValue(gy, getRowMT),
           mx: gx && mapResponsiveValue(gx, getRowMX),
         }),
