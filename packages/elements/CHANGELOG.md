@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.4
+
+### Patch Changes
+
+- b317ae5: Updated versions of packages.
+
 ## 0.3.3
 
 ### Patch Changes
