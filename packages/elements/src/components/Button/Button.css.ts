@@ -58,7 +58,7 @@ export const rootVariant = styleVariants({
   'primary': {
     backgroundColor: theme.color.primary500,
     color: theme.color.white,
-    boxShadow: `0 4px 6px -1px ${theme.color.primary100}`,
+    boxShadow: `0 1px 3px ${theme.color.primary100}`,
 
     selectors: {
       '&:hover, &:focus': {
@@ -78,7 +78,7 @@ export const rootVariant = styleVariants({
   'accent': {
     backgroundColor: theme.color.accent500,
     color: theme.color.white,
-    boxShadow: `0 4px 6px -1px ${theme.color.accent100}`,
+    boxShadow: `0 1px 3px ${theme.color.accent100}`,
 
     selectors: {
       '&:hover, &:focus': {
@@ -98,7 +98,7 @@ export const rootVariant = styleVariants({
   'secondary': {
     backgroundColor: theme.color.neutral500,
     color: theme.color.white,
-    boxShadow: `0 4px 6px -1px ${theme.color.neutral100}`,
+    boxShadow: `0 1px 3px ${theme.color.neutral100}`,
 
     selectors: {
       '&:hover, &:focus': {
@@ -118,7 +118,7 @@ export const rootVariant = styleVariants({
   'info': {
     backgroundColor: theme.color.info500,
     color: theme.color.white,
-    boxShadow: `0 4px 6px -1px ${theme.color.info100}`,
+    boxShadow: `0 1px 3px ${theme.color.info100}`,
 
     selectors: {
       '&:hover, &:focus': {
@@ -138,7 +138,7 @@ export const rootVariant = styleVariants({
   'success': {
     backgroundColor: theme.color.success500,
     color: theme.color.white,
-    boxShadow: `0 4px 6px -1px ${theme.color.success100}`,
+    boxShadow: `0 1px 3px ${theme.color.success100}`,
 
     selectors: {
       '&:hover, &:focus': {
@@ -158,7 +158,7 @@ export const rootVariant = styleVariants({
   'warning': {
     backgroundColor: theme.color.warning500,
     color: theme.color.white,
-    boxShadow: `0 4px 6px -1px ${theme.color.warning100}`,
+    boxShadow: `0 1px 3px ${theme.color.warning100}`,
 
     selectors: {
       '&:hover, &:focus': {
@@ -178,7 +178,7 @@ export const rootVariant = styleVariants({
   'danger': {
     backgroundColor: theme.color.danger500,
     color: theme.color.white,
-    boxShadow: `0 4px 6px -1px ${theme.color.danger100}`,
+    boxShadow: `0 1px 3px ${theme.color.danger100}`,
 
     selectors: {
       '&:hover, &:focus': {
@@ -198,7 +198,7 @@ export const rootVariant = styleVariants({
   'light': {
     backgroundColor: theme.color.white,
     color: theme.color.primary500,
-    boxShadow: `0 4px 6px -1px ${theme.color.light200}`,
+    boxShadow: `0 1px 3px ${theme.color.light200}`,
 
     selectors: {
       '&:hover, &:focus': {
