@@ -77,6 +77,7 @@ globalStyle('td, th', {
 
 /**
  *  1. Responsive base font size.
+ *    Devises of size 1440px has initial font size 1rem.
  *    See: https://www.codementor.io/@ricardozea/100-responsive-typography-system-using-a-modular-scale-s5rhft58g
  */
 
@@ -88,12 +89,3 @@ globalStyle('body', {
   textRendering: 'optimizeLegibility',
   fontSmooth: 'antialiased',
 });
-
-globalStyle(
-  'input[type="text"]:disabled, input[type="password"]:disabled, textarea:disabled',
-  {},
-);
-
-globalStyle('*::placeholder', {});
-
-globalStyle('*::placeholder:focus', {});

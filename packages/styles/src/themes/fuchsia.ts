@@ -1,20 +1,8 @@
 import { color } from '../const';
 
-// Font ratio: 1.25 (4:5 - Major Third)
-// @See: https://www.modularscale.com/?16&px&1.25
-
-//   'xs': '0.64rem', // 10.24px
-//   'sm': '0.8rem', // 12.8px
-//   'md': '1rem', // 16px
-
+// Font ratio: 1.2 (5:6 - Minor Third)
+// @See: https://www.modularscale.com/?16&px&1.2
 // Use em for large font-sizes to make them responsive
-
-//   'lg': '1.25em', // 20px
-//   'xl': '1.563em', // 25px
-//   '2xl': '1.953em', // 31.25px
-//   '3xl': '2.441em', // 39.063px
-//   '4xl': '3.052em', // 48.828px
-//   '5xl': '3.815em', // 61.035px
 
 export const fuchsia = {
   color: {
@@ -51,13 +39,13 @@ export const fuchsia = {
   typography: {
     titleXl: {
       base: {
-        fontSize: '3.815em', // 61.035px
+        fontSize: '2.986em', // 47.776px
         fontWeight: '900',
         letterSpacing: '0.75px',
         lineHeight: '1.112',
       },
       serif: {
-        fontSize: '3.815em', // 61.035px
+        fontSize: '2.986em', // 47.776px
         fontWeight: '500',
         letterSpacing: '0.25px',
         lineHeight: '1.112',
@@ -65,13 +53,13 @@ export const fuchsia = {
     },
     titleLg: {
       base: {
-        fontSize: '3.052em', // 48.828px
+        fontSize: '2.488em', // 39.813px
         fontWeight: '900',
         letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
       serif: {
-        fontSize: '3.052em', // 48.828px
+        fontSize: '2.488em', // 39.813px
         fontWeight: '600',
         letterSpacing: '0.13px',
         lineHeight: '1.112',
@@ -79,13 +67,13 @@ export const fuchsia = {
     },
     titleMd: {
       base: {
-        fontSize: '2.441em', // 39.063px
+        fontSize: '2.074em', // 33.178px
         fontWeight: '900',
         letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
       serif: {
-        fontSize: '2.441em', // 39.063px
+        fontSize: '2.074em', // 33.178px
         fontWeight: '600',
         letterSpacing: '0.13px',
         lineHeight: '1.112',
@@ -93,13 +81,13 @@ export const fuchsia = {
     },
     titleSm: {
       base: {
-        fontSize: '1.953em', // 31.25px
+        fontSize: '1.728em', // 27.648px
         fontWeight: '900',
         letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
       serif: {
-        fontSize: '1.953em', // 31.25px
+        fontSize: '1.728em', // 27.648px
         fontWeight: '600',
         letterSpacing: '0.13px',
         lineHeight: '1.112',
@@ -107,13 +95,13 @@ export const fuchsia = {
     },
     titleXs: {
       base: {
-        fontSize: '1.563em', // 25px
+        fontSize: '1.44em', // 23.04px
         fontWeight: '900',
         letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
       serif: {
-        fontSize: '1.563em', // 25px
+        fontSize: '1.44em', // 23.04px
         fontWeight: '600',
         letterSpacing: '0.13px',
         lineHeight: '1.112',
@@ -121,13 +109,13 @@ export const fuchsia = {
     },
     subtitleMd: {
       base: {
-        fontSize: '1.25em', // 20px
+        fontSize: '1.2em', // 19.2px
         fontWeight: '700',
         letterSpacing: '0.25px',
         lineHeight: '1.112',
       },
       serif: {
-        fontSize: '1.25em', // 20px
+        fontSize: '1.2em', // 19.2px
         fontWeight: '700',
         letterSpacing: '0.13px',
         lineHeight: '1.112',
@@ -135,13 +123,13 @@ export const fuchsia = {
     },
     subtitleSm: {
       base: {
-        fontSize: '1rem', // 16px
+        fontSize: '1em', // 16px
         fontWeight: '700',
         letterSpacing: '0.25px',
         lineHeight: '1.112',
       },
       serif: {
-        fontSize: '1rem', // 16px
+        fontSize: '1em', // 16px
         fontWeight: '600',
         letterSpacing: '0.13px',
         lineHeight: '1.112',
@@ -163,13 +151,13 @@ export const fuchsia = {
     },
     textSm: {
       base: {
-        fontSize: '0.8rem', // 12.8px
+        fontSize: '0.833rem', // 13.333px
         fontWeight: '400',
         letterSpacing: '0.25px',
         lineHeight: '1.5',
       },
       serif: {
-        fontSize: '0.8rem', // 12.8px
+        fontSize: '0.833rem', // 13.333px
         fontWeight: '400',
         letterSpacing: '0.13px',
         lineHeight: '1.5',
@@ -182,25 +170,25 @@ export const fuchsia = {
       lineHeight: '1.2',
     },
     labelSm: {
-      fontSize: '0.8rem', // 12.8px
+      fontSize: '0.833rem', // 13.333px
       fontWeight: '700',
       letterSpacing: '0.5px',
       lineHeight: '1.2',
     },
     overline: {
-      fontSize: '0.64rem', // 10.24px
+      fontSize: '0.694rem', // 11.111px
       fontWeight: '400',
       letterSpacing: '1.5px',
       lineHeight: '1.2',
     },
     caption: {
-      fontSize: '0.64rem', // 10.24px
+      fontSize: '0.694rem', // 11.111px
       fontWeight: '400',
       letterSpacing: '0.5px',
       lineHeight: '1.2',
     },
     button: {
-      fontSize: '0.8rem', // 12.8px
+      fontSize: '0.833rem', // 13.333px
       fontWeight: '400',
       letterSpacing: '0.75px',
       lineHeight: '1.2',
