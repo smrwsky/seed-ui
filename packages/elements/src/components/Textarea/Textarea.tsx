@@ -56,7 +56,7 @@ const Textarea = (
     e: React.KeyboardEvent<HTMLTextAreaElement>,
   ): void => {
     if (submitOnEnter && e.key === 'Enter' && !e.shiftKey) {
-      (e.target as HTMLTextAreaElement).form?.dispatchEvent(
+      e.currentTarget.form?.dispatchEvent(
         new Event('submit', { cancelable: true }),
       );
       e.preventDefault();

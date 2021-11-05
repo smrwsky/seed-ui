@@ -102,6 +102,7 @@ export default {
     'variant': {
       control: 'select',
       defaultValue: 'primary',
+      options: variants,
       table: {
         type: {
           summary: variants.join(' | '),
