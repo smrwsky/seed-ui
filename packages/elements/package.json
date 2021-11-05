@@ -78,7 +78,7 @@
     "typescript": "4.2.2"
   },
   "dependencies": {
-    "@seed-ui/styles": "^0.3.2",
+    "@seed-ui/styles": "^0.3.3",
     "@seed-ui/icons": "^0.3.3",
     "@seed-ui/layout": "^0.3.4",
     "@vanilla-extract/sprinkles": "^1.3.0",
