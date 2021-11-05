@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.3.4
+
+### Patch Changes
+
+- b63dea7: Updated pachage versions.
+
 ## 0.3.3
 
 ### Patch Changes

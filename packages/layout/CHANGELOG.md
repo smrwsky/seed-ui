@@ -1,5 +1,11 @@
 # @seed-ui/layout
 
+## 0.3.5
+
+### Patch Changes
+
+- b63dea7: Updated pachage versions.
+
 ## 0.3.4
 
 ### Patch Changes
