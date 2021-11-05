@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.3.3
+
+### Patch Changes
+
+- 8b03518: Changed font ration from MajorThird to Minor Third. Updated styles due to design updates.
+
 ## 0.3.2
 
 ### Patch Changes
