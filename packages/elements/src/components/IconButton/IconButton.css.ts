@@ -6,22 +6,16 @@ import {
   transitionTimingFunction,
 } from '@seed-ui/styles';
 
-import { atoms } from '../../styles/atoms.css';
-
 export const root = style({
   border: 'none',
+  borderRadius: borderRadius.max,
   cursor: 'pointer',
   display: 'inline-block',
-  fontFamily: theme.fontFamily.base,
+  lineHeight: 0,
   overflow: 'hidden',
-  textAlign: 'center',
-  textDecoration: 'none',
-  textOverflow: 'ellipsis',
-  textTransform: 'uppercase',
+  padding: '0.25rem',
   transition: `all ${transitionTime.sm} ${transitionTimingFunction['in-out']}`,
-  whiteSpace: 'nowrap',
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
-  ...theme.typography.button,
 
   selectors: {
     '&:disabled': {
@@ -29,189 +23,167 @@ export const root = style({
     },
   },
 });
-export const rootShape: Record<'stadium' | 'rectangle', string> = styleVariants(
-  {
-    rectangle: {
-      borderRadius: borderRadius.sm,
-    },
-    stadium: {
-      borderRadius: borderRadius.max,
-    },
-  },
-);
+
 export const rootSize = styleVariants({
   sm: {
-    minWidth: '7rem',
-    padding: '0.53rem',
+    fontSize: '1rem',
   },
   md: {
-    minWidth: '8rem',
-    padding: '0.78rem',
+    fontSize: '1.5rem',
   },
   lg: {
-    minWidth: '9rem',
-    padding: '1.03rem',
+    fontSize: '2rem',
   },
 });
 
 export const rootVariant = styleVariants({
   'primary': {
-    backgroundColor: theme.color.primary500,
-    color: theme.color.white,
-    boxShadow: `0 1px 3px ${theme.color.primary100}`,
+    backgroundColor: 'transparent',
+    color: theme.color.primary500,
 
     selectors: {
       '&:hover, &:focus': {
-        backgroundColor: theme.color.primary400,
+        backgroundColor: theme.color.primary50,
       },
 
       '&:active': {
-        backgroundColor: theme.color.primary600,
+        backgroundColor: theme.color.primary100,
       },
 
       '&:disabled': {
-        backgroundColor: theme.color.neutral200,
+        color: theme.color.neutral200,
       },
     },
   },
-
   'accent': {
-    backgroundColor: theme.color.accent500,
-    color: theme.color.white,
-    boxShadow: `0 1px 3px ${theme.color.accent100}`,
+    backgroundColor: 'transparent',
+    color: theme.color.accent500,
 
     selectors: {
       '&:hover, &:focus': {
-        backgroundColor: theme.color.accent400,
+        backgroundColor: theme.color.accent50,
       },
 
       '&:active': {
-        backgroundColor: theme.color.accent600,
+        backgroundColor: theme.color.accent100,
       },
 
       '&:disabled': {
-        backgroundColor: theme.color.neutral200,
+        color: theme.color.neutral200,
       },
     },
   },
 
   'secondary': {
-    backgroundColor: theme.color.neutral500,
-    color: theme.color.white,
-    boxShadow: `0 1px 3px ${theme.color.neutral100}`,
+    backgroundColor: 'transparent',
+    color: theme.color.neutral500,
 
     selectors: {
       '&:hover, &:focus': {
-        backgroundColor: theme.color.neutral400,
+        backgroundColor: theme.color.neutral50,
       },
 
       '&:active': {
-        backgroundColor: theme.color.neutral600,
+        backgroundColor: theme.color.neutral100,
       },
 
       '&:disabled': {
-        backgroundColor: theme.color.neutral200,
+        color: theme.color.neutral200,
       },
     },
   },
 
   'info': {
-    backgroundColor: theme.color.info500,
-    color: theme.color.white,
-    boxShadow: `0 1px 3px ${theme.color.info100}`,
+    backgroundColor: 'transparent',
+    color: theme.color.info500,
 
     selectors: {
       '&:hover, &:focus': {
-        backgroundColor: theme.color.info400,
+        backgroundColor: theme.color.info50,
       },
 
       '&:active': {
-        backgroundColor: theme.color.info600,
+        backgroundColor: theme.color.info100,
       },
 
       '&:disabled': {
-        backgroundColor: theme.color.neutral200,
+        color: theme.color.neutral200,
       },
     },
   },
 
   'success': {
-    backgroundColor: theme.color.success500,
-    color: theme.color.white,
-    boxShadow: `0 1px 3px ${theme.color.success100}`,
+    backgroundColor: 'transparent',
+    color: theme.color.success500,
 
     selectors: {
       '&:hover, &:focus': {
-        backgroundColor: theme.color.success400,
+        backgroundColor: theme.color.success50,
       },
 
       '&:active': {
-        backgroundColor: theme.color.success600,
+        backgroundColor: theme.color.success100,
       },
 
       '&:disabled': {
-        backgroundColor: theme.color.neutral200,
+        color: theme.color.neutral200,
       },
     },
   },
 
   'warning': {
-    backgroundColor: theme.color.warning500,
-    color: theme.color.white,
-    boxShadow: `0 1px 3px ${theme.color.warning100}`,
+    backgroundColor: 'transparent',
+    color: theme.color.warning500,
 
     selectors: {
       '&:hover, &:focus': {
-        backgroundColor: theme.color.warning400,
+        backgroundColor: theme.color.warning50,
       },
 
       '&:active': {
-        backgroundColor: theme.color.warning600,
+        backgroundColor: theme.color.warning100,
       },
 
       '&:disabled': {
-        backgroundColor: theme.color.neutral200,
+        color: theme.color.neutral200,
       },
     },
   },
 
   'danger': {
-    backgroundColor: theme.color.danger500,
-    color: theme.color.white,
-    boxShadow: `0 1px 3px ${theme.color.danger100}`,
+    backgroundColor: 'transparent',
+    color: theme.color.danger500,
 
     selectors: {
       '&:hover, &:focus': {
-        backgroundColor: theme.color.danger400,
+        backgroundColor: theme.color.danger50,
       },
 
       '&:active': {
-        backgroundColor: theme.color.danger600,
+        backgroundColor: theme.color.danger100,
       },
 
       '&:disabled': {
-        backgroundColor: theme.color.neutral200,
+        color: theme.color.neutral200,
       },
     },
   },
 
   'light': {
-    backgroundColor: theme.color.white,
-    color: theme.color.primary500,
-    boxShadow: `0 1px 3px ${theme.color.light200}`,
+    backgroundColor: 'transparent',
+    color: theme.color.white,
 
     selectors: {
       '&:hover, &:focus': {
-        backgroundColor: theme.color.light800,
+        backgroundColor: theme.color.light200,
       },
 
       '&:active': {
-        backgroundColor: theme.color.light600,
+        backgroundColor: theme.color.light400,
       },
 
       '&:disabled': {
-        color: theme.color.white,
-        backgroundColor: theme.color.neutral200,
+        color: theme.color.neutral200,
       },
     },
   },
@@ -383,164 +355,4 @@ export const rootVariant = styleVariants({
       },
     },
   },
-
-  'primary-overlay': {
-    backgroundColor: 'transparent',
-    color: theme.color.primary500,
-
-    selectors: {
-      '&:hover, &:focus': {
-        backgroundColor: theme.color.primary50,
-      },
-
-      '&:active': {
-        backgroundColor: theme.color.primary100,
-      },
-
-      '&:disabled': {
-        color: theme.color.neutral200,
-      },
-    },
-  },
-
-  'accent-overlay': {
-    backgroundColor: 'transparent',
-    color: theme.color.accent500,
-
-    selectors: {
-      '&:hover, &:focus': {
-        backgroundColor: theme.color.accent50,
-      },
-
-      '&:active': {
-        backgroundColor: theme.color.accent100,
-      },
-
-      '&:disabled': {
-        color: theme.color.neutral200,
-      },
-    },
-  },
-
-  'secondary-overlay': {
-    backgroundColor: 'transparent',
-    color: theme.color.neutral500,
-
-    selectors: {
-      '&:hover, &:focus': {
-        backgroundColor: theme.color.neutral50,
-      },
-
-      '&:active': {
-        backgroundColor: theme.color.neutral100,
-      },
-
-      '&:disabled': {
-        color: theme.color.neutral200,
-      },
-    },
-  },
-
-  'info-overlay': {
-    backgroundColor: 'transparent',
-    color: theme.color.info500,
-
-    selectors: {
-      '&:hover, &:focus': {
-        backgroundColor: theme.color.info50,
-      },
-
-      '&:active': {
-        backgroundColor: theme.color.info100,
-      },
-
-      '&:disabled': {
-        color: theme.color.neutral200,
-      },
-    },
-  },
-
-  'success-overlay': {
-    backgroundColor: 'transparent',
-    color: theme.color.success500,
-
-    selectors: {
-      '&:hover, &:focus': {
-        backgroundColor: theme.color.success50,
-      },
-
-      '&:active': {
-        backgroundColor: theme.color.success100,
-      },
-
-      '&:disabled': {
-        color: theme.color.neutral200,
-      },
-    },
-  },
-
-  'warning-overlay': {
-    backgroundColor: 'transparent',
-    color: theme.color.warning500,
-
-    selectors: {
-      '&:hover, &:focus': {
-        backgroundColor: theme.color.warning50,
-      },
-
-      '&:active': {
-        backgroundColor: theme.color.warning100,
-      },
-
-      '&:disabled': {
-        color: theme.color.neutral200,
-      },
-    },
-  },
-
-  'danger-overlay': {
-    backgroundColor: 'transparent',
-    color: theme.color.danger500,
-
-    selectors: {
-      '&:hover, &:focus': {
-        backgroundColor: theme.color.danger50,
-      },
-
-      '&:active': {
-        backgroundColor: theme.color.danger100,
-      },
-
-      '&:disabled': {
-        color: theme.color.neutral200,
-      },
-    },
-  },
-
-  'light-overlay': {
-    backgroundColor: 'transparent',
-    color: theme.color.white,
-
-    selectors: {
-      '&:hover, &:focus': {
-        backgroundColor: theme.color.light200,
-      },
-
-      '&:active': {
-        backgroundColor: theme.color.light400,
-      },
-
-      '&:disabled': {
-        color: theme.color.neutral200,
-      },
-    },
-  },
 });
-
-export const label = style({
-  display: 'inline-block',
-});
-
-export const startIcon = atoms({ marginRight: 1 });
-
-export const endIcon = atoms({ marginLeft: 1 });

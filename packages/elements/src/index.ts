@@ -1,7 +1,6 @@
-export * from '@seed-ui/styles';
+export * from '@seed-ui/icons';
 export * from '@seed-ui/layout';
-
-export * from './styles/helpers';
+export * from '@seed-ui/styles';
 
 export * from './components/Box';
 export * from './components/Title';
@@ -16,3 +15,6 @@ export * from './components/Subtitle';
 export * from './components/Text';
 export * from './components/UList';
 export * from './components/Link';
+export * from './components/IconButton';
+
+export * from './styles/helpers';
