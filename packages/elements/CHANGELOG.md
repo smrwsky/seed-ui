@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.7
+
+### Patch Changes
+
+- 8503167: Created IconButton component. Updated Button paddings so it have initial sizings with new typography rules.
+
 ## 0.3.6
 
 ### Patch Changes
