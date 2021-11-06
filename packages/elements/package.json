@@ -1,6 +1,6 @@
 {
   "name": "@seed-ui/elements",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "",
   "types": "dist/types/index.d.ts",
   "main": "dist/cjs/index.js",
