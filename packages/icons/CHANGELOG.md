@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.3.6
+
+### Patch Changes
+
+- fbb4c21: Added babel plugin to transform svg icons to react components.
+
 ## 0.3.5
 
 ### Patch Changes
