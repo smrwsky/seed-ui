@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.8
+
+### Patch Changes
+
+- 419d734: Wrapped IconButton with forwardRef.
+
 ## 0.3.7
 
 ### Patch Changes
