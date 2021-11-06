@@ -3,7 +3,13 @@
   "plugins": [
     "lodash",
     "@babel/plugin-transform-runtime",
-    "@vanilla-extract/babel-plugin"
+    "@vanilla-extract/babel-plugin",
+    [
+      "babel-plugin-inline-react-svg",
+      {
+        "svgo": false
+      }
+    ]
   ],
   "env": {
     "cjs": {
