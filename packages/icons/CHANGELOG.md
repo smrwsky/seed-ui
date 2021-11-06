@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.3.5
+
+### Patch Changes
+
+- b95e4f9: Fixed broken build of @seed/ui/icons package.
+
 ## 0.3.4
 
 ### Patch Changes
