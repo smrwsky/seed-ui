@@ -33,19 +33,23 @@ export interface IconButtonProps
   children?: React.ReactElement;
 }
 
-function IconButton({
-  as: As = 'button',
-  size = 'md',
-  variant = 'primary',
-  type,
-  children,
-  ...elemProps
-}: IconButtonProps): JSX.Element {
+function IconButton(
+  {
+    as: As = 'button',
+    size = 'md',
+    variant = 'primary',
+    type,
+    children,
+    ...elemProps
+  }: IconButtonProps,
+  ref: React.Ref<HTMLElement>,
+): JSX.Element {
   return (
     <As
+      {...elemProps}
+      ref={ref}
       className={cx(S.root, S.rootSize[size], S.rootVariant[variant])}
       type={As === 'button' && type == null ? 'button' : type}
-      {...elemProps}
     >
       {children}
     </As>
@@ -54,4 +58,4 @@ function IconButton({
 
 IconButton.displayName = 'IconButton';
 
-export default IconButton;
+export default React.forwardRef(IconButton);
