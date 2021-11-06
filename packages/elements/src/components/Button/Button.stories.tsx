@@ -149,7 +149,7 @@ export function Variants(args: ButtonProps): JSX.Element {
 
 export function Sizes(args: ButtonProps): JSX.Element {
   return (
-    <Row align="center" gutter={2}>
+    <Row alignItems="center" gutter={2}>
       {sizes.map((size, i) => (
         <Col key={i}>
           <Button {...args} size={size}>
