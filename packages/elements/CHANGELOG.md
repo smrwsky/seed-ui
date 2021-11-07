@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.9
+
+### Patch Changes
+
+- c2e101a: Added exports for all components.
+
 ## 0.3.8
 
 ### Patch Changes
