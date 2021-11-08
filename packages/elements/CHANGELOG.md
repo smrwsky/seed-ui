@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.10
+
+### Patch Changes
+
+- 438865f: Changed react-textarea-autosize version to make it work well with SSR.
+
 ## 0.3.9
 
 ### Patch Changes
