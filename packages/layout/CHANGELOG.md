@@ -1,5 +1,11 @@
 # @seed-ui/layout
 
+## 0.3.6
+
+### Patch Changes
+
+- 8ef7e3a: Removed line-height from Col styles.
+
 ## 0.3.5
 
 ### Patch Changes
