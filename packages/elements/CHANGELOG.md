@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.11
+
+### Patch Changes
+
+- 41bae6a: Removed react-textarea-autosize package.
+
 ## 0.3.10
 
 ### Patch Changes
