@@ -1,7 +1,4 @@
 import React from 'react';
-import TextareaAutosize, {
-  TextareaAutosizeProps,
-} from 'react-textarea-autosize';
 import cx from 'classnames';
 
 import { InputContainer } from '../InputGroup/InputContainer';
@@ -18,7 +15,10 @@ export type TextareaShape = 'rectangle' | 'stadium';
 export type TextareaSize = 'sm' | 'md' | 'lg';
 
 export interface TextareaProps
-  extends Omit<TextareaAutosizeProps, 'ref' | 'size' | 'action' | 'label'> {
+  extends Omit<
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    'size' | 'action' | 'label'
+  > {
   label?: React.ReactNode;
   submitOnEnter?: boolean;
   shape?: TextareaShape;
@@ -103,7 +103,7 @@ const Textarea = (
         shape={shape}
         size={size}
       >
-        <TextareaAutosize
+        <textarea
           {...inputProps}
           className={cx(textboxStyle, S.textarea)}
           id={id}
