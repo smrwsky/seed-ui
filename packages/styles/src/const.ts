@@ -198,6 +198,11 @@ export const breakpoint = {
   desktop: 1200,
 } as const;
 
+export const border = {
+  none: 'none',
+  1: '1px solid currentColor',
+} as const;
+
 export const borderRadius = {
   'sm': '0.125rem',
   'md': '0.375rem',
