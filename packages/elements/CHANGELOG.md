@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.13
+
+### Patch Changes
+
+- 8d9ea9e: Updated @seed-ui/styles package version in other packages.
+
 ## 0.3.12
 
 ### Patch Changes
