@@ -2,6 +2,11 @@
   "name": "@seed-ui/elements",
   "version": "0.3.13",
   "description": "",
+  "files": [
+    "dist",
+    "package.json",
+    "CHANGELOG.md"
+  ],
   "types": "dist/types/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
