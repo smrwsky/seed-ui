@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.14
+
+### Patch Changes
+
+- ce95a2a: Added border props to Box component.
+
 ## 0.3.13
 
 ### Patch Changes
