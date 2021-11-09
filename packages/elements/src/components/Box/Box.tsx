@@ -1,24 +1,32 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { atoms, Atoms } from '../../styles/atoms.css';
+import { atoms, Atoms, BorderProps } from '../../styles/atoms.css';
 
-import * as S from './Box.css';
-
-export interface BoxProps extends React.HTMLAttributes<HTMLElement> {
+export interface BoxProps
+  extends BorderProps,
+    React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
+  backgroundColor?: Atoms['backgroundColor'];
   borderColor?: Atoms['borderColor'];
   borderRadius?: Atoms['borderRadius'];
   boxShadow?: Atoms['boxShadow'];
-  backgroundColor?: Atoms['backgroundColor'];
 }
+
 function Box(
   {
     as: As = 'div',
+    border,
+    borderBottom,
+    borderLeft,
+    borderRight,
+    borderTop,
+    borderX,
+    borderY,
     borderColor,
-    borderRadius,
     boxShadow,
     backgroundColor,
+    borderRadius,
     className,
     children,
     ...elemProps
@@ -30,8 +38,14 @@ function Box(
       {...elemProps}
       ref={ref}
       className={cx(
-        borderColor != null && S.rootBorder,
         atoms({
+          border,
+          borderBottom,
+          borderLeft,
+          borderRight,
+          borderTop,
+          borderX,
+          borderY,
           borderColor,
           borderRadius,
           boxShadow,

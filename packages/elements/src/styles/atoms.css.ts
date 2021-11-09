@@ -6,6 +6,7 @@ import {
 } from '@vanilla-extract/sprinkles';
 import { mapValues } from 'lodash';
 import {
+  border,
   borderRadius,
   boxShadow,
   breakpoint,
@@ -21,6 +22,17 @@ import {
 export type ResponsiveValue<Value extends string | number> = ConditionalValue<
   typeof responsiveProperties,
   Value
+>;
+
+export type BorderProps = Pick<
+  Atoms,
+  | 'border'
+  | 'borderX'
+  | 'borderY'
+  | 'borderBottom'
+  | 'borderLeft'
+  | 'borderRight'
+  | 'borderTop'
 >;
 
 export type MarginProps = Pick<
@@ -104,6 +116,10 @@ const responsiveProperties = defineProperties({
     position,
     textAlign,
     width,
+    borderBottom: border,
+    borderLeft: border,
+    borderRight: border,
+    borderTop: border,
     bottom: offset,
     left: offset,
     marginBottom: margin,
@@ -122,7 +138,9 @@ const responsiveProperties = defineProperties({
     top: offset,
   },
   shorthands: {
-    direction: ['flexDirection'],
+    border: ['borderBottom', 'borderLeft', 'borderRight', 'borderTop'],
+    borderX: ['borderLeft', 'borderRight'],
+    borderY: ['borderBottom', 'borderTop'],
     m: ['marginBottom', 'marginLeft', 'marginRight', 'marginTop'],
     mb: ['marginBottom'],
     ml: ['marginLeft'],
