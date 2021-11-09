@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.12
+
+### Patch Changes
+
+- c203b0d: Added border to design-tokens.
+
 ## 0.3.11
 
 ### Patch Changes
