@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.16
+
+### Patch Changes
+
+- 536fd48: Cancelled inputs row direction on mobile screens.
+
 ## 0.3.15
 
 ### Patch Changes
