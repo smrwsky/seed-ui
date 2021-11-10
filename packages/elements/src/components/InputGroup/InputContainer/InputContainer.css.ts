@@ -9,17 +9,11 @@ import {
 export const root = style({
   color: theme.color.neutral900,
   backgroundColor: theme.color.white,
-  border: `1px solid ${theme.color.neutral200}`,
+  border: `1px solid ${theme.color.neutral100}`,
   display: 'flex',
   transition: `all ${transitionTime.sm} ${transitionTimingFunction.out}`,
   overflow: 'hidden',
-  ...theme.typography.textMd,
-
-  selectors: {
-    '&:not(:disabled):not(:readonly):hover': {
-      borderColor: theme.color.primary400,
-    },
-  },
+  ...theme.typography.textMd.base,
 });
 
 export const rootShape = styleVariants({

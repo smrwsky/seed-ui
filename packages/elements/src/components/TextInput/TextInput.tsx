@@ -1,4 +1,5 @@
 import React from 'react';
+import { Col, Container, Row } from '@seed-ui/layout';
 
 import { InputContainer } from '../InputGroup/InputContainer';
 import { InputGroup } from '../InputGroup';
@@ -11,8 +12,11 @@ export type TextInputShape = 'rectangle' | 'stadium';
 
 export type TextInputSize = 'sm' | 'md' | 'lg';
 
+export type TextInputDirection = 'row' | 'column';
+
 export interface TextInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+  direction?: TextInputDirection;
   label?: React.ReactNode;
   shape?: TextInputShape;
   size?: TextInputSize;
@@ -25,6 +29,7 @@ export interface TextInputProps
 
 const TextInput = (
   {
+    direction = 'column',
     label,
     shape,
     size,
@@ -69,46 +74,54 @@ const TextInput = (
 
   return (
     <InputGroup>
-      {typeof label === 'string' ? (
-        <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
-      ) : (
-        label
-      )}
+      <Row alignItems="baseline" gutter={1}>
+        {typeof label === 'string' && (
+          <Col width={direction === 'column' ? '1/1' : '1/3'}>
+            <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
+          </Col>
+        )}
 
-      <InputContainer
-        ref={ref}
-        disabled={disabled}
-        readOnly={readOnly}
-        focused={focused}
-        invalid={invalid || Boolean(error)}
-        shape={shape}
-        size={size}
-      >
-        <Textbox
-          {...inputProps}
-          readOnly={readOnly}
-          disabled={disabled}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          type="text"
-        />
+        {label && typeof label !== 'string' && (
+          <Col width={direction === 'column' ? '1/1' : '1/3'}>{label}</Col>
+        )}
 
-        {action && <InputAction>{action}</InputAction>}
-      </InputContainer>
+        <Col width={direction === 'column' ? '1/1' : '2/3'}>
+          <InputContainer
+            ref={ref}
+            disabled={disabled}
+            readOnly={readOnly}
+            focused={focused}
+            invalid={invalid || Boolean(error)}
+            shape={shape}
+            size={size}
+          >
+            <Textbox
+              {...inputProps}
+              readOnly={readOnly}
+              disabled={disabled}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              type="text"
+            />
 
-      {typeof message === 'string' ? (
-        <Text size="sm" variant="secondary">
-          {message}
-        </Text>
-      ) : (
-        message
-      )}
+            {action && <InputAction>{action}</InputAction>}
+          </InputContainer>
 
-      {error && (
-        <Text size="sm" variant="danger">
-          {error}
-        </Text>
-      )}
+          {typeof message === 'string' ? (
+            <Text mt={1} size="sm" variant="secondary">
+              {message}
+            </Text>
+          ) : (
+            <Container mt={1}>{message}</Container>
+          )}
+
+          {error && (
+            <Text mt={1} size="sm" variant="danger">
+              {error}
+            </Text>
+          )}
+        </Col>
+      </Row>
     </InputGroup>
   );
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Space } from '@seed-ui/layout';
 
 export interface InputGroupProps
   extends React.LabelHTMLAttributes<HTMLLabelElement> {
@@ -11,9 +10,9 @@ const InputGroup = (
   { children, ...elementProps }: InputGroupProps,
   ref: React.Ref<HTMLLabelElement>,
 ): JSX.Element => (
-  <Space {...elementProps} ref={ref} as="label" direction="column" gutter={1}>
+  <label {...elementProps} ref={ref}>
     {children}
-  </Space>
+  </label>
 );
 
 InputGroup.displayName = 'InputGroup';
