@@ -3,6 +3,7 @@ import { Space } from '@seed-ui/layout';
 
 import docs from './TextInput.docs.mdx';
 import TextInput, {
+  TextInputDirection,
   TextInputProps,
   TextInputShape,
   TextInputSize,
@@ -12,6 +13,8 @@ const shapes: TextInputShape[] = ['rectangle', 'stadium'];
 
 const sizes: TextInputSize[] = ['sm', 'md', 'lg'];
 
+const directions: TextInputDirection[] = ['column', 'row'];
+
 export default {
   title: 'Elements/TextInput',
   component: TextInput,
@@ -19,6 +22,19 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
+    'direction': {
+      control: 'select',
+      options: directions,
+      defaultValue: 'column',
+      table: {
+        type: {
+          summary: directions.join(' | '),
+        },
+        defaultValue: {
+          summary: 'column',
+        },
+      },
+    },
     'shape': {
       control: 'select',
       options: shapes,
@@ -94,6 +110,16 @@ export function Disabled(args: TextInputProps): JSX.Element {
 
 export function ReadOnly(args: TextInputProps): JSX.Element {
   return <TextInput {...args} readOnly value="Readonly value" />;
+}
+
+export function Directions(args: TextInputProps): JSX.Element {
+  return (
+    <Space direction="column" gutter={2}>
+      {directions.map((direction, i) => (
+        <TextInput {...args} label={direction} key={i} direction={direction} />
+      ))}
+    </Space>
+  );
 }
 
 export function Sizes(args: TextInputProps): JSX.Element {

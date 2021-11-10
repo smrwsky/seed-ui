@@ -3,6 +3,7 @@ import { Space } from '@seed-ui/layout';
 
 import docs from './Textarea.docs.mdx';
 import Textarea, {
+  TextareaDirection,
   TextareaProps,
   TextareaShape,
   TextareaSize,
@@ -12,6 +13,8 @@ const shapes: TextareaShape[] = ['rectangle', 'stadium'];
 
 const sizes: TextareaSize[] = ['sm', 'md', 'lg'];
 
+const directions: TextareaDirection[] = ['column', 'row'];
+
 export default {
   title: 'Elements/Textarea',
   component: Textarea,
@@ -19,6 +22,19 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
+    'direction': {
+      control: 'select',
+      options: directions,
+      defaultValue: 'column',
+      table: {
+        type: {
+          summary: directions.join(' | '),
+        },
+        defaultValue: {
+          summary: 'column',
+        },
+      },
+    },
     'shape': {
       control: 'select',
       options: shapes,
@@ -98,6 +114,16 @@ export function Disabled(args: TextareaProps): JSX.Element {
 
 export function ReadOnly(args: TextareaProps): JSX.Element {
   return <Textarea {...args} readOnly value="Readonly value" />;
+}
+
+export function Directions(args: TextareaProps): JSX.Element {
+  return (
+    <Space direction="column" gutter={2}>
+      {directions.map((direction, i) => (
+        <Textarea {...args} label={direction} key={i} direction={direction} />
+      ))}
+    </Space>
+  );
 }
 
 export function Sizes(args: TextareaProps): JSX.Element {

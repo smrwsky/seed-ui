@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import { Col, Container, Row } from '@seed-ui/layout';
 
 import { InputContainer } from '../InputGroup/InputContainer';
 import { InputGroup } from '../InputGroup';
@@ -14,11 +15,14 @@ export type TextareaShape = 'rectangle' | 'stadium';
 
 export type TextareaSize = 'sm' | 'md' | 'lg';
 
+export type TextareaDirection = 'row' | 'column';
+
 export interface TextareaProps
   extends Omit<
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     'size' | 'action' | 'label'
   > {
+  direction?: TextareaDirection;
   label?: React.ReactNode;
   submitOnEnter?: boolean;
   shape?: TextareaShape;
@@ -32,6 +36,7 @@ export interface TextareaProps
 
 const Textarea = (
   {
+    direction = 'column',
     label,
     shape,
     size,
@@ -88,48 +93,56 @@ const Textarea = (
 
   return (
     <InputGroup>
-      {typeof label === 'string' ? (
-        <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
-      ) : (
-        label
-      )}
+      <Row alignItems="baseline" gutter={1}>
+        {typeof label === 'string' && (
+          <Col width={direction === 'column' ? '1/1' : '1/3'}>
+            <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
+          </Col>
+        )}
 
-      <InputContainer
-        ref={ref}
-        disabled={disabled}
-        readOnly={readOnly}
-        focused={focused}
-        invalid={invalid || Boolean(error)}
-        shape={shape}
-        size={size}
-      >
-        <textarea
-          {...inputProps}
-          className={cx(textboxStyle, S.textarea)}
-          id={id}
-          readOnly={readOnly}
-          disabled={disabled}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          onKeyPress={handleKeyPress}
-        />
+        {label && typeof label !== 'string' && (
+          <Col width={direction === 'column' ? '1/1' : '1/3'}>{label}</Col>
+        )}
 
-        {action && <InputAction>{action}</InputAction>}
-      </InputContainer>
+        <Col width={direction === 'column' ? '1/1' : '2/3'}>
+          <InputContainer
+            ref={ref}
+            disabled={disabled}
+            readOnly={readOnly}
+            focused={focused}
+            invalid={invalid || Boolean(error)}
+            shape={shape}
+            size={size}
+          >
+            <textarea
+              {...inputProps}
+              className={cx(textboxStyle, S.textarea)}
+              id={id}
+              readOnly={readOnly}
+              disabled={disabled}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              onKeyPress={handleKeyPress}
+            />
 
-      {typeof message === 'string' ? (
-        <Text size="sm" variant="secondary">
-          {message}
-        </Text>
-      ) : (
-        message
-      )}
+            {action && <InputAction>{action}</InputAction>}
+          </InputContainer>
 
-      {error && (
-        <Text size="sm" variant="danger">
-          {error}
-        </Text>
-      )}
+          {typeof message === 'string' ? (
+            <Text mt={1} size="sm" variant="secondary">
+              {message}
+            </Text>
+          ) : (
+            <Container mt={1}>{message}</Container>
+          )}
+
+          {error && (
+            <Text mt={1} size="sm" variant="danger">
+              {error}
+            </Text>
+          )}
+        </Col>
+      </Row>
     </InputGroup>
   );
 };
