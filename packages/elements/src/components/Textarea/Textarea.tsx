@@ -95,16 +95,30 @@ const Textarea = (
     <InputGroup>
       <Row alignItems="baseline" gutter={1}>
         {typeof label === 'string' && (
-          <Col width={direction === 'column' ? '1/1' : '1/3'}>
+          <Col
+            width={
+              direction === 'column' ? '1/1' : { mobile: '1/1', tablet: '1/3' }
+            }
+          >
             <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
           </Col>
         )}
 
         {label && typeof label !== 'string' && (
-          <Col width={direction === 'column' ? '1/1' : '1/3'}>{label}</Col>
+          <Col
+            width={
+              direction === 'column' ? '1/1' : { mobile: '1/1', tablet: '1/3' }
+            }
+          >
+            {label}
+          </Col>
         )}
 
-        <Col width={direction === 'column' ? '1/1' : '2/3'}>
+        <Col
+          width={
+            direction === 'column' ? '1/1' : { mobile: '1/1', tablet: '2/3' }
+          }
+        >
           <InputContainer
             ref={ref}
             disabled={disabled}
