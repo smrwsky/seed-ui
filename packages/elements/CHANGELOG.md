@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.15
+
+### Patch Changes
+
+- 0bffff0: Added 'direction' property to input elements.
+
 ## 0.3.14
 
 ### Patch Changes
