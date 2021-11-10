@@ -1,6 +1,6 @@
 {
   "name": "@seed-ui/styles",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "",
   "types": "dist/types/index.d.ts",
   "main": "dist/cjs/index.js",
