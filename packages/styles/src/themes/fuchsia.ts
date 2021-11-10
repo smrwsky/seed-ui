@@ -32,7 +32,7 @@ export const fuchsia = {
   },
 
   fontFamily: {
-    base: 'Lato,"Helvetica Neue",Helvetica,Arial,sans-serif',
+    base: '"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif',
     serif: 'Vollkorn,Georgia,Cambria,"Times New Roman",Times,serif',
   },
 
@@ -54,7 +54,7 @@ export const fuchsia = {
     titleLg: {
       base: {
         fontSize: '2.488em', // 39.813px
-        fontWeight: '900',
+        fontWeight: '700',
         letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
@@ -68,7 +68,7 @@ export const fuchsia = {
     titleMd: {
       base: {
         fontSize: '2.074em', // 33.178px
-        fontWeight: '900',
+        fontWeight: '700',
         letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
@@ -82,7 +82,7 @@ export const fuchsia = {
     titleSm: {
       base: {
         fontSize: '1.728em', // 27.648px
-        fontWeight: '900',
+        fontWeight: '700',
         letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
@@ -96,7 +96,7 @@ export const fuchsia = {
     titleXs: {
       base: {
         fontSize: '1.44em', // 23.04px
-        fontWeight: '900',
+        fontWeight: '700',
         letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
@@ -110,7 +110,7 @@ export const fuchsia = {
     subtitleMd: {
       base: {
         fontSize: '1.2em', // 19.2px
-        fontWeight: '700',
+        fontWeight: '600',
         letterSpacing: '0.25px',
         lineHeight: '1.112',
       },
@@ -124,13 +124,13 @@ export const fuchsia = {
     subtitleSm: {
       base: {
         fontSize: '1em', // 16px
-        fontWeight: '700',
+        fontWeight: '600',
         letterSpacing: '0.25px',
         lineHeight: '1.112',
       },
       serif: {
         fontSize: '1em', // 16px
-        fontWeight: '600',
+        fontWeight: '700',
         letterSpacing: '0.13px',
         lineHeight: '1.112',
       },
@@ -165,13 +165,13 @@ export const fuchsia = {
     },
     labelMd: {
       fontSize: '1rem', // 16px
-      fontWeight: '700',
+      fontWeight: '600',
       letterSpacing: '0.5px',
       lineHeight: '1.2',
     },
     labelSm: {
       fontSize: '0.833rem', // 13.333px
-      fontWeight: '700',
+      fontWeight: '600',
       letterSpacing: '0.5px',
       lineHeight: '1.2',
     },
