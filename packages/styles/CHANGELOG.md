@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.3.5
+
+### Patch Changes
+
+- a53ea00: Changed base font to Source Sans Pro and updated appropriated font styles.
+
 ## 0.3.4
 
 ### Patch Changes
