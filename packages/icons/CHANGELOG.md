@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.3.9
+
+### Patch Changes
+
+- 0ff0601: Updated @seed-ui/styles package version for @seed-ui/layout and @seed-ui/icons to 0.3.5.
+
 ## 0.3.8
 
 ### Patch Changes
