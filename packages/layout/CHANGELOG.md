@@ -1,5 +1,11 @@
 # @seed-ui/layout
 
+## 0.3.10
+
+### Patch Changes
+
+- eee8424: Updated package versions.
+
 ## 0.3.9
 
 ### Patch Changes
