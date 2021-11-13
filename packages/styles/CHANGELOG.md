@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.3.6
+
+### Patch Changes
+
+- 283af95: Fixed return type of GlobalStyle component.
+
 ## 0.3.5
 
 ### Patch Changes
