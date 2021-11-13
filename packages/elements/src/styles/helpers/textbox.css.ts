@@ -1,9 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import {
-  theme,
-  transitionTime,
-  transitionTimingFunction,
-} from '@seed-ui/styles';
+import { theme } from '@seed-ui/styles';
 
 export const textboxStyle = style({
   background: 'transparent',
@@ -31,11 +27,6 @@ export const textboxStyle = style({
     '&::placeholder': {
       color: theme.color.neutral100,
       opacity: 1,
-      transition: `opacity ${transitionTime.sm} ${transitionTimingFunction.out}`,
-    },
-
-    '&::placeholder:focus': {
-      opacity: 0,
     },
   },
 });
