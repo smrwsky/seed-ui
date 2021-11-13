@@ -2,6 +2,11 @@
   "name": "@seed-ui/styles",
   "version": "0.3.5",
   "description": "",
+  "files": [
+    "dist",
+    "package.json",
+    "CHANGELOG.md"
+  ],
   "types": "dist/types/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",

@@ -2,7 +2,7 @@ import { globalStyle } from '@vanilla-extract/css';
 
 import { theme } from '../theme.css';
 
-export const arr = [];
+export const importMe = null;
 
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 

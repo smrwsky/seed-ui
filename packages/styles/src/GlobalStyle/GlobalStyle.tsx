@@ -1,9 +1,7 @@
-import React from 'react';
+import { importMe } from './GlobalStyle.css';
 
-import { arr } from './GlobalStyle.css';
-
-function GlobalStyle(): React.ReactNode {
-  return arr;
+function GlobalStyle(): null {
+  return importMe;
 }
 
 GlobalStyle.displayName = 'GlobalStyle';
