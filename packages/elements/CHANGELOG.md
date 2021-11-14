@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.17
+
+### Patch Changes
+
+- ab10821: Added exports for all components from InputGroup.
+
 ## 0.3.16
 
 ### Patch Changes
