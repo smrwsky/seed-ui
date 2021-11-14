@@ -85,7 +85,7 @@ globalStyle('body', {
   fontSize: 'calc(0.75rem + .35vw)' /* 1 */,
   fontFamily: theme.fontFamily.base,
   color: theme.color.neutral900,
-  backgroundColor: theme.color.neutral50,
+  backgroundColor: theme.color.white,
   textRendering: 'optimizeLegibility',
   fontSmooth: 'antialiased',
 });
