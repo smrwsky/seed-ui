@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.18
+
+### Patch Changes
+
+- 4d97c86: Fixed layout issues.
+
 ## 0.3.17
 
 ### Patch Changes
