@@ -14,11 +14,11 @@ function InputTags({ size = 'md', children }: InputTagsProps): JSX.Element {
   return (
     <div className={cx(S.root, S.rootSize[size])}>
       {React.Children.map(children, (child) =>
-        React.isValidElement(child)
-          ? React.cloneElement(child, {
-              className: cx(S.rootInnerSize[size], child.props.className),
-            })
-          : child,
+        React.isValidElement(child) ? (
+          <div className={cx(S.rootInnerSize[size])}>{child}</div>
+        ) : (
+          child
+        ),
       )}
     </div>
   );

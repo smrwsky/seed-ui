@@ -35,7 +35,7 @@ export const rootFocused = style({
 });
 
 export const rootInvalid = style({
-  borderColor: theme.color.danger200,
+  borderColor: theme.color.danger100,
 
   selectors: {
     '&:not(:disabled):not(:readonly):hover': {
