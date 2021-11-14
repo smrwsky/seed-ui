@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.3.12
+
+### Patch Changes
+
+- ad72068: Created ImageIcon component.
+
 ## 0.3.11
 
 ### Patch Changes
