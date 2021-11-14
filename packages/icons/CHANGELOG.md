@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.3.11
+
+### Patch Changes
+
+- cfd2f79: Fixed icons line-height.
+
 ## 0.3.10
 
 ### Patch Changes
