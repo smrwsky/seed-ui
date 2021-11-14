@@ -4,6 +4,7 @@ import { transitionTime } from '@seed-ui/styles';
 export const iconStyle = style({
   display: 'inline-block',
   lineHeight: 0,
+  verticalAlign: '-0.2em',
 });
 
 export const iconFlipStyle = style({
