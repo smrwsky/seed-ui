@@ -2782,14 +2782,6 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@seed-ui/styles@^0.3.7":
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/@seed-ui/styles/-/styles-0.3.7.tgz#a3b4cfdfacc1c4008b32d0d1efd0f7fe7d158297"
-  integrity sha512-KML4SU2lpvT6XzIEIcPCsLoyOBCVH/GzfsdJZIYXc7dyR06Un8C72gm+UMGzBgExtzFa3SA+zUngvw9NYRz9AQ==
-  dependencies:
-    hex-to-rgba "^2.0.1"
-    lodash "^4.17.21"
-
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
   resolved "https://registry.npmjs.org/@sinonjs/commons/-/commons-1.8.3.tgz"
