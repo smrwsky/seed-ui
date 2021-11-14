@@ -1,5 +1,11 @@
 # @seed-ui/layout
 
+## 0.3.11
+
+### Patch Changes
+
+- 446dd93: Updated package versions.
+
 ## 0.3.10
 
 ### Patch Changes
