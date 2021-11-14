@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.3.7
+
+### Patch Changes
+
+- cfa911e: Changed body background color to white.
+
 ## 0.3.6
 
 ### Patch Changes
