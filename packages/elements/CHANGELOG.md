@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.19
+
+### Patch Changes
+
+- 325c259: Updated package versions.
+
 ## 0.3.18
 
 ### Patch Changes
