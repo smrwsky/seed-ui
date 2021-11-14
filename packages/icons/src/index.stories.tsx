@@ -23,6 +23,7 @@ import { DotsHIcon } from './components/DotsHIcon';
 import { DotsVIcon } from './components/DotsVIcon';
 import { EditIcon } from './components/EditIcon';
 import { GearIcon } from './components/GearIcon';
+import { ImageIcon } from './components/ImageIcon';
 import { MenuIcon } from './components/MenuIcon';
 import { PaperclipIcon } from './components/PaperclipIcon';
 import { PlusIcon } from './components/PlusIcon';
@@ -265,6 +266,27 @@ function IconsComponent(props: IconsComponentProps): JSX.Element {
 
               <Caption nowrap variant="secondary">
                 GearIcon
+              </Caption>
+            </Space>
+          </Container>
+        </Box>
+      </Col>
+
+      <Col width="auto">
+        <Box
+          borderRadius="sm"
+          boxShadow="md"
+          backgroundColor="white"
+          borderColor="neutral100"
+        >
+          <Container py={3} px={1} style={{ width: '96px' }}>
+            <Space gutter={2} direction="column" align="center">
+              <Title size="sm">
+                <ImageIcon {...props} role="img" alt="Image" title="Image" />
+              </Title>
+
+              <Caption nowrap variant="secondary">
+                ImageIcon
               </Caption>
             </Space>
           </Container>

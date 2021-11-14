@@ -22,6 +22,8 @@ export * from './components/EditIcon';
 
 export * from './components/GearIcon';
 
+export * from './components/ImageIcon';
+
 export * from './components/MenuIcon';
 
 export * from './components/PaperclipIcon';
