@@ -36,9 +36,10 @@ export interface IconButtonProps
 function IconButton(
   {
     as: As = 'button',
+    className,
     size = 'md',
-    variant = 'primary',
     type,
+    variant = 'primary',
     children,
     ...elemProps
   }: IconButtonProps,
@@ -48,7 +49,12 @@ function IconButton(
     <As
       {...elemProps}
       ref={ref}
-      className={cx(S.root, S.rootSize[size], S.rootVariant[variant])}
+      className={cx(
+        S.root,
+        S.rootSize[size],
+        S.rootVariant[variant],
+        className,
+      )}
       type={As === 'button' && type == null ? 'button' : type}
     >
       {children}

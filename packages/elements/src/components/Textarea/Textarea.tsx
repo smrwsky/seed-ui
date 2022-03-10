@@ -2,12 +2,12 @@ import React from 'react';
 import cx from 'classnames';
 import { Col, Container, Row } from '@seed-ui/layout';
 
-import { InputContainer } from '../InputGroup/InputContainer';
 import { InputGroup } from '../InputGroup';
+import { InputContainer } from '../InputContainer';
+import { textboxStyle } from '../../styles/helpers';
+import { InputAction } from '../InputAction';
 import { Text } from '../Text';
 import { Label } from '../Label';
-import { InputAction } from '../InputGroup/InputAction';
-import { textboxStyle } from '../../styles/helpers';
 
 import * as S from './Textarea.css';
 
@@ -53,7 +53,7 @@ const Textarea = (
     onKeyPress,
     ...inputProps
   }: TextareaProps,
-  ref: React.Ref<HTMLDivElement>,
+  ref: React.Ref<HTMLTextAreaElement>,
 ): JSX.Element => {
   const [focused, setFocused] = React.useState(false);
 
@@ -120,7 +120,6 @@ const Textarea = (
           }
         >
           <InputContainer
-            ref={ref}
             disabled={disabled}
             readOnly={readOnly}
             focused={focused}
@@ -130,6 +129,7 @@ const Textarea = (
           >
             <textarea
               {...inputProps}
+              ref={ref}
               className={cx(textboxStyle, S.textarea)}
               id={id}
               readOnly={readOnly}

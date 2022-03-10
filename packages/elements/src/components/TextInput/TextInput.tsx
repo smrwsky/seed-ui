@@ -1,12 +1,12 @@
 import React from 'react';
 import { Col, Container, Row } from '@seed-ui/layout';
 
-import { InputContainer } from '../InputGroup/InputContainer';
+import { Textbox } from '../Textbox';
+import { InputAction } from '../InputAction';
+import { InputContainer } from '../InputContainer';
 import { InputGroup } from '../InputGroup';
 import { Text } from '../Text';
 import { Label } from '../Label';
-import { InputAction } from '../InputGroup/InputAction';
-import { Textbox } from '../InputGroup/TextBox';
 
 export type TextInputShape = 'rectangle' | 'stadium';
 
@@ -44,7 +44,7 @@ const TextInput = (
     onBlur,
     ...inputProps
   }: TextInputProps,
-  ref: React.Ref<HTMLDivElement>,
+  ref: React.Ref<HTMLInputElement>,
 ): JSX.Element => {
   const [focused, setFocused] = React.useState(false);
 
@@ -101,7 +101,6 @@ const TextInput = (
           }
         >
           <InputContainer
-            ref={ref}
             disabled={disabled}
             readOnly={readOnly}
             focused={focused}
@@ -111,6 +110,7 @@ const TextInput = (
           >
             <Textbox
               {...inputProps}
+              ref={ref}
               readOnly={readOnly}
               disabled={disabled}
               onBlur={handleBlur}
