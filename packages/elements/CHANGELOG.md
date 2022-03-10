@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.20
+
+### Patch Changes
+
+- 11f8a96: Minor improvements.
+
 ## 0.3.19
 
 ### Patch Changes
