@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.3.8
+
+### Patch Changes
+
+- afbbcda: Set default styles to list items.
+
 ## 0.3.7
 
 ### Patch Changes
