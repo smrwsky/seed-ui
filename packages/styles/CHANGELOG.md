@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.3.9
+
+### Patch Changes
+
+- 6eaa4b1: Moved atoms to styles module.
+
 ## 0.3.8
 
 ### Patch Changes
