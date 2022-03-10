@@ -19,7 +19,11 @@ export const rootSize = styleVariants({
   },
 });
 
-export const rootInnerSize = styleVariants({
+export const inner = style({
+  lineHeight: 0,
+});
+
+export const innerSize = styleVariants({
   sm: {
     margin: '1px',
   },

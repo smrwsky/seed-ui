@@ -7,25 +7,21 @@ import {
 } from '@seed-ui/styles';
 
 export const root = style({
-  color: theme.color.neutral900,
   backgroundColor: theme.color.white,
   border: `1px solid ${theme.color.neutral100}`,
   display: 'flex',
   transition: `all ${transitionTime.sm} ${transitionTimingFunction.out}`,
   overflow: 'hidden',
-  ...theme.typography.textMd.base,
+  paddingLeft: '1rem',
+  paddingRight: '1rem',
 });
 
 export const rootShape = styleVariants({
   rectangle: {
     borderRadius: borderRadius.sm,
-    paddingLeft: '0.5rem',
-    paddingRight: '0.5rem',
   },
   stadium: {
     borderRadius: borderRadius.max,
-    paddingLeft: '1rem',
-    paddingRight: '1rem',
   },
 });
 

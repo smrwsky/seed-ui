@@ -6,7 +6,10 @@ export * from './components/Box';
 export * from './components/Button';
 export * from './components/Caption';
 export * from './components/IconButton';
+export * from './components/InputAction';
+export * from './components/InputContainer';
 export * from './components/InputGroup';
+export * from './components/InputTags';
 export * from './components/Title';
 export * from './components/Label';
 export * from './components/OList';
@@ -19,5 +22,6 @@ export * from './components/UList';
 export * from './components/Link';
 export * from './components/TextInput';
 export * from './components/Textarea';
+export * from './components/Textbox';
 
 export * from './styles/helpers';
