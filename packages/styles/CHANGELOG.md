@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.3.10
+
+### Patch Changes
+
+- cb9a201: Minor improvements.
+
 ## 0.3.9
 
 ### Patch Changes
