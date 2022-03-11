@@ -1,7 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-
-import { atoms, Atoms, ResponsiveValue } from '../../styles/atoms.css';
+import { atoms, Atoms, ResponsiveValue } from '@seed-ui/styles';
 
 import * as S from './Col.css';
 

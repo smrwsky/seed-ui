@@ -1,20 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
-
-import { Atoms, atoms } from '../../styles/atoms.css';
+import { Atoms, atoms } from '@seed-ui/styles';
 
 import * as S from './Space.css';
-
-export type SpaceDirection =
-  | 'column'
-  | 'column-reverse'
-  | 'row'
-  | 'row-reverse';
 
 export interface SpaceProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   align?: Atoms['alignItems'];
-  direction?: SpaceDirection;
+  direction?: Atoms['flexDirection'];
   gutter?: Atoms['p'];
   justify?: Atoms['justifyContent'];
 }
@@ -38,8 +31,8 @@ function Space(
       className={cx(
         S.root,
         atoms({
-          direction,
           alignItems: align,
+          flexDirection: direction,
           justifyContent: justify,
         }),
       )}

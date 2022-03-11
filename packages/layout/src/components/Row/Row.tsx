@@ -1,12 +1,11 @@
 import React from 'react';
 import cx from 'classnames';
-
 import {
   Atoms,
   atoms,
   mapResponsiveValue,
   ResponsiveValue,
-} from '../../styles/atoms.css';
+} from '@seed-ui/styles';
 
 import * as S from './Row.css';
 

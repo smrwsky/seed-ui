@@ -1,13 +1,12 @@
 import React, { HTMLAttributes } from 'react';
 import cx from 'classnames';
-
 import {
   Atoms,
   atoms,
   OffsetProps,
   SizingProps,
   SpacingProps,
-} from '../../styles/atoms.css';
+} from '@seed-ui/styles';
 
 export interface ContainerProps
   extends SizingProps,
