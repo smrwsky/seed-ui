@@ -26,21 +26,21 @@ export type ResponsiveValue<Value extends string | number> = ConditionalValue<
 >;
 
 export type MarginProps = Pick<
-  AtomsCss,
+  Atoms,
   'm' | 'mb' | 'ml' | 'mr' | 'mt' | 'mx' | 'my'
 >;
 
-export type OffsetProps = Pick<AtomsCss, 'bottom' | 'left' | 'right' | 'top'>;
+export type OffsetProps = Pick<Atoms, 'bottom' | 'left' | 'right' | 'top'>;
 
 export type PaddingProps = Pick<
-  AtomsCss,
+  Atoms,
   'p' | 'pb' | 'pl' | 'pr' | 'pt' | 'px' | 'py'
 >;
 
 export type SpacingProps = MarginProps & PaddingProps;
 
 export type SizingProps = Pick<
-  AtomsCss,
+  Atoms,
   'height' | 'maxHeight' | 'maxWidth' | 'minHeight' | 'minWidth' | 'width'
 >;
 
@@ -157,7 +157,7 @@ const unresponsiveProperties = defineProperties({
   },
 });
 
-export type AtomsCss = Parameters<typeof atoms>[0];
+export type Atoms = Parameters<typeof atoms>[0];
 
 export const atoms = createSprinkles(
   responsiveProperties,
