@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.3.14
+
+### Patch Changes
+
+- 9b56f05: Removed global css import from icon component.
+
 ## 0.3.13
 
 ### Patch Changes
