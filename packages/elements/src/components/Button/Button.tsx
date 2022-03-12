@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import { Icon } from '@seed-ui/icons';
 
 import * as S from './Button.css';
 
@@ -42,6 +43,7 @@ export interface ButtonProps
   startIcon?: React.ReactElement;
   endIcon?: React.ReactElement;
   variant?: ButtonVariant;
+  loading?: boolean;
 }
 
 function Button(
@@ -52,6 +54,7 @@ function Button(
     startIcon,
     endIcon,
     variant = 'primary',
+    loading,
     className,
     children,
     ...elemProps
@@ -70,16 +73,20 @@ function Button(
         className,
       )}
     >
-      {startIcon &&
+      {loading && <Icon name="loader" className={S.icon} />}
+
+      {!loading &&
+        startIcon &&
         React.cloneElement(startIcon, {
-          className: S.startIcon,
+          className: cx(S.icon, S.startIcon),
         })}
 
-      <span className={S.label}>{children}</span>
+      {!loading && <span className={S.label}>{children}</span>}
 
-      {endIcon &&
+      {!loading &&
+        endIcon &&
         React.cloneElement(endIcon, {
-          className: S.endIcon,
+          className: cx(S.icon, S.endIcon),
         })}
     </As>
   );

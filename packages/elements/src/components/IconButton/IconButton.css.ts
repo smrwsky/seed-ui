@@ -356,3 +356,7 @@ export const rootVariant = styleVariants({
     },
   },
 });
+
+export const icon = style({
+  color: 'currentcolor',
+});

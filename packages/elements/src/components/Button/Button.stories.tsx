@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Row } from '@seed-ui/layout';
+import { Icon } from '@seed-ui/icons';
 
 import Button, {
   ButtonProps,
@@ -171,6 +172,24 @@ export function Shapes(args: ButtonProps): JSX.Element {
           </Button>
         </Col>
       ))}
+    </Row>
+  );
+}
+
+export function WithIcon(args: ButtonProps): JSX.Element {
+  return (
+    <Row gutter={2}>
+      <Col>
+        <Button {...args} startIcon={<Icon name="like" type="solid" />}>
+          Start icon
+        </Button>
+      </Col>
+
+      <Col>
+        <Button {...args} endIcon={<Icon name="like" type="solid" />}>
+          End icon
+        </Button>
+      </Col>
     </Row>
   );
 }

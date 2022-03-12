@@ -30,7 +30,7 @@ export interface IconButtonProps
   size?: IconButtonSize;
   variant?: IconButtonVariant;
   type?: string;
-  children?: React.ReactElement;
+  children: React.ReactElement;
 }
 
 function IconButton(
@@ -57,7 +57,7 @@ function IconButton(
       )}
       type={As === 'button' && type == null ? 'button' : type}
     >
-      {children}
+      {React.cloneElement(children, { className: S.icon })}
     </As>
   );
 }
