@@ -4,6 +4,7 @@ import { withPerformance } from 'storybook-addon-performance';
 import { withThemes } from 'storybook-addon-themes/react';
 import { theme as vars } from '@seed-ui/styles'
 import { theme, components, sortStories } from './utils';
+import 'boxicons/css/boxicons.min.css';
 
 const SORT_ORDER = {
   'Overview': {

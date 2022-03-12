@@ -1,7 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import cn from 'classnames';
 
-import 'boxicons/css/boxicons.min.css';
 import { Maybe } from '../../types/helpers';
 
 import * as S from './Icon.css';
