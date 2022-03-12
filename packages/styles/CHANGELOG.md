@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.3.11
+
+### Patch Changes
+
+- 2777318: Improved danger colors.
+
 ## 0.3.10
 
 ### Patch Changes
