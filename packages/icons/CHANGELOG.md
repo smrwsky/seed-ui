@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.3.13
+
+### Patch Changes
+
+- da1c163: Replaced custom icons with boxicons.
+
 ## 0.3.12
 
 ### Patch Changes
