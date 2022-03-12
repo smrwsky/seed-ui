@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row } from '@seed-ui/layout';
-import { GearIcon } from '@seed-ui/icons';
+import { Icon } from '@seed-ui/icons';
 
 import IconButton, {
   IconButtonProps,
@@ -96,7 +96,7 @@ export default {
 export function Base(args: IconButtonProps): JSX.Element {
   return (
     <IconButton {...args}>
-      <GearIcon />
+      <Icon name="like" type="solid" />
     </IconButton>
   );
 }
@@ -107,7 +107,7 @@ export function Variants(args: IconButtonProps): JSX.Element {
       {variants.map((variant, i) => (
         <Col title={`${variant} variant IconButton`} key={i}>
           <IconButton {...args} variant={variant}>
-            <GearIcon />
+            <Icon name="like" type="solid" />
           </IconButton>
         </Col>
       ))}
@@ -121,7 +121,7 @@ export function Sizes(args: IconButtonProps): JSX.Element {
       {sizes.map((size, i) => (
         <Col key={i}>
           <IconButton {...args} title={`${size} size IconButton`} size={size}>
-            <GearIcon />
+            <Icon name="like" type="solid" />
           </IconButton>
         </Col>
       ))}

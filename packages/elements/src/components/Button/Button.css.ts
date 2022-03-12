@@ -1,12 +1,11 @@
 import { style, styleVariants } from '@vanilla-extract/css';
 import {
   borderRadius,
+  margin,
   theme,
   transitionTime,
   transitionTimingFunction,
 } from '@seed-ui/styles';
-
-import { atoms } from '../../styles/atoms.css';
 
 export const root = style({
   border: 'none',
@@ -541,6 +540,16 @@ export const label = style({
   display: 'inline-block',
 });
 
-export const startIcon = atoms({ marginRight: 1 });
+export const icon = style({
+  color: 'currentcolor',
+  transform: 'scale(1.2)',
+  transformOrigin: 'bottom',
+});
 
-export const endIcon = atoms({ marginLeft: 1 });
+export const startIcon = style({
+  marginRight: margin[1],
+});
+
+export const endIcon = style({
+  marginLeft: margin[1],
+});
