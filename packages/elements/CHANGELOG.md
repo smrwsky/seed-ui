@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.21
+
+### Patch Changes
+
+- 3ead338: Added boxicons to elements package.
+
 ## 0.3.20
 
 ### Patch Changes
