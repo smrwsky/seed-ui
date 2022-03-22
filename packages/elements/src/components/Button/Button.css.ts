@@ -215,6 +215,26 @@ export const rootVariant = styleVariants({
     },
   },
 
+  'dark': {
+    backgroundColor: theme.color.neutral900,
+    color: theme.color.white,
+    boxShadow: `0 1px 3px ${theme.color.neutral100}`,
+
+    selectors: {
+      '&:hover, &:focus': {
+        backgroundColor: theme.color.neutral600,
+      },
+
+      '&:active': {
+        backgroundColor: theme.color.neutral800,
+      },
+
+      '&:disabled': {
+        backgroundColor: theme.color.neutral200,
+      },
+    },
+  },
+
   'primary-outline': {
     backgroundColor: 'transparent',
     color: theme.color.primary500,
@@ -383,6 +403,27 @@ export const rootVariant = styleVariants({
     },
   },
 
+  'dark-outline': {
+    backgroundColor: 'transparent',
+    color: theme.color.neutral900,
+    boxShadow: `0 0 0 1px ${theme.color.neutral400}`,
+
+    selectors: {
+      '&:hover, &:focus': {
+        backgroundColor: theme.color.neutral50,
+      },
+
+      '&:active': {
+        backgroundColor: theme.color.neutral100,
+      },
+
+      '&:disabled': {
+        boxShadow: `0 0 0 1px ${theme.color.neutral200}`,
+        color: theme.color.neutral200,
+      },
+    },
+  },
+
   'primary-overlay': {
     backgroundColor: 'transparent',
     color: theme.color.primary500,
@@ -527,6 +568,25 @@ export const rootVariant = styleVariants({
 
       '&:active': {
         backgroundColor: theme.color.light400,
+      },
+
+      '&:disabled': {
+        color: theme.color.neutral200,
+      },
+    },
+  },
+
+  'dark-overlay': {
+    backgroundColor: 'transparent',
+    color: theme.color.neutral900,
+
+    selectors: {
+      '&:hover, &:focus': {
+        backgroundColor: theme.color.neutral50,
+      },
+
+      '&:active': {
+        backgroundColor: theme.color.neutral100,
       },
 
       '&:disabled': {

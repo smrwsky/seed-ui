@@ -1,17 +1,32 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { atoms, MarginProps } from '../../styles/atoms.css';
+import { Atoms, atoms, MarginProps } from '../../styles/atoms.css';
+import { textNowrapStyle, textVariantStyle } from '../../styles/helpers';
 
 import * as S from './Label.css';
 
 export type LabelSize = 'sm' | 'md';
 
+export type LabelVariant =
+  | 'primary'
+  | 'accent'
+  | 'secondary'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'light'
+  | 'dark';
+
 export interface LabelProps
   extends MarginProps,
     React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
+  nowrap?: boolean;
   size?: LabelSize;
+  textAlign?: Atoms['textAlign'];
+  variant?: LabelVariant;
 }
 
 function Label(
@@ -24,7 +39,10 @@ function Label(
     mt,
     mx,
     my,
+    nowrap,
     size = 'md',
+    textAlign,
+    variant = 'dark',
     className,
     children,
     ...elemProps
@@ -36,6 +54,8 @@ function Label(
       ref={ref}
       className={cx(
         S.rootSize[size],
+        textVariantStyle[variant],
+        nowrap && textNowrapStyle,
         atoms({
           m,
           mb,
@@ -44,6 +64,7 @@ function Label(
           mt,
           mx,
           my,
+          textAlign,
         }),
         className,
       )}

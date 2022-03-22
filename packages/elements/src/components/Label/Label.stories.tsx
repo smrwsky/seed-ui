@@ -1,7 +1,19 @@
 import React from 'react';
 
-import Label, { LabelProps, LabelSize } from './Label';
+import Label, { LabelProps, LabelSize, LabelVariant } from './Label';
 import docs from './Label.docs.mdx';
+
+const variants: LabelVariant[] = [
+  'primary',
+  'accent',
+  'secondary',
+  'info',
+  'success',
+  'warning',
+  'danger',
+  'light',
+  'dark',
+];
 
 const sizes: LabelSize[] = ['sm', 'md'];
 
@@ -28,6 +40,16 @@ export default {
           summary: sizes.join(' | '),
         },
         defaultValue: { summary: 'md' },
+      },
+    },
+    'variant': {
+      control: 'select',
+      defaultValue: 'dark',
+      table: {
+        type: {
+          summary: variants.join(' | '),
+        },
+        defaultValue: { summary: 'dark' },
       },
     },
     'm': {
@@ -107,6 +129,18 @@ export default {
 
 export function Base(args: LabelProps): JSX.Element {
   return <Label {...args} />;
+}
+
+export function Variants(args: LabelProps): JSX.Element {
+  return (
+    <>
+      {variants.map((variant, i) => (
+        <Label {...args} key={i} variant={variant}>
+          This is {variant} label
+        </Label>
+      ))}
+    </>
+  );
 }
 
 export function Sizes(args: LabelProps): JSX.Element {

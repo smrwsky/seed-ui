@@ -17,6 +17,7 @@ export type ButtonVariant =
   | 'warning'
   | 'danger'
   | 'light'
+  | 'dark'
   | 'primary-outline'
   | 'accent-outline'
   | 'secondary-outline'
@@ -25,6 +26,7 @@ export type ButtonVariant =
   | 'warning-outline'
   | 'danger-outline'
   | 'light-outline'
+  | 'dark-outline'
   | 'primary-overlay'
   | 'accent-overlay'
   | 'secondary-overlay'
@@ -32,7 +34,8 @@ export type ButtonVariant =
   | 'success-overlay'
   | 'warning-overlay'
   | 'danger-overlay'
-  | 'light-overlay';
+  | 'light-overlay'
+  | 'dark-overlay';
 
 export interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
