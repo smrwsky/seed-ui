@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.3.22
+
+### Patch Changes
+
+- 46a0473: - Added dark variants for button and icon-button elements, added text variants for label element.
+
 ## 0.3.21
 
 ### Patch Changes
