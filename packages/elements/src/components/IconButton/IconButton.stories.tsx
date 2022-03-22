@@ -18,6 +18,7 @@ const variants: IconButtonVariant[] = [
   'warning',
   'danger',
   'light',
+  'dark',
   'primary-outline',
   'accent-outline',
   'secondary-outline',
@@ -26,6 +27,7 @@ const variants: IconButtonVariant[] = [
   'warning-outline',
   'danger-outline',
   'light-outline',
+  'dark-outline',
 ];
 
 const sizes: IconButtonSize[] = ['sm', 'md', 'lg'];

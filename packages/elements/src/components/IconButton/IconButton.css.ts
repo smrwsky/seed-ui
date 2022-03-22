@@ -188,6 +188,25 @@ export const rootVariant = styleVariants({
     },
   },
 
+  'dark': {
+    backgroundColor: 'transparent',
+    color: theme.color.neutral900,
+
+    selectors: {
+      '&:hover, &:focus': {
+        backgroundColor: theme.color.neutral50,
+      },
+
+      '&:active': {
+        backgroundColor: theme.color.neutral100,
+      },
+
+      '&:disabled': {
+        color: theme.color.neutral200,
+      },
+    },
+  },
+
   'primary-outline': {
     backgroundColor: 'transparent',
     color: theme.color.primary500,
@@ -347,6 +366,27 @@ export const rootVariant = styleVariants({
 
       '&:active': {
         backgroundColor: theme.color.light400,
+      },
+
+      '&:disabled': {
+        boxShadow: `0 0 0 1px ${theme.color.neutral200}`,
+        color: theme.color.neutral200,
+      },
+    },
+  },
+
+  'dark-outline': {
+    backgroundColor: 'transparent',
+    color: theme.color.neutral900,
+    boxShadow: `0 0 0 1px ${theme.color.neutral400}`,
+
+    selectors: {
+      '&:hover, &:focus': {
+        backgroundColor: theme.color.neutral50,
+      },
+
+      '&:active': {
+        backgroundColor: theme.color.neutral100,
       },
 
       '&:disabled': {

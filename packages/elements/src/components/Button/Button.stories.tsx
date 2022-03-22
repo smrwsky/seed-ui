@@ -19,6 +19,7 @@ const variants: ButtonVariant[] = [
   'warning',
   'danger',
   'light',
+  'dark',
   'primary-outline',
   'accent-outline',
   'secondary-outline',
@@ -27,6 +28,7 @@ const variants: ButtonVariant[] = [
   'warning-outline',
   'danger-outline',
   'light-outline',
+  'dark-outline',
   'primary-overlay',
   'accent-overlay',
   'secondary-overlay',
@@ -35,6 +37,7 @@ const variants: ButtonVariant[] = [
   'warning-overlay',
   'danger-overlay',
   'light-overlay',
+  'dark-overlay',
 ];
 
 const sizes: ButtonSize[] = ['sm', 'md', 'lg'];

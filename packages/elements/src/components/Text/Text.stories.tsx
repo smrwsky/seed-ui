@@ -45,6 +45,26 @@ export default {
         defaultValue: { summary: 'false' },
       },
     },
+    'serif': {
+      control: 'boolean',
+      defaultValue: false,
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    'size': {
+      control: 'select',
+      defaultValue: 'md',
+      table: {
+        type: {
+          summary: sizes.join(' | '),
+        },
+        defaultValue: { summary: 'md' },
+      },
+    },
     'variant': {
       control: 'select',
       defaultValue: 'dark',
@@ -109,16 +129,6 @@ export default {
         type: {
           summary: "Atoms['my']",
         },
-      },
-    },
-    'serif': {
-      control: 'boolean',
-      defaultValue: false,
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: { summary: 'false' },
       },
     },
     '[Element props]': {
