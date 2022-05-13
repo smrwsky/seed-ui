@@ -1,5 +1,12 @@
 # @seed-ui/elements
 
+## 0.3.23
+
+### Patch Changes
+
+- Updated dependencies [6d5cc70]
+  - @seed-ui/styles@0.4.0
+
 ## 0.3.22
 
 ### Patch Changes
