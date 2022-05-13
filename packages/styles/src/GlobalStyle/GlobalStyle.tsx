@@ -1,9 +1,7 @@
-import { importMe } from './GlobalStyle.css';
+import { stub } from './GlobalStyle.css';
 
 function GlobalStyle(): null {
-  return importMe;
+  return stub;
 }
-
-GlobalStyle.displayName = 'GlobalStyle';
 
 export default GlobalStyle;

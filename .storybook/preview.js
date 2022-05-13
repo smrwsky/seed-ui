@@ -2,12 +2,21 @@ import React from 'react';
 import { addParameters } from '@storybook/react';
 import { withPerformance } from 'storybook-addon-performance';
 import { withThemes } from 'storybook-addon-themes/react';
-import { theme as vars } from '@seed-ui/styles'
+import { GlobalStyle, theme as vars } from '@seed-ui/styles';
 import { theme, components, sortStories } from './utils';
 import 'boxicons/css/boxicons.min.css';
 
+function withGlobalStyle(Story) {
+  return (
+    <>
+      <GlobalStyle />
+      <Story />
+    </>
+  );
+}
+
 const SORT_ORDER = {
-  'Overview': {
+  Overview: {
     'Design tokens': {},
     'Icons': {},
   },
@@ -15,7 +24,6 @@ const SORT_ORDER = {
 
 export const parameters = {
   layout: 'centered',
-  actions: { argTypesRegex: '^on[A-Z].*' },
   options: {
     storySort: sortStories(SORT_ORDER),
   },
@@ -43,7 +51,6 @@ export const parameters = {
   docs: { theme, components },
 };
 
-
 // Run only client tasks in prod builds of Storybook, SSR tasks are failing.
 // See https://github.com/atlassian-labs/storybook-addon-performance/pull/40
 addParameters({
@@ -53,4 +60,4 @@ addParameters({
   },
 });
 
-export const decorators = [withThemes, withPerformance];
+export const decorators = [withGlobalStyle, withThemes, withPerformance];

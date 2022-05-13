@@ -34,7 +34,7 @@
 
 ### Patch Changes
 
-- 283af95: Fixed return type of GlobalStyle component.
+- 283af95: Fixed return type of ThemeProvider component.
 
 ## 0.3.5
 

@@ -1,6 +1,5 @@
 const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin');
 
-
 module.exports = {
   stories: ['../packages/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
   addons: [
@@ -11,7 +10,6 @@ module.exports = {
     '@storybook/addon-docs',
     '@storybook/addon-storysource',
     '@storybook/addon-controls',
-    '@storybook/addon-actions',
     '@storybook/addon-a11y',
     '@storybook/addon-links',
     '@storybook/addon-viewport',
@@ -19,6 +17,7 @@ module.exports = {
     'storybook-addon-performance',
     'storybook-addon-themes',
   ],
+  staticDirs: ['../public'],
   webpackFinal: (config) => {
     // Default rule for images /\.(svg|ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/
     const fileLoaderRule = config.module.rules.find(
@@ -45,7 +44,7 @@ module.exports = {
       },
     });
 
-    config.plugins.push(new VanillaExtractPlugin())
+    config.plugins.push(new VanillaExtractPlugin());
 
     return config;
   },

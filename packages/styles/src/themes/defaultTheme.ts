@@ -4,7 +4,7 @@ import { color } from '../const';
 // @See: https://www.modularscale.com/?16&px&1.2
 // Use em for large font-sizes to make them responsive
 
-export const fuchsia = {
+const defaultTheme = {
   color: {
     ...color,
 
@@ -110,7 +110,7 @@ export const fuchsia = {
     subtitleMd: {
       base: {
         fontSize: '1.2em', // 19.2px
-        fontWeight: '600',
+        fontWeight: '500',
         letterSpacing: '0.25px',
         lineHeight: '1.112',
       },
@@ -124,7 +124,7 @@ export const fuchsia = {
     subtitleSm: {
       base: {
         fontSize: '1em', // 16px
-        fontWeight: '600',
+        fontWeight: '500',
         letterSpacing: '0.25px',
         lineHeight: '1.112',
       },
@@ -165,13 +165,13 @@ export const fuchsia = {
     },
     labelMd: {
       fontSize: '1rem', // 16px
-      fontWeight: '600',
+      fontWeight: '500',
       letterSpacing: '0.5px',
       lineHeight: '1.2',
     },
     labelSm: {
       fontSize: '0.833rem', // 13.333px
-      fontWeight: '600',
+      fontWeight: '500',
       letterSpacing: '0.5px',
       lineHeight: '1.2',
     },
@@ -195,3 +195,5 @@ export const fuchsia = {
     },
   },
 };
+
+export default defaultTheme;

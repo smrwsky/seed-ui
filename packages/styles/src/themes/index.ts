@@ -1,1 +1,1 @@
-export * from './fuchsia';
+export { default as defaultTheme } from './defaultTheme';
