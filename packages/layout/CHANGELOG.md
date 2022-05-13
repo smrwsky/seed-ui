@@ -1,5 +1,11 @@
 # @seed-ui/layout
 
+## 0.4.0
+
+### Minor Changes
+
+- b260238: Made atoms being imported from "@seed-ui/styles" package.
+
 ## 0.3.12
 
 ### Patch Changes
