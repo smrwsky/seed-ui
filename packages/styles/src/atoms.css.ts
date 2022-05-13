@@ -25,6 +25,17 @@ export type ResponsiveValue<Value extends string | number> = ConditionalValue<
   Value
 >;
 
+export type BorderProps = Pick<
+  Atoms,
+  | 'border'
+  | 'borderX'
+  | 'borderY'
+  | 'borderBottom'
+  | 'borderLeft'
+  | 'borderRight'
+  | 'borderTop'
+>;
+
 export type MarginProps = Pick<
   Atoms,
   'm' | 'mb' | 'ml' | 'mr' | 'mt' | 'mx' | 'my'

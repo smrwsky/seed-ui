@@ -1,9 +1,7 @@
 {
   "name": "seed-ui",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": ["packages/*"],
   "scripts": {
     "docs": "start-storybook -p 6006 -s .storybook/public --no-manager-cache",
     "build": "yarn build:styles && yarn build:layout && yarn build:icons && yarn build:elements",
@@ -13,10 +11,10 @@
     "build:styles": "lerna run --scope @seed-ui/styles --stream build",
     "check:licenses": "license-checker --production --summary --failOn=GPLv3",
     "format": "yarn format:ts && yarn format:js && yarn format:json && yarn format:yaml",
-    "format:ts": "prettier --parser typescript --write \"/*.{ts,tsx}\" --loglevel error",
-    "format:js": "prettier --write \"/*.js\"  --loglevel error",
-    "format:json": "prettier --parser json --write \"/*.{json,prettierrc}\" --loglevel error",
-    "format:yaml": "prettier --parser yaml --write \"/*.{yml,yaml}\" --loglevel error",
+    "format:ts": "prettier --parser typescript --write \"**/*.{ts,tsx}\" --loglevel error",
+    "format:js": "prettier --write \"**/*.js\"  --loglevel error",
+    "format:json": "prettier --parser json --write \"**/*.{json,prettierrc}\" --loglevel error",
+    "format:yaml": "prettier --parser yaml --write \"**/*.{yml,yaml}\" --loglevel error",
     "lint": "lerna run --stream lint:quiet",
     "lint:ci": "lerna run --stream lint:ci",
     "precommit": "lerna run --stream --concurrency 1 precommit --since HEAD --exclude-dependents",
@@ -63,5 +61,6 @@
     "storybook-addon-themes": "^6.1.0",
     "ts-jest": "^27.0.3",
     "typescript": "4.2.2"
-  }
+  },
+  "dependencies": {}
 }

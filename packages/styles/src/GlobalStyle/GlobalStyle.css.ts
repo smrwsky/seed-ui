@@ -2,8 +2,6 @@ import { globalStyle } from '@vanilla-extract/css';
 
 import { theme } from '../theme.css';
 
-export const importMe = null;
-
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 
 globalStyle(
@@ -85,3 +83,6 @@ globalStyle('body', {
   textRendering: 'optimizeLegibility',
   fontSmooth: 'antialiased',
 });
+
+// eslint-disable-next-line import/prefer-default-export
+export const stub = null;

@@ -1,6 +1,9 @@
 {
   "presets": [["@babel/preset-env", { "loose": true }], "@babel/preset-react"],
-  "plugins": [["@babel/plugin-proposal-class-properties", { "loose": true }], "@vanilla-extract/babel-plugin"],
+  "plugins": [
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    "@vanilla-extract/babel-plugin"
+  ],
   "env": {
     "test": {
       "presets": [
