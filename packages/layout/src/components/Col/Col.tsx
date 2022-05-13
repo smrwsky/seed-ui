@@ -1,7 +1,6 @@
 import React from 'react';
-import cx from 'classnames';
-
-import { atoms, Atoms, ResponsiveValue } from '../../styles/atoms.css';
+import cn from 'classnames';
+import { atoms, Atoms, ResponsiveValue } from '@seed-ui/styles';
 
 import * as S from './Col.css';
 
@@ -60,8 +59,7 @@ function Col(
   return (
     <div
       {...elemProps}
-      ref={ref}
-      className={cx(
+      className={cn(
         S.root,
         atoms({
           alignSelf,
@@ -73,12 +71,11 @@ function Col(
         }),
         className,
       )}
+      ref={ref}
     >
       {children}
     </div>
   );
 }
-
-Col.displayName = 'Col';
 
 export default React.forwardRef(Col);

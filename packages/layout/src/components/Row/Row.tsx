@@ -1,12 +1,11 @@
 import React from 'react';
-import cx from 'classnames';
-
 import {
-  Atoms,
   atoms,
+  Atoms,
   mapResponsiveValue,
   ResponsiveValue,
-} from '../../styles/atoms.css';
+} from '@seed-ui/styles';
+import cn from 'classnames';
 
 import * as S from './Row.css';
 
@@ -62,8 +61,7 @@ function Row(
   return (
     <div
       {...elemProps}
-      ref={ref}
-      className={cx(
+      className={cn(
         S.root,
         atoms({
           alignItems,
@@ -72,21 +70,23 @@ function Row(
           mx: gx && mapResponsiveValue(gx, getRowMX),
         }),
       )}
+      ref={ref}
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
           ? React.cloneElement(child, {
-              className: atoms({
-                mt: gy,
-                px: gx && mapResponsiveValue(gx, getColPX),
-              }),
+              className: cn(
+                atoms({
+                  mt: gy,
+                  px: gx && mapResponsiveValue(gx, getColPX),
+                }),
+                child.props.className,
+              ),
             })
           : child,
       )}
     </div>
   );
 }
-
-Row.displayName = 'Row';
 
 export default React.forwardRef(Row);

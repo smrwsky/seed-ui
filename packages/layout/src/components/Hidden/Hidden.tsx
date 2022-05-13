@@ -1,15 +1,15 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 
 import * as S from './Hidden.css';
 
 export type HiddenProps = {
+  children?: React.ReactNode;
+  desktopUp?: boolean;
   mobileDown?: boolean;
   tablet?: boolean;
   tabletDown?: boolean;
   tabletUp?: boolean;
-  desktopUp?: boolean;
-  children?: React.ReactNode;
 };
 
 function Hidden({
@@ -22,7 +22,7 @@ function Hidden({
 }: HiddenProps): JSX.Element {
   return (
     <div
-      className={cx(
+      className={cn(
         S.root,
         mobileDown && S.mobileDown,
         tablet && S.tablet,
@@ -35,7 +35,5 @@ function Hidden({
     </div>
   );
 }
-
-Hidden.displayName = 'Hidden';
 
 export default Hidden;
