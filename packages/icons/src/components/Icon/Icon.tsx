@@ -1,8 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import cn from 'classnames';
 
-import { Maybe } from '../../types/helpers';
-
 import * as S from './Icon.css';
 
 export type IconType = 'regular' | 'solid' | 'logo';
@@ -18,13 +16,13 @@ export type IconVariant =
   | 'light'
   | 'dark';
 
-export type IconSize = 'xs' | 'sm' | 'md' | 'lg';
+export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
 
-export type IconRotate = 90 | 180 | 270;
+export type IconRotate = 0 | 90 | 180 | 270;
 
-export type IconFlip = 'horizontal' | 'vertical';
+export type IconFlip = 'horizontal' | 'vertical' | 'none';
 
-export type IconPull = 'left' | 'right';
+export type IconPull = 'left' | 'right' | 'none';
 
 export type IconAnimation =
   | 'spin'
@@ -42,28 +40,29 @@ export type IconAnimation =
   | 'fade-left-hover'
   | 'fade-right-hover'
   | 'fade-up-hover'
-  | 'fade-down-hover';
+  | 'fade-down-hover'
+  | 'none';
 
 export type IconProps = HTMLAttributes<HTMLElement> & {
+  animation?: IconAnimation;
+  flip?: IconFlip;
   name: string;
-  type?: Maybe<IconType>;
+  pull?: IconPull;
+  rotate?: IconRotate;
+  size?: IconSize;
+  type?: IconType;
   variant?: IconVariant;
-  size?: Maybe<IconSize>;
-  rotate?: Maybe<IconRotate>;
-  flip?: Maybe<IconFlip>;
-  pull?: Maybe<IconPull>;
-  animation?: Maybe<IconAnimation>;
 };
 
 function Icon({
   name,
   type = 'regular',
   variant = 'dark',
-  size,
-  rotate,
-  flip,
-  pull,
-  animation,
+  size = 'none',
+  rotate = 0,
+  flip = 'none',
+  pull = 'none',
+  animation = 'none',
   className,
   ...props
 }: IconProps): JSX.Element {
@@ -72,16 +71,16 @@ function Icon({
       {...props}
       className={cn(
         S.root,
-        S.variant[variant],
+        S.rootSize[size],
+        S.rootVariant[variant],
         'bx',
         (type === 'solid' && `bxs-${name}`) ||
           (type === 'logo' && `bxl-${name}`) ||
           `bx-${name}`,
-        size && `bx-${size}`,
-        rotate && `bx-rotate-${rotate}`,
-        flip && `bx-flip-${flip}`,
-        pull && `bx-pull-${pull}`,
-        animation && `bx-${animation}`,
+        rotate !== 0 && `bx-rotate-${rotate}`,
+        flip !== 'none' && `bx-flip-${flip}`,
+        pull !== 'none' && `bx-pull-${pull}`,
+        animation !== 'none' && `bx-${animation}`,
         className,
       )}
     />

@@ -1,9 +1,6 @@
 import React from 'react';
-import { Space, Col, Row } from '@seed-ui/elements/src';
-import { Caption, Text } from '@seed-ui/elements';
+import { Caption, Text, Space, Col, Row } from '@seed-ui/elements';
 import { capitalize } from 'lodash';
-
-import { Maybe } from '../../types/helpers';
 
 import docs from './Icon.docs.mdx';
 import Icon, {
@@ -17,7 +14,7 @@ import Icon, {
   IconVariant,
 } from './Icon';
 
-const TYPE_OPTIONS: Maybe<IconType>[] = ['regular', 'solid', 'logo'];
+const TYPE_OPTIONS: IconType[] = ['regular', 'solid', 'logo'];
 
 const VARIANT_OPTIONS: IconVariant[] = [
   'primary',
@@ -31,15 +28,15 @@ const VARIANT_OPTIONS: IconVariant[] = [
   'dark',
 ];
 
-const SIZE_OPTIONS: Maybe<IconSize>[] = ['xs', 'sm', 'md', 'lg', undefined];
+const SIZE_OPTIONS: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', 'none'];
 
-const ROTATE_OPTIONS: Maybe<IconRotate>[] = [90, 180, 270, undefined];
+const ROTATE_OPTIONS: IconRotate[] = [0, 90, 180, 270];
 
-const FLIP_OPTIONS: Maybe<IconFlip>[] = ['vertical', 'horizontal', undefined];
+const FLIP_OPTIONS: IconFlip[] = ['vertical', 'horizontal', 'none'];
 
-const PULL_OPTIONS: Maybe<IconPull>[] = ['left', 'right', undefined];
+const PULL_OPTIONS: IconPull[] = ['left', 'right', 'none'];
 
-const ANIMATION_OPTIONS: Maybe<IconAnimation>[] = [
+const ANIMATION_OPTIONS: IconAnimation[] = [
   'spin',
   'tada',
   'flashing',
@@ -56,7 +53,7 @@ const ANIMATION_OPTIONS: Maybe<IconAnimation>[] = [
   'fade-right-hover',
   'fade-up-hover',
   'fade-down-hover',
-  undefined,
+  'none',
 ];
 
 const ANIMATION_SAMPLES_MAP: Record<
@@ -79,10 +76,11 @@ const ANIMATION_SAMPLES_MAP: Record<
   'fade-right-hover': { type: 'solid', name: 'right-arrow-circle' },
   'fade-up-hover': { type: 'solid', name: 'up-arrow-circle' },
   'fade-down-hover': { type: 'solid', name: 'down-arrow-circle' },
+  'none': { type: 'solid', name: 'like' },
 };
 
 export default {
-  title: 'Overview/Icon',
+  title: 'Typography/Icon',
   component: Icon,
   parameters: {
     docs: { page: docs },
@@ -186,39 +184,33 @@ export function Base(args: IconProps): JSX.Element {
 export function Variants(args: IconProps): JSX.Element {
   return (
     <Row alignItems="center" gutter={2}>
-      {VARIANT_OPTIONS.map(
-        (variant, i) =>
-          variant && (
-            <Col key={i}>
-              <Space direction="column" align="center" gutter={1}>
-                <Icon {...args} type="solid" name="like" variant={variant} />
-                <Caption variant="secondary">
-                  {capitalize(variant ?? undefined)}
-                </Caption>
-              </Space>
-            </Col>
-          ),
-      )}
+      {VARIANT_OPTIONS.map((variant, i) => (
+        <Col key={i}>
+          <Space align="center" direction="column" gutter={1}>
+            <Icon {...args} name="like" type="solid" variant={variant} />
+            <Caption variant="secondary">
+              {capitalize(variant ?? undefined)}
+            </Caption>
+          </Space>
+        </Col>
+      ))}
     </Row>
   );
 }
 
 export function Sizes(args: IconProps): JSX.Element {
   return (
-    <Row alignItems="center" gutter={2}>
-      {SIZE_OPTIONS.map(
-        (size, i) =>
-          size && (
-            <Col key={i}>
-              <Space direction="column" align="center" gutter={1}>
-                <Icon {...args} type="solid" name="like" size={size} />
-                <Caption variant="secondary">
-                  {capitalize(size ?? undefined)}
-                </Caption>
-              </Space>
-            </Col>
-          ),
-      )}
+    <Row alignItems="end" gutter={2}>
+      {SIZE_OPTIONS.map((size, i) => (
+        <Col key={i}>
+          <Space align="center" direction="column" gutter={1}>
+            <Icon {...args} name="like" size={size} type="solid" />
+            <Caption variant="secondary">
+              {capitalize(size ?? undefined)}
+            </Caption>
+          </Space>
+        </Col>
+      ))}
     </Row>
   );
 }
@@ -226,17 +218,14 @@ export function Sizes(args: IconProps): JSX.Element {
 export function Rotate(args: IconProps): JSX.Element {
   return (
     <Row alignItems="center" gutter={2}>
-      {ROTATE_OPTIONS.map(
-        (rotate, i) =>
-          rotate && (
-            <Col key={i}>
-              <Space direction="column" align="center" gutter={1}>
-                <Icon {...args} rotate={rotate} />
-                <Caption variant="secondary">{rotate ?? undefined}</Caption>
-              </Space>
-            </Col>
-          ),
-      )}
+      {ROTATE_OPTIONS.map((rotate, i) => (
+        <Col key={i}>
+          <Space align="center" direction="column" gutter={1}>
+            <Icon {...args} rotate={rotate} />
+            <Caption variant="secondary">{rotate ?? undefined}</Caption>
+          </Space>
+        </Col>
+      ))}
     </Row>
   );
 }
@@ -244,19 +233,16 @@ export function Rotate(args: IconProps): JSX.Element {
 export function Flip(args: IconProps): JSX.Element {
   return (
     <Row alignItems="center" gutter={2}>
-      {FLIP_OPTIONS.map(
-        (flip, i) =>
-          flip && (
-            <Col key={i}>
-              <Space direction="column" align="center" gutter={1}>
-                <Icon {...args} flip={flip} />
-                <Caption variant="secondary">
-                  {capitalize(flip ?? undefined)}
-                </Caption>
-              </Space>
-            </Col>
-          ),
-      )}
+      {FLIP_OPTIONS.map((flip, i) => (
+        <Col key={i}>
+          <Space align="center" direction="column" gutter={1}>
+            <Icon {...args} flip={flip} />
+            <Caption variant="secondary">
+              {capitalize(flip ?? undefined)}
+            </Caption>
+          </Space>
+        </Col>
+      ))}
     </Row>
   );
 }
@@ -266,10 +252,10 @@ export function Pull(args: IconProps): JSX.Element {
     <Text>
       <Icon
         {...args}
-        size="lg"
-        type="solid"
         name="quote-alt-left"
         pull="left"
+        size="lg"
+        type="solid"
       />
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut faucibus erat
       eu nibh laoreet, sed ullamcorper diam ornare. Quisque viverra ante nec
@@ -283,23 +269,20 @@ export function Pull(args: IconProps): JSX.Element {
 export function Animation(args: IconProps): JSX.Element {
   return (
     <Row alignItems="center" gutter={2}>
-      {ANIMATION_OPTIONS.map(
-        (animation, i) =>
-          animation && (
-            <Col key={i}>
-              <Space direction="column" align="center" gutter={1}>
-                <Icon
-                  {...args}
-                  {...ANIMATION_SAMPLES_MAP[animation]}
-                  animation={animation}
-                />
-                <Caption variant="secondary">
-                  {capitalize(animation ?? undefined)}
-                </Caption>
-              </Space>
-            </Col>
-          ),
-      )}
+      {ANIMATION_OPTIONS.map((animation, i) => (
+        <Col key={i}>
+          <Space align="center" direction="column" gutter={1}>
+            <Icon
+              {...args}
+              {...ANIMATION_SAMPLES_MAP[animation]}
+              animation={animation}
+            />
+            <Caption variant="secondary">
+              {capitalize(animation ?? undefined)}
+            </Caption>
+          </Space>
+        </Col>
+      ))}
     </Row>
   );
 }
