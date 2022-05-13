@@ -1,13 +1,12 @@
 import React, { HTMLAttributes } from 'react';
-import cx from 'classnames';
-
+import cn from 'classnames';
 import {
-  Atoms,
   atoms,
+  Atoms,
   OffsetProps,
   SizingProps,
   SpacingProps,
-} from '../../styles/atoms.css';
+} from '@seed-ui/styles';
 
 export interface ContainerProps
   extends SizingProps,
@@ -18,40 +17,43 @@ export interface ContainerProps
   position?: Atoms['position'];
 }
 
-function Container({
-  as: As = 'div',
-  bottom,
-  height,
-  left,
-  m,
-  mb,
-  maxHeight,
-  maxWidth,
-  minHeight,
-  minWidth,
-  ml,
-  mr,
-  mt,
-  mx,
-  my,
-  p,
-  pb,
-  pl,
-  position,
-  pr,
-  pt,
-  px,
-  py,
-  right,
-  top,
-  width,
-  className,
-  children,
-  ...elemProps
-}: ContainerProps): JSX.Element {
+function Container(
+  {
+    as: As = 'div',
+    bottom,
+    height,
+    left,
+    m,
+    mb,
+    maxHeight,
+    maxWidth,
+    minHeight,
+    minWidth,
+    ml,
+    mr,
+    mt,
+    mx,
+    my,
+    p,
+    pb,
+    pl,
+    position,
+    pr,
+    pt,
+    px,
+    py,
+    right,
+    top,
+    width,
+    className,
+    children,
+    ...elemProps
+  }: ContainerProps,
+  ref: React.Ref<HTMLElement>,
+): JSX.Element {
   return (
     <As
-      className={cx(
+      className={cn(
         atoms({
           bottom,
           height,
@@ -81,6 +83,7 @@ function Container({
         }),
         className,
       )}
+      ref={ref}
       {...elemProps}
     >
       {children}
@@ -88,6 +91,4 @@ function Container({
   );
 }
 
-Container.displayName = 'ContainerProps';
-
-export default Container;
+export default React.forwardRef(Container);
