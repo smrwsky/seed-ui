@@ -1,5 +1,12 @@
 # @seed-ui/elements
 
+## 0.3.24
+
+### Patch Changes
+
+- Updated dependencies [b260238]
+  - @seed-ui/layout@0.4.0
+
 ## 0.3.23
 
 ### Patch Changes
