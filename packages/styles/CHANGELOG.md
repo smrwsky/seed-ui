@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.3.12
+
+### Patch Changes
+
+- 793b5f2: Added theming support.
+
 ## 0.3.11
 
 ### Patch Changes
