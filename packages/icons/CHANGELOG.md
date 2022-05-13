@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.4.0
+
+### Minor Changes
+
+- fc8643d: Normalized icon's sizes.
+
 ## 0.3.15
 
 ### Patch Changes
