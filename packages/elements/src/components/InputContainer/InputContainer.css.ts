@@ -12,17 +12,6 @@ export const root = style({
   display: 'flex',
   transition: `all ${transitionTime.sm} ${transitionTimingFunction.out}`,
   overflow: 'hidden',
-  paddingLeft: '1rem',
-  paddingRight: '1rem',
-});
-
-export const rootShape = styleVariants({
-  rectangle: {
-    borderRadius: borderRadius.sm,
-  },
-  stadium: {
-    borderRadius: borderRadius.max,
-  },
 });
 
 export const rootFocused = style({
@@ -52,15 +41,23 @@ export const rootDisabled = style({
 
 export const rootSize = styleVariants({
   sm: {
-    paddingBottom: `calc(${(32 - 24) / 16 / 2}rem - 1px)`,
-    paddingTop: `calc(${(32 - 24) / 16 / 2}rem - 1px)`,
+    padding: `calc(${(32 - 24) / 16 / 2}rem - 1px)`,
   },
   md: {
-    paddingBottom: `calc(${(40 - 24) / 16 / 2}rem - 1px)`,
-    paddingTop: `calc(${(40 - 24) / 16 / 2}rem - 1px)`,
+    padding: `calc(${(40 - 24) / 16 / 2}rem - 1px)`,
   },
   lg: {
-    paddingBottom: `calc(${(48 - 24) / 16 / 2}rem - 1px)`,
-    paddingTop: `calc(${(48 - 24) / 16 / 2}rem - 1px)`,
+    padding: `calc(${(48 - 24) / 16 / 2}rem - 1px)`,
+  },
+});
+
+export const rootShape = styleVariants({
+  rectangle: {
+    borderRadius: borderRadius.sm,
+  },
+  stadium: {
+    borderRadius: borderRadius.max,
+    paddingLeft: '0.75rem',
+    paddingRight: '0.75rem',
   },
 });

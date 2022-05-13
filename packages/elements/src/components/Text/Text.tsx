@@ -1,14 +1,14 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
+import { atoms, MarginProps, Atoms } from '@seed-ui/styles';
 
-import { atoms, MarginProps, Atoms } from '../../styles/atoms.css';
 import {
   textNowrapStyle,
   textSerifSizeStyle,
   textSizeStyle,
   textBoldStyle,
   textVariantStyle,
-} from '../../styles/helpers';
+} from '../../styles';
 
 export type TextSize = 'sm' | 'md';
 
@@ -59,8 +59,7 @@ function Text(
 ): JSX.Element {
   return (
     <As
-      ref={ref}
-      className={cx(
+      className={cn(
         bold && textBoldStyle,
         nowrap && textNowrapStyle,
         serif ? textSerifSizeStyle[size] : textSizeStyle[size],
@@ -77,13 +76,12 @@ function Text(
         }),
         className,
       )}
+      ref={ref}
       {...elemProps}
     >
       {children}
     </As>
   );
 }
-
-Text.displayName = 'Text';
 
 export default React.forwardRef(Text);

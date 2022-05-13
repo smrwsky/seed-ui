@@ -1,8 +1,8 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
+import { atoms, Atoms, MarginProps } from '@seed-ui/styles';
 
-import { Atoms, atoms, MarginProps } from '../../styles/atoms.css';
-import { textNowrapStyle, textVariantStyle } from '../../styles/helpers';
+import { textNowrapStyle, textVariantStyle } from '../../styles';
 
 import * as S from './Label.css';
 
@@ -51,8 +51,7 @@ function Label(
 ): JSX.Element {
   return (
     <As
-      ref={ref}
-      className={cx(
+      className={cn(
         S.rootSize[size],
         textVariantStyle[variant],
         nowrap && textNowrapStyle,
@@ -68,13 +67,12 @@ function Label(
         }),
         className,
       )}
+      ref={ref}
       {...elemProps}
     >
       {children}
     </As>
   );
 }
-
-Label.displayName = 'Label';
 
 export default React.forwardRef(Label);

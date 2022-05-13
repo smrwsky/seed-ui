@@ -3,16 +3,16 @@ import React from 'react';
 export type TimeoutKey = number | string | undefined;
 
 export interface TimeoutAPI {
+  clearTimeout: (key?: TimeoutKey) => void;
+  clearTimeouts: () => void;
   setTimeout: (
     fn: () => void | Promise<void>,
     timeout?: number,
     key?: TimeoutKey,
   ) => void;
-  clearTimeout: (key?: TimeoutKey) => void;
-  clearTimeouts: () => void;
 }
 
-export const useTimeout = (): TimeoutAPI => {
+function useTimeout(): TimeoutAPI {
   const timeouts = React.useRef<Map<TimeoutKey, number>>(
     new Map<TimeoutKey, number>(),
   );
@@ -47,4 +47,6 @@ export const useTimeout = (): TimeoutAPI => {
   );
 
   return { setTimeout, clearTimeout, clearTimeouts };
-};
+}
+
+export default useTimeout;

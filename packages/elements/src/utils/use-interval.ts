@@ -3,12 +3,12 @@ import React from 'react';
 export type IntervalKey = number | string | undefined;
 
 export interface IntervalAPI {
-  setInterval: (fn: () => void, interval?: number, key?: IntervalKey) => void;
   clearInterval: (key?: IntervalKey) => void;
   clearIntervals: () => void;
+  setInterval: (fn: () => void, interval?: number, key?: IntervalKey) => void;
 }
 
-export const useInterval = (): IntervalAPI => {
+function useInterval(): IntervalAPI {
   const intervals = React.useRef<Map<IntervalKey, number>>(
     new Map<IntervalKey, number>(),
   );
@@ -39,4 +39,6 @@ export const useInterval = (): IntervalAPI => {
   );
 
   return { setInterval, clearInterval, clearIntervals };
-};
+}
+
+export default useInterval;

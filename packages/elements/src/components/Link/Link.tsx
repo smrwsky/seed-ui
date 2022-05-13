@@ -1,7 +1,7 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 
-import { textBoldStyle, textNowrapStyle } from '../../styles/helpers';
+import { textBoldStyle, textNowrapStyle } from '../../styles';
 
 import * as S from './Link.css';
 
@@ -13,7 +13,8 @@ export type LinkVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'light';
+  | 'light'
+  | 'dark';
 
 export interface LinkProps
   extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
@@ -38,21 +39,19 @@ function Link(
 ): JSX.Element {
   return (
     <As
-      ref={ref}
-      className={cx(
+      className={cn(
         S.root,
         S.rootVariant[variant],
         bold && textBoldStyle,
         nowrap && textNowrapStyle,
         className,
       )}
+      ref={ref}
       {...elemProps}
     >
       {children}
     </As>
   );
 }
-
-Link.displayName = 'Link';
 
 export default React.forwardRef(Link);

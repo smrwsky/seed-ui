@@ -1,8 +1,8 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
+import { atoms, MarginProps } from '@seed-ui/styles';
 
-import { atoms, MarginProps } from '../../styles/atoms.css';
-import { textNowrapStyle, textVariantStyle } from '../../styles/helpers';
+import { textNowrapStyle, textVariantStyle } from '../../styles';
 
 import * as S from './Caption.css';
 
@@ -45,8 +45,7 @@ function Caption(
 ): JSX.Element {
   return (
     <As
-      ref={ref}
-      className={cx(
+      className={cn(
         S.root,
         textVariantStyle[variant],
         nowrap && textNowrapStyle,
@@ -61,13 +60,12 @@ function Caption(
         }),
         className,
       )}
+      ref={ref}
       {...elemProps}
     >
       {children}
     </As>
   );
 }
-
-Caption.displayName = 'Caption';
 
 export default React.forwardRef(Caption);

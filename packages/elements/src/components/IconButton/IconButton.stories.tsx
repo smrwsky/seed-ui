@@ -18,7 +18,6 @@ const variants: IconButtonVariant[] = [
   'warning',
   'danger',
   'light',
-  'dark',
   'primary-outline',
   'accent-outline',
   'secondary-outline',
@@ -27,13 +26,12 @@ const variants: IconButtonVariant[] = [
   'warning-outline',
   'danger-outline',
   'light-outline',
-  'dark-outline',
 ];
 
 const sizes: IconButtonSize[] = ['sm', 'md', 'lg'];
 
 export default {
-  title: 'Elements/IconButton',
+  title: 'Inputs/IconButton',
   component: IconButton,
   parameters: {
     docs: { page: docs },
@@ -107,7 +105,7 @@ export function Variants(args: IconButtonProps): JSX.Element {
   return (
     <Row gutter={2}>
       {variants.map((variant, i) => (
-        <Col title={`${variant} variant IconButton`} key={i}>
+        <Col key={i} title={`${variant} variant IconButton`}>
           <IconButton {...args} variant={variant}>
             <Icon name="like" type="solid" />
           </IconButton>
@@ -122,7 +120,7 @@ export function Sizes(args: IconButtonProps): JSX.Element {
     <Row alignItems="center" gutter={2}>
       {sizes.map((size, i) => (
         <Col key={i}>
-          <IconButton {...args} title={`${size} size IconButton`} size={size}>
+          <IconButton {...args} size={size} title={`${size} size IconButton`}>
             <Icon name="like" type="solid" />
           </IconButton>
         </Col>

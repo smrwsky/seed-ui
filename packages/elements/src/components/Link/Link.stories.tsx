@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text } from '../Text';
+import Text from '../Text';
 
 import Link, { LinkProps, LinkVariant } from './Link';
 import docs from './Link.docs.mdx';
@@ -17,7 +17,7 @@ const variants: LinkVariant[] = [
 ];
 
 export default {
-  title: 'Elements/Link',
+  title: 'Typography/Link',
   component: Link,
   parameters: {
     docs: { page: docs },

@@ -1,12 +1,12 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 import { Icon } from '@seed-ui/icons';
 
 import * as S from './Button.css';
 
 export type ButtonShape = 'stadium' | 'rectangle';
 
-export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 
 export type ButtonVariant =
   | 'primary'
@@ -41,12 +41,12 @@ export interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
     React.AnchorHTMLAttributes<HTMLElement> {
   as?: React.ElementType;
+  endIcon?: React.ReactElement;
+  loading?: boolean;
   shape?: ButtonShape;
   size?: ButtonSize;
   startIcon?: React.ReactElement;
-  endIcon?: React.ReactElement;
   variant?: ButtonVariant;
-  loading?: boolean;
 }
 
 function Button(
@@ -67,21 +67,21 @@ function Button(
   return (
     <As
       {...elemProps}
-      ref={ref}
-      className={cx(
+      className={cn(
         S.root,
         S.rootShape[shape],
         S.rootSize[size],
         S.rootVariant[variant],
         className,
       )}
+      ref={ref}
     >
-      {loading && <Icon name="loader" className={S.icon} />}
+      {loading && <Icon className={S.icon} name="loader" />}
 
       {!loading &&
         startIcon &&
         React.cloneElement(startIcon, {
-          className: cx(S.icon, S.startIcon),
+          className: cn(S.icon, S.startIcon),
         })}
 
       {!loading && <span className={S.label}>{children}</span>}
@@ -89,7 +89,7 @@ function Button(
       {!loading &&
         endIcon &&
         React.cloneElement(endIcon, {
-          className: cx(S.icon, S.endIcon),
+          className: cn(S.icon, S.endIcon),
         })}
     </As>
   );

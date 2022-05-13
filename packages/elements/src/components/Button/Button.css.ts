@@ -40,16 +40,19 @@ export const rootShape: Record<'stadium' | 'rectangle', string> = styleVariants(
 );
 export const rootSize = styleVariants({
   sm: {
-    minWidth: '7rem',
-    padding: '0.56rem 0.53rem 0.5rem',
+    padding: '0.275rem 0.75rem 0.28rem',
   },
   md: {
-    minWidth: '8rem',
-    padding: '0.81rem 0.78rem 0.75rem',
+    minWidth: '7rem',
+    padding: '0.56rem 0.75rem 0.5rem',
   },
   lg: {
+    minWidth: '8rem',
+    padding: '0.81rem 0.75rem 0.75rem',
+  },
+  xl: {
     minWidth: '9rem',
-    padding: '1.06rem 1.03rem 1rem',
+    padding: '1rem',
   },
 });
 

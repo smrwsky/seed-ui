@@ -18,7 +18,7 @@ const variants: LabelVariant[] = [
 const sizes: LabelSize[] = ['sm', 'md'];
 
 export default {
-  title: 'Elements/Label',
+  title: 'Typography/Label',
   component: Label,
   parameters: {
     docs: { page: docs },

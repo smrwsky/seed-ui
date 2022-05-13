@@ -18,7 +18,7 @@ const variants: TitleVariant[] = [
 const sizes: TitleSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export default {
-  title: 'Elements/Title',
+  title: 'Typography/Title',
   component: Title,
   parameters: {
     docs: { page: docs },

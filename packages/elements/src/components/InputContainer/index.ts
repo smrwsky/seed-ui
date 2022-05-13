@@ -1,3 +1,2 @@
 export * from './InputContainer';
-
-export { default as InputContainer } from './InputContainer';
+export { default } from './InputContainer';

@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 
 import * as S from './InputContainer.css';
 
@@ -9,16 +9,16 @@ export type InputContainerSize = 'sm' | 'md' | 'lg';
 
 export interface InputContainerProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  shape?: InputContainerShape;
-  size?: InputContainerSize;
+  children?: React.ReactNode;
   disabled?: boolean;
   focused?: boolean;
-  readOnly?: boolean;
   invalid?: boolean;
-  children?: React.ReactNode;
+  readOnly?: boolean;
+  shape?: InputContainerShape;
+  size?: InputContainerSize;
 }
 
-const InputContainer = (
+function InputContainer(
   {
     shape = 'rectangle',
     size = 'md',
@@ -31,27 +31,27 @@ const InputContainer = (
     ...elementProps
   }: InputContainerProps,
   ref: React.Ref<HTMLDivElement>,
-): JSX.Element => (
-  <div
-    {...elementProps}
-    ref={ref}
-    className={cx(
-      S.root,
-      S.rootShape[shape],
-      S.rootSize[size],
-      focused && !disabled && !readOnly && S.rootFocused,
-      invalid && [
-        S.rootInvalid,
-        focused && !disabled && !readOnly && S.rootInvalidFocused,
-      ],
-      (disabled || readOnly) && S.rootDisabled,
-      className,
-    )}
-  >
-    {children}
-  </div>
-);
-
-InputContainer.displayName = 'InputContainer';
+): JSX.Element {
+  return (
+    <div
+      className={cn(
+        S.root,
+        S.rootShape[shape],
+        S.rootSize[size],
+        focused && !disabled && !readOnly && S.rootFocused,
+        invalid && [
+          S.rootInvalid,
+          focused && !disabled && !readOnly && S.rootInvalidFocused,
+        ],
+        disabled && S.rootDisabled,
+        className,
+      )}
+      ref={ref}
+      {...elementProps}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default React.forwardRef(InputContainer);

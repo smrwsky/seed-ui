@@ -1,5 +1,6 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
+import { Atoms, atoms, MarginProps } from '@seed-ui/styles';
 
 import {
   listItemStyle,
@@ -7,8 +8,7 @@ import {
   textSerifSizeStyle,
   textSizeStyle,
   textVariantStyle,
-} from '../../styles/helpers';
-import { Atoms, atoms, MarginProps } from '../../styles/atoms.css';
+} from '../../styles';
 
 export type UListSize = 'sm' | 'md';
 
@@ -56,8 +56,7 @@ function UList(
 ): JSX.Element {
   return (
     <ul
-      ref={ref}
-      className={cx(
+      className={cn(
         listStyle,
         serif ? textSerifSizeStyle[size] : textSizeStyle[size],
         textVariantStyle[variant],
@@ -72,19 +71,18 @@ function UList(
         }),
         className,
       )}
+      ref={ref}
       {...elemProps}
     >
       {React.Children.map(children, (child, idx) =>
         idx < React.Children.count(children) - 1 && React.isValidElement(child)
           ? React.cloneElement(child, {
-              className: cx(listItemStyle, child.props.className),
+              className: cn(listItemStyle, child.props.className),
             })
           : child,
       )}
     </ul>
   );
 }
-
-UList.displayName = 'UList';
 
 export default React.forwardRef(UList);

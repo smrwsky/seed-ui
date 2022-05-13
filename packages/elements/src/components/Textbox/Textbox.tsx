@@ -1,17 +1,17 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 
-import { textboxStyle } from '../../styles/helpers';
+import { textboxStyle } from '../../styles';
+
+export type TextboxProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 function Textbox(
-  { className, ...elemProps }: React.InputHTMLAttributes<HTMLInputElement>,
+  { className, ...elemProps }: TextboxProps,
   ref: React.Ref<HTMLInputElement>,
 ): JSX.Element {
   return (
-    <input {...elemProps} ref={ref} className={cx(textboxStyle, className)} />
+    <input {...elemProps} className={cn(textboxStyle, className)} ref={ref} />
   );
 }
-
-Textbox.displayName = 'Textbox';
 
 export default React.forwardRef(Textbox);

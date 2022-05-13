@@ -1,9 +1,9 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
+import { atoms, MarginProps } from '@seed-ui/styles';
 
-import { atoms, MarginProps } from '../../styles/atoms.css';
 import { CaptionVariant } from '../Caption';
-import { textVariantStyle } from '../../styles/helpers';
+import { textVariantStyle } from '../../styles';
 
 import * as S from './Overline.css';
 
@@ -44,8 +44,7 @@ function Overline(
 ): JSX.Element {
   return (
     <As
-      ref={ref}
-      className={cx(
+      className={cn(
         S.root,
         textVariantStyle[variant],
         atoms({
@@ -59,13 +58,12 @@ function Overline(
         }),
         className,
       )}
+      ref={ref}
       {...elemProps}
     >
       {children}
     </As>
   );
 }
-
-Overline.displayName = 'Overline';
 
 export default React.forwardRef(Overline);

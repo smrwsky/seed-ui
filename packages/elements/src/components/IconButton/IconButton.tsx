@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 
 import * as S from './IconButton.css';
 
@@ -14,7 +14,6 @@ export type IconButtonVariant =
   | 'warning'
   | 'danger'
   | 'light'
-  | 'dark'
   | 'primary-outline'
   | 'accent-outline'
   | 'secondary-outline'
@@ -22,17 +21,16 @@ export type IconButtonVariant =
   | 'success-outline'
   | 'warning-outline'
   | 'danger-outline'
-  | 'light-outline'
-  | 'dark-outline';
+  | 'light-outline';
 
 export interface IconButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
     React.AnchorHTMLAttributes<HTMLElement> {
   as?: React.ElementType;
-  size?: IconButtonSize;
-  variant?: IconButtonVariant;
-  type?: string;
   children: React.ReactElement;
+  size?: IconButtonSize;
+  type?: string;
+  variant?: IconButtonVariant;
 }
 
 function IconButton(
@@ -50,20 +48,20 @@ function IconButton(
   return (
     <As
       {...elemProps}
-      ref={ref}
-      className={cx(
+      className={cn(
         S.root,
         S.rootSize[size],
         S.rootVariant[variant],
         className,
       )}
+      ref={ref}
       type={As === 'button' && type == null ? 'button' : type}
     >
-      {React.cloneElement(children, { className: S.icon })}
+      {React.cloneElement(children, {
+        className: cn(S.icon, children.props.className),
+      })}
     </As>
   );
 }
-
-IconButton.displayName = 'IconButton';
 
 export default React.forwardRef(IconButton);

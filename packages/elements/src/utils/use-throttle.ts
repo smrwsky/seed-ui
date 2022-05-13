@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { isSsr } from './is-ssr';
-import { useTimeout } from './use-timeout';
+import isCsr from './is-csr';
+import useTimeout from './use-timeout';
 
-export const useThrottle = (): ((
+function useThrottle(): (
   cb: () => void | Promise<void>,
   wait?: number,
-) => void) => {
+) => void {
   const { setTimeout } = useTimeout();
 
   return React.useCallback(
     (cb: () => void | Promise<void>, timeout) => {
-      if (!isSsr()) {
+      if (isCsr()) {
         setTimeout(async () => {
           try {
             await cb();
@@ -24,4 +24,6 @@ export const useThrottle = (): ((
     },
     [setTimeout],
   );
-};
+}
+
+export default useThrottle;
