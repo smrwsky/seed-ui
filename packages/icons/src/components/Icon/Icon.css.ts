@@ -7,7 +7,28 @@ export const root = style({
   verticalAlign: 'middle',
 });
 
-export const variant = styleVariants({
+export const rootSize = styleVariants({
+  xs: {
+    fontSize: '0.75rem',
+  },
+  sm: {
+    fontSize: '1rem',
+  },
+  md: {
+    fontSize: '1.5rem',
+  },
+  lg: {
+    fontSize: '2rem',
+  },
+  xl: {
+    fontSize: '3rem',
+  },
+  none: {
+    fontSize: 'inherit',
+  },
+});
+
+export const rootVariant = styleVariants({
   primary: {
     color: theme.color.primary500,
   },
