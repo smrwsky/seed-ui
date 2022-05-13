@@ -1,8 +1,12 @@
 {
   "name": "@seed-ui/elements",
-  "version": "0.3.25",
+  "version": "0.4.0",
   "description": "",
-  "files": ["dist", "package.json", "CHANGELOG.md"],
+  "files": [
+    "dist",
+    "package.json",
+    "CHANGELOG.md"
+  ],
   "types": "dist/types/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
