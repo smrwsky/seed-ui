@@ -133,4 +133,18 @@ export const rootVariant = styleVariants({
       },
     },
   },
+
+  dark: {
+    color: theme.color.neutral900,
+
+    selectors: {
+      '&:hover, &:focus': {
+        color: theme.color.neutral600,
+      },
+
+      '&:active': {
+        color: theme.color.neutral800,
+      },
+    },
+  },
 });

@@ -1,7 +1,6 @@
 import React from 'react';
-import cx from 'classnames';
-
-import { atoms, Atoms, BorderProps } from '../../styles/atoms.css';
+import cn from 'classnames';
+import { Atoms, atoms, BorderProps } from '@seed-ui/styles';
 
 export interface BoxProps
   extends BorderProps,
@@ -36,8 +35,7 @@ function Box(
   return (
     <As
       {...elemProps}
-      ref={ref}
-      className={cx(
+      className={cn(
         atoms({
           border,
           borderBottom,
@@ -53,12 +51,11 @@ function Box(
         }),
         className,
       )}
+      ref={ref}
     >
       {children}
     </As>
   );
 }
-
-Box.displayName = 'Box';
 
 export default React.forwardRef(Box);

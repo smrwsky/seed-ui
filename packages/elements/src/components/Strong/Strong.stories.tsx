@@ -18,7 +18,7 @@ const variants: StrongVariant[] = [
 ];
 
 export default {
-  title: 'Elements/Strong',
+  title: 'Typography/Strong',
   component: Strong,
   parameters: {
     docs: { page: docs },

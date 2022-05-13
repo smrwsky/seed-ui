@@ -16,7 +16,7 @@ const variants: OverlineVariant[] = [
 ];
 
 export default {
-  title: 'Elements/Overline',
+  title: 'Typography/Overline',
   component: Overline,
   parameters: {
     docs: { page: docs },

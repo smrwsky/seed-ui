@@ -24,7 +24,7 @@ const variants: SubtitleVariant[] = [
 const sizes: SubtitleSize[] = ['sm', 'md'];
 
 export default {
-  title: 'Elements/Subtitle',
+  title: 'Typography/Subtitle',
   component: Subtitle,
   parameters: {
     docs: { page: docs },

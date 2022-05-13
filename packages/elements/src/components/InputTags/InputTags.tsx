@@ -1,29 +1,24 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 
 import * as S from './InputTags.css';
 
-export type InputTagsSize = 'sm' | 'md' | 'lg';
-
 export type InputTagsProps = {
-  size?: InputTagsSize;
   children?: React.ReactNode;
 };
 
-function InputTags({ size = 'md', children }: InputTagsProps): JSX.Element {
+function InputTags({ children }: InputTagsProps): JSX.Element {
   return (
-    <div className={cx(S.root, S.rootSize[size])}>
-      {React.Children.map(children, (child) =>
-        React.isValidElement(child) ? (
-          <div className={cx(S.inner, S.innerSize[size])}>{child}</div>
-        ) : (
-          child
-        ),
+    <div className={S.root}>
+      {React.Children.map(
+        children,
+        (child) =>
+          React.isValidElement(child) && (
+            <div className={cn(S.inner)}>{child}</div>
+          ),
       )}
     </div>
   );
 }
-
-InputTags.displayName = 'InputTags';
 
 export default InputTags;

@@ -1,12 +1,10 @@
 import React from 'react';
-import { Col, Container, Row } from '@seed-ui/layout';
 
-import { Textbox } from '../Textbox';
-import { InputAction } from '../InputAction';
-import { InputContainer } from '../InputContainer';
-import { InputGroup } from '../InputGroup';
-import { Text } from '../Text';
-import { Label } from '../Label';
+import Textbox from '../Textbox';
+import InputContainer from '../InputContainer';
+import InputGroup from '../InputGroup';
+import Label from '../Label';
+import InputAction from '../InputAction';
 
 export type TextInputShape = 'rectangle' | 'stadium';
 
@@ -16,15 +14,15 @@ export type TextInputDirection = 'row' | 'column';
 
 export interface TextInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+  action?: React.ReactNode;
   direction?: TextInputDirection;
+  disabled?: boolean;
+  error?: string;
+  invalid?: boolean;
   label?: React.ReactNode;
+  message?: React.ReactNode;
   shape?: TextInputShape;
   size?: TextInputSize;
-  disabled?: boolean;
-  invalid?: boolean;
-  error?: string;
-  message?: React.ReactNode;
-  action?: React.ReactNode;
 }
 
 const TextInput = (
@@ -73,73 +71,41 @@ const TextInput = (
   );
 
   return (
-    <InputGroup>
-      <Row alignItems="baseline" gutter={1}>
-        {typeof label === 'string' && (
-          <Col
-            width={
-              direction === 'column' ? '1/1' : { mobile: '1/1', tablet: '1/3' }
-            }
-          >
-            <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
-          </Col>
-        )}
+    <InputGroup
+      direction={direction}
+      error={error}
+      htmlFor={id}
+      label={
+        typeof label === 'string' ? (
+          <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
+        ) : (
+          label
+        )
+      }
+      message={message}
+    >
+      <InputContainer
+        disabled={disabled}
+        focused={focused}
+        invalid={invalid || Boolean(error)}
+        readOnly={readOnly}
+        shape={shape}
+        size={size}
+      >
+        <Textbox
+          {...inputProps}
+          disabled={disabled}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          readOnly={readOnly}
+          ref={ref}
+          type="text"
+        />
 
-        {label && typeof label !== 'string' && (
-          <Col
-            width={
-              direction === 'column' ? '1/1' : { mobile: '1/1', tablet: '1/3' }
-            }
-          >
-            {label}
-          </Col>
-        )}
-
-        <Col
-          width={
-            direction === 'column' ? '1/1' : { mobile: '1/1', tablet: '2/3' }
-          }
-        >
-          <InputContainer
-            disabled={disabled}
-            readOnly={readOnly}
-            focused={focused}
-            invalid={invalid || Boolean(error)}
-            shape={shape}
-            size={size}
-          >
-            <Textbox
-              {...inputProps}
-              ref={ref}
-              readOnly={readOnly}
-              disabled={disabled}
-              onBlur={handleBlur}
-              onFocus={handleFocus}
-              type="text"
-            />
-
-            {action && <InputAction>{action}</InputAction>}
-          </InputContainer>
-
-          {typeof message === 'string' ? (
-            <Text mt={1} size="sm" variant="secondary">
-              {message}
-            </Text>
-          ) : (
-            <Container mt={1}>{message}</Container>
-          )}
-
-          {error && (
-            <Text mt={1} size="sm" variant="danger">
-              {error}
-            </Text>
-          )}
-        </Col>
-      </Row>
+        {action && <InputAction>{action}</InputAction>}
+      </InputContainer>
     </InputGroup>
   );
 };
-
-TextInput.displayName = 'TextInput';
 
 export default React.forwardRef(TextInput);

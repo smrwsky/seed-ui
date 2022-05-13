@@ -8,7 +8,7 @@ export const textboxStyle = style({
   flex: 1,
   fontFamily: theme.fontFamily.base,
   maxWidth: '100%',
-  padding: 0,
+  padding: '0 0.25rem',
   width: '100%',
   ...theme.typography.textMd.base,
 

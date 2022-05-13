@@ -16,7 +16,7 @@ const sizes: TextInputSize[] = ['sm', 'md', 'lg'];
 const directions: TextInputDirection[] = ['column', 'row'];
 
 export default {
-  title: 'Elements/TextInput',
+  title: 'Inputs/TextInput',
   component: TextInput,
   parameters: {
     docs: { page: docs },
@@ -116,7 +116,7 @@ export function Directions(args: TextInputProps): JSX.Element {
   return (
     <Space direction="column" gutter={2}>
       {directions.map((direction, i) => (
-        <TextInput {...args} label={direction} key={i} direction={direction} />
+        <TextInput {...args} direction={direction} key={i} label={direction} />
       ))}
     </Space>
   );
@@ -126,7 +126,7 @@ export function Sizes(args: TextInputProps): JSX.Element {
   return (
     <Space direction="column" gutter={2}>
       {sizes.map((size, i) => (
-        <TextInput {...args} label={size} key={i} size={size} />
+        <TextInput {...args} key={i} label={size} size={size} />
       ))}
     </Space>
   );
@@ -136,7 +136,7 @@ export function Shapes(args: TextInputProps): JSX.Element {
   return (
     <Space direction="column" gutter={2}>
       {shapes.map((shape, i) => (
-        <TextInput {...args} label={shape} key={i} shape={shape} />
+        <TextInput {...args} key={i} label={shape} shape={shape} />
       ))}
     </Space>
   );

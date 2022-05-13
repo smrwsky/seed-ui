@@ -3,7 +3,7 @@ import React from 'react';
 export type ListItemProps = React.LiHTMLAttributes<HTMLLIElement>;
 
 function ListItem(
-  { className, children, ...elemProps }: ListItemProps,
+  { children, ...elemProps }: ListItemProps,
   ref: React.Ref<HTMLLIElement>,
 ): JSX.Element {
   return (

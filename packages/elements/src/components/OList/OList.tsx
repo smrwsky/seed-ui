@@ -1,14 +1,14 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
+import { MarginProps, Atoms, atoms } from '@seed-ui/styles';
 
-import { MarginProps, Atoms, atoms } from '../../styles/atoms.css';
 import {
   textSerifSizeStyle,
   textSizeStyle,
   textVariantStyle,
   listStyle,
   listItemStyle,
-} from '../../styles/helpers';
+} from '../../styles';
 
 export type OListSize = 'sm' | 'md';
 
@@ -25,9 +25,9 @@ export type OListVariant =
 export interface OListItemProps
   extends MarginProps,
     React.OlHTMLAttributes<HTMLOListElement> {
+  gutter?: Atoms['mb'];
   serif?: boolean;
   size?: OListSize;
-  gutter?: Atoms['mb'];
   variant?: OListVariant;
 }
 
@@ -52,8 +52,7 @@ function OList(
 ): JSX.Element {
   return (
     <ol
-      ref={ref}
-      className={cx(
+      className={cn(
         listStyle,
         serif ? textSerifSizeStyle[size] : textSizeStyle[size],
         textVariantStyle[variant],
@@ -68,19 +67,18 @@ function OList(
         }),
         className,
       )}
+      ref={ref}
       {...elemProps}
     >
       {React.Children.map(children, (child, idx) =>
         idx < React.Children.count(children) - 1 && React.isValidElement(child)
           ? React.cloneElement(child, {
-              className: cx(listItemStyle, child.props.className),
+              className: cn(listItemStyle, child.props.className),
             })
           : child,
       )}
     </ol>
   );
 }
-
-OList.displayName = 'OList';
 
 export default React.forwardRef(OList);

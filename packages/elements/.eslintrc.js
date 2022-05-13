@@ -9,11 +9,18 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
+    'plugin:react/recommended',
+    'plugin:typescript-sort-keys/recommended',
     'prettier',
   ],
   overrides: [
+    {
+      files: ['**/*.css.ts', 'index.ts'],
+      rules: {
+        'import/prefer-default-export': 'off',
+      },
+    },
     {
       files: ['**/*.d.ts'],
       rules: {
@@ -52,6 +59,7 @@ module.exports = {
     'prettier',
     'react',
     'react-hooks',
+    'typescript-sort-keys',
   ],
   rules: {
     '@typescript-eslint/indent': 'off',
@@ -88,7 +96,6 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/order': ['error', { 'newlines-between': 'always' }],
-    'import/prefer-default-export': 'off',
     'indent': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
     'max-len': 'off',
@@ -106,6 +113,7 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/jsx-sort-props': 'error',
     'react/no-array-index-key': 'off',
     'react/prop-types': 'off',
     'react/require-default-props': 'off',

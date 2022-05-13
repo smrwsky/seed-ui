@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 
 import * as S from './InputAction.css';
 
@@ -13,11 +13,9 @@ const InputAction = ({
   className,
   ...elementProps
 }: InputActionProps): JSX.Element => (
-  <span {...elementProps} className={cx(S.root, className)}>
+  <span {...elementProps} className={cn(S.root, className)}>
     {children}
   </span>
 );
-
-InputAction.displayName = 'InputAction';
 
 export default InputAction;

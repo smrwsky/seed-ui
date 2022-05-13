@@ -1,7 +1,6 @@
 import React from 'react';
-import cx from 'classnames';
-
-import { atoms, MarginProps } from '../../styles/atoms.css';
+import cn from 'classnames';
+import { atoms, MarginProps } from '@seed-ui/styles';
 
 import * as S from './Title.css';
 
@@ -48,8 +47,7 @@ function Title(
 ): JSX.Element {
   return (
     <As
-      ref={ref}
-      className={cx(
+      className={cn(
         serif ? S.rootSerifSize[size] : S.rootSize[size],
         S.rootVariant[variant],
         atoms({
@@ -63,13 +61,12 @@ function Title(
         }),
         className,
       )}
+      ref={ref}
       {...elemProps}
     >
       {children}
     </As>
   );
 }
-
-Title.displayName = 'Title';
 
 export default React.forwardRef(Title);

@@ -21,7 +21,7 @@ const variants: TextVariant[] = [
 const sizes: TextSize[] = ['sm', 'md'];
 
 export default {
-  title: 'Elements/Text',
+  title: 'Typography/Text',
   component: Text,
   parameters: {
     docs: { page: docs },

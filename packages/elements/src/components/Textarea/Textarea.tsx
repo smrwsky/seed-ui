@@ -1,13 +1,11 @@
 import React from 'react';
-import cx from 'classnames';
-import { Col, Container, Row } from '@seed-ui/layout';
+import cn from 'classnames';
 
-import { InputGroup } from '../InputGroup';
-import { InputContainer } from '../InputContainer';
-import { textboxStyle } from '../../styles/helpers';
-import { InputAction } from '../InputAction';
-import { Text } from '../Text';
-import { Label } from '../Label';
+import { textboxStyle } from '../../styles';
+import InputGroup from '../InputGroup';
+import Label from '../Label';
+import InputContainer from '../InputContainer';
+import InputAction from '../InputAction';
 
 import * as S from './Textarea.css';
 
@@ -22,16 +20,16 @@ export interface TextareaProps
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     'size' | 'action' | 'label'
   > {
+  action?: React.ReactNode;
   direction?: TextareaDirection;
+  disabled?: boolean;
+  error?: string;
+  invalid?: boolean;
   label?: React.ReactNode;
-  submitOnEnter?: boolean;
+  message?: React.ReactNode;
   shape?: TextareaShape;
   size?: TextareaSize;
-  disabled?: boolean;
-  invalid?: boolean;
-  error?: string;
-  message?: React.ReactNode;
-  action?: React.ReactNode;
+  submitOnEnter?: boolean;
 }
 
 const Textarea = (
@@ -92,75 +90,43 @@ const Textarea = (
   };
 
   return (
-    <InputGroup>
-      <Row alignItems="baseline" gutter={1}>
-        {typeof label === 'string' && (
-          <Col
-            width={
-              direction === 'column' ? '1/1' : { mobile: '1/1', tablet: '1/3' }
-            }
-          >
-            <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
-          </Col>
-        )}
+    <InputGroup
+      direction={direction}
+      error={error}
+      htmlFor={id}
+      label={
+        typeof label === 'string' ? (
+          <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
+        ) : (
+          label
+        )
+      }
+      message={message}
+    >
+      <InputContainer
+        disabled={disabled}
+        focused={focused}
+        invalid={invalid || Boolean(error)}
+        readOnly={readOnly}
+        shape={shape}
+        size={size}
+      >
+        <textarea
+          {...inputProps}
+          className={cn(textboxStyle, S.textarea)}
+          disabled={disabled}
+          id={id}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          onKeyPress={handleKeyPress}
+          readOnly={readOnly}
+          ref={ref}
+        />
 
-        {label && typeof label !== 'string' && (
-          <Col
-            width={
-              direction === 'column' ? '1/1' : { mobile: '1/1', tablet: '1/3' }
-            }
-          >
-            {label}
-          </Col>
-        )}
-
-        <Col
-          width={
-            direction === 'column' ? '1/1' : { mobile: '1/1', tablet: '2/3' }
-          }
-        >
-          <InputContainer
-            disabled={disabled}
-            readOnly={readOnly}
-            focused={focused}
-            invalid={invalid || Boolean(error)}
-            shape={shape}
-            size={size}
-          >
-            <textarea
-              {...inputProps}
-              ref={ref}
-              className={cx(textboxStyle, S.textarea)}
-              id={id}
-              readOnly={readOnly}
-              disabled={disabled}
-              onBlur={handleBlur}
-              onFocus={handleFocus}
-              onKeyPress={handleKeyPress}
-            />
-
-            {action && <InputAction>{action}</InputAction>}
-          </InputContainer>
-
-          {typeof message === 'string' ? (
-            <Text mt={1} size="sm" variant="secondary">
-              {message}
-            </Text>
-          ) : (
-            <Container mt={1}>{message}</Container>
-          )}
-
-          {error && (
-            <Text mt={1} size="sm" variant="danger">
-              {error}
-            </Text>
-          )}
-        </Col>
-      </Row>
+        {action && <InputAction>{action}</InputAction>}
+      </InputContainer>
     </InputGroup>
   );
 };
-
-Textarea.displayName = 'Textarea';
 
 export default React.forwardRef(Textarea);

@@ -45,7 +45,7 @@ const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
 const shapes: ButtonShape[] = ['rectangle', 'stadium'];
 
 export default {
-  title: 'Elements/Button',
+  title: 'Inputs/Button',
   component: Button,
   parameters: {
     docs: { page: docs },
@@ -141,7 +141,7 @@ export function Variants(args: ButtonProps): JSX.Element {
   return (
     <Row gutter={2}>
       {variants.map((variant, i) => (
-        <Col width="auto" key={i}>
+        <Col key={i} width="auto">
           <Button {...args} variant={variant}>
             {variant}
           </Button>

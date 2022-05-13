@@ -16,7 +16,7 @@ const sizes: TextareaSize[] = ['sm', 'md', 'lg'];
 const directions: TextareaDirection[] = ['column', 'row'];
 
 export default {
-  title: 'Elements/Textarea',
+  title: 'Inputs/Textarea',
   component: Textarea,
   parameters: {
     docs: { page: docs },
@@ -96,7 +96,7 @@ export function Base(args: TextareaProps): JSX.Element {
 }
 
 export function MinAndMaxRows(args: TextareaProps): JSX.Element {
-  return <Textarea {...args} minRows={3} maxRows={4} />;
+  return <Textarea {...args} maxRows={4} minRows={3} />;
 }
 
 export function Invalid(args: TextareaProps): JSX.Element {
@@ -120,7 +120,7 @@ export function Directions(args: TextareaProps): JSX.Element {
   return (
     <Space direction="column" gutter={2}>
       {directions.map((direction, i) => (
-        <Textarea {...args} label={direction} key={i} direction={direction} />
+        <Textarea {...args} direction={direction} key={i} label={direction} />
       ))}
     </Space>
   );
@@ -130,7 +130,7 @@ export function Sizes(args: TextareaProps): JSX.Element {
   return (
     <Space direction="column" gutter={2}>
       {sizes.map((size, i) => (
-        <Textarea {...args} label={size} key={i} size={size} />
+        <Textarea {...args} key={i} label={size} size={size} />
       ))}
     </Space>
   );
@@ -140,7 +140,7 @@ export function Shapes(args: TextareaProps): JSX.Element {
   return (
     <Space direction="column" gutter={2}>
       {shapes.map((shape, i) => (
-        <Textarea {...args} label={shape} key={i} shape={shape} />
+        <Textarea {...args} key={i} label={shape} shape={shape} />
       ))}
     </Space>
   );

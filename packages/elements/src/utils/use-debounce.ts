@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { isSsr } from './is-ssr';
-import { useTimeout } from './use-timeout';
+import isCsr from './is-csr';
+import useTimeout from './use-timeout';
 
-export const useDebounce = (): ((
+function useDebounce(): (
   cb: () => void | Promise<void>,
   wait?: number,
-) => void) => {
+) => void {
   const { setTimeout } = useTimeout();
 
   const promise = React.useRef<Promise<void> | void | null>(null);
@@ -31,10 +31,12 @@ export const useDebounce = (): ((
 
       if (timeout == null) {
         fn();
-      } else if (!isSsr()) {
+      } else if (isCsr()) {
         setTimeout(fn, timeout);
       }
     },
     [setTimeout],
   );
-};
+}
+
+export default useDebounce;

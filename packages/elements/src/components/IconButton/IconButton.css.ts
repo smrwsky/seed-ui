@@ -10,11 +10,14 @@ export const root = style({
   border: 'none',
   borderRadius: borderRadius.max,
   cursor: 'pointer',
-  display: 'inline-block',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   lineHeight: 0,
   overflow: 'hidden',
-  padding: '0.25rem',
   transition: `all ${transitionTime.sm} ${transitionTimingFunction['in-out']}`,
+  width: '1em',
+  height: '1em',
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
 
   selectors: {
@@ -26,13 +29,13 @@ export const root = style({
 
 export const rootSize = styleVariants({
   sm: {
-    fontSize: '1rem',
-  },
-  md: {
     fontSize: '1.5rem',
   },
-  lg: {
+  md: {
     fontSize: '2rem',
+  },
+  lg: {
+    fontSize: '2.5rem',
   },
 });
 
@@ -398,5 +401,6 @@ export const rootVariant = styleVariants({
 });
 
 export const icon = style({
-  color: 'currentcolor',
+  color: 'currentColor',
+  fontSize: '.625em',
 });

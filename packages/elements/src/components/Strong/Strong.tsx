@@ -1,7 +1,7 @@
 import React from 'react';
-import cx from 'classnames';
+import cn from 'classnames';
 
-import { textVariantStyle, textBoldStyle } from '../../styles/helpers';
+import { textVariantStyle, textBoldStyle } from '../../styles';
 
 import * as S from './Strong.css';
 
@@ -33,20 +33,18 @@ function Strong(
 ): JSX.Element {
   return (
     <strong
-      ref={ref}
-      className={cx(
+      className={cn(
         S.root,
         bold && textBoldStyle,
         textVariantStyle[variant],
         className,
       )}
+      ref={ref}
       {...elemProps}
     >
       {children}
     </strong>
   );
 }
-
-Strong.displayName = 'Strong';
 
 export default React.forwardRef(Strong);

@@ -16,7 +16,7 @@ const variants: CaptionVariant[] = [
 ];
 
 export default {
-  title: 'Elements/Caption',
+  title: 'Typography/Caption',
   component: Caption,
   parameters: {
     docs: { page: docs },

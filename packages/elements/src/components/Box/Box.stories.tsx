@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Container, Row } from '@seed-ui/layout';
 import { border, borderRadius, boxShadow, theme } from '@seed-ui/styles';
 
-import { Text } from '../Text';
+import Text from '../Text';
 
 import Box, { BoxProps } from './Box';
 import docs from './Box.docs.mdx';
@@ -18,7 +18,7 @@ const borderRadiuses = Object.keys(borderRadius) as Array<
 >;
 
 export default {
-  title: 'Elements/Box',
+  title: 'Layout/Box',
   component: Box,
   parameters: {
     docs: { page: docs },
@@ -183,7 +183,7 @@ export function Borders(): JSX.Element {
   return (
     <Row gutter={2}>
       <Col>
-        <Box border={1} borderColor="primary200" backgroundColor="primary50">
+        <Box backgroundColor="primary50" border={1} borderColor="primary200">
           <Container p={3}>
             <Text variant="secondary">Border</Text>
           </Container>
@@ -191,7 +191,7 @@ export function Borders(): JSX.Element {
       </Col>
 
       <Col>
-        <Box borderY={1} borderColor="primary200" backgroundColor="primary50">
+        <Box backgroundColor="primary50" borderColor="primary200" borderY={1}>
           <Container p={3}>
             <Text variant="secondary">Border-Y</Text>
           </Container>
@@ -199,7 +199,7 @@ export function Borders(): JSX.Element {
       </Col>
 
       <Col>
-        <Box borderTop={1} borderColor="primary200" backgroundColor="primary50">
+        <Box backgroundColor="primary50" borderColor="primary200" borderTop={1}>
           <Container p={3}>
             <Text variant="secondary">Border-Top</Text>
           </Container>
@@ -215,10 +215,10 @@ export function BorderRadiuses(): JSX.Element {
       {borderRadiuses.map((v) => (
         <Col key={v}>
           <Box
-            borderRadius={v}
+            backgroundColor="primary50"
             border={1}
             borderColor="primary200"
-            backgroundColor="primary50"
+            borderRadius={v}
           >
             <Container p={3}>
               <Text variant="secondary">Border-Radius: {v}</Text>
