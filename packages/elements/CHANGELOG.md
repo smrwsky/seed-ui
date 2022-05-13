@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.4.0
+
+### Minor Changes
+
+- f3d0b1a: Added new components.
+
 ## 0.3.25
 
 ### Patch Changes
