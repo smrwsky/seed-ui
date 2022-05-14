@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.4.2
+
+### Patch Changes
+
+- fb08031: Added "display" property to Link component
+
 ## 0.4.1
 
 ### Patch Changes
