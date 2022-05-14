@@ -11,10 +11,9 @@ export const root = style({
   alignItems: 'center',
   maxWidth: '100%',
   transition: `all ${transitionTime.sm} ${transitionTimingFunction['in-out']}`,
+  outline: 'none',
+
   selectors: {
-    '&:focus': {
-      outline: 'none',
-    },
     '&[data-clickable="true"]:not([aria-disabled="true"])': {
       cursor: 'pointer',
     },
@@ -52,10 +51,10 @@ export const rootVariant = styleVariants({
     color: theme.color.primary600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.primary200,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.primary200,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.primary300,
@@ -72,10 +71,10 @@ export const rootVariant = styleVariants({
     color: theme.color.accent600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.accent200,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.accent200,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.accent300,
@@ -93,10 +92,10 @@ export const rootVariant = styleVariants({
     color: theme.color.neutral600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.neutral200,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.neutral200,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.neutral300,
@@ -114,10 +113,10 @@ export const rootVariant = styleVariants({
     color: theme.color.info600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.info200,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.info200,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.info300,
@@ -135,10 +134,10 @@ export const rootVariant = styleVariants({
     color: theme.color.success600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.success200,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.success200,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.success300,
@@ -156,10 +155,10 @@ export const rootVariant = styleVariants({
     color: theme.color.warning600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.warning200,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.warning200,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.warning300,
@@ -177,10 +176,10 @@ export const rootVariant = styleVariants({
     color: theme.color.danger600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.danger200,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.danger200,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.danger300,
@@ -199,10 +198,10 @@ export const rootVariant = styleVariants({
     color: theme.color.primary600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.primary100,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.primary100,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.primary200,
@@ -222,10 +221,10 @@ export const rootVariant = styleVariants({
     color: theme.color.accent600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.accent100,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.accent100,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.accent200,
@@ -245,10 +244,10 @@ export const rootVariant = styleVariants({
     color: theme.color.neutral600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.neutral100,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.neutral100,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.neutral200,
@@ -268,10 +267,10 @@ export const rootVariant = styleVariants({
     color: theme.color.info600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.info100,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.info100,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.info200,
@@ -291,10 +290,10 @@ export const rootVariant = styleVariants({
     color: theme.color.success600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.success100,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.success100,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.success200,
@@ -314,10 +313,10 @@ export const rootVariant = styleVariants({
     color: theme.color.warning600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.warning100,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.warning100,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.warning200,
@@ -337,10 +336,10 @@ export const rootVariant = styleVariants({
     color: theme.color.danger600,
 
     selectors: {
-      '&[data-clickable="true"]:not([aria-disabled="true"]):hover, &[data-clickable="true"]:not([aria-disabled="true"]):focus':
-        {
-          background: theme.color.danger100,
-        },
+      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
+      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
+        background: theme.color.danger100,
+      },
 
       '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
         background: theme.color.danger200,

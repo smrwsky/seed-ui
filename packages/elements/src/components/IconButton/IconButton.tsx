@@ -14,6 +14,7 @@ export type IconButtonVariant =
   | 'warning'
   | 'danger'
   | 'light'
+  | 'dark'
   | 'primary-outline'
   | 'accent-outline'
   | 'secondary-outline'
@@ -21,7 +22,8 @@ export type IconButtonVariant =
   | 'success-outline'
   | 'warning-outline'
   | 'danger-outline'
-  | 'light-outline';
+  | 'light-outline'
+  | 'dark-outline';
 
 export interface IconButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
