@@ -1,9 +1,11 @@
 import React from 'react';
 import cn from 'classnames';
 
-import { textBoldStyle, textNowrapStyle } from '../../styles';
+import { textBoldStyle } from '../../styles';
 
 import * as S from './Link.css';
+
+export type LinkDisplay = 'block' | 'inline' | 'inline-block';
 
 export type LinkVariant =
   | 'primary'
@@ -21,7 +23,7 @@ export interface LinkProps
     React.AnchorHTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   bold?: boolean;
-  nowrap?: boolean;
+  display?: LinkDisplay;
   variant?: LinkVariant;
 }
 
@@ -29,7 +31,7 @@ function Link(
   {
     as: As = 'a',
     bold,
-    nowrap,
+    display = 'inline',
     variant = 'primary',
     className,
     children,
@@ -41,9 +43,9 @@ function Link(
     <As
       className={cn(
         S.root,
+        S.rootDisplay[display],
         S.rootVariant[variant],
         bold && textBoldStyle,
-        nowrap && textNowrapStyle,
         className,
       )}
       ref={ref}

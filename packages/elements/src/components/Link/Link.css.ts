@@ -7,7 +7,6 @@ import {
 
 export const root = style({
   cursor: 'pointer',
-  display: 'inline',
   fontSize: 'inherit',
   lineHeight: 'inherit',
   textDecoration: 'none',
@@ -18,6 +17,18 @@ export const root = style({
       color: theme.color.neutral200,
       cursor: 'not-allowed',
     },
+  },
+});
+
+export const rootDisplay = styleVariants({
+  'block': {
+    display: 'block',
+  },
+  'inline': {
+    display: 'inline',
+  },
+  'inline-block': {
+    display: 'inline-block',
   },
 });
 
