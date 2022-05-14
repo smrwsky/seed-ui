@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.4.1
+
+### Patch Changes
+
+- 6510edf: Fixed focus styles
+
 ## 0.4.0
 
 ### Minor Changes
