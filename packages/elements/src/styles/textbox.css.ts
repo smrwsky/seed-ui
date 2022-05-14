@@ -10,6 +10,7 @@ export const textboxStyle = style({
   maxWidth: '100%',
   padding: '0 0.25rem',
   width: '100%',
+  outline: 'none',
   ...theme.typography.textMd.base,
 
   selectors: {

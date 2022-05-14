@@ -20,6 +20,7 @@ export const root = style({
   transition: `all ${transitionTime.sm} ${transitionTimingFunction['in-out']}`,
   whiteSpace: 'nowrap',
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
+  outline: 'none',
   ...theme.typography.button,
 
   selectors: {

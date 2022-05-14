@@ -41,6 +41,15 @@ export default {
         defaultValue: { summary: 'false' },
       },
     },
+    'href': {
+      control: 'text',
+      defaultValue: '#',
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
     'variant': {
       control: 'select',
       defaultValue: 'primary',

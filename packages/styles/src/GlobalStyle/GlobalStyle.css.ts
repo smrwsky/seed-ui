@@ -84,5 +84,10 @@ globalStyle('body', {
   fontSmooth: 'antialiased',
 });
 
+globalStyle('*:focus-visible', {
+  outlineOffset: '1px',
+  outline: `2px auto ${theme.color.accent500}`,
+});
+
 // eslint-disable-next-line import/prefer-default-export
 export const stub = null;

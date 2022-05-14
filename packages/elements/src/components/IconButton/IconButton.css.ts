@@ -19,6 +19,7 @@ export const root = style({
   width: '1em',
   height: '1em',
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
+  outline: 'none',
 
   selectors: {
     '&:disabled': {

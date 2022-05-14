@@ -99,7 +99,7 @@ export default {
     },
     'children': {
       control: 'text',
-      defaultValue: 'Click me',
+      defaultValue: 'Tag title',
       table: {
         type: {
           summary: 'string',

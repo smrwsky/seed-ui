@@ -110,7 +110,7 @@ const defaultTheme = {
     subtitleMd: {
       base: {
         fontSize: '1.2em', // 19.2px
-        fontWeight: '500',
+        fontWeight: '600',
         letterSpacing: '0.25px',
         lineHeight: '1.112',
       },
@@ -124,7 +124,7 @@ const defaultTheme = {
     subtitleSm: {
       base: {
         fontSize: '1em', // 16px
-        fontWeight: '500',
+        fontWeight: '600',
         letterSpacing: '0.25px',
         lineHeight: '1.112',
       },

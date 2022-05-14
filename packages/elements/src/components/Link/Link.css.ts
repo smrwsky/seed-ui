@@ -7,7 +7,7 @@ import {
 
 export const root = style({
   cursor: 'pointer',
-  display: 'contents',
+  display: 'inline',
   fontSize: 'inherit',
   lineHeight: 'inherit',
   textDecoration: 'none',
