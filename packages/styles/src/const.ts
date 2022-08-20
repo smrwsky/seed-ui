@@ -195,7 +195,7 @@ export const offset = {
 export const breakpoint = {
   mobile: 0,
   tablet: 768,
-  desktop: 1200,
+  desktop: 992,
 } as const;
 
 export const border = {
