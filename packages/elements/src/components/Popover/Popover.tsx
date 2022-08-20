@@ -6,31 +6,27 @@ import {
   PopoverState,
   usePopover,
 } from 'react-tiny-popover';
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React from 'react';
 import { isEqual } from 'lodash';
+import cn from 'classnames';
 
 import withCsrOnly from '../../utils/with-csr-only';
 
 import PopoverPortal from './PopoverPortal';
+import * as S from './Popover.css';
 
 export type PopoverTrigger = 'click' | 'hover' | 'focus';
 
 export type PopoverProps = {
   align?: PopoverAlign;
-  anchorElement?: HTMLElement;
+  anchorElement?: HTMLElement | null;
   boundaryElement?: HTMLElement;
   boundaryInset?: number;
   children: ((popoverState: PopoverState) => JSX.Element) | React.ReactNode;
   className?: string;
   contentLocation?: ContentLocation | ContentLocationGetter;
   defaultOpen?: boolean;
+  disabled?: boolean;
   offset?: number;
   onChangeOpen?: (visible: boolean) => void;
   open?: boolean;
@@ -38,19 +34,20 @@ export type PopoverProps = {
   parentElement?: HTMLElement;
   position?: PopoverPosition | PopoverPosition[];
   reposition?: boolean;
+  shouldLockBody?: boolean;
   trigger?: PopoverTrigger | PopoverTrigger[];
 };
 
 export const DEFAULT_ALIGN: PopoverAlign = 'center';
 
-export const DEFAULT_CLIENT_RECT: ClientRect = {
+export const DEFAULT_CLIENT_RECT = {
   top: 0,
   left: 0,
   bottom: 0,
   height: 0,
   right: 0,
   width: 0,
-};
+} as const;
 
 export const DEFAULT_POSITION: PopoverPosition[] = [
   'top',
@@ -61,7 +58,7 @@ export const DEFAULT_POSITION: PopoverPosition[] = [
 
 export const DEFAULT_TRIGGER: PopoverTrigger = 'click';
 
-function Popover({
+const Popover: React.FC<PopoverProps> = ({
   anchorElement,
   align = DEFAULT_ALIGN,
   boundaryElement = window.document.body,
@@ -70,20 +67,22 @@ function Popover({
   className,
   contentLocation,
   defaultOpen = false,
+  disabled,
   onChangeOpen,
   open,
   padding = 0,
   parentElement = window.document.body,
   position = DEFAULT_POSITION,
   reposition = true,
+  shouldLockBody,
   trigger = DEFAULT_TRIGGER,
-}: PopoverProps): JSX.Element | null {
-  const positions = useMemo(
+}) => {
+  const positions = React.useMemo(
     () => (Array.isArray(position) ? position : [position]),
     [position],
   );
 
-  const [popoverState, setPopoverState] = useState<PopoverState>({
+  const [popoverState, setPopoverState] = React.useState<PopoverState>({
     align,
     padding,
     boundaryInset,
@@ -96,17 +95,17 @@ function Popover({
     position: positions[0],
   });
 
-  const childRef = useRef(anchorElement);
-  const prevIsOpen = useRef(false);
-  const prevPositions = useRef<PopoverPosition[] | undefined>();
+  const childRef = React.useRef(anchorElement ?? undefined);
+  const prevIsOpen = React.useRef(false);
+  const prevPositions = React.useRef<PopoverPosition[] | undefined>();
 
-  const prevContentLocation = useRef<
+  const prevContentLocation = React.useRef<
     ContentLocation | ContentLocationGetter | undefined
   >();
 
-  const prevReposition = useRef(reposition);
+  const prevReposition = React.useRef(reposition);
 
-  const handlePositionPopover = useCallback((val: PopoverState) => {
+  const handlePositionPopover = React.useCallback((val: PopoverState) => {
     setPopoverState(val);
   }, []);
 
@@ -120,18 +119,18 @@ function Popover({
     parentElement,
     positions,
     reposition,
-    containerClassName: className,
+    containerClassName: cn(S.root, className),
     onPositionPopover: handlePositionPopover,
   });
 
-  const [openState, setOpenState] = useState(defaultOpen);
+  const [openState, setOpenState] = React.useState(defaultOpen);
 
-  const triggers = useMemo(
+  const triggers = React.useMemo(
     () => (Array.isArray(trigger) ? trigger : [trigger]),
     [trigger],
   );
 
-  const changeOpen = useCallback(
+  const changeOpen = React.useCallback(
     (val: boolean) => {
       if (typeof open === 'undefined' && !onChangeOpen) {
         setOpenState(val);
@@ -142,65 +141,7 @@ function Popover({
     [onChangeOpen, open],
   );
 
-  const handleChildBlur = useCallback(() => {
-    if ('focus' in triggers) {
-      changeOpen(false);
-    }
-  }, [changeOpen, triggers]);
-
-  const handleChildClick = useCallback(() => {
-    if ('click' in triggers) {
-      changeOpen(true);
-    }
-  }, [changeOpen, triggers]);
-
-  const handleChildFocus = useCallback(() => {
-    if ('focus' in triggers) {
-      changeOpen(true);
-    }
-  }, [changeOpen, triggers]);
-
-  const handleChildMouseEnter = useCallback(() => {
-    if ('hover' in triggers) {
-      changeOpen(true);
-    }
-  }, [changeOpen, triggers]);
-
-  const handleOutsideMouseDown = useCallback(
-    (e: MouseEvent) => {
-      if (
-        'click' in triggers &&
-        openState &&
-        !popoverRef.current?.contains(e.target as Node)
-      ) {
-        e.preventDefault();
-        changeOpen(false);
-      }
-    },
-    [changeOpen, openState, popoverRef, triggers],
-  );
-
-  const handleOutsideMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (
-        'hover' in triggers &&
-        openState &&
-        !popoverRef.current?.contains(e.target as Node) &&
-        !childRef.current?.contains(e.target as Node)
-      ) {
-        changeOpen(false);
-      }
-    },
-    [changeOpen, openState, popoverRef, triggers],
-  );
-
-  const handleWindowResize = useCallback(() => {
-    if (childRef.current) {
-      window.requestAnimationFrame(() => positionPopover());
-    }
-  }, [positionPopover]);
-
-  useLayoutEffect(() => {
+  React.useLayoutEffect(() => {
     let shouldUpdate = true;
 
     const updatePopover = () => {
@@ -274,76 +215,102 @@ function Popover({
     reposition,
   ]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof open !== 'undefined') {
       setOpenState(open);
     }
   }, [open]);
 
-  useEffect(() => {
-    childRef.current = anchorElement;
+  React.useEffect(() => {
+    childRef.current = anchorElement ?? undefined;
   }, [anchorElement]);
 
-  useEffect(() => {
-    const { current } = childRef;
-    current?.addEventListener('blur', handleChildBlur);
-    return () => current?.removeEventListener('blur', handleChildBlur);
-  }, [handleChildBlur]);
+  React.useEffect(() => {
+    function handleOpen() {
+      changeOpen(true);
+    }
 
-  useEffect(() => {
-    const { current } = childRef;
-    current?.addEventListener('click', handleChildClick);
-    return () => current?.removeEventListener('click', handleChildClick);
-  }, [handleChildClick]);
+    function handleClose() {
+      changeOpen(false);
+    }
 
-  useEffect(() => {
-    const { current } = childRef;
-    current?.addEventListener('focus', handleChildFocus);
-    return () => current?.removeEventListener('focus', handleChildFocus);
-  }, [handleChildFocus]);
+    if (!disabled && triggers.includes('click')) {
+      anchorElement?.addEventListener('click', handleOpen);
+    }
 
-  useEffect(() => {
-    const { current } = childRef;
-    current?.addEventListener('mouseenter', handleChildMouseEnter);
+    if (!disabled && triggers.includes('focus')) {
+      anchorElement?.addEventListener('focus', handleOpen);
+      anchorElement?.addEventListener('blur', handleClose);
+    }
+
+    if (!disabled && triggers.includes('hover')) {
+      anchorElement?.addEventListener('mouseenter', handleOpen);
+    }
 
     return () => {
-      current?.removeEventListener('mouseenter', handleChildMouseEnter);
+      anchorElement?.removeEventListener('click', handleOpen);
+      anchorElement?.removeEventListener('focus', handleOpen);
+      anchorElement?.removeEventListener('blur', handleClose);
+      anchorElement?.removeEventListener('mouseenter', handleOpen);
     };
-  }, [handleChildMouseEnter]);
+  }, [anchorElement, changeOpen, disabled, triggers]);
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideMouseDown);
+  React.useEffect(() => {
+    function handleOutsideMouseDown(e: MouseEvent) {
+      if (!popoverRef.current?.contains(e.target as Node)) {
+        changeOpen(false);
+      }
+    }
+
+    function handleOutsideMouseMove(e: MouseEvent) {
+      if (
+        !popoverRef.current?.contains(e.target as Node) &&
+        !childRef.current?.contains(e.target as Node)
+      ) {
+        e.preventDefault();
+        changeOpen(false);
+      }
+    }
+
+    if (openState && !disabled && triggers.includes('click')) {
+      document.addEventListener('mousedown', handleOutsideMouseDown);
+    }
+
+    if (openState && !disabled && triggers.includes('hover')) {
+      document.addEventListener('mousemove', handleOutsideMouseMove);
+    }
 
     return () => {
       document.removeEventListener('mousedown', handleOutsideMouseDown);
-    };
-  }, [handleOutsideMouseDown, openState, triggers]);
-
-  useEffect(() => {
-    document.addEventListener('mousemove', handleOutsideMouseMove);
-
-    return () => {
       document.removeEventListener('mousemove', handleOutsideMouseMove);
     };
-  }, [handleOutsideMouseMove]);
+  }, [changeOpen, disabled, openState, popoverRef, triggers]);
 
-  useEffect(() => {
+  React.useEffect(() => {
+    function handleWindowResize() {
+      if (childRef.current) {
+        window.requestAnimationFrame(() => positionPopover());
+      }
+    }
+
     window.addEventListener('resize', handleWindowResize);
 
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
-  }, [handleWindowResize]);
+  }, [positionPopover]);
 
-  useEffect(() => {
-    if ('click' in triggers && openState) {
-      document.body.style.pointerEvents = 'none';
+  React.useEffect(() => {
+    if (!shouldLockBody || !triggers.includes('click') || !openState) {
+      return undefined;
     }
+
+    document.body.style.pointerEvents = 'none';
 
     return () => {
       document.body.style.pointerEvents = 'auto';
     };
-  }, [openState, triggers]);
+  }, [openState, shouldLockBody, triggers]);
 
   if (!openState) {
     return null;
@@ -355,9 +322,11 @@ function Popover({
       element={popoverRef.current}
       scoutElement={scoutRef.current}
     >
-      {typeof children === 'function' ? children(popoverState) : children}
+      {children instanceof Function ? children(popoverState) : children}
     </PopoverPortal>
   );
-}
+};
+
+Popover.displayName = 'Popover';
 
 export default withCsrOnly(Popover);

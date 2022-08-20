@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Icon } from '@seed-ui/icons';
 
 import Tag from '../Tag';
@@ -13,7 +19,8 @@ import IconButton from '../IconButton';
 import useDebounce from '../../utils/use-debounce';
 import Popover from '../Popover';
 import MenuList from '../MenuList';
-import MenuItem from '../MenuItem';
+
+import * as S from './Autocomplete.css';
 
 export type AutocompleteShape = 'rectangle' | 'stadium';
 
@@ -106,11 +113,12 @@ function Autocomplete<TOption = unknown>({
 }: AutocompleteProps<TOption>): JSX.Element {
   const debounce = useDebounce();
   const [valueState, setValueState] = useState(defaultValue);
-  const [openListbox, setShowDropdown] = useState(false);
+  const [openListbox, setOpenListbox] = useState(false);
   const [focused, setFocused] = useState(false);
   const [activeOption, setActiveOption] = useState<number>(-1);
   const [displayText, setDisplayText] = useState('');
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+  const listboxRef = useRef<HTMLUListElement>(null);
 
   const optList = useMemo(
     (): TOption[] => (Array.isArray(options) ? options : []),
@@ -133,7 +141,7 @@ function Autocomplete<TOption = unknown>({
         onChange?.(v);
       }
     },
-    [onChange],
+    [onChange, value],
   );
 
   const selectOption = useCallback(
@@ -149,20 +157,8 @@ function Autocomplete<TOption = unknown>({
   );
 
   const handleChangeOpenListbox = useCallback((visible: boolean) => {
-    setShowDropdown(visible);
+    setOpenListbox(visible);
   }, []);
-
-  useEffect(() => {
-    if (openListbox) {
-      setActiveOption(allowInputValue ? -1 : 0);
-    }
-
-    if (!openListbox && displayText) {
-      selectOption(activeOption);
-      setActiveOption(-1);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openListbox]);
 
   useEffect(() => {
     if (typeof value !== 'undefined') {
@@ -171,14 +167,17 @@ function Autocomplete<TOption = unknown>({
   }, [value]);
 
   useEffect(() => {
-    const text =
-      multiple || !valueState || Array.isArray(valueState)
-        ? ''
-        : getLabel(valueState as TOption);
+    if (!openListbox) {
+      const text =
+        !valueState || Array.isArray(valueState)
+          ? ''
+          : getLabel(valueState as TOption);
 
-    setDisplayText(text);
+      setDisplayText(text);
+      setActiveOption(-1);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [valueState]);
+  }, [openListbox, valueState]);
 
   useEffect(() => {
     if (
@@ -187,7 +186,7 @@ function Autocomplete<TOption = unknown>({
         !valueState ||
         displayText !== getLabel(valueState as TOption))
     ) {
-      setShowDropdown(true);
+      setOpenListbox(true);
     }
 
     if ((displayText || allowEmptyQuery) && onSearch) {
@@ -198,6 +197,7 @@ function Autocomplete<TOption = unknown>({
 
   function handleBlur(e: React.FocusEvent<HTMLInputElement>): void {
     setFocused(false);
+    setOpenListbox(false);
 
     if (onBlur) {
       e.persist();
@@ -206,7 +206,7 @@ function Autocomplete<TOption = unknown>({
   }
 
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>): void {
-    setShowDropdown(true);
+    setOpenListbox(true);
 
     if (allowInputValue) {
       changeValue(e.target.value);
@@ -225,36 +225,42 @@ function Autocomplete<TOption = unknown>({
   }
 
   function handleKeyDownInput(e: React.KeyboardEvent<HTMLInputElement>): void {
-    if (
-      ((e.key === 'Tab' && !e.shiftKey) || e.key === 'ArrowDown') &&
-      openListbox
-    ) {
+    if (e.key === 'ArrowDown' && openListbox) {
       e.preventDefault();
-      setActiveOption((prevState: number) =>
-        prevState >= optList.length - 1 ? 0 : prevState + 1,
-      );
+
+      const nextOption =
+        activeOption >= optList.length - 1 ? 0 : activeOption + 1;
+
+      listboxRef.current
+        ?.querySelector(`li[data-index="${nextOption}"]`)
+        ?.scrollIntoView({ block: 'nearest' });
+
+      setActiveOption(nextOption);
     }
 
-    if (
-      ((e.key === 'Tab' && e.shiftKey) || e.key === 'ArrowUp') &&
-      openListbox
-    ) {
+    if (e.key === 'ArrowUp' && openListbox) {
       e.preventDefault();
-      setActiveOption((prevState: number) =>
-        prevState <= 0 ? optList.length - 1 : prevState - 1,
-      );
+
+      const nextOption =
+        activeOption <= 0 ? optList.length - 1 : activeOption - 1;
+
+      listboxRef.current
+        ?.querySelector(`li[data-index="${nextOption}"]`)
+        ?.scrollIntoView({ block: 'nearest' });
+
+      setActiveOption(nextOption);
     }
 
     if (e.key === 'Enter') {
       e.preventDefault();
       selectOption(activeOption);
       setActiveOption(-1);
-      setShowDropdown(false);
+      setOpenListbox(false);
     }
 
     if (e.key === 'Escape') {
       setActiveOption(-1);
-      setShowDropdown(false);
+      setOpenListbox(false);
     }
   }
 
@@ -264,7 +270,7 @@ function Autocomplete<TOption = unknown>({
     changeValue(undefined);
     setDisplayText('');
     setActiveOption(-1);
-    setShowDropdown(false);
+    setOpenListbox(false);
   }
 
   function handleMouseEnterOption(e: React.MouseEvent<HTMLLIElement>): void {
@@ -278,7 +284,7 @@ function Autocomplete<TOption = unknown>({
   function handleMouseDownOption(e: React.MouseEvent<HTMLLIElement>): void {
     e.preventDefault();
     selectOption(Number(e.currentTarget.dataset.index));
-    setShowDropdown(false);
+    setOpenListbox(false);
     setActiveOption(-1);
   }
 
@@ -310,7 +316,6 @@ function Autocomplete<TOption = unknown>({
         invalid={invalid || Boolean(error)}
         readOnly={readOnly}
         ref={setAnchorEl}
-        role="combobox"
         shape={shape}
         size={size}
       >
@@ -347,6 +352,7 @@ function Autocomplete<TOption = unknown>({
             onFocus={handleFocus}
             onKeyDown={handleKeyDownInput}
             readOnly={readOnly}
+            role="combobox"
             type="text"
             value={displayText}
             {...inputProps}
@@ -381,34 +387,44 @@ function Autocomplete<TOption = unknown>({
       >
         {({ childRect }) => (
           <MenuList
+            className={S.listbox}
             id={slug(id, LISTBOX_ID)}
+            ref={listboxRef}
             role="listbox"
+            size="sm"
             style={{ width: childRect.width }}
+            variant="light"
           >
             {optList.map((item, idx) => (
-              <MenuItem
+              <MenuList.Item
+                action={
+                  valuesList.includes(item) && (
+                    <Icon name="check" size="sm" variant="primary" />
+                  )
+                }
                 active={idx === activeOption}
                 data-index={idx}
                 id={slug(id, OPTION_ID, idx)}
                 key={idx}
                 onMouseDown={handleMouseDownOption}
                 onMouseEnter={handleMouseEnterOption}
+                role="option"
                 selected={valuesList.includes(item)}
               >
                 {getLabel(item)}
-              </MenuItem>
+              </MenuList.Item>
             ))}
 
             {loading && loadingText && (
-              <MenuItem disabled>{loadingText}</MenuItem>
+              <MenuList.Item disabled>{loadingText}</MenuList.Item>
             )}
 
             {!loading &&
               loadingError &&
               (typeof loadingError === 'string' || loadingText) && (
-                <MenuItem disabled invalid>
+                <MenuList.Item disabled invalid>
                   {typeof loadingError === 'string' ? loadingError : errorText}
-                </MenuItem>
+                </MenuList.Item>
               )}
           </MenuList>
         )}
