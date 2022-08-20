@@ -1,30 +1,33 @@
 import React from 'react';
-import { Col, Container, Row } from '@seed-ui/layout';
-
-import Text from '../Text/Text';
+import { Col, Container, Row, Text } from '@seed-ui/elements';
 
 export type InputGroupDirection = 'row' | 'column';
-export type InputGroupProps = React.LabelHTMLAttributes<HTMLLabelElement> & {
+
+export interface InputGroupProps
+  extends React.LabelHTMLAttributes<HTMLElement>,
+    React.RefAttributes<HTMLElement> {
+  as?: React.ElementType;
   direction?: InputGroupDirection;
   error?: string;
   label?: React.ReactNode;
   message?: React.ReactNode;
-};
+}
 
-function InputGroup(
-  {
-    direction = 'row',
-    error,
-    label,
-    message,
-    children,
-    ...elementProps
-  }: InputGroupProps,
-  ref: React.Ref<HTMLLabelElement>,
-): JSX.Element {
-  return (
-    <label ref={ref} {...elementProps}>
-      <Row alignItems="baseline" gutter={1}>
+const InputGroup: React.FC<InputGroupProps> = React.forwardRef(
+  (
+    {
+      as: As = 'label',
+      direction = 'row',
+      error,
+      label,
+      message,
+      children,
+      ...elementProps
+    },
+    ref,
+  ) => (
+    <As ref={ref} {...elementProps}>
+      <Row alignItems="center" gutter={1}>
         {label && (
           <Col
             width={
@@ -42,11 +45,13 @@ function InputGroup(
         >
           {children}
 
-          {typeof message === 'string' ? (
+          {typeof message === 'string' && (
             <Text mt={1} size="sm" variant="secondary">
               {message}
             </Text>
-          ) : (
+          )}
+
+          {message && typeof message !== 'string' && (
             <Container mt={1}>{message}</Container>
           )}
 
@@ -57,8 +62,10 @@ function InputGroup(
           )}
         </Col>
       </Row>
-    </label>
-  );
-}
+    </As>
+  ),
+);
 
-export default React.forwardRef(InputGroup);
+InputGroup.displayName = 'InputGroup';
+
+export default InputGroup;
