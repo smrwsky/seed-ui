@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.4.2
+
+### Patch Changes
+
+- e77506d: Added feedback components (Alert, Message, Toast);Improved Autocomplete and MenuLists;Added as property for InputGroup components;Added width properties for Button components;Updated bold styles
+
 ## 0.4.1
 
 ### Patch Changes
