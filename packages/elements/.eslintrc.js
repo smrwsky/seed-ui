@@ -33,7 +33,7 @@ module.exports = {
       },
     },
     {
-      files: ['**/*.spec.ts', '**/*.spec.tsx'],
+      files: ['**/*.test.ts', '**/*.test.tsx'],
       env: {
         'jest/globals': true,
       },

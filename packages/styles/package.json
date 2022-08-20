@@ -21,8 +21,8 @@
   },
   "scripts": {
     "build": "yarn clean && yarn build:types && yarn build:cjs && yarn build:es",
-    "build:cjs": "cross-env NODE_ENV=cjs babel src --out-dir dist/cjs  --extensions \".ts,.tsx\" --ignore \"**/*.spec.ts\",\"**/*.spec.tsx\",\"**/*.docs.mdx\",\"**/*.stories.tsx\",\"**/test-utils.tsx\"",
-    "build:es": "cross-env NODE_ENV=es babel src --out-dir dist/es  --extensions \".ts,.tsx\" --ignore \"**/*.spec.ts\",\"**/*.spec.tsx\",\"**/*.docs.mdx\",\"**/*.stories.tsx\",\"**/test-utils.tsx\"",
+    "build:cjs": "cross-env NODE_ENV=cjs babel src --out-dir dist/cjs  --extensions \".ts,.tsx\" --ignore \"**/*.test.ts\",\"**/*.test.tsx\",\"**/*.docs.mdx\",\"**/*.stories.tsx\",\"**/test-utils.tsx\"",
+    "build:es": "cross-env NODE_ENV=es babel src --out-dir dist/es  --extensions \".ts,.tsx\" --ignore \"**/*.test.ts\",\"**/*.test.tsx\",\"**/*.docs.mdx\",\"**/*.stories.tsx\",\"**/test-utils.tsx\"",
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
     "clean": "rimraf dist",
     "format": "yarn format:ts && yarn format:js && yarn format:json",

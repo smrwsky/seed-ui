@@ -21,8 +21,8 @@
   },
   "include": ["src/**/*"],
   "exclude": [
-    "**/*.spec.ts",
-    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
     "**/*.stories.tsx",
     "**/*.docs.mdx",
     "**/test-utils.tsx"
