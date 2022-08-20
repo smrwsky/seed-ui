@@ -187,6 +187,9 @@ const defaultTheme = {
       letterSpacing: '0.5px',
       lineHeight: '1.2',
     },
+    bold: {
+      fontWeight: '600',
+    },
     button: {
       fontSize: '0.833rem', // 13.333px
       fontWeight: '400',
