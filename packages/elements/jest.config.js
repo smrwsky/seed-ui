@@ -12,7 +12,6 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   moduleNameMapper: {
-    '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '\\.(gif|ttf|eot|svg|png|jpg)$': '<rootDir>/jest.file-transformer.js',
   },
   name: packageName,
@@ -21,6 +20,7 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '/.next/', '/dist/'],
   transform: {
     '^.+\\.(js|jsx)$': 'babel-jest',
+    '^.+\\.css\\.ts$': 'babel-jest',
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   transformIgnorePatterns: ['/node_modules/', '/.next/', '/dist/'],

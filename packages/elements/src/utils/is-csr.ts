@@ -1,5 +1,5 @@
 function isCSR(): boolean {
-  return window != null;
+  return typeof window !== 'undefined';
 }
 
 export default isCSR;

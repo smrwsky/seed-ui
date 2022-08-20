@@ -1,31 +1,65 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import cn from 'classnames';
 
 import * as S from './MenuList.css';
+import MenuListItem from './MenuListItem';
+import MenuListContext, {
+  MenuListDirection,
+  MenuListSize,
+  MenuListVariant,
+} from './context';
+import MenuListLink from './MenuListLink';
 
-export type MenuListProps = React.HTMLAttributes<HTMLUListElement>;
-
-function MenuList(
-  {
-    children,
-    className,
-    role = 'menu',
-    tabIndex = -1,
-    ...elemProps
-  }: MenuListProps,
-  ref: React.Ref<HTMLUListElement>,
-): JSX.Element {
-  return (
-    <ul
-      className={cn(S.root, className)}
-      ref={ref}
-      role={role}
-      tabIndex={tabIndex}
-      {...elemProps}
-    >
-      {children}
-    </ul>
-  );
+export interface MenuListProps
+  extends React.HTMLAttributes<HTMLUListElement>,
+    React.RefAttributes<HTMLUListElement> {
+  action?: React.ReactNode;
+  active?: boolean;
+  collapsed?: boolean;
+  direction?: MenuListDirection;
+  size?: MenuListSize;
+  variant?: MenuListVariant;
 }
 
-export default forwardRef(MenuList);
+const MenuList: React.FC<MenuListProps> = React.forwardRef(
+  (
+    {
+      children,
+      className,
+      collapsed = false,
+      direction = 'vertical',
+      role = 'menu',
+      size = 'md',
+      tabIndex = -1,
+      variant = 'primary',
+      ...elemProps
+    },
+    ref,
+  ) => {
+    const context = React.useMemo(
+      () => ({ collapsed, direction, size, variant }),
+      [collapsed, size, variant],
+    );
+
+    return (
+      <MenuListContext.Provider value={context}>
+        <ul
+          className={cn(S.root, S.rootVariant[variant], className)}
+          ref={ref}
+          role={role}
+          tabIndex={tabIndex}
+          {...elemProps}
+        >
+          {children}
+        </ul>
+      </MenuListContext.Provider>
+    );
+  },
+);
+
+MenuList.displayName = 'MenuList';
+
+export default Object.assign(MenuList, {
+  Label: MenuListLink,
+  Item: MenuListItem,
+});

@@ -1,4 +1,9 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import {
+  createVar,
+  fallbackVar,
+  style,
+  styleVariants,
+} from '@vanilla-extract/css';
 import {
   borderRadius,
   margin,
@@ -7,11 +12,19 @@ import {
   transitionTimingFunction,
 } from '@seed-ui/styles';
 
+export const buttonMaxWidthVar = createVar('button-max-width');
+
+export const buttonMinWidthVar = createVar('button-min-width');
+
+export const buttonWidthVar = createVar('button-width');
+
 export const root = style({
   border: 'none',
   cursor: 'pointer',
   display: 'inline-block',
   fontFamily: theme.fontFamily.base,
+  maxWidth: fallbackVar(buttonMaxWidthVar, '100%'),
+  minWidth: fallbackVar(buttonMinWidthVar, 'auto'),
   overflow: 'hidden',
   textAlign: 'center',
   textDecoration: 'none',
@@ -19,6 +32,7 @@ export const root = style({
   textTransform: 'uppercase',
   transition: `all ${transitionTime.sm} ${transitionTimingFunction['in-out']}`,
   whiteSpace: 'nowrap',
+  width: fallbackVar(buttonWidthVar, 'auto'),
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
   outline: 'none',
   ...theme.typography.button,
@@ -606,8 +620,7 @@ export const label = style({
 
 export const icon = style({
   color: 'currentcolor',
-  transform: 'scale(1.2)',
-  transformOrigin: 'bottom',
+  fontSize: '1.2em',
 });
 
 export const startIcon = style({

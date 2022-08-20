@@ -3,6 +3,9 @@ export * from '@seed-ui/layout';
 export * from '@seed-ui/styles';
 
 // Components
+export * from './components/Alert';
+export { default as Alert } from './components/Alert';
+
 export * from './components/Autocomplete';
 export { default as Autocomplete } from './components/Autocomplete';
 
@@ -51,20 +54,17 @@ export { default as Link } from './components/Link';
 export * from './components/ListItem';
 export { default as ListItem } from './components/ListItem';
 
-export * from './components/MenuItem';
-export { default as MenuItem } from './components/MenuItem';
-
 export * from './components/MenuList';
 export { default as MenuList } from './components/MenuList';
+
+export * from './components/Message';
+export { default as Message } from './components/Message';
 
 export * from './components/Modal';
 export { default as Modal } from './components/Modal';
 
 export * from './components/OList';
 export { default as OList } from './components/OList';
-
-export * from './components/Option';
-export { default as Option } from './components/Option';
 
 export * from './components/Overline';
 export { default as Overline } from './components/Overline';
@@ -101,6 +101,9 @@ export { default as TextInput } from './components/TextInput';
 
 export * from './components/Title';
 export { default as Title } from './components/Title';
+
+export * from './components/Toast';
+export { default as Toast } from './components/Toast';
 
 export * from './components/UList';
 export { default as UList } from './components/UList';

@@ -1,4 +1,4 @@
-import { style, StyleRule, styleVariants } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 import { theme } from '@seed-ui/styles';
 
 export const listStyle = style({
@@ -39,7 +39,7 @@ export const textSizeStyle = styleVariants({
 });
 
 export const textBoldStyle = style({
-  fontWeight: 'bolder!important' as StyleRule['fontWeight'],
+  ...theme.typography.bold,
 });
 
 export const textVariantStyle = styleVariants({

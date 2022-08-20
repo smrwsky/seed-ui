@@ -23,6 +23,9 @@ const SELECT_OPTIONS = [
   'Chris',
   'Stewie',
   'Bryan',
+  'Glenn',
+  'Joe',
+  'Cleveland',
 ];
 
 export default {
