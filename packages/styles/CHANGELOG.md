@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.5.0
+
+### Minor Changes
+
+- a8ce35f: Added bold style to theme; Changed desktop breakpoint to 992;
+
 ## 0.4.1
 
 ### Patch Changes
