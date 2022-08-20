@@ -51,77 +51,7 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    'as': {
-      table: {
-        type: {
-          summary: 'ElementType',
-        },
-        defaultValue: { summary: 'button' },
-      },
-    },
-    'disabled': {
-      control: 'boolean',
-      defaultValue: false,
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    'shape': {
-      control: 'select',
-      defaultValue: 'rectangle',
-      table: {
-        type: {
-          summary: shapes.join(' | '),
-        },
-        defaultValue: { summary: 'rectangle' },
-      },
-    },
-    'size': {
-      control: 'select',
-      defaultValue: 'md',
-      table: {
-        type: {
-          summary: sizes.join(' | '),
-        },
-        defaultValue: { summary: 'md' },
-      },
-    },
-    'startIcon': {
-      table: {
-        type: {
-          summary: 'ReactElement',
-        },
-      },
-    },
-    'endIcon': {
-      table: {
-        type: {
-          summary: 'ReactElement',
-        },
-      },
-    },
-    'variant': {
-      control: 'select',
-      defaultValue: 'primary',
-      options: variants,
-      table: {
-        type: {
-          summary: variants.join(' | '),
-        },
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    '[Element props]': {
-      table: {
-        type: {
-          summary: 'HTMLAttributes',
-        },
-      },
-    },
-    'children': {
+    children: {
       control: 'text',
       defaultValue: 'Click me',
       table: {

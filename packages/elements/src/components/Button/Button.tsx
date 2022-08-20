@@ -2,6 +2,8 @@ import React from 'react';
 import cn from 'classnames';
 import { Icon } from '@seed-ui/icons';
 
+import { assignStyleVariables, formatSizing, SizingValue } from '../../styles';
+
 import * as S from './Button.css';
 
 export type ButtonShape = 'stadium' | 'rectangle';
@@ -39,34 +41,41 @@ export type ButtonVariant =
 
 export interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
-    React.AnchorHTMLAttributes<HTMLElement> {
+    React.AnchorHTMLAttributes<HTMLElement>,
+    React.RefAttributes<HTMLElement> {
   as?: React.ElementType;
   endIcon?: React.ReactElement;
   loading?: boolean;
+  maxWidth?: SizingValue;
+  minWidth?: SizingValue;
   shape?: ButtonShape;
   size?: ButtonSize;
   startIcon?: React.ReactElement;
   variant?: ButtonVariant;
+  width?: SizingValue;
 }
 
-function Button(
-  {
-    as: As = 'button',
-    shape = 'rectangle',
-    size = 'md',
-    startIcon,
-    endIcon,
-    variant = 'primary',
-    loading,
-    className,
-    children,
-    ...elemProps
-  }: ButtonProps,
-  ref: React.Ref<HTMLElement>,
-) {
-  return (
+const Button = React.forwardRef(
+  (
+    {
+      as: As = 'button',
+      shape = 'rectangle',
+      size = 'md',
+      startIcon,
+      style,
+      endIcon,
+      maxWidth,
+      minWidth,
+      variant = 'primary',
+      width,
+      loading,
+      className,
+      children,
+      ...props
+    }: ButtonProps,
+    ref,
+  ) => (
     <As
-      {...elemProps}
       className={cn(
         S.root,
         S.rootShape[shape],
@@ -75,8 +84,19 @@ function Button(
         className,
       )}
       ref={ref}
+      style={{
+        ...assignStyleVariables({
+          [S.buttonMaxWidthVar]: formatSizing(maxWidth),
+          [S.buttonMinWidthVar]: formatSizing(minWidth),
+          [S.buttonWidthVar]: formatSizing(width),
+        }),
+        ...style,
+      }}
+      {...props}
     >
-      {loading && <Icon className={S.icon} name="loader" />}
+      {loading && (
+        <Icon animation="spin" className={S.icon} name="loader-alt" />
+      )}
 
       {!loading &&
         startIcon &&
@@ -92,7 +112,9 @@ function Button(
           className: cn(S.icon, S.endIcon),
         })}
     </As>
-  );
-}
+  ),
+);
 
-export default React.forwardRef(Button);
+Button.displayName = 'Button';
+
+export default Button;
