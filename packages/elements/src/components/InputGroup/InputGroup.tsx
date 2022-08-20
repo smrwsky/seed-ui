@@ -1,5 +1,7 @@
 import React from 'react';
-import { Col, Container, Row, Text } from '@seed-ui/elements';
+import { Col, Container, Row } from '@seed-ui/layout';
+
+import Text from '../Text';
 
 export type InputGroupDirection = 'row' | 'column';
 

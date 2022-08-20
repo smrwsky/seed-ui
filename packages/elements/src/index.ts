@@ -3,6 +3,9 @@ export * from '@seed-ui/layout';
 export * from '@seed-ui/styles';
 
 // Components
+export * from './components/Alert';
+export { default as Alert } from './components/Alert';
+
 export * from './components/Autocomplete';
 export { default as Autocomplete } from './components/Autocomplete';
 
@@ -54,6 +57,9 @@ export { default as ListItem } from './components/ListItem';
 export * from './components/MenuList';
 export { default as MenuList } from './components/MenuList';
 
+export * from './components/Message';
+export { default as Message } from './components/Message';
+
 export * from './components/Modal';
 export { default as Modal } from './components/Modal';
 
@@ -95,6 +101,9 @@ export { default as TextInput } from './components/TextInput';
 
 export * from './components/Title';
 export { default as Title } from './components/Title';
+
+export * from './components/Toast';
+export { default as Toast } from './components/Toast';
 
 export * from './components/UList';
 export { default as UList } from './components/UList';
