@@ -71,7 +71,7 @@ const display = ['block', 'none'] as const;
 
 const flex = {
   none: 'none',
-  fill: '1 0 0',
+  1: '1 0 0',
 };
 
 const flexDirection = [
@@ -99,7 +99,7 @@ const textAlign = {
   justify: 'justify',
 } as const;
 
-const responsiveProperties = defineProperties({
+export const responsiveProperties = defineProperties({
   conditions: mapValues(breakpoint, (bp) =>
     bp === 0 ? {} : { '@media': `screen and (min-width: ${bp}px)` },
   ),
@@ -107,6 +107,7 @@ const responsiveProperties = defineProperties({
   properties: {
     alignItems,
     alignSelf,
+    borderRadius,
     display,
     flex,
     flexDirection,
@@ -159,9 +160,8 @@ const responsiveProperties = defineProperties({
   },
 });
 
-const unresponsiveProperties = defineProperties({
+export const unresponsiveProperties = defineProperties({
   properties: {
-    borderRadius,
     boxShadow,
     backgroundColor: theme.color,
     borderColor: theme.color,
