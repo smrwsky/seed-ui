@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.6.0
+
+### Minor Changes
+
+- cdc01d6: Added container widths to width utility styles. Extended breakpoints. BREAKING: flex "fill" value is replaced with "1".
+
 ## 0.5.1
 
 ### Patch Changes
