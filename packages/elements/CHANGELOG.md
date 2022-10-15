@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.6.3
+
+### Patch Changes
+
+- 4aabd9f: Removed extra styles from Button component.
+
 ## 0.6.2
 
 ### Patch Changes
