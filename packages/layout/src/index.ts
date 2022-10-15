@@ -1,9 +1,6 @@
 export * from './components/Col';
 export { default as Col } from './components/Col';
 
-export * from './components/Container';
-export { default as Container } from './components/Container';
-
 export * from './components/Hidden';
 export { default as Hidden } from './components/Hidden';
 
