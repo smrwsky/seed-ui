@@ -43,50 +43,55 @@ const getRowMX = (n: RowGutterValue): RowGutterValue | undefined =>
 const getColPX = (n: RowGutterValue): RowGutterValue | undefined =>
   Number.isNaN(n) ? undefined : ((n / 2) as RowGutterValue);
 
-function Row(
-  {
-    alignItems,
-    gutter,
-    gutterX,
-    gutterY,
-    justifyContent,
-    children,
-    ...elemProps
-  }: RowProps,
-  ref: React.Ref<HTMLDivElement>,
-): JSX.Element {
-  const gx = gutterX || gutter;
-  const gy = gutterY || gutter;
+const Row: React.FC<RowProps & React.RefAttributes<HTMLDivElement>> =
+  React.forwardRef(
+    (
+      {
+        alignItems,
+        gutter,
+        gutterX,
+        gutterY,
+        justifyContent,
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => {
+      const gx = gutterX || gutter;
+      const gy = gutterY || gutter;
 
-  return (
-    <div
-      {...elemProps}
-      className={cn(
-        S.root,
-        atoms({
-          alignItems,
-          justifyContent,
-          mt: gy && mapResponsiveValue(gy, getRowMT),
-          mx: gx && mapResponsiveValue(gx, getRowMX),
-        }),
-      )}
-      ref={ref}
-    >
-      {React.Children.map(children, (child) =>
-        React.isValidElement(child)
-          ? React.cloneElement(child, {
-              className: cn(
-                atoms({
-                  mt: gy,
-                  px: gx && mapResponsiveValue(gx, getColPX),
-                }),
-                child.props.className,
-              ),
-            })
-          : child,
-      )}
-    </div>
+      return (
+        <div
+          {...elemProps}
+          className={cn(
+            S.root,
+            atoms({
+              alignItems,
+              justifyContent,
+              mt: gy && mapResponsiveValue(gy, getRowMT),
+              mx: gx && mapResponsiveValue(gx, getRowMX),
+            }),
+          )}
+          ref={ref}
+        >
+          {React.Children.map(children, (child) =>
+            React.isValidElement(child)
+              ? React.cloneElement(child, {
+                  className: cn(
+                    atoms({
+                      mt: gy,
+                      px: gx && mapResponsiveValue(gx, getColPX),
+                    }),
+                    child.props.className,
+                  ),
+                })
+              : child,
+          )}
+        </div>
+      );
+    },
   );
-}
 
-export default React.forwardRef(Row);
+Row.displayName = 'Row';
+
+export default Row;
