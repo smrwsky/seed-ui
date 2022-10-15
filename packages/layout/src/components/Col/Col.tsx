@@ -58,7 +58,6 @@ function Col(
 ): JSX.Element {
   return (
     <div
-      {...elemProps}
       className={cn(
         S.root,
         atoms({
@@ -72,6 +71,7 @@ function Col(
         className,
       )}
       ref={ref}
+      {...elemProps}
     >
       {children}
     </div>

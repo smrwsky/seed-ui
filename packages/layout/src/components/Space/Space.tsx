@@ -64,7 +64,7 @@ function Space(
               )}
               key={idx}
             >
-              {React.cloneElement(child)}
+              {child}
             </div>
           ),
       )}
