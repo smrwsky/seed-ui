@@ -9,6 +9,7 @@ export const root = style({
   position: 'relative',
   width: '1em',
   height: '1em',
+  verticalAlign: '-0.125em',
 });
 
 export const rootShape = styleVariants({
