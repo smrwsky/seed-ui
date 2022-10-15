@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.6.2
+
+### Patch Changes
+
+- 7990257: Fixed missed forwardRef call.
+
 ## 0.6.1
 
 ### Patch Changes
