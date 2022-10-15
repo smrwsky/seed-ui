@@ -25,34 +25,37 @@ export interface TitleProps extends React.HTMLAttributes<HTMLElement> {
   variant?: TitleVariant;
 }
 
-const Title: React.FC<TitleProps & React.RefAttributes<HTMLElement>> = (
-  {
-    as: As = 'h1',
-    serif,
-    size = 'md',
-    textAlign,
-    variant = 'dark',
-    className,
-    children,
-    ...elemProps
-  },
-  ref,
-) => (
-  <As
-    className={cn(
-      serif ? S.rootSerifSize[size] : S.rootSize[size],
-      S.rootVariant[variant],
-      atoms({
+const Title: React.FC<TitleProps & React.RefAttributes<HTMLElement>> =
+  React.forwardRef(
+    (
+      {
+        as: As = 'h1',
+        serif,
+        size = 'md',
         textAlign,
-      }),
-      className,
-    )}
-    ref={ref}
-    {...elemProps}
-  >
-    {children}
-  </As>
-);
+        variant = 'dark',
+        className,
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <As
+        className={cn(
+          serif ? S.rootSerifSize[size] : S.rootSize[size],
+          S.rootVariant[variant],
+          atoms({
+            textAlign,
+          }),
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </As>
+    ),
+  );
 
 Title.displayName = 'Title';
 

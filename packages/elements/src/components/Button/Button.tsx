@@ -50,53 +50,54 @@ export interface ButtonProps
   variant?: ButtonVariant;
 }
 
-const Button = React.forwardRef(
-  (
-    {
-      as: As = 'button',
-      shape = 'rectangle',
-      size = 'md',
-      startIcon,
-      endIcon,
-      variant = 'primary',
-      loading,
-      className,
-      children,
-      ...props
-    }: ButtonProps,
-    ref,
-  ) => (
-    <As
-      className={cn(
-        S.root,
-        S.rootShape[shape],
-        S.rootSize[size],
-        S.rootVariant[variant],
+const Button: React.FC<ButtonProps & React.RefAttributes<HTMLElement>> =
+  React.forwardRef(
+    (
+      {
+        as: As = 'button',
+        shape = 'rectangle',
+        size = 'md',
+        startIcon,
+        endIcon,
+        variant = 'primary',
+        loading,
         className,
-      )}
-      ref={ref}
-      {...props}
-    >
-      {loading && (
-        <Icon animation="spin" className={S.icon} name="loader-alt" />
-      )}
+        children,
+        ...props
+      },
+      ref,
+    ) => (
+      <As
+        className={cn(
+          S.root,
+          S.rootShape[shape],
+          S.rootSize[size],
+          S.rootVariant[variant],
+          className,
+        )}
+        ref={ref}
+        {...props}
+      >
+        {loading && (
+          <Icon animation="spin" className={S.icon} name="loader-alt" />
+        )}
 
-      {!loading &&
-        startIcon &&
-        React.cloneElement(startIcon, {
-          className: cn(S.icon, S.startIconSize[size]),
-        })}
+        {!loading &&
+          startIcon &&
+          React.cloneElement(startIcon, {
+            className: cn(S.icon, S.startIconSize[size]),
+          })}
 
-      {!loading && <span className={S.label}>{children}</span>}
+        {!loading && <span className={S.label}>{children}</span>}
 
-      {!loading &&
-        endIcon &&
-        React.cloneElement(endIcon, {
-          className: cn(S.icon, S.endIconSize[size]),
-        })}
-    </As>
-  ),
-);
+        {!loading &&
+          endIcon &&
+          React.cloneElement(endIcon, {
+            className: cn(S.icon, S.endIconSize[size]),
+          })}
+      </As>
+    ),
+  );
 
 Button.displayName = 'Button';
 
