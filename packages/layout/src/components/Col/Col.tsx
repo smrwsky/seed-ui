@@ -42,40 +42,43 @@ export interface ColProps extends React.HTMLAttributes<HTMLElement> {
   width?: ColWidth;
 }
 
-function Col(
-  {
-    alignSelf,
-    display,
-    flex = 'none',
-    justifySelf,
-    order,
-    width,
-    className,
-    children,
-    ...elemProps
-  }: ColProps,
-  ref: React.Ref<HTMLDivElement>,
-): JSX.Element {
-  return (
-    <div
-      className={cn(
-        S.root,
-        atoms({
-          alignSelf,
-          display,
-          flex,
-          justifySelf,
-          order,
-          width,
-        }),
+const Col: React.FC<ColProps & React.RefAttributes<HTMLDivElement>> =
+  React.forwardRef(
+    (
+      {
+        alignSelf,
+        display,
+        flex = 'none',
+        justifySelf,
+        order,
+        width,
         className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </div>
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <div
+        className={cn(
+          S.root,
+          atoms({
+            alignSelf,
+            display,
+            flex,
+            justifySelf,
+            order,
+            width,
+          }),
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </div>
+    ),
   );
-}
 
-export default React.forwardRef(Col);
+Col.displayName = 'Col';
+
+export default Col;

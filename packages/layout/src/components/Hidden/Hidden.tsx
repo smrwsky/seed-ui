@@ -21,7 +21,7 @@ export type HiddenProps = {
   tabletUp?: boolean;
 };
 
-function Hidden({
+const Hidden: React.FC<HiddenProps> = ({
   desktop,
   desktopDown,
   desktopUp,
@@ -37,30 +37,30 @@ function Hidden({
   tabletDown,
   tabletUp,
   children,
-}: HiddenProps): JSX.Element {
-  return (
-    <div
-      className={cn(
-        S.root,
-        desktop && S.desktop,
-        desktopDown && S.desktopDown,
-        desktopUp && S.desktopUp,
-        desktopLg && S.desktopLg,
-        desktopLgDown && S.desktopLgDown,
-        desktopLgUp && S.desktopLgUp,
-        desktopXlUp && S.desktopXlUp,
-        mobileDown && S.mobileDown,
-        mobileLg && S.mobileLg,
-        mobileLgDown && S.mobileLgDown,
-        mobileLgUp && S.mobileLgUp,
-        tablet && S.tablet,
-        tabletDown && S.tabletDown,
-        tabletUp && S.tabletUp,
-      )}
-    >
-      {children}
-    </div>
-  );
-}
+}) => (
+  <div
+    className={cn(
+      S.root,
+      desktop && S.desktop,
+      desktopDown && S.desktopDown,
+      desktopUp && S.desktopUp,
+      desktopLg && S.desktopLg,
+      desktopLgDown && S.desktopLgDown,
+      desktopLgUp && S.desktopLgUp,
+      desktopXlUp && S.desktopXlUp,
+      mobileDown && S.mobileDown,
+      mobileLg && S.mobileLg,
+      mobileLgDown && S.mobileLgDown,
+      mobileLgUp && S.mobileLgUp,
+      tablet && S.tablet,
+      tabletDown && S.tabletDown,
+      tabletUp && S.tabletUp,
+    )}
+  >
+    {children}
+  </div>
+);
+
+Hidden.displayName = 'Hidden';
 
 export default Hidden;
