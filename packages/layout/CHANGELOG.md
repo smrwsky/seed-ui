@@ -1,5 +1,11 @@
 # @seed-ui/layout
 
+## 0.6.0
+
+### Minor Changes
+
+- 0edce1b: Removed Container component.
+
 ## 0.5.0
 
 ### Minor Changes
