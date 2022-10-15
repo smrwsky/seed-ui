@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.6.0
+
+### Minor Changes
+
+- 36fa7b0: Improved icons styles. Removed Box component and deprecated spacing properties.
+
 ## 0.5.2
 
 ### Patch Changes

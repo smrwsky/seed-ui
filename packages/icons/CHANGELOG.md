@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.4.5
+
+### Patch Changes
+
+- 2db0390: Fixed icon styles.
+
 ## 0.4.4
 
 ### Patch Changes
