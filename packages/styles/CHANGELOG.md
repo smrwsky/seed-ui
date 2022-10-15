@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.6.1
+
+### Patch Changes
+
+- b8da882: Fixed invalid spacing.
+
 ## 0.6.0
 
 ### Minor Changes
