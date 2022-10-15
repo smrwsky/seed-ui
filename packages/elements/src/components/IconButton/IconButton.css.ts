@@ -1,4 +1,4 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { globalStyle, style, styleVariants } from '@vanilla-extract/css';
 import {
   borderRadius,
   theme,
@@ -18,6 +18,7 @@ export const root = style({
   transition: `all ${transitionTime.sm} ${transitionTimingFunction['in-out']}`,
   width: '1em',
   height: '1em',
+  padding: 0,
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
   outline: 'none',
 
@@ -401,7 +402,7 @@ export const rootVariant = styleVariants({
   },
 });
 
-export const icon = style({
-  color: 'currentColor',
-  fontSize: '.625em',
+globalStyle(`.${root} > *`, {
+  color: 'currentColor !important',
+  fontSize: '.75em !important',
 });

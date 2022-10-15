@@ -1,5 +1,6 @@
 import React from 'react';
-import { Col, Container, Row } from '@seed-ui/layout';
+import { Col, Row } from '@seed-ui/layout';
+import { atoms } from '@seed-ui/styles';
 
 import Text from '../Text';
 
@@ -48,17 +49,17 @@ const InputGroup: React.FC<InputGroupProps> = React.forwardRef(
           {children}
 
           {typeof message === 'string' && (
-            <Text mt={1} size="sm" variant="secondary">
+            <Text className={atoms({ mt: 1 })} size="sm" variant="secondary">
               {message}
             </Text>
           )}
 
           {message && typeof message !== 'string' && (
-            <Container mt={1}>{message}</Container>
+            <div className={atoms({ mt: 1 })}>{message}</div>
           )}
 
           {error && (
-            <Text mt={1} size="sm" variant="danger">
+            <Text className={atoms({ mt: 1 })} size="sm" variant="danger">
               {error}
             </Text>
           )}

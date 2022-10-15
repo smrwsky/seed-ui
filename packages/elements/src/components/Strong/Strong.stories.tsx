@@ -1,6 +1,7 @@
 import React from 'react';
+import { atoms } from '@seed-ui/styles';
 
-import { Text } from '../Text';
+import Text from '../Text';
 
 import Strong, { StrongProps, StrongVariant } from './Strong';
 import docs from './Strong.docs.mdx';
@@ -96,7 +97,7 @@ export function Variants(args: StrongProps): JSX.Element {
 export function Bold(args: StrongProps): JSX.Element {
   return (
     <>
-      <Text mb={1.5}>
+      <Text className={atoms({ mb: 1.5 })}>
         This is default <Strong {...args}>strong</Strong>.
       </Text>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { atoms, MarginProps } from '@seed-ui/styles';
+import { atoms, Atoms } from '@seed-ui/styles';
 
 import { CaptionVariant } from '../Caption';
 import { textVariantStyle } from '../../styles';
@@ -18,52 +18,40 @@ export type OverlineVariant =
   | 'light'
   | 'dark';
 
-export interface OverlineProps
-  extends MarginProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface OverlineProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
+  textAlign?: Atoms['textAlign'];
   variant?: CaptionVariant;
 }
 
-function Overline(
-  {
-    as: As = 'div',
-    m,
-    mb,
-    ml,
-    mr,
-    mt,
-    mx,
-    my,
-    variant = 'dark',
-    className,
-    children,
-    ...elemProps
-  }: OverlineProps,
-  ref: React.Ref<HTMLElement>,
-): JSX.Element {
-  return (
-    <As
-      className={cn(
-        S.root,
-        textVariantStyle[variant],
-        atoms({
-          m,
-          mb,
-          ml,
-          mr,
-          mt,
-          mx,
-          my,
-        }),
+const Overline: React.FC<OverlineProps & React.RefAttributes<HTMLElement>> =
+  React.forwardRef(
+    (
+      {
+        as: As = 'div',
+        variant = 'dark',
+        textAlign,
         className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </As>
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <As
+        className={cn(
+          S.root,
+          textVariantStyle[variant],
+          atoms({ textAlign }),
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </As>
+    ),
   );
-}
 
-export default React.forwardRef(Overline);
+Overline.displayName = 'Overline';
+
+export default Overline;

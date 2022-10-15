@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { atoms, MarginProps, Atoms } from '@seed-ui/styles';
+import { atoms, Atoms } from '@seed-ui/styles';
 
 import {
   textNowrapStyle,
@@ -23,9 +23,7 @@ export type TextVariant =
   | 'light'
   | 'dark';
 
-export interface TextProps
-  extends MarginProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface TextProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   bold?: boolean;
   nowrap?: boolean;
@@ -35,53 +33,42 @@ export interface TextProps
   variant?: TextVariant;
 }
 
-function Text(
-  {
-    as: As = 'p',
-    bold,
-    m,
-    mb,
-    ml,
-    mr,
-    mt,
-    mx,
-    my,
-    nowrap,
-    serif,
-    size = 'md',
-    textAlign,
-    variant = 'dark',
-    className,
-    children,
-    ...elemProps
-  }: TextProps,
-  ref: React.Ref<HTMLElement>,
-): JSX.Element {
-  return (
-    <As
-      className={cn(
-        bold && textBoldStyle,
-        nowrap && textNowrapStyle,
-        serif ? textSerifSizeStyle[size] : textSizeStyle[size],
-        textVariantStyle[variant],
-        atoms({
-          m,
-          mb,
-          ml,
-          mr,
-          mt,
-          mx,
-          my,
-          textAlign,
-        }),
+const Text: React.FC<TextProps & React.RefAttributes<HTMLElement>> =
+  React.forwardRef(
+    (
+      {
+        as: As = 'p',
+        bold,
+        nowrap,
+        serif,
+        size = 'md',
+        textAlign,
+        variant = 'dark',
         className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </As>
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <As
+        className={cn(
+          bold && textBoldStyle,
+          nowrap && textNowrapStyle,
+          serif ? textSerifSizeStyle[size] : textSizeStyle[size],
+          textVariantStyle[variant],
+          atoms({
+            textAlign,
+          }),
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </As>
+    ),
   );
-}
 
-export default React.forwardRef(Text);
+Text.displayName = 'Text';
+
+export default Text;

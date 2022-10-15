@@ -1,6 +1,5 @@
 import React from 'react';
 import cn from 'classnames';
-import { MarginProps, Atoms, atoms } from '@seed-ui/styles';
 
 import {
   textSerifSizeStyle,
@@ -22,63 +21,48 @@ export type OListVariant =
   | 'danger'
   | 'light'
   | 'dark';
-export interface OListItemProps
-  extends MarginProps,
-    React.OlHTMLAttributes<HTMLOListElement> {
-  gutter?: Atoms['mb'];
+
+export interface OListProps extends React.OlHTMLAttributes<HTMLOListElement> {
   serif?: boolean;
   size?: OListSize;
   variant?: OListVariant;
 }
 
-function OList(
-  {
-    gutter,
-    m,
-    mb,
-    ml,
-    mr,
-    mt,
-    mx,
-    my,
-    serif,
-    size = 'md',
-    variant = 'dark',
-    className,
-    children,
-    ...elemProps
-  }: OListItemProps,
-  ref: React.Ref<HTMLOListElement>,
-): JSX.Element {
-  return (
-    <ol
-      className={cn(
-        listStyle,
-        serif ? textSerifSizeStyle[size] : textSizeStyle[size],
-        textVariantStyle[variant],
-        atoms({
-          m,
-          mb,
-          ml,
-          mr,
-          mt,
-          mx,
-          my,
-        }),
+const OList: React.FC<OListProps & React.RefAttributes<HTMLOListElement>> =
+  React.forwardRef(
+    (
+      {
+        serif,
+        size = 'md',
+        variant = 'dark',
         className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {React.Children.map(children, (child, idx) =>
-        idx < React.Children.count(children) - 1 && React.isValidElement(child)
-          ? React.cloneElement(child, {
-              className: cn(listItemStyle, child.props.className),
-            })
-          : child,
-      )}
-    </ol>
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <ol
+        className={cn(
+          listStyle,
+          serif ? textSerifSizeStyle[size] : textSizeStyle[size],
+          textVariantStyle[variant],
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {React.Children.map(children, (child, idx) =>
+          idx < React.Children.count(children) - 1 &&
+          React.isValidElement(child)
+            ? React.cloneElement(child, {
+                className: cn(listItemStyle, child.props.className),
+              })
+            : child,
+        )}
+      </ol>
+    ),
   );
-}
 
-export default React.forwardRef(OList);
+OList.displayName = 'OList';
+
+export default OList;
