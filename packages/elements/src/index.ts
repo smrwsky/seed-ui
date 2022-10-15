@@ -12,9 +12,6 @@ export { default as Autocomplete } from './components/Autocomplete';
 export * from './components/Avatar';
 export { default as Avatar } from './components/Avatar';
 
-export * from './components/Box';
-export { default as Box } from './components/Box';
-
 export * from './components/Button';
 export { default as Button } from './components/Button';
 
