@@ -35,35 +35,36 @@ export interface IconButtonProps
   variant?: IconButtonVariant;
 }
 
-function IconButton(
-  {
-    as: As = 'button',
-    className,
-    size = 'md',
-    type,
-    variant = 'primary',
-    children,
-    ...elemProps
-  }: IconButtonProps,
-  ref: React.Ref<HTMLElement>,
-): JSX.Element {
-  return (
-    <As
-      {...elemProps}
-      className={cn(
-        S.root,
-        S.rootSize[size],
-        S.rootVariant[variant],
+const IconButton: React.FC<IconButtonProps & React.RefAttributes<HTMLElement>> =
+  React.forwardRef(
+    (
+      {
+        as: As = 'button',
         className,
-      )}
-      ref={ref}
-      type={As === 'button' && type == null ? 'button' : type}
-    >
-      {React.cloneElement(children, {
-        className: cn(S.icon, children.props.className),
-      })}
-    </As>
+        size = 'md',
+        type,
+        variant = 'primary',
+        children,
+        ...elemProps
+      }: IconButtonProps,
+      ref,
+    ) => (
+      <As
+        {...elemProps}
+        className={cn(
+          S.root,
+          S.rootSize[size],
+          S.rootVariant[variant],
+          className,
+        )}
+        ref={ref}
+        type={As === 'button' && type == null ? 'button' : type}
+      >
+        {children}
+      </As>
+    ),
   );
-}
 
-export default React.forwardRef(IconButton);
+IconButton.displayName = 'IconButton';
+
+export default IconButton;

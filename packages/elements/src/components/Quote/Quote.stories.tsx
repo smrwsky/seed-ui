@@ -18,62 +18,7 @@ export default {
         defaultValue: { summary: 'div' },
       },
     },
-    'm': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['m']",
-        },
-      },
-    },
-    'mb': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mb']",
-        },
-      },
-    },
-    'ml': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['ml']",
-        },
-      },
-    },
-    'mr': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mr']",
-        },
-      },
-    },
-    'mt': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mt']",
-        },
-      },
-    },
-    'mx': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mx']",
-        },
-      },
-    },
-    'my': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['my']",
-        },
-      },
-    },
+
     '[Element props]': {
       table: {
         type: {

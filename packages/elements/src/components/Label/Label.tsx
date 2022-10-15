@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { atoms, Atoms, MarginProps } from '@seed-ui/styles';
+import { atoms, Atoms } from '@seed-ui/styles';
 
 import { textNowrapStyle, textVariantStyle } from '../../styles';
 
@@ -19,9 +19,7 @@ export type LabelVariant =
   | 'light'
   | 'dark';
 
-export interface LabelProps
-  extends MarginProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface LabelProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   nowrap?: boolean;
   size?: LabelSize;
@@ -29,50 +27,39 @@ export interface LabelProps
   variant?: LabelVariant;
 }
 
-function Label(
-  {
-    as: As = 'div',
-    m,
-    mb,
-    ml,
-    mr,
-    mt,
-    mx,
-    my,
-    nowrap,
-    size = 'md',
-    textAlign,
-    variant = 'dark',
-    className,
-    children,
-    ...elemProps
-  }: LabelProps,
-  ref: React.Ref<HTMLElement>,
-): JSX.Element {
-  return (
-    <As
-      className={cn(
-        S.rootSize[size],
-        textVariantStyle[variant],
-        nowrap && textNowrapStyle,
-        atoms({
-          m,
-          mb,
-          ml,
-          mr,
-          mt,
-          mx,
-          my,
-          textAlign,
-        }),
+const Label: React.FC<LabelProps & React.RefAttributes<HTMLElement>> =
+  React.forwardRef(
+    (
+      {
+        as: As = 'div',
+        nowrap,
+        size = 'md',
+        textAlign,
+        variant = 'dark',
         className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </As>
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <As
+        className={cn(
+          S.rootSize[size],
+          textVariantStyle[variant],
+          nowrap && textNowrapStyle,
+          atoms({
+            textAlign,
+          }),
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </As>
+    ),
   );
-}
 
-export default React.forwardRef(Label);
+Label.displayName = 'Label';
+
+export default Label;

@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { atoms, MarginProps } from '@seed-ui/styles';
+import { Atoms, atoms } from '@seed-ui/styles';
 
 import * as S from './Title.css';
 
@@ -17,56 +17,43 @@ export type TitleVariant =
   | 'light'
   | 'dark';
 
-export interface TitleProps
-  extends MarginProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface TitleProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   serif?: boolean;
   size?: TitleSize;
+  textAlign?: Atoms['textAlign'];
   variant?: TitleVariant;
 }
 
-function Title(
+const Title: React.FC<TitleProps & React.RefAttributes<HTMLElement>> = (
   {
     as: As = 'h1',
-    m,
-    mb,
-    ml,
-    mr,
-    mt,
-    mx,
-    my,
     serif,
     size = 'md',
+    textAlign,
     variant = 'dark',
     className,
     children,
     ...elemProps
-  }: TitleProps,
-  ref: React.Ref<HTMLElement>,
-): JSX.Element {
-  return (
-    <As
-      className={cn(
-        serif ? S.rootSerifSize[size] : S.rootSize[size],
-        S.rootVariant[variant],
-        atoms({
-          m,
-          mb,
-          ml,
-          mr,
-          mt,
-          mx,
-          my,
-        }),
-        className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </As>
-  );
-}
+  },
+  ref,
+) => (
+  <As
+    className={cn(
+      serif ? S.rootSerifSize[size] : S.rootSize[size],
+      S.rootVariant[variant],
+      atoms({
+        textAlign,
+      }),
+      className,
+    )}
+    ref={ref}
+    {...elemProps}
+  >
+    {children}
+  </As>
+);
 
-export default React.forwardRef(Title);
+Title.displayName = 'Title';
+
+export default Title;

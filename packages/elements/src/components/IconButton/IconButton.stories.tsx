@@ -2,6 +2,8 @@ import React from 'react';
 import { Col, Row } from '@seed-ui/layout';
 import { Icon } from '@seed-ui/icons';
 
+import Avatar from '../Avatar';
+
 import IconButton, {
   IconButtonProps,
   IconButtonSize,
@@ -128,5 +130,15 @@ export function Sizes(args: IconButtonProps): JSX.Element {
         </Col>
       ))}
     </Row>
+  );
+}
+
+export function WithAvatar(args: IconButtonProps): JSX.Element {
+  return (
+    <IconButton {...args}>
+      <Avatar>
+        <img alt="Doggo" src="/images/dog.jpg" />
+      </Avatar>
+    </IconButton>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { atoms, MarginProps } from '@seed-ui/styles';
+import { atoms, Atoms } from '@seed-ui/styles';
 
 import * as S from './Subtitle.css';
 
@@ -17,56 +17,46 @@ export type SubtitleVariant =
   | 'light'
   | 'dark';
 
-export interface SubtitleProps
-  extends MarginProps,
-    React.HTMLAttributes<HTMLElement> {
+export interface SubtitleProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   serif?: boolean;
   size?: SubtitleSize;
+  textAlign?: Atoms['textAlign'];
   variant?: SubtitleVariant;
 }
 
-function Subtitle(
-  {
-    as: As = 'h6',
-    m,
-    mb,
-    ml,
-    mr,
-    mt,
-    mx,
-    my,
-    serif,
-    size = 'md',
-    variant = 'dark',
-    className,
-    children,
-    ...elemProps
-  }: SubtitleProps,
-  ref: React.Ref<HTMLElement>,
-): JSX.Element {
-  return (
-    <As
-      className={cn(
-        serif ? S.rootSerifSize[size] : S.rootSize[size],
-        S.rootVariant[variant],
-        atoms({
-          m,
-          mb,
-          ml,
-          mr,
-          mt,
-          mx,
-          my,
-        }),
+const Subtitle: React.FC<SubtitleProps & React.RefAttributes<HTMLElement>> =
+  React.forwardRef(
+    (
+      {
+        as: As = 'h6',
+        serif,
+        size = 'md',
+        textAlign,
+        variant = 'dark',
         className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </As>
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <As
+        className={cn(
+          serif ? S.rootSerifSize[size] : S.rootSize[size],
+          S.rootVariant[variant],
+          atoms({
+            textAlign,
+          }),
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </As>
+    ),
   );
-}
 
-export default React.forwardRef(Subtitle);
+Subtitle.displayName = 'Subtitle';
+
+export default Subtitle;

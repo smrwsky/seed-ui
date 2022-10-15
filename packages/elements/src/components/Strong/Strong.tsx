@@ -21,30 +21,27 @@ export interface StrongProps extends React.HTMLAttributes<HTMLElement> {
   variant?: StrongVariant;
 }
 
-function Strong(
-  {
-    bold = true,
-    variant = 'dark',
-    className,
-    children,
-    ...elemProps
-  }: StrongProps,
-  ref: React.Ref<HTMLElement>,
-): JSX.Element {
-  return (
-    <strong
-      className={cn(
-        S.root,
-        bold && textBoldStyle,
-        textVariantStyle[variant],
-        className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </strong>
+const Strong: React.FC<StrongProps & React.RefAttributes<HTMLElement>> =
+  React.forwardRef(
+    (
+      { bold = true, variant = 'dark', className, children, ...elemProps },
+      ref,
+    ) => (
+      <strong
+        className={cn(
+          S.root,
+          bold && textBoldStyle,
+          textVariantStyle[variant],
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </strong>
+    ),
   );
-}
 
-export default React.forwardRef(Strong);
+Strong.displayName = 'Strong';
+
+export default Strong;

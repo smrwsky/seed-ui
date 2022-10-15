@@ -1,4 +1,5 @@
 import React from 'react';
+import { atoms } from '@seed-ui/styles';
 
 import { TitleProps } from '../Title';
 
@@ -48,62 +49,7 @@ export default {
         defaultValue: { summary: 'dark' },
       },
     },
-    'm': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['m']",
-        },
-      },
-    },
-    'mb': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mb']",
-        },
-      },
-    },
-    'ml': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['ml']",
-        },
-      },
-    },
-    'mr': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mr']",
-        },
-      },
-    },
-    'mt': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mt']",
-        },
-      },
-    },
-    'mx': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mx']",
-        },
-      },
-    },
-    'my': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['my']",
-        },
-      },
-    },
+
     'serif': {
       control: 'boolean',
       defaultValue: false,
@@ -176,7 +122,7 @@ export function Serif(args: TitleProps): JSX.Element {
 export function Margins(args: SubtitleProps): JSX.Element {
   return (
     <>
-      <Subtitle {...args} my={4}>
+      <Subtitle {...args} className={atoms({ my: 4 })}>
         A subtitle with vertical margins
       </Subtitle>
     </>

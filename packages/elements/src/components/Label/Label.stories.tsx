@@ -1,4 +1,5 @@
 import React from 'react';
+import { atoms } from '@seed-ui/styles';
 
 import Label, { LabelProps, LabelSize, LabelVariant } from './Label';
 import docs from './Label.docs.mdx';
@@ -52,62 +53,6 @@ export default {
         defaultValue: { summary: 'dark' },
       },
     },
-    'm': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['m']",
-        },
-      },
-    },
-    'mb': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mb']",
-        },
-      },
-    },
-    'ml': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['ml']",
-        },
-      },
-    },
-    'mr': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mr']",
-        },
-      },
-    },
-    'mt': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mt']",
-        },
-      },
-    },
-    'mx': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['mx']",
-        },
-      },
-    },
-    'my': {
-      control: 'object',
-      table: {
-        type: {
-          summary: "Atoms['my']",
-        },
-      },
-    },
     '[Element props]': {
       table: {
         type: {
@@ -158,7 +103,7 @@ export function Sizes(args: LabelProps): JSX.Element {
 export function Margins(args: LabelProps): JSX.Element {
   return (
     <>
-      <Label {...args} my={4}>
+      <Label {...args} className={atoms({ my: 4 })}>
         A label with vertical margins
       </Label>
     </>
