@@ -1,5 +1,11 @@
 # @seed-ui/layout
 
+## 0.5.0
+
+### Minor Changes
+
+- 038a11e: Added new breakpoints to Hidden component.
+
 ## 0.4.3
 
 ### Patch Changes
