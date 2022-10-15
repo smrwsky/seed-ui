@@ -2,8 +2,6 @@ import React from 'react';
 import cn from 'classnames';
 import { Icon } from '@seed-ui/icons';
 
-import { assignStyleVariables, formatSizing, SizingValue } from '../../styles';
-
 import * as S from './Button.css';
 
 export type ButtonShape = 'stadium' | 'rectangle';
@@ -46,13 +44,10 @@ export interface ButtonProps
   as?: React.ElementType;
   endIcon?: React.ReactElement;
   loading?: boolean;
-  maxWidth?: SizingValue;
-  minWidth?: SizingValue;
   shape?: ButtonShape;
   size?: ButtonSize;
   startIcon?: React.ReactElement;
   variant?: ButtonVariant;
-  width?: SizingValue;
 }
 
 const Button = React.forwardRef(
@@ -62,12 +57,8 @@ const Button = React.forwardRef(
       shape = 'rectangle',
       size = 'md',
       startIcon,
-      style,
       endIcon,
-      maxWidth,
-      minWidth,
       variant = 'primary',
-      width,
       loading,
       className,
       children,
@@ -84,14 +75,6 @@ const Button = React.forwardRef(
         className,
       )}
       ref={ref}
-      style={{
-        ...assignStyleVariables({
-          [S.buttonMaxWidthVar]: formatSizing(maxWidth),
-          [S.buttonMinWidthVar]: formatSizing(minWidth),
-          [S.buttonWidthVar]: formatSizing(width),
-        }),
-        ...style,
-      }}
       {...props}
     >
       {loading && (
@@ -101,7 +84,7 @@ const Button = React.forwardRef(
       {!loading &&
         startIcon &&
         React.cloneElement(startIcon, {
-          className: cn(S.icon, S.startIcon),
+          className: cn(S.icon, S.startIconSize[size]),
         })}
 
       {!loading && <span className={S.label}>{children}</span>}
@@ -109,7 +92,7 @@ const Button = React.forwardRef(
       {!loading &&
         endIcon &&
         React.cloneElement(endIcon, {
-          className: cn(S.icon, S.endIcon),
+          className: cn(S.icon, S.endIconSize[size]),
         })}
     </As>
   ),

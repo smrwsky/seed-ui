@@ -7,6 +7,7 @@ import {
 import {
   borderRadius,
   margin,
+  spacing,
   theme,
   transitionTime,
   transitionTimingFunction,
@@ -21,7 +22,9 @@ export const buttonWidthVar = createVar('button-width');
 export const root = style({
   border: 'none',
   cursor: 'pointer',
-  display: 'inline-block',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   fontFamily: theme.fontFamily.base,
   maxWidth: fallbackVar(buttonMaxWidthVar, '100%'),
   minWidth: fallbackVar(buttonMinWidthVar, 'auto'),
@@ -34,6 +37,8 @@ export const root = style({
   whiteSpace: 'nowrap',
   width: fallbackVar(buttonWidthVar, 'auto'),
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
+  paddingTop: spacing[0.5],
+  paddingBottom: spacing[0.5],
   outline: 'none',
   ...theme.typography.button,
 
@@ -55,19 +60,28 @@ export const rootShape: Record<'stadium' | 'rectangle', string> = styleVariants(
 );
 export const rootSize = styleVariants({
   sm: {
-    padding: '0.275rem 0.75rem 0.28rem',
+    minWidth: '6rem',
+    height: '1.5rem',
+    paddingLeft: spacing[1],
+    paddingRight: spacing[1],
   },
   md: {
     minWidth: '7rem',
-    padding: '0.56rem 0.75rem 0.5rem',
+    height: '2rem',
+    paddingLeft: spacing[1.5],
+    paddingRight: spacing[1.5],
   },
   lg: {
     minWidth: '8rem',
-    padding: '0.81rem 0.75rem 0.75rem',
+    height: '2.5rem',
+    paddingLeft: spacing[2],
+    paddingRight: spacing[2],
   },
   xl: {
     minWidth: '9rem',
-    padding: '1rem',
+    height: '3rem',
+    paddingLeft: spacing[2.5],
+    paddingRight: spacing[2.5],
   },
 });
 
@@ -616,17 +630,50 @@ export const rootVariant = styleVariants({
 
 export const label = style({
   display: 'inline-block',
+  maxWidth: '100%',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
 });
 
 export const icon = style({
-  color: 'currentcolor',
-  fontSize: '1.2em',
+  color: 'currentColor !important',
 });
 
-export const startIcon = style({
-  marginRight: margin[1],
+export const startIconSize = styleVariants({
+  sm: {
+    fontSize: '1rem !important',
+    marginRight: margin[1],
+  },
+  md: {
+    fontSize: '1.125rem !important',
+    marginRight: margin[1],
+  },
+  lg: {
+    fontSize: '1.25rem !important',
+    marginRight: margin[1.5],
+  },
+  xl: {
+    fontSize: '1.375rem !important',
+    marginRight: margin[1.5],
+  },
 });
 
-export const endIcon = style({
-  marginLeft: margin[1],
+export const endIconSize = styleVariants({
+  sm: {
+    fontSize: '1rem !important',
+    marginLeft: margin[1],
+  },
+  md: {
+    fontSize: '1.125rem !important',
+    marginLeft: margin[1],
+  },
+  lg: {
+    fontSize: '1.25rem !important',
+    marginLeft: margin[1.5],
+  },
+  xl: {
+    fontSize: '1.375rem !important',
+    marginLeft: margin[1.5],
+  },
 });

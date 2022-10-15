@@ -2,6 +2,8 @@ import React from 'react';
 import { Col, Row } from '@seed-ui/layout';
 import { Icon } from '@seed-ui/icons';
 
+import Avatar from '../Avatar';
+
 import Button, {
   ButtonProps,
   ButtonShape,
@@ -113,16 +115,31 @@ export function WithIcon(args: ButtonProps): JSX.Element {
   return (
     <Row gutter={2}>
       <Col>
-        <Button {...args} startIcon={<Icon name="like" type="solid" />}>
+        <Button {...args} startIcon={<Icon name="plus" />}>
           Start icon
         </Button>
       </Col>
 
       <Col>
-        <Button {...args} endIcon={<Icon name="like" type="solid" />}>
+        <Button {...args} endIcon={<Icon name="plus" />}>
           End icon
         </Button>
       </Col>
     </Row>
+  );
+}
+
+export function WithAvatar(args: ButtonProps): JSX.Element {
+  return (
+    <Button
+      {...args}
+      startIcon={
+        <Avatar>
+          <img alt="Doggo" src="/images/dog.jpg" />
+        </Avatar>
+      }
+    >
+      With avatar
+    </Button>
   );
 }
