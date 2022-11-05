@@ -11,6 +11,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:jsx-a11y/recommended',
     'plugin:react/recommended',
+    'plugin:typescript-sort-keys/recommended',
     'prettier',
   ],
   overrides: [
@@ -58,6 +59,7 @@ module.exports = {
     'prettier',
     'react',
     'react-hooks',
+    'typescript-sort-keys',
   ],
   rules: {
     '@typescript-eslint/indent': 'off',
