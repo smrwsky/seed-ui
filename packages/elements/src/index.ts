@@ -102,6 +102,9 @@ export { default as Title } from './components/Title';
 export * from './components/Toast';
 export { default as Toast } from './components/Toast';
 
+export * from './components/ToastContainer';
+export { default as ToastContainer } from './components/ToastContainer';
+
 export * from './components/UList';
 export { default as UList } from './components/UList';
 

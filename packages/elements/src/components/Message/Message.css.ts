@@ -11,6 +11,7 @@ export const root = style({
   borderRadius: borderRadius.md,
   boxShadow: boxShadow.md,
   padding: `${spacing['1']} ${spacing['1.5']}`,
+  pointerEvents: 'auto',
 });
 
 export const rootVariant = styleVariants({
