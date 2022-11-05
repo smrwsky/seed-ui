@@ -1,5 +1,11 @@
 # @seed-ui/layout
 
+## 0.6.1
+
+### Patch Changes
+
+- 0bd5f3a: Minor improvements.
+
 ## 0.6.0
 
 ### Minor Changes
