@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.7.0
+
+### Minor Changes
+
+- cf68a61: Implemented ToastContainer component.
+
 ## 0.6.3
 
 ### Patch Changes
