@@ -25,6 +25,36 @@ export type ResponsiveValue<Value extends string | number> = ConditionalValue<
   Value
 >;
 
+export type BorderProps = Pick<
+  Atoms,
+  | 'border'
+  | 'borderX'
+  | 'borderY'
+  | 'borderBottom'
+  | 'borderLeft'
+  | 'borderRight'
+  | 'borderTop'
+>;
+
+export type MarginProps = Pick<
+  Atoms,
+  'm' | 'mb' | 'ml' | 'mr' | 'mt' | 'mx' | 'my'
+>;
+
+export type OffsetProps = Pick<Atoms, 'bottom' | 'left' | 'right' | 'top'>;
+
+export type PaddingProps = Pick<
+  Atoms,
+  'p' | 'pb' | 'pl' | 'pr' | 'pt' | 'px' | 'py'
+>;
+
+export type SpacingProps = MarginProps & PaddingProps;
+
+export type SizingProps = Pick<
+  Atoms,
+  'height' | 'maxHeight' | 'maxWidth' | 'minHeight' | 'minWidth' | 'width'
+>;
+
 const alignItems = [
   'baseline',
   'center',
