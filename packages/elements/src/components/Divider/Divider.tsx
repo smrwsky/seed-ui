@@ -6,7 +6,7 @@ import * as S from './Divider.css';
 export type DividerDirection = 'horizontal' | 'vertical';
 
 export type DividerProps = {
-  direction: DividerDirection;
+  direction?: DividerDirection;
 };
 
 const Divider: React.FC<DividerProps> = ({ direction = 'horizontal' }) => (
