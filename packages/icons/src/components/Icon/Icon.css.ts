@@ -4,7 +4,6 @@ import { theme } from '@seed-ui/styles';
 export const root = style({
   width: '1em',
   height: '1em',
-  verticalAlign: '-0.125em',
 });
 
 export const rootSize = styleVariants({
@@ -23,9 +22,7 @@ export const rootSize = styleVariants({
   xl: {
     fontSize: '3rem',
   },
-  none: {
-    fontSize: 'inherit',
-  },
+  none: {},
 });
 
 export const rootVariant = styleVariants({
