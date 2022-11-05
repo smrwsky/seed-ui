@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.4.6
+
+### Patch Changes
+
+- 0bd5f3a: Minor improvements.
+
 ## 0.4.5
 
 ### Patch Changes

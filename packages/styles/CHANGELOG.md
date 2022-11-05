@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.6.2
+
+### Patch Changes
+
+- 0bd5f3a: Minor improvements.
+
 ## 0.6.1
 
 ### Patch Changes
