@@ -1,6 +1,6 @@
 {
   "name": "@seed-ui/styles",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "",
   "files": ["dist", "package.json", "CHANGELOG.md"],
   "types": "dist/types/index.d.ts",
