@@ -11,6 +11,7 @@ export const root = style({
   background: theme.color.white,
   boxShadow: boxShadow.md,
   padding: `${spacing['1.5']} ${spacing['5.5']} ${spacing['1.5']} ${spacing['1.5']}`,
+  pointerEvents: 'auto',
 });
 
 export const icon = style({
