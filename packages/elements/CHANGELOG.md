@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.7.2
+
+### Patch Changes
+
+- 56fbde1: Fixed styling issues. Added shift middleware to popover.
+
 ## 0.7.1
 
 ### Patch Changes
