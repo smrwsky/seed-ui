@@ -3,17 +3,19 @@ import { theme } from '@seed-ui/styles';
 
 export const root = style({
   display: 'flex',
-  flexDirection: 'column',
   listStyle: 'none',
-  padding: 0,
-  margin: 0,
 });
 
-export const rootDirection = styleVariants({
+export const rootType = styleVariants({
   horizontal: {
-    display: 'flex',
+    flexDirection: 'row',
   },
-  vertical: {},
+  inline: {
+    flexDirection: 'column',
+  },
+  vertical: {
+    flexDirection: 'column',
+  },
 });
 
 export const rootVariant = styleVariants({
