@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import React, {
   useCallback,
   useEffect,
@@ -17,10 +18,7 @@ import InputContainer from '../InputContainer';
 import InputAction from '../InputAction';
 import IconButton from '../IconButton';
 import useDebounce from '../../utils/use-debounce';
-import Popover from '../Popover';
-import MenuList from '../MenuList';
-
-import * as S from './Autocomplete.css';
+import { MenuAction, MenuItem, MenuLabel, PopupMenu } from '../Menu';
 
 export type AutocompleteShape = 'rectangle' | 'stadium';
 
@@ -76,7 +74,7 @@ const toggleOption = (value: unknown, items: unknown[]): unknown[] =>
     ? items.filter((item) => item !== value)
     : [...items, value];
 
-const defaultGetLabel = (option: unknown): string => String(option);
+const defaultGetLabel = (option: unknown): string => option as string;
 
 function Autocomplete<TOption = unknown>({
   direction = 'column',
@@ -115,7 +113,7 @@ function Autocomplete<TOption = unknown>({
   const [valueState, setValueState] = useState(defaultValue);
   const [openListbox, setOpenListbox] = useState(false);
   const [focused, setFocused] = useState(false);
-  const [activeOption, setActiveOption] = useState<number>(-1);
+  const [activeIndex, setActiveOption] = useState<number>(-1);
   const [displayText, setDisplayText] = useState('');
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const listboxRef = useRef<HTMLUListElement>(null);
@@ -158,6 +156,10 @@ function Autocomplete<TOption = unknown>({
 
   const handleChangeOpenListbox = useCallback((visible: boolean) => {
     setOpenListbox(visible);
+  }, []);
+
+  const handleActiveIndexChange = useCallback((index) => {
+    setActiveOption(index);
   }, []);
 
   useEffect(() => {
@@ -224,15 +226,19 @@ function Autocomplete<TOption = unknown>({
     }
   }
 
+  function handleClick(): void {
+    setOpenListbox((prevState) => !prevState);
+  }
+
   function handleKeyDownInput(e: React.KeyboardEvent<HTMLInputElement>): void {
     if (e.key === 'ArrowDown' && openListbox) {
       e.preventDefault();
 
       const nextOption =
-        activeOption >= optList.length - 1 ? 0 : activeOption + 1;
+        activeIndex >= optList.length - 1 ? 0 : activeIndex + 1;
 
       listboxRef.current
-        ?.querySelector(`li[data-index="${nextOption}"]`)
+        ?.querySelector(`[data-index="${nextOption}"]`)
         ?.scrollIntoView({ block: 'nearest' });
 
       setActiveOption(nextOption);
@@ -242,10 +248,10 @@ function Autocomplete<TOption = unknown>({
       e.preventDefault();
 
       const nextOption =
-        activeOption <= 0 ? optList.length - 1 : activeOption - 1;
+        activeIndex <= 0 ? optList.length - 1 : activeIndex - 1;
 
       listboxRef.current
-        ?.querySelector(`li[data-index="${nextOption}"]`)
+        ?.querySelector(`[data-index="${nextOption}"]`)
         ?.scrollIntoView({ block: 'nearest' });
 
       setActiveOption(nextOption);
@@ -253,9 +259,9 @@ function Autocomplete<TOption = unknown>({
 
     if (e.key === 'Enter') {
       e.preventDefault();
-      selectOption(activeOption);
+      selectOption(activeIndex);
       setActiveOption(-1);
-      setOpenListbox(false);
+      setOpenListbox((prevState) => !prevState);
     }
 
     if (e.key === 'Escape') {
@@ -273,15 +279,7 @@ function Autocomplete<TOption = unknown>({
     setOpenListbox(false);
   }
 
-  function handleMouseEnterOption(e: React.MouseEvent<HTMLLIElement>): void {
-    const index = Number(e.currentTarget.dataset.index);
-
-    if (!Number.isNaN(index)) {
-      setActiveOption(index);
-    }
-  }
-
-  function handleMouseDownOption(e: React.MouseEvent<HTMLLIElement>): void {
+  function handleMouseDownOption(e: React.MouseEvent<HTMLAnchorElement>): void {
     e.preventDefault();
     selectOption(Number(e.currentTarget.dataset.index));
     setOpenListbox(false);
@@ -308,9 +306,6 @@ function Autocomplete<TOption = unknown>({
       message={message}
     >
       <InputContainer
-        aria-expanded={openListbox}
-        aria-haspopup="listbox"
-        aria-owns={openListbox ? slug(id, LISTBOX_ID) : ''}
         disabled={disabled}
         focused={focused}
         invalid={invalid || Boolean(error)}
@@ -340,15 +335,20 @@ function Autocomplete<TOption = unknown>({
 
           <Textbox
             aria-activedescendant={
-              activeOption !== -1 ? slug(id, OPTION_ID, activeOption) : ''
+              activeIndex !== -1 ? slug(id, OPTION_ID, activeIndex) : ''
             }
             aria-autocomplete="list"
             aria-controls={openListbox ? slug(id, LISTBOX_ID) : ''}
+            aria-expanded={openListbox}
+            aria-haspopup="listbox"
+            aria-invalid={invalid || Boolean(error)}
+            aria-owns={openListbox ? slug(id, LISTBOX_ID) : ''}
             autoComplete="off"
             disabled={disabled}
             id={id}
             onBlur={handleBlur}
             onChange={handleChangeInput}
+            onClick={handleClick}
             onFocus={handleFocus}
             onKeyDown={handleKeyDownInput}
             readOnly={readOnly}
@@ -378,57 +378,49 @@ function Autocomplete<TOption = unknown>({
         {action && <InputAction>{action}</InputAction>}
       </InputContainer>
 
-      <Popover
-        anchorElement={anchorEl ?? undefined}
-        onChangeOpen={handleChangeOpenListbox}
+      <PopupMenu
+        activeIndex={activeIndex}
+        anchorElement={anchorEl}
+        autoFocus="off"
+        id={slug(id, LISTBOX_ID)}
+        onActiveIndexChange={handleActiveIndexChange}
+        onOpenChange={handleChangeOpenListbox}
         open={openListbox}
-        position="bottom"
-        trigger="click"
+        placement="bottom-start"
+        ref={listboxRef}
+        role="listbox"
+        style={{
+          width: anchorEl ? `${anchorEl.offsetWidth}px` : undefined,
+        }}
+        trigger="manual"
       >
-        {({ childRect }) => (
-          <MenuList
-            className={S.listbox}
-            id={slug(id, LISTBOX_ID)}
-            ref={listboxRef}
-            role="listbox"
-            size="sm"
-            style={{ width: childRect.width }}
-            variant="light"
+        {optList.map((item, idx) => (
+          <MenuItem
+            id={slug(id, OPTION_ID, idx)}
+            key={idx}
+            onMouseDown={handleMouseDownOption}
+            role="option"
+            selected={valuesList.includes(item)}
           >
-            {optList.map((item, idx) => (
-              <MenuList.Item
-                action={
-                  valuesList.includes(item) && (
-                    <Icon name="check" size="sm" variant="primary" />
-                  )
-                }
-                active={idx === activeOption}
-                data-index={idx}
-                id={slug(id, OPTION_ID, idx)}
-                key={idx}
-                onMouseDown={handleMouseDownOption}
-                onMouseEnter={handleMouseEnterOption}
-                role="option"
-                selected={valuesList.includes(item)}
-              >
-                {getLabel(item)}
-              </MenuList.Item>
-            ))}
-
-            {loading && loadingText && (
-              <MenuList.Item disabled>{loadingText}</MenuList.Item>
+            <MenuLabel>{getLabel(item)}</MenuLabel>
+            {valuesList.includes(item) && (
+              <MenuAction>
+                <Icon name="check" size="sm" variant="primary" />
+              </MenuAction>
             )}
+          </MenuItem>
+        ))}
 
-            {!loading &&
-              loadingError &&
-              (typeof loadingError === 'string' || loadingText) && (
-                <MenuList.Item disabled invalid>
-                  {typeof loadingError === 'string' ? loadingError : errorText}
-                </MenuList.Item>
-              )}
-          </MenuList>
-        )}
-      </Popover>
+        {loading && loadingText && <MenuItem disabled>{loadingText}</MenuItem>}
+
+        {!loading &&
+          loadingError &&
+          (typeof loadingError === 'string' || loadingText) && (
+            <MenuItem disabled invalid>
+              {typeof loadingError === 'string' ? loadingError : errorText}
+            </MenuItem>
+          )}
+      </PopupMenu>
     </InputGroup>
   );
 }

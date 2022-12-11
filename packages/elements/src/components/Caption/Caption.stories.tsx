@@ -1,5 +1,4 @@
 import React from 'react';
-import { atoms } from '@seed-ui/styles';
 
 import Caption, { CaptionProps, CaptionVariant } from './Caption';
 import docs from './Caption.docs.mdx';
@@ -73,16 +72,6 @@ export function Variants(args: CaptionProps): JSX.Element {
           This is {variant} caption
         </Caption>
       ))}
-    </>
-  );
-}
-
-export function Margins(args: CaptionProps): JSX.Element {
-  return (
-    <>
-      <Caption {...args} className={atoms({ my: 4 })}>
-        A caption with vertical margins
-      </Caption>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 export const root = style({
+  flex: 'none',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -13,5 +14,5 @@ export const root = style({
 });
 
 export const rootCollapsed = style({
-  flex: 1,
+  flex: '1 0 0',
 });

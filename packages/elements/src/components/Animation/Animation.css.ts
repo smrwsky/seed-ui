@@ -2,20 +2,21 @@ import { style, styleVariants } from '@vanilla-extract/css';
 import { transitionTime, transitionTimingFunction } from '@seed-ui/styles';
 
 export const root = style({
-  opacity: 0,
-  transitionProperty: 'opacity',
+  transitionProperty: 'all',
   transitionTimingFunction: transitionTimingFunction['in-out'],
 });
 
-export const entered = style({
-  opacity: 1,
+export const rootType = styleVariants({
+  fade: {
+    opacity: 0,
+  },
+  slide: {
+    maxHeight: 0,
+    overflow: 'hidden',
+  },
 });
 
-export const exited = style({
-  visibility: 'hidden',
-});
-
-export const duration = styleVariants({
+export const rootDuration = styleVariants({
   150: {
     transitionDuration: transitionTime.sm,
   },
@@ -25,4 +26,17 @@ export const duration = styleVariants({
   600: {
     transitionDuration: transitionTime.lg,
   },
+});
+
+export const rootEntered = styleVariants({
+  fade: {
+    opacity: 1,
+  },
+  slide: {
+    maxHeight: '1000px',
+  },
+});
+
+export const rootExited = style({
+  visibility: 'hidden',
 });
