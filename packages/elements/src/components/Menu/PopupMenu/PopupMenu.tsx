@@ -76,7 +76,7 @@ const PopupMenu = forwardRef<HTMLUListElement, PopupMenuProps>(
     useEffect(() => {
       if (
         anchorElement &&
-        anchorElement.getAttribute('aria-haspopup') !== String(openState)
+        anchorElement.getAttribute('aria-expanded') !== String(openState)
       ) {
         anchorElement.setAttribute('aria-expanded', String(openState));
       }
