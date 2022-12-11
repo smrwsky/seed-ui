@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.7.1
+
+### Patch Changes
+
+- 241766e: Created Menu component.
+
 ## 0.7.0
 
 ### Minor Changes
