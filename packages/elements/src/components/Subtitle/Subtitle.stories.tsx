@@ -1,5 +1,4 @@
 import React from 'react';
-import { atoms } from '@seed-ui/styles';
 
 import { TitleProps } from '../Title';
 
@@ -115,16 +114,6 @@ export function Serif(args: TitleProps): JSX.Element {
           A subtitle with size {size}
         </Subtitle>
       ))}
-    </>
-  );
-}
-
-export function Margins(args: SubtitleProps): JSX.Element {
-  return (
-    <>
-      <Subtitle {...args} className={atoms({ my: 4 })}>
-        A subtitle with vertical margins
-      </Subtitle>
     </>
   );
 }

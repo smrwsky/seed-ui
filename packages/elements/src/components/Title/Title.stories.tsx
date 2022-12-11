@@ -1,5 +1,4 @@
 import React from 'react';
-import { atoms } from '@seed-ui/styles';
 
 import docs from './Title.docs.mdx';
 import Title, { TitleProps, TitleSize, TitleVariant } from './Title';
@@ -109,16 +108,6 @@ export function Serif(args: TitleProps): JSX.Element {
           A title with size {size}
         </Title>
       ))}
-    </>
-  );
-}
-
-export function Margins(args: TitleProps): JSX.Element {
-  return (
-    <>
-      <Title {...args} className={atoms({ my: 4 })}>
-        A title with vertical margins
-      </Title>
     </>
   );
 }

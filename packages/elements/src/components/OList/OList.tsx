@@ -5,8 +5,7 @@ import {
   textSerifSizeStyle,
   textSizeStyle,
   textVariantStyle,
-  listStyle,
-  listItemStyle,
+  oListStyle,
 } from '../../styles';
 
 export type OListSize = 'sm' | 'md';
@@ -28,40 +27,26 @@ export interface OListProps extends React.OlHTMLAttributes<HTMLOListElement> {
   variant?: OListVariant;
 }
 
-const OList: React.FC<OListProps & React.RefAttributes<HTMLOListElement>> =
-  React.forwardRef(
-    (
-      {
-        serif,
-        size = 'md',
-        variant = 'dark',
+const OList: React.FC<OListProps &
+  React.RefAttributes<HTMLOListElement>> = React.forwardRef(
+  (
+    { serif, size = 'md', variant = 'dark', className, children, ...elemProps },
+    ref,
+  ) => (
+    <ol
+      className={cn(
+        oListStyle,
+        serif ? textSerifSizeStyle[size] : textSizeStyle[size],
+        textVariantStyle[variant],
         className,
-        children,
-        ...elemProps
-      },
-      ref,
-    ) => (
-      <ol
-        className={cn(
-          listStyle,
-          serif ? textSerifSizeStyle[size] : textSizeStyle[size],
-          textVariantStyle[variant],
-          className,
-        )}
-        ref={ref}
-        {...elemProps}
-      >
-        {React.Children.map(children, (child, idx) =>
-          idx < React.Children.count(children) - 1 &&
-          React.isValidElement(child)
-            ? React.cloneElement(child, {
-                className: cn(listItemStyle, child.props.className),
-              })
-            : child,
-        )}
-      </ol>
-    ),
-  );
+      )}
+      ref={ref}
+      {...elemProps}
+    >
+      {children}
+    </ol>
+  ),
+);
 
 OList.displayName = 'OList';
 

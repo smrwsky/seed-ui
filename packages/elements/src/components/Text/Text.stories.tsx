@@ -1,5 +1,4 @@
 import React from 'react';
-import { atoms } from '@seed-ui/styles';
 
 import { TitleProps } from '../Title';
 import { StrongProps } from '../Strong';
@@ -140,14 +139,6 @@ export function Bold(args: StrongProps): JSX.Element {
   return (
     <Text {...args} bold>
       This is a bold text
-    </Text>
-  );
-}
-
-export function Margins(args: TextProps): JSX.Element {
-  return (
-    <Text {...args} className={atoms({ my: 4 })}>
-      A text with vertical margins
     </Text>
   );
 }

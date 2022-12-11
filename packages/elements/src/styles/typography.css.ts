@@ -1,13 +1,7 @@
-import { style, styleVariants } from '@vanilla-extract/css';
+import { globalStyle, style, styleVariants } from '@vanilla-extract/css';
 import { theme } from '@seed-ui/styles';
 
-export const listStyle = style({
-  paddingInlineStart: '1.5em',
-});
-
-export const listItemStyle = style({
-  marginBottom: '.5em',
-});
+import { marker } from './mixins';
 
 export const textNowrapStyle = style({
   maxWidth: '100%',
@@ -78,4 +72,40 @@ export const textVariantStyle = styleVariants({
   dark: {
     color: theme.color.neutral900,
   },
+});
+
+export const oListStyle = style({
+  paddingInlineStart: '1.5em',
+});
+
+export const uListStyle = style({
+  listStyle: 'none',
+  paddingInlineStart: '1.5em',
+});
+
+export const uListTypeStyle = styleVariants({
+  disc: {},
+  dash: {},
+  none: {},
+});
+
+export const listItemStyle = style({
+  selectors: {
+    '&:not(:first-of-type)': {
+      marginTop: '.5em',
+    },
+  },
+});
+
+globalStyle(
+  `.${uListTypeStyle.dash} .${listItemStyle}:before, .${uListTypeStyle.disc} .${listItemStyle}:before`,
+  marker(),
+);
+
+globalStyle(`.${uListTypeStyle.dash} .${listItemStyle}:before`, {
+  content: '\\2014',
+});
+
+globalStyle(`.${uListTypeStyle.disc} .${listItemStyle}:before`, {
+  content: '\\2022',
 });
