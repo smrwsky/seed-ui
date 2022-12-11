@@ -30,40 +30,42 @@ export interface IconButtonProps
     React.AnchorHTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   children: React.ReactElement;
+  rounded?: boolean;
   size?: IconButtonSize;
   type?: string;
   variant?: IconButtonVariant;
 }
 
-const IconButton: React.FC<IconButtonProps & React.RefAttributes<HTMLElement>> =
-  React.forwardRef(
-    (
-      {
-        as: As = 'button',
+const IconButton: React.FC<IconButtonProps &
+  React.RefAttributes<HTMLElement>> = React.forwardRef(
+  (
+    {
+      as: As = 'button',
+      rounded,
+      size = 'md',
+      type,
+      variant = 'primary',
+      className,
+      children,
+      ...elemProps
+    }: IconButtonProps,
+    ref,
+  ) => (
+    <As
+      {...elemProps}
+      className={cn(
+        S.root,
+        S.rootSize[size],
+        S.rootVariant[variant],
         className,
-        size = 'md',
-        type,
-        variant = 'primary',
-        children,
-        ...elemProps
-      }: IconButtonProps,
-      ref,
-    ) => (
-      <As
-        {...elemProps}
-        className={cn(
-          S.root,
-          S.rootSize[size],
-          S.rootVariant[variant],
-          className,
-        )}
-        ref={ref}
-        type={As === 'button' && type == null ? 'button' : type}
-      >
-        {children}
-      </As>
-    ),
-  );
+      )}
+      ref={ref}
+      type={As === 'button' && type == null ? 'button' : type}
+    >
+      {children}
+    </As>
+  ),
+);
 
 IconButton.displayName = 'IconButton';
 
