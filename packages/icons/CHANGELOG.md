@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.4.8
+
+### Patch Changes
+
+- f00490f: Changed line height of icons.
+
 ## 0.4.7
 
 ### Patch Changes
