@@ -2,8 +2,8 @@ import React from 'react';
 import cn from 'classnames';
 
 import {
-  listItemStyle,
-  listStyle,
+  uListStyle,
+  uListTypeStyle,
   textSerifSizeStyle,
   textSizeStyle,
   textVariantStyle,
@@ -11,7 +11,7 @@ import {
 
 export type UListSize = 'sm' | 'md';
 
-export type UListType = 'circle' | 'disc' | 'square';
+export type UListType = 'disc' | 'dash' | 'none';
 
 export type UListVariant =
   | 'primary'
@@ -31,40 +31,35 @@ export interface UListProps extends React.HTMLAttributes<HTMLUListElement> {
   variant?: UListVariant;
 }
 
-const UList: React.FC<UListProps & React.RefAttributes<HTMLUListElement>> =
-  React.forwardRef(
-    (
-      {
-        serif,
-        size = 'md',
-        variant = 'dark',
+const UList: React.FC<UListProps &
+  React.RefAttributes<HTMLUListElement>> = React.forwardRef(
+  (
+    {
+      serif,
+      size = 'md',
+      type = 'disc',
+      variant = 'dark',
+      className,
+      children,
+      ...elemProps
+    },
+    ref,
+  ) => (
+    <ul
+      className={cn(
+        uListStyle,
+        uListTypeStyle[type],
+        serif ? textSerifSizeStyle[size] : textSizeStyle[size],
+        textVariantStyle[variant],
         className,
-        children,
-        ...elemProps
-      },
-      ref,
-    ) => (
-      <ul
-        className={cn(
-          listStyle,
-          serif ? textSerifSizeStyle[size] : textSizeStyle[size],
-          textVariantStyle[variant],
-          className,
-        )}
-        ref={ref}
-        {...elemProps}
-      >
-        {React.Children.map(children, (child, idx) =>
-          idx < React.Children.count(children) - 1 &&
-          React.isValidElement(child)
-            ? React.cloneElement(child, {
-                className: cn(listItemStyle, child.props.className),
-              })
-            : child,
-        )}
-      </ul>
-    ),
-  );
+      )}
+      ref={ref}
+      {...elemProps}
+    >
+      {children}
+    </ul>
+  ),
+);
 
 UList.displayName = 'UList';
 

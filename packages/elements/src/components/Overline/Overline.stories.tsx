@@ -1,5 +1,4 @@
 import React from 'react';
-import { atoms } from '@seed-ui/styles';
 
 import Overline, { OverlineProps, OverlineVariant } from './Overline';
 import docs from './Overline.docs.mdx';
@@ -72,16 +71,6 @@ export function Variants(args: OverlineProps): JSX.Element {
           This is {variant} overline
         </Overline>
       ))}
-    </>
-  );
-}
-
-export function Margins(args: OverlineProps): JSX.Element {
-  return (
-    <>
-      <Overline {...args} className={atoms({ my: 4 })}>
-        An overline with vertical margins
-      </Overline>
     </>
   );
 }

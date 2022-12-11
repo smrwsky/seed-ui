@@ -51,8 +51,11 @@ export { default as Link } from './components/Link';
 export * from './components/ListItem';
 export { default as ListItem } from './components/ListItem';
 
-export * from './components/MenuList';
-export { default as MenuList } from './components/MenuList';
+export * from './components/Marker';
+export { default as Marker } from './components/Marker';
+
+export * from './components/Menu';
+export { default as Menu } from './components/Menu';
 
 export * from './components/Message';
 export { default as Message } from './components/Message';

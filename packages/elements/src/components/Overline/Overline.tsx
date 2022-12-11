@@ -24,33 +24,33 @@ export interface OverlineProps extends React.HTMLAttributes<HTMLElement> {
   variant?: CaptionVariant;
 }
 
-const Overline: React.FC<OverlineProps & React.RefAttributes<HTMLElement>> =
-  React.forwardRef(
-    (
-      {
-        as: As = 'div',
-        variant = 'dark',
-        textAlign,
+const Overline: React.FC<OverlineProps &
+  React.RefAttributes<HTMLElement>> = React.forwardRef(
+  (
+    {
+      as: As = 'div',
+      variant = 'dark',
+      textAlign,
+      className,
+      children,
+      ...elemProps
+    },
+    ref,
+  ) => (
+    <As
+      className={cn(
+        S.root,
+        textVariantStyle[variant],
+        atoms({ textAlign }),
         className,
-        children,
-        ...elemProps
-      },
-      ref,
-    ) => (
-      <As
-        className={cn(
-          S.root,
-          textVariantStyle[variant],
-          atoms({ textAlign }),
-          className,
-        )}
-        ref={ref}
-        {...elemProps}
-      >
-        {children}
-      </As>
-    ),
-  );
+      )}
+      ref={ref}
+      {...elemProps}
+    >
+      {children}
+    </As>
+  ),
+);
 
 Overline.displayName = 'Overline';
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { atoms } from '@seed-ui/styles';
 
 import Label, { LabelProps, LabelSize, LabelVariant } from './Label';
 import docs from './Label.docs.mdx';
@@ -96,16 +95,6 @@ export function Sizes(args: LabelProps): JSX.Element {
           A label with size {size}
         </Label>
       ))}
-    </>
-  );
-}
-
-export function Margins(args: LabelProps): JSX.Element {
-  return (
-    <>
-      <Label {...args} className={atoms({ my: 4 })}>
-        A label with vertical margins
-      </Label>
     </>
   );
 }
