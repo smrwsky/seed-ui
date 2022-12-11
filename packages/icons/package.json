@@ -2,11 +2,7 @@
   "name": "@seed-ui/icons",
   "version": "0.4.7",
   "description": "",
-  "files": [
-    "dist",
-    "package.json",
-    "CHANGELOG.md"
-  ],
+  "files": ["dist", "package.json", "CHANGELOG.md"],
   "types": "dist/types/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
