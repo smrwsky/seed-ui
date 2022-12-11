@@ -4,6 +4,7 @@ import {
   arrow as arrowMiddleware,
   offset as offsetMiddleware,
   flip,
+  shift,
   useFloating,
   Placement,
 } from '@floating-ui/react-dom';
@@ -54,6 +55,7 @@ const Popover: React.FC<PopoverProps> = ({
     middleware: [
       arrow && arrowMiddleware({ element: arrowRef }),
       flip(),
+      shift(),
       offsetMiddleware(offset),
     ],
   });

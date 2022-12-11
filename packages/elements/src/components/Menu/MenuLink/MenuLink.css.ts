@@ -22,7 +22,6 @@ export const root = style({
   gridTemplateRows: 'max-content max-content',
   alignItems: 'center',
   alignContent: 'center',
-  minWidth: '12rem',
   lineHeight: 1,
   textDecoration: 'none',
   cursor: 'pointer',
@@ -97,10 +96,12 @@ export const rootType = styleVariants({
 
 export const rootSize = styleVariants({
   sm: {
+    minWidth: '8rem',
     minHeight: '2.5rem',
     padding: '0.125rem 0.75rem',
   },
   md: {
+    minWidth: '9rem',
     minHeight: '3rem',
     padding: '0.25rem 1rem',
   },
