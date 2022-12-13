@@ -27,38 +27,38 @@ export interface LabelProps extends React.HTMLAttributes<HTMLElement> {
   variant?: LabelVariant;
 }
 
-const Label: React.FC<LabelProps &
-  React.RefAttributes<HTMLElement>> = React.forwardRef(
-  (
-    {
-      as: As = 'div',
-      nowrap,
-      size = 'md',
-      textAlign,
-      variant = 'dark',
-      className,
-      children,
-      ...elemProps
-    },
-    ref,
-  ) => (
-    <As
-      className={cn(
-        S.rootSize[size],
-        textVariantStyle[variant],
-        nowrap && textNowrapStyle,
-        atoms({
-          textAlign,
-        }),
+const Label: React.FC<LabelProps & React.RefAttributes<HTMLElement>> =
+  React.forwardRef(
+    (
+      {
+        as: As = 'div',
+        nowrap,
+        size = 'md',
+        textAlign,
+        variant = 'dark',
         className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </As>
-  ),
-);
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <As
+        className={cn(
+          S.rootSize[size],
+          textVariantStyle[variant],
+          nowrap && textNowrapStyle,
+          atoms({
+            textAlign,
+          }),
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </As>
+    ),
+  );
 
 Label.displayName = 'Label';
 

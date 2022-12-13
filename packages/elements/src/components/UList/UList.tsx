@@ -31,35 +31,35 @@ export interface UListProps extends React.HTMLAttributes<HTMLUListElement> {
   variant?: UListVariant;
 }
 
-const UList: React.FC<UListProps &
-  React.RefAttributes<HTMLUListElement>> = React.forwardRef(
-  (
-    {
-      serif,
-      size = 'md',
-      type = 'disc',
-      variant = 'dark',
-      className,
-      children,
-      ...elemProps
-    },
-    ref,
-  ) => (
-    <ul
-      className={cn(
-        uListStyle,
-        uListTypeStyle[type],
-        serif ? textSerifSizeStyle[size] : textSizeStyle[size],
-        textVariantStyle[variant],
+const UList: React.FC<UListProps & React.RefAttributes<HTMLUListElement>> =
+  React.forwardRef(
+    (
+      {
+        serif,
+        size = 'md',
+        type = 'disc',
+        variant = 'dark',
         className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </ul>
-  ),
-);
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <ul
+        className={cn(
+          uListStyle,
+          uListTypeStyle[type],
+          serif ? textSerifSizeStyle[size] : textSizeStyle[size],
+          textVariantStyle[variant],
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </ul>
+    ),
+  );
 
 UList.displayName = 'UList';
 

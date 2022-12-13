@@ -33,41 +33,41 @@ export interface TextProps extends React.HTMLAttributes<HTMLElement> {
   variant?: TextVariant;
 }
 
-const Text: React.FC<TextProps &
-  React.RefAttributes<HTMLElement>> = React.forwardRef(
-  (
-    {
-      as: As = 'p',
-      bold,
-      nowrap,
-      serif,
-      size = 'md',
-      textAlign,
-      variant = 'dark',
-      className,
-      children,
-      ...elemProps
-    },
-    ref,
-  ) => (
-    <As
-      className={cn(
-        bold && textBoldStyle,
-        nowrap && textNowrapStyle,
-        serif ? textSerifSizeStyle[size] : textSizeStyle[size],
-        textVariantStyle[variant],
-        atoms({
-          textAlign,
-        }),
+const Text: React.FC<TextProps & React.RefAttributes<HTMLElement>> =
+  React.forwardRef(
+    (
+      {
+        as: As = 'p',
+        bold,
+        nowrap,
+        serif,
+        size = 'md',
+        textAlign,
+        variant = 'dark',
         className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </As>
-  ),
-);
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <As
+        className={cn(
+          bold && textBoldStyle,
+          nowrap && textNowrapStyle,
+          serif ? textSerifSizeStyle[size] : textSizeStyle[size],
+          textVariantStyle[variant],
+          atoms({
+            textAlign,
+          }),
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </As>
+    ),
+  );
 
 Text.displayName = 'Text';
 
