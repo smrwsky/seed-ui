@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.7.3
+
+### Patch Changes
+
+- c734418: Enabled scrolling for menu component when it overflows.
+
 ## 0.7.2
 
 ### Patch Changes
