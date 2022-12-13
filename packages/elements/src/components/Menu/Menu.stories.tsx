@@ -46,7 +46,10 @@ export function Base(args: MenuProps): JSX.Element {
       <Menu
         {...args}
         className={atoms({
-          width: { mobile: '1/1', mobileLg: '1/2', desktop: '1/3' },
+          width:
+            args.type === 'horizontal'
+              ? '1/1'
+              : { mobile: '1/1', mobileLg: '1/2', desktop: '1/3' },
         })}
       >
         <MenuItem icon="home" renderAction={renderAction} selected>

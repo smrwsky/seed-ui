@@ -27,26 +27,33 @@ export interface OListProps extends React.OlHTMLAttributes<HTMLOListElement> {
   variant?: OListVariant;
 }
 
-const OList: React.FC<OListProps &
-  React.RefAttributes<HTMLOListElement>> = React.forwardRef(
-  (
-    { serif, size = 'md', variant = 'dark', className, children, ...elemProps },
-    ref,
-  ) => (
-    <ol
-      className={cn(
-        oListStyle,
-        serif ? textSerifSizeStyle[size] : textSizeStyle[size],
-        textVariantStyle[variant],
+const OList: React.FC<OListProps & React.RefAttributes<HTMLOListElement>> =
+  React.forwardRef(
+    (
+      {
+        serif,
+        size = 'md',
+        variant = 'dark',
         className,
-      )}
-      ref={ref}
-      {...elemProps}
-    >
-      {children}
-    </ol>
-  ),
-);
+        children,
+        ...elemProps
+      },
+      ref,
+    ) => (
+      <ol
+        className={cn(
+          oListStyle,
+          serif ? textSerifSizeStyle[size] : textSizeStyle[size],
+          textVariantStyle[variant],
+          className,
+        )}
+        ref={ref}
+        {...elemProps}
+      >
+        {children}
+      </ol>
+    ),
+  );
 
 OList.displayName = 'OList';
 

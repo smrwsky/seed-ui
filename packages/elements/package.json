@@ -2,11 +2,7 @@
   "name": "@seed-ui/elements",
   "version": "0.7.2",
   "description": "",
-  "files": [
-    "dist",
-    "package.json",
-    "CHANGELOG.md"
-  ],
+  "files": ["dist", "package.json", "CHANGELOG.md"],
   "types": "dist/types/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
@@ -30,7 +26,8 @@
     "format:json": "prettier --parser json --write \"**/*.{json,prettierrc}\" --loglevel error",
     "format:ts": "prettier --parser typescript --write \"**/*.{ts,tsx}\" --loglevel error",
     "format:yaml": "prettier --parser yaml --write \"**/*.{yml,yaml}\" --loglevel error",
-    "lint": "eslint src --ext .ts,.tsx --cache --fix",
+    "lint": "eslint src --ext .ts,.tsx --cache",
+    "lint:fix": "yarn lint --fix",
     "lint:ci": "yarn lint --format github",
     "lint:quiet": "yarn lint --quiet",
     "precommit": "lint-staged",
