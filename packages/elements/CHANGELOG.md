@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.7.4
+
+### Patch Changes
+
+- 7acba26: Changed min width of menu items.
+
 ## 0.7.3
 
 ### Patch Changes
