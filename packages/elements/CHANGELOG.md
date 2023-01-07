@@ -1,5 +1,22 @@
 # @seed-ui/elements
 
+## 0.8.0
+
+### Minor Changes
+
+- e183122: - Added new properties for theme
+  - Added new style utilities
+  - Standardised variant and props names
+  - Polished components' styles
+
+### Patch Changes
+
+- d61717e: Changed min width of menu items.
+- Updated dependencies [e183122]
+  - @seed-ui/icons@0.5.0
+  - @seed-ui/layout@0.7.0
+  - @seed-ui/styles@0.7.0
+
 ## 0.7.3
 
 ### Patch Changes
