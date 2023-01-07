@@ -4,7 +4,8 @@
 
 ### Minor Changes
 
-- e183122: - Added new properties for theme
+- e183122: 
+  - Added new properties for theme
   - Added new style utilities
   - Standardised variant and props names
   - Polished components' styles
