@@ -35,6 +35,8 @@ export const rootSize = styleVariants({
 });
 
 export const image = style({
+  fontFamily: vars.fontFamily.secondary,
+  ...vars.typography.caption,
   position: 'absolute',
   width: '100%',
   height: '100%',
@@ -51,7 +53,9 @@ export const icon = style({
 export const text = style({
   position: 'absolute',
   color: vars.color.white,
+  fontFamily: vars.fontFamily.secondary,
   ...vars.typography.labelMd,
   fontSize: '.45em',
+  lineHeight: 1,
   whiteSpace: 'nowrap',
 });

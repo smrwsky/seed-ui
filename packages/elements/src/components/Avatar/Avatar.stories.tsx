@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space } from '@seed-ui/layout';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import Avatar, { AvatarProps, AvatarSize } from './Avatar';
 import docs from './Avatar.docs.mdx';
@@ -12,31 +12,42 @@ export default {
   parameters: {
     docs: { page: docs },
   },
+  argTypes: {
+    placeholder: {
+      defaultValue: 'Peter Griffin',
+    },
+  },
 };
 
 export function Base(args: AvatarProps): JSX.Element {
   return (
-    <Space gutter={1}>
-      <Avatar {...args}>
-        <img alt="Doggo" src="/images/dog.jpg" />
-      </Avatar>
-
-      <Avatar {...args} backgroundColor="primary500" />
-
-      <Avatar {...args} icon="user" />
-    </Space>
+    <Flex>
+      <Box mr={2}>
+        <Avatar {...args}>
+          <img alt="Doggo" src="/images/dog.jpg" />
+        </Avatar>
+      </Box>
+      <Box mr={2}>
+        <Avatar {...args} backgroundColor="primary500" />
+      </Box>{' '}
+      <Box>
+        <Avatar {...args} icon="user" />
+      </Box>
+    </Flex>
   );
 }
 
 export function Sizes(args: AvatarProps): JSX.Element {
   return (
-    <Space alignItems="center" gutter={1}>
-      {sizes.map((size) => (
-        <Avatar key={size} {...args} size={size}>
-          <img alt="Doggo" src="/images/dog.jpg" />
-        </Avatar>
+    <Flex alignItems="center">
+      {sizes.map((size, i) => (
+        <Box key={i} ml={i && 2}>
+          <Avatar {...args} size={size}>
+            <img alt="Doggo" src="/images/dog.jpg" />
+          </Avatar>
+        </Box>
       ))}
-    </Space>
+    </Flex>
   );
 }
 

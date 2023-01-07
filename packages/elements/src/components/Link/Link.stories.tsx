@@ -14,7 +14,6 @@ const variants: LinkVariant[] = [
   'warning',
   'danger',
   'alt',
-  'default',
 ];
 
 export default {

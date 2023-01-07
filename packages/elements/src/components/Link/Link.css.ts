@@ -134,20 +134,6 @@ export const root = recipe({
           },
         },
       },
-
-      default: {
-        color: vars.color.neutral900,
-
-        selectors: {
-          '&:hover': {
-            color: vars.color.neutral600,
-          },
-
-          '&:active': {
-            color: vars.color.neutral800,
-          },
-        },
-      },
     },
 
     bold: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space } from '@seed-ui/layout';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import docs from './DateInput.docs.mdx';
 import DateInput, { DateInputProps, DateInputSize } from './DateInput';
@@ -40,11 +40,13 @@ export function ReadOnly(args: DateInputProps): JSX.Element {
 
 export function Sizes(args: DateInputProps): JSX.Element {
   return (
-    <Space direction="column" gutter={2}>
+    <Flex flexDirection="column">
       {SIZE_OPTIONS.map((size, i) => (
-        <DateInput {...args} key={i} size={size} />
+        <Box key={i} mt={i && 4}>
+          <DateInput {...args} size={size} />
+        </Box>
       ))}
-    </Space>
+    </Flex>
   );
 }
 

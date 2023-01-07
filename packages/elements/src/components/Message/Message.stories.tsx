@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from '@seed-ui/layout';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import docs from './Message.docs.mdx';
 import Message, { MessageProps } from './Message';
@@ -31,14 +31,14 @@ export function Base(args: MessageProps): JSX.Element {
 
 export function Variants(args: MessageProps): JSX.Element {
   return (
-    <Row gutter={2}>
+    <Flex flexWrap="wrap" mt={-4}>
       {variants.map((variant, i) => (
-        <Col key={i} width="full">
+        <Box key={i} mt={4} width="full">
           <Message {...args} variant={variant}>
             This is {variant} message.
           </Message>
-        </Col>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }

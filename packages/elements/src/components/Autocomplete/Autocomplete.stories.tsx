@@ -1,6 +1,6 @@
 import React from 'react';
-import { Space } from '@seed-ui/layout';
 import { atoms } from '@seed-ui/styles';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import docs from './Autocomplete.docs.mdx';
 import Autocomplete, {
@@ -95,17 +95,18 @@ export function Multiple(args: AutocompleteProps): JSX.Element {
 
 export function Sizes(args: AutocompleteProps): JSX.Element {
   return (
-    <Space className={atoms({ height: 96 })} direction="column" gutter={2}>
+    <Flex flexDirection="column" height={96}>
       {SIZE_OPTIONS.map((size, i) => (
-        <Autocomplete
-          {...args}
-          id={`autocomplete-sizes-${size}`}
-          key={i}
-          options={SELECT_OPTIONS}
-          size={size}
-        />
+        <Box key={i} mt={i && 4}>
+          <Autocomplete
+            {...args}
+            id={`autocomplete-sizes-${size}`}
+            options={SELECT_OPTIONS}
+            size={size}
+          />{' '}
+        </Box>
       ))}
-    </Space>
+    </Flex>
   );
 }
 

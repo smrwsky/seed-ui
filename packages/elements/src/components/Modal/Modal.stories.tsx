@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space } from '@seed-ui/layout';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import Button from '../Button';
 import Subtitle from '../Subtitle';
@@ -31,12 +31,17 @@ export function Base(args: ModalProps): JSX.Element {
           .<br /> .<br /> .<br /> .<br />
         </Modal.Body>
         <Modal.Footer>
-          <Space gutter={1.5} justifyContent="end">
-            <Button onClick={() => setOpen(false)} variant="overlay-tertiary">
-              Cancel
-            </Button>
-            <Button onClick={() => setOpen(false)}>OK</Button>
-          </Space>
+          <Flex justifyContent="end">
+            <Box mr={3}>
+              <Button onClick={() => setOpen(false)} variant="overlay-tertiary">
+                Cancel
+              </Button>
+            </Box>
+
+            <Box>
+              <Button onClick={() => setOpen(false)}>OK</Button>
+            </Box>
+          </Flex>
         </Modal.Footer>
       </Modal>
     </>
@@ -68,17 +73,25 @@ export function Sizes(args: ModalProps): JSX.Element {
 
   return (
     <>
-      <Space gutter={2}>
-        <Button onClick={handleOpenSmallModal} variant="outline-secondary">
-          Open small modal
-        </Button>
-        <Button onClick={handleOpenMediumModal} variant="outline-secondary">
-          Open medium modal
-        </Button>
-        <Button onClick={handleOpenLargeModal} variant="outline-secondary">
-          Open large modal
-        </Button>
-      </Space>
+      <Flex>
+        <Box mr={4}>
+          <Button onClick={handleOpenSmallModal} variant="outline-secondary">
+            Open small modal
+          </Button>
+        </Box>
+
+        <Box mr={4}>
+          <Button onClick={handleOpenMediumModal} variant="outline-secondary">
+            Open medium modal
+          </Button>
+        </Box>
+
+        <Box>
+          <Button onClick={handleOpenLargeModal} variant="outline-secondary">
+            Open large modal
+          </Button>
+        </Box>
+      </Flex>
 
       <Modal
         {...args}
@@ -93,11 +106,11 @@ export function Sizes(args: ModalProps): JSX.Element {
           .<br /> .<br />
         </Modal.Body>
         <Modal.Footer>
-          <Space justifyContent="center">
+          <Flex justifyContent="center">
             <Button onClick={() => setOpen(false)} variant="primary">
               OK
             </Button>
-          </Space>
+          </Flex>
         </Modal.Footer>
       </Modal>
 
@@ -108,21 +121,25 @@ export function Sizes(args: ModalProps): JSX.Element {
         size="md"
       >
         <Modal.Header>
-          {' '}
           <Subtitle>Medium modal</Subtitle>
         </Modal.Header>
         <Modal.Body>
           .<br /> .<br /> .<br /> .<br />
         </Modal.Body>
         <Modal.Footer>
-          <Space gutter={1.5} justifyContent="end">
-            <Button onClick={handleClose} variant="overlay-tertiary">
-              Cancel
-            </Button>
-            <Button onClick={() => setOpen(false)} variant="primary">
-              OK
-            </Button>
-          </Space>
+          <Flex justifyContent="end">
+            <Box mr={3}>
+              <Button onClick={handleClose} variant="overlay-tertiary">
+                Cancel
+              </Button>
+            </Box>
+
+            <Box>
+              <Button onClick={() => setOpen(false)} variant="primary">
+                OK
+              </Button>
+            </Box>
+          </Flex>
         </Modal.Footer>
       </Modal>
 
@@ -141,14 +158,18 @@ export function Sizes(args: ModalProps): JSX.Element {
           .<br /> .<br /> .<br />.<br /> .<br /> .<br /> .<br />
         </Modal.Body>
         <Modal.Footer>
-          <Space gutter={1.5} justifyContent="end">
-            <Button onClick={handleClose} variant="overlay-tertiary">
-              Cancel
-            </Button>
-            <Button onClick={() => setOpen(false)} variant="primary">
-              OK
-            </Button>
-          </Space>
+          <Flex justifyContent="end">
+            <Box mr={3}>
+              <Button onClick={handleClose} variant="overlay-tertiary">
+                Cancel
+              </Button>
+            </Box>
+            <Box>
+              <Button onClick={() => setOpen(false)} variant="primary">
+                OK
+              </Button>
+            </Box>
+          </Flex>
         </Modal.Footer>
       </Modal>
     </>

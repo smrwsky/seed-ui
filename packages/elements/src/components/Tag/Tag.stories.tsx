@@ -1,6 +1,6 @@
 import React from 'react';
-import { Col, Row } from '@seed-ui/layout';
 import { capitalize } from 'lodash';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import Tag, { TagProps, TagSize, TagVariant } from './Tag';
 import docs from './Tag.docs.mdx';
@@ -45,29 +45,29 @@ export function Base(args: TagProps): JSX.Element {
 
 export function Sizes(args: TagProps): JSX.Element {
   return (
-    <Row alignItems="center" gutter={2}>
+    <Flex alignItems="center" flexWrap="wrap" mt={-2} mx={-1}>
       {sizes.map((size, i) => (
-        <Col key={i}>
+        <Box key={i} mt={2} px={1}>
           <Tag {...args} size={size}>
             {capitalize(size)}
           </Tag>
-        </Col>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }
 
 export function Variants(args: TagProps): JSX.Element {
   return (
-    <Row gutter={2}>
+    <Flex alignItems="center" flexWrap="wrap" mt={-2} mx={-1}>
       {variants.map((variant, i) => (
-        <Col key={i} width="auto">
+        <Box key={i} lineHeight={0} mt={2} px={1} width="auto">
           <Tag {...args} variant={variant}>
             {capitalize(variant)}
           </Tag>
-        </Col>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }
 
@@ -99,7 +99,6 @@ export function Removable(args: TagProps): JSX.Element {
 
 export function Disabled(args: TagProps): JSX.Element {
   return (
-    // eslint-disable-next-line no-console
     <Tag {...args} disabled>
       Disabled tag
     </Tag>
