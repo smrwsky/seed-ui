@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from '@seed-ui/layout';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import Button, { ButtonProps, ButtonSize, ButtonVariant } from './Button';
 import docs from './Button.docs.mdx';
@@ -52,29 +52,29 @@ export function Base(args: ButtonProps): JSX.Element {
 
 export function Variants(args: ButtonProps): JSX.Element {
   return (
-    <Row gutter={2}>
+    <Flex flexWrap="wrap" mt={-4} mx={-2}>
       {variants.map((variant, i) => (
-        <Col key={i} width="auto">
+        <Box key={i} mt={4} px={2} width="auto">
           <Button {...args} variant={variant}>
             {variant}
           </Button>
-        </Col>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }
 
 export function Sizes(args: ButtonProps): JSX.Element {
   return (
-    <Row alignItems="center" gutter={2}>
+    <Flex alignItems="center" flexWrap="wrap" mt={-4} mx={-2}>
       {sizes.map((size, i) => (
-        <Col key={i}>
+        <Box key={i} mt={4} px={2}>
           <Button {...args} size={size}>
             {size}
           </Button>
-        </Col>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }
 
@@ -84,18 +84,18 @@ export function Rounded(args: ButtonProps): JSX.Element {
 
 export function WithIcon(args: ButtonProps): JSX.Element {
   return (
-    <Row gutter={2}>
-      <Col>
-        <Button {...args} startIcon="plus">
+    <Flex flexWrap="wrap" mt={-4} mx={-2}>
+      <Box mt={4} px={2}>
+        <Button {...args} startIcon="like" startIconType="solid">
           Start icon
         </Button>
-      </Col>
+      </Box>
 
-      <Col>
-        <Button {...args} endIcon="plus">
+      <Box mt={4} px={2}>
+        <Button {...args} endIcon="like" endIconType="solid">
           End icon
         </Button>
-      </Col>
-    </Row>
+      </Box>
+    </Flex>
   );
 }

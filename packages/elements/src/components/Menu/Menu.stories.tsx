@@ -145,7 +145,7 @@ export function StandalonePopupMenu(): JSX.Element {
         ref={setButtonElement}
         size="sm"
         title="Show menu"
-        variant="default"
+        variant="overlay-tertiary"
       >
         <Icon name="dots-vertical-rounded" />
       </IconButton>

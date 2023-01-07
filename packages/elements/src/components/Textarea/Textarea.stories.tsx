@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space } from '@seed-ui/layout';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import docs from './Textarea.docs.mdx';
 import Textarea, { TextareaProps, TextareaSize } from './Textarea';
@@ -40,11 +40,13 @@ export function ReadOnly(args: TextareaProps): JSX.Element {
 
 export function Sizes(args: TextareaProps): JSX.Element {
   return (
-    <Space direction="column" gutter={2}>
+    <Flex flexDirection="column">
       {sizes.map((size, i) => (
-        <Textarea {...args} key={i} size={size} value={size} />
+        <Box key={i} mt={i && 4}>
+          <Textarea {...args} size={size} value={size} />
+        </Box>
       ))}
-    </Space>
+    </Flex>
   );
 }
 

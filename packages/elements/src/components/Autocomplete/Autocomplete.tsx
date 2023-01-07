@@ -397,21 +397,19 @@ const Autocomplete: AutocompleteFn = ({
           />
         </InputTags>
 
-        {!readOnly &&
-          !disabled &&
-          (displayText.length > 0 || valuesList.length > 0) && (
-            <InputAction>
-              <IconButton
-                aria-label={clearText}
-                icon="x"
-                onMouseDown={handleClear}
-                rounded
-                size="xs"
-                tabIndex={-1}
-                variant="tertiary"
-              />
-            </InputAction>
-          )}
+        {!0 && (
+          <InputAction>
+            <IconButton
+              aria-label={clearText}
+              icon="x"
+              onMouseDown={handleClear}
+              rounded
+              size="xs"
+              tabIndex={-1}
+              variant="tertiary"
+            />
+          </InputAction>
+        )}
       </InputContainer>
 
       <Popover

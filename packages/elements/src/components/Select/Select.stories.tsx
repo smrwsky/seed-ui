@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space } from '@seed-ui/layout';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import docs from './Select.docs.mdx';
 import Select, { SelectProps, SelectSize } from './Select';
@@ -79,17 +79,19 @@ export function Multiple(args: SelectProps): JSX.Element {
 
 export function Sizes(args: SelectProps): JSX.Element {
   return (
-    <Space direction="column" gutter={2}>
+    <Flex flexDirection="column">
       {SIZE_OPTIONS.map((size, i) => (
-        <Select {...args} key={i} size={size}>
-          {SELECT_OPTIONS.map((val, idx) => (
-            <option key={idx} value={idx}>
-              {val}
-            </option>
-          ))}
-        </Select>
+        <Box key={i} mt={i && 4}>
+          <Select {...args} size={size}>
+            {SELECT_OPTIONS.map((val, idx) => (
+              <option key={idx} value={idx}>
+                {val}
+              </option>
+            ))}
+          </Select>
+        </Box>
       ))}
-    </Space>
+    </Flex>
   );
 }
 

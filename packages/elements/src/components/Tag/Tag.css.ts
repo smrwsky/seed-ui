@@ -1,14 +1,15 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { spacing, vars } from '@seed-ui/styles';
+import { spacing, textTruncate, vars } from '@seed-ui/styles';
 
 export const root = style({
+  position: 'relative',
   display: 'inline-flex',
   alignItems: 'center',
   maxWidth: '100%',
   transition: vars.transition.base,
   outline: 'none',
   borderRadius: vars.borderRadius.md,
-  padding: `0 ${spacing[1.5]}`,
+  overflow: 'hidden',
 
   selectors: {
     '&:active': {
@@ -26,11 +27,11 @@ export const root = style({
 export const rootSize = styleVariants({
   md: {
     height: '1.5rem',
-    ...vars.typography.textSm.secondary,
+    padding: `0 ${spacing[1.5]}`,
   },
   sm: {
     height: '1rem',
-    ...vars.typography.caption,
+    padding: `0 ${spacing[1]}`,
   },
 });
 
@@ -377,17 +378,17 @@ export const rootVariant = styleVariants({
 });
 
 export const text = style({
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-  overflow: 'hidden',
+  display: 'inline-block',
+  fontFamily: vars.fontFamily.secondary,
+  ...vars.typography.textSm.secondary,
+  ...textTruncate(),
   margin: `0 ${spacing[0.5]}`,
-  padding: `${spacing[0.5]} 0 0`,
 });
 
 export const icon = style({
-  cursor: 'pointer',
   transition: vars.transition.base,
   margin: `0 ${spacing[0.5]}`,
+  cursor: 'pointer',
   pointerEvents: 'auto',
 
   selectors: {

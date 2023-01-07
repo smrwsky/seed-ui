@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space } from '@seed-ui/layout';
+import { atoms } from '@seed-ui/styles';
 
 import docs from './TextInput.docs.mdx';
 import TextInput, { TextInputProps, TextInputSize } from './TextInput';
@@ -40,11 +40,16 @@ export function ReadOnly(args: TextInputProps): JSX.Element {
 
 export function Sizes(args: TextInputProps): JSX.Element {
   return (
-    <Space direction="column" gutter={2}>
+    <>
       {sizes.map((size, i) => (
-        <TextInput {...args} key={i} size={size} />
+        <TextInput
+          {...args}
+          className={atoms({ mt: i && 4 })}
+          key={i}
+          size={size}
+        />
       ))}
-    </Space>
+    </>
   );
 }
 

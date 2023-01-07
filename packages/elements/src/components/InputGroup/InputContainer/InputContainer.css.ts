@@ -1,12 +1,13 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { vars } from '@seed-ui/styles';
+import { spacing, vars } from '@seed-ui/styles';
 
 export const root = style({
   gridArea: 'input',
-  backgroundColor: vars.color.white,
+  display: 'flex',
+  alignItems: 'center',
   border: `1px solid ${vars.color.neutral100}`,
   borderRadius: vars.borderRadius.md,
-  display: 'flex',
+  backgroundColor: vars.color.white,
   transition: vars.transition.base,
   overflow: 'hidden',
 });
@@ -42,13 +43,16 @@ export const rootReadOnly = style({
 
 export const rootSize = styleVariants({
   sm: {
-    padding: `calc(${(32 - 24) / 16 / 2}rem - 1px)`,
+    minHeight: '2rem',
+    padding: `${spacing[0.5]} ${spacing[1]}`,
   },
   md: {
-    padding: `calc(${(40 - 24) / 16 / 2}rem - 1px)`,
+    minHeight: '2.5rem',
+    padding: `${spacing[1]} ${spacing[2]}`,
   },
   lg: {
-    padding: `calc(${(48 - 24) / 16 / 2}rem - 1px)`,
+    minHeight: '3rem',
+    padding: `${spacing[1.5]} ${spacing[3]}`,
   },
 });
 

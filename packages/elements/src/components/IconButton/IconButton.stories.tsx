@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row } from '@seed-ui/layout';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import Avatar from '../Avatar';
 
@@ -27,6 +27,14 @@ const variants: IconButtonVariant[] = [
   'outline-warning',
   'outline-danger',
   'outline-alt',
+  'overlay-primary',
+  'overlay-secondary',
+  'overlay-tertiary',
+  'overlay-info',
+  'overlay-success',
+  'overlay-warning',
+  'overlay-danger',
+  'overlay-alt',
 ];
 
 const sizes: IconButtonSize[] = ['xs', 'sm', 'md', 'lg'];
@@ -53,29 +61,29 @@ export function Base(args: IconButtonProps): JSX.Element {
 
 export function Variants(args: IconButtonProps): JSX.Element {
   return (
-    <Row gutter={2}>
+    <Flex flexWrap="wrap" mt={-4} mx={-2}>
       {variants.map((variant, i) => (
-        <Col key={i} title={`${variant} variant IconButton`}>
+        <Box key={i} mt={4} px={2} title={`${variant} variant IconButton`}>
           <IconButton
             {...args}
             title={`${variant} variant IconButton`}
             variant={variant}
           />
-        </Col>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }
 
 export function Sizes(args: IconButtonProps): JSX.Element {
   return (
-    <Row alignItems="center" gutter={2}>
+    <Flex alignItems="center" flexWrap="wrap" mt={-4} mx={-2}>
       {sizes.map((size, i) => (
-        <Col key={i}>
+        <Box key={i} mt={4} px={2}>
           <IconButton {...args} size={size} title={`${size} size IconButton`} />
-        </Col>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }
 

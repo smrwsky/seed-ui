@@ -1,7 +1,7 @@
 import React from 'react';
 import { capitalize } from 'lodash';
-import { Space } from '@seed-ui/layout';
 import { atoms } from '@seed-ui/styles';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import Link from '../../Link';
 import Toast from '../index';
@@ -53,18 +53,19 @@ export function Placement(args: ToastContainerProps): JSX.Element {
 
   return (
     <div style={{ minHeight: '50vh' }}>
-      <Space gutter={1}>
-        {placements.map((p) => (
-          <Button
-            key={p}
-            onClick={handleChangePosition}
-            value={p}
-            variant={p === placement ? 'primary' : 'primary-outline'}
-          >
-            {capitalize(p)}
-          </Button>
+      <Flex>
+        {placements.map((p, i) => (
+          <Box key={p} ml={i && 2}>
+            <Button
+              onClick={handleChangePosition}
+              value={p}
+              variant={p === placement ? 'secondary' : 'outline-secondary'}
+            >
+              {capitalize(p)}
+            </Button>
+          </Box>
         ))}
-      </Space>
+      </Flex>
 
       <ToastContainer
         {...args}

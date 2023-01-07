@@ -78,7 +78,7 @@ const Tag: FC<TagProps & RefAttributes<HTMLDivElement>> = forwardRef<
         tabIndex={onClick && typeof tabIndex === 'undefined' ? 0 : tabIndex}
         {...props}
       >
-        <div className={S.text}>{children}</div>
+        <span className={S.text}>{children}</span>
 
         {deletable && (
           <Icon

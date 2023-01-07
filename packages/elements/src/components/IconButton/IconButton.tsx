@@ -30,7 +30,15 @@ export type IconButtonVariant =
   | 'outline-success'
   | 'outline-warning'
   | 'outline-danger'
-  | 'outline-alt';
+  | 'outline-alt'
+  | 'overlay-primary'
+  | 'overlay-secondary'
+  | 'overlay-tertiary'
+  | 'overlay-info'
+  | 'overlay-success'
+  | 'overlay-warning'
+  | 'overlay-danger'
+  | 'overlay-alt';
 
 export interface IconButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLElement>, 'type'>,
