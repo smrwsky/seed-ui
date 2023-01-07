@@ -4,7 +4,7 @@ import { Icon, IconType } from '@seed-ui/icons';
 
 import * as S from './Button.css';
 
-export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type ButtonVariant =
   | 'secondary'

@@ -1,14 +1,19 @@
 import React, { Fragment } from 'react';
-import { atoms, FontFamily } from '@seed-ui/styles';
+import { atoms } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
 
 import ListItem from '../ListItem';
 import Title from '../Title';
 
 import docs from './OList.docs.mdx';
-import OList, { OListProps, OListSize, OListVariant } from './OList';
+import OList, {
+  OListFontFamily,
+  OListProps,
+  OListSize,
+  OListVariant,
+} from './OList';
 
-const fontFamilies: FontFamily[] = ['primary', 'secondary'];
+const fontFamilies: OListFontFamily[] = ['primary', 'secondary'];
 
 const sizes: OListSize[] = ['sm', 'md'];
 

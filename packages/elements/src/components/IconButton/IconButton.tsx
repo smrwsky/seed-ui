@@ -12,7 +12,7 @@ import { Icon, IconType } from '@seed-ui/icons';
 
 import * as S from './IconButton.css';
 
-export type IconButtonSize = 'sm' | 'md' | 'lg';
+export type IconButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export type IconButtonVariant =
   | 'primary'

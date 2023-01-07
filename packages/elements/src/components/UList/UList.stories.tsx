@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { atoms, FontFamily } from '@seed-ui/styles';
+import { atoms } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
 import { Icon } from '@seed-ui/icons';
 
@@ -8,11 +8,17 @@ import Title from '../Title';
 import Marker from '../Marker';
 
 import docs from './UList.docs.mdx';
-import UList, { UListProps, UListSize, UListType, UListVariant } from './UList';
+import UList, {
+  UListProps,
+  UListFontFamily,
+  UListSize,
+  UListType,
+  UListVariant,
+} from './UList';
 
 const types: UListType[] = ['disc', 'dash', 'none'];
 
-const fontFamilies: FontFamily[] = ['primary', 'secondary'];
+const fontFamilies: UListFontFamily[] = ['primary', 'secondary'];
 
 const sizes: UListSize[] = ['sm', 'md'];
 

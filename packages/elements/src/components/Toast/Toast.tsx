@@ -74,7 +74,7 @@ const Toast: React.FC<ToastProps> = ({
         icon="x"
         onClick={onClose}
         rounded
-        size="sm"
+        size="xs"
         tabIndex={0}
         variant="tertiary"
       />

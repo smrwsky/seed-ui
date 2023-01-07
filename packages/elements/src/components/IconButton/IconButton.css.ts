@@ -47,14 +47,17 @@ export const rootRounded = style({
 });
 
 export const rootSize = styleVariants({
-  sm: {
+  xs: {
     fontSize: '1.5rem',
   },
-  md: {
+  sm: {
     fontSize: '2rem',
   },
-  lg: {
+  md: {
     fontSize: '2.5rem',
+  },
+  lg: {
+    fontSize: '3rem',
   },
 });
 
@@ -420,5 +423,20 @@ globalStyle(`.${root}:hover > *:not(i):after`, {
 // override icon styles
 globalStyle(`.${root} > i`, {
   color: 'currentColor !important',
-  fontSize: '.63em !important',
+});
+
+globalStyle(`.${rootSize.xs} > i`, {
+  fontSize: '0.75rem !important',
+});
+
+globalStyle(`.${rootSize.sm} > i`, {
+  fontSize: '1rem !important',
+});
+
+globalStyle(`.${rootSize.md} > i`, {
+  fontSize: '1.5rem !important',
+});
+
+globalStyle(`.${rootSize.lg} > i`, {
+  fontSize: '2rem !important',
 });

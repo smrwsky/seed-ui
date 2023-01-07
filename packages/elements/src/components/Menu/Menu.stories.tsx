@@ -141,7 +141,12 @@ export function StandalonePopupMenu(): JSX.Element {
         minHeight: '50vh',
       }}
     >
-      <IconButton ref={setButtonElement} title="Show menu" variant="default">
+      <IconButton
+        ref={setButtonElement}
+        size="sm"
+        title="Show menu"
+        variant="default"
+      >
         <Icon name="dots-vertical-rounded" />
       </IconButton>
 

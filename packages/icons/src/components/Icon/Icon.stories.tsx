@@ -14,17 +14,17 @@ import Icon, {
 
 const VARIANT_OPTIONS: IconVariant[] = [
   'primary',
-  'accent',
   'secondary',
+  'tertiary',
   'info',
   'success',
   'warning',
   'danger',
-  'light',
-  'dark',
+  'alt',
+  'default',
 ];
 
-const SIZE_OPTIONS: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', 'none'];
+const SIZE_OPTIONS: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 const ROTATE_OPTIONS: IconRotate[] = [0, 90, 180, 270];
 
@@ -85,12 +85,6 @@ export default {
     },
     type: {
       defaultValue: 'solid',
-    },
-    variant: {
-      defaultValue: 'default',
-    },
-    size: {
-      defaultValue: 'sm',
     },
   },
 };
