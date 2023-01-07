@@ -4,7 +4,8 @@
 
 ### Patch Changes
 
-- e8260f9: - Normalised buttons sizes
+- e8260f9: 
+  - Normalised buttons sizes
   - Added flexbox package
 - Updated dependencies [e8260f9]
   - @seed-ui/flexbox@0.1.0
