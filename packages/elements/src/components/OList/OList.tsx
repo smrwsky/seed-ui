@@ -3,7 +3,7 @@ import cn from 'classnames';
 
 import * as S from './OList.css';
 
-export type OListTextFontFamily = 'primary' | 'secondary';
+export type OListFontFamily = 'primary' | 'secondary';
 
 export type OListSize = 'sm' | 'md';
 
@@ -21,7 +21,7 @@ export type OListVariant =
 export interface OListProps
   extends React.HTMLAttributes<HTMLOListElement>,
     React.RefAttributes<HTMLOListElement> {
-  fontFamily?: OListTextFontFamily;
+  fontFamily?: OListFontFamily;
   size?: OListSize;
   bold?: boolean;
   variant?: OListVariant;

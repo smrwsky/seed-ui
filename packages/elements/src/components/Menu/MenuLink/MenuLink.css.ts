@@ -138,7 +138,7 @@ export const root = recipe({
         gridTemplateColumns: 'auto',
         minWidth: 0,
         justifyItems: 'center',
-        padding: '0.5rem',
+        padding: spacing[2],
 
         selectors: {
           '&:after': {
@@ -158,6 +158,36 @@ export const root = recipe({
   },
 
   compoundVariants: [
+    {
+      variants: {
+        variant: 'primary',
+        collapsed: true,
+      },
+      style: {
+        color: vars.color.neutral500,
+      },
+    },
+
+    {
+      variants: {
+        variant: 'secondary',
+        collapsed: true,
+      },
+      style: {
+        color: vars.color.neutral500,
+      },
+    },
+
+    {
+      variants: {
+        variant: 'alt',
+        collapsed: true,
+      },
+      style: {
+        color: vars.color.white,
+      },
+    },
+
     {
       variants: {
         variant: 'primary',
@@ -211,6 +241,7 @@ export const root = recipe({
       },
 
       style: {
+        color: vars.color.neutral900,
         background: vars.color.secondary50,
       },
     },
@@ -244,6 +275,30 @@ export const root = recipe({
       },
       style: {
         background: vars.color.secondary400,
+      },
+    },
+
+    {
+      variants: {
+        variant: 'secondary',
+        collapsed: true,
+        selected: true,
+      },
+      style: {
+        color: vars.color.secondary500,
+        background: vars.color.white,
+      },
+    },
+
+    {
+      variants: {
+        variant: 'secondary',
+        collapsed: true,
+        active: true,
+        selected: true,
+      },
+      style: {
+        background: vars.color.dark100,
       },
     },
 

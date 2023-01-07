@@ -47,25 +47,25 @@ export const rootRounded = style({
 });
 
 export const rootSize = styleVariants({
-  sm: {
+  xs: {
     minWidth: '6rem',
     height: '1.5rem',
     paddingLeft: spacing[1],
     paddingRight: spacing[1],
   },
-  md: {
+  sm: {
     minWidth: '7rem',
     height: '2rem',
     paddingLeft: spacing[1.5],
     paddingRight: spacing[1.5],
   },
-  lg: {
+  md: {
     minWidth: '8rem',
     height: '2.5rem',
     paddingLeft: spacing[2],
     paddingRight: spacing[2],
   },
-  xl: {
+  lg: {
     minWidth: '9rem',
     height: '3rem',
     paddingLeft: spacing[2.5],
@@ -74,14 +74,14 @@ export const rootSize = styleVariants({
 });
 
 globalStyle(
-  `.${rootSize.sm} > *:not(:last-child), .${rootSize.md} > *:not(:last-child)`,
+  `.${rootSize.xs} > *:not(:last-child), .${rootSize.sm} > *:not(:last-child)`,
   {
     marginRight: spacing[1],
   },
 );
 
 globalStyle(
-  `.${rootSize.lg} > *:not(:last-child), .${rootSize.xl} > *:not(:last-child)`,
+  `.${rootSize.md} > *:not(:last-child), .${rootSize.lg} > *:not(:last-child)`,
   {
     marginRight: spacing[1.5],
   },
@@ -582,16 +582,16 @@ export const icon = style({
 });
 
 export const iconSize = styleVariants({
-  sm: {
+  xs: {
     fontSize: '1rem !important',
   },
-  md: {
+  sm: {
     fontSize: '1.125rem !important',
   },
-  lg: {
+  md: {
     fontSize: '1.25rem !important',
   },
-  xl: {
+  lg: {
     fontSize: '1.375rem !important',
   },
 });

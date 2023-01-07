@@ -31,7 +31,7 @@ const variants: ButtonVariant[] = [
   'overlay-alt',
 ];
 
-const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
+const sizes: ButtonSize[] = ['xs', 'sm', 'md', 'lg'];
 
 export default {
   title: 'Inputs/Button',
@@ -79,11 +79,7 @@ export function Sizes(args: ButtonProps): JSX.Element {
 }
 
 export function Rounded(args: ButtonProps): JSX.Element {
-  return (
-    <Button {...args} rounded>
-      {shape}
-    </Button>
-  );
+  return <Button {...args} rounded />;
 }
 
 export function WithIcon(args: ButtonProps): JSX.Element {

@@ -207,7 +207,7 @@ const Autocomplete: AutocompleteFn = ({
     if (!disabled && !readOnly) {
       setOpenListbox((prevState) => hasDisplayText || !prevState);
     }
-  }, [hasDisplayText]);
+  }, [disabled, hasDisplayText, readOnly]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
@@ -406,7 +406,7 @@ const Autocomplete: AutocompleteFn = ({
                 icon="x"
                 onMouseDown={handleClear}
                 rounded
-                size="sm"
+                size="xs"
                 tabIndex={-1}
                 variant="tertiary"
               />

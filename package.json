@@ -6,9 +6,10 @@
   ],
   "scripts": {
     "docs": "start-storybook -p 6006 -s .storybook/public --no-manager-cache",
-    "build": "yarn build:styles && yarn build:layout && yarn build:icons && yarn build:elements",
+    "build": "yarn build:styles && yarn build:layout && yarn build:flexbox && yarn build:icons && yarn build:elements",
     "build:elements": "lerna run --scope @seed-ui/elements --stream build",
     "build:icons": "lerna run --scope @seed-ui/icons --stream build",
+    "build:flexbox": "lerna run --scope @seed-ui/flexbox --stream build",
     "build:layout": "lerna run --scope @seed-ui/layout --stream build",
     "build:styles": "lerna run --scope @seed-ui/styles --stream build",
     "check:licenses": "license-checker --production --summary --failOn=GPLv3",

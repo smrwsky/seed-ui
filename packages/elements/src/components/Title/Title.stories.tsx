@@ -1,11 +1,10 @@
 import React from 'react';
-import { FontFamily } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
 
 import Title, { TitleProps, TitleSize, TitleVariant } from './Title';
 import docs from './Title.docs.mdx';
 
-const fontFamilies: FontFamily[] = ['primary', 'secondary'];
+const fontFamilies: TitleFontFamily[] = ['primary', 'secondary'];
 
 const sizes: TitleSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
