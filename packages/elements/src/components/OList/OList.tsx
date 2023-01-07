@@ -1,59 +1,62 @@
 import React from 'react';
 import cn from 'classnames';
 
-import {
-  textSerifSizeStyle,
-  textSizeStyle,
-  textVariantStyle,
-  oListStyle,
-} from '../../styles';
+import * as S from './OList.css';
+
+export type OListTextFontFamily = 'primary' | 'secondary';
 
 export type OListSize = 'sm' | 'md';
 
 export type OListVariant =
   | 'primary'
-  | 'accent'
   | 'secondary'
+  | 'tertiary'
   | 'info'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'light'
-  | 'dark';
+  | 'alt'
+  | 'default';
 
-export interface OListProps extends React.OlHTMLAttributes<HTMLOListElement> {
-  serif?: boolean;
+export interface OListProps
+  extends React.HTMLAttributes<HTMLOListElement>,
+    React.RefAttributes<HTMLOListElement> {
+  fontFamily?: OListTextFontFamily;
   size?: OListSize;
+  bold?: boolean;
   variant?: OListVariant;
 }
 
-const OList: React.FC<OListProps & React.RefAttributes<HTMLOListElement>> =
-  React.forwardRef(
-    (
-      {
-        serif,
-        size = 'md',
-        variant = 'dark',
+const OList: React.FC<OListProps> = React.forwardRef(
+  (
+    {
+      fontFamily = 'secondary',
+      size = 'md',
+      bold,
+      variant = 'default',
+      className,
+      children,
+      ...elemProps
+    },
+    ref,
+  ) => (
+    <ol
+      className={cn(
+        S.root({
+          fontFamily,
+          size,
+          variant,
+          bold,
+        }),
         className,
-        children,
-        ...elemProps
-      },
-      ref,
-    ) => (
-      <ol
-        className={cn(
-          oListStyle,
-          serif ? textSerifSizeStyle[size] : textSizeStyle[size],
-          textVariantStyle[variant],
-          className,
-        )}
-        ref={ref}
-        {...elemProps}
-      >
-        {children}
-      </ol>
-    ),
-  );
+      )}
+      ref={ref}
+      {...elemProps}
+    >
+      {children}
+    </ol>
+  ),
+);
 
 OList.displayName = 'OList';
 

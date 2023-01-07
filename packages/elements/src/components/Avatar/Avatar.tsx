@@ -1,12 +1,10 @@
 import React from 'react';
 import { atoms, Atoms } from '@seed-ui/styles';
-import { Squircle } from 'react-ios-corners';
 import cn from 'classnames';
 import { startCase } from 'lodash';
+import { Icon, IconType } from '@seed-ui/icons';
 
 import * as S from './Avatar.css';
-
-export type AvatarShape = 'circle' | 'square';
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -14,9 +12,10 @@ export type AvatarProps = {
   backgroundColor?: Atoms['backgroundColor'];
   children?: React.ReactElement;
   className?: string;
-  icon?: React.ReactElement;
+  icon?: string;
+  iconType?: IconType;
   placeholder?: string;
-  shape?: AvatarShape;
+  rounded?: boolean;
   size?: AvatarSize;
 };
 
@@ -28,27 +27,27 @@ function formatText(str: string): string {
     .join('');
 }
 
-function getSquircleRadius(size: AvatarSize) {
-  return (
-    (size === 'xs' && 4) || ('sm' && 6) || ('md' && 8) || ('lg' && 12) || 16
-  );
-}
-
 function Avatar({
-  backgroundColor = 'primary500',
+  backgroundColor = 'secondary500',
   icon,
+  iconType,
   placeholder,
-  shape = 'circle',
+  rounded,
   size = 'md',
   className,
   children,
 }: AvatarProps): JSX.Element {
-  const avatarContent = (
-    <>
-      {icon &&
-        React.cloneElement<HTMLElement>(icon, {
-          className: cn(S.icon, icon.props.className),
-        })}
+  return (
+    <div
+      className={cn(
+        S.root,
+        S.rootSize[size],
+        rounded && S.rootRounded,
+        atoms({ backgroundColor }),
+        className,
+      )}
+    >
+      {icon && <Icon className={cn(S.icon)} name={icon} type={iconType} />}
 
       {!icon && placeholder && (
         <span className={S.text}>{formatText(placeholder)}</span>
@@ -58,33 +57,6 @@ function Avatar({
         React.cloneElement(children, {
           className: cn(S.image, children.props.className),
         })}
-    </>
-  );
-
-  return shape === 'square' ? (
-    <Squircle
-      className={cn(
-        S.root,
-        S.rootSize[size],
-        atoms({ backgroundColor }),
-        className,
-      )}
-      radius={getSquircleRadius(size)}
-      ratio={0.3}
-    >
-      {avatarContent}
-    </Squircle>
-  ) : (
-    <div
-      className={cn(
-        S.root,
-        S.rootShape[shape],
-        S.rootSize[size],
-        atoms({ backgroundColor }),
-        className,
-      )}
-    >
-      {avatarContent}
     </div>
   );
 }

@@ -30,20 +30,8 @@ export { default as Divider } from './components/Divider';
 export * from './components/IconButton';
 export { default as IconButton } from './components/IconButton';
 
-export * from './components/InputAction';
-export { default as InputAction } from './components/InputAction';
-
-export * from './components/InputContainer';
-export { default as InputContainer } from './components/InputContainer';
-
 export * from './components/InputGroup';
 export { default as InputGroup } from './components/InputGroup';
-
-export * from './components/InputTags';
-export { default as InputTags } from './components/InputTags';
-
-export * from './components/Label';
-export { default as Label } from './components/Label';
 
 export * from './components/Link';
 export { default as Link } from './components/Link';
@@ -65,6 +53,9 @@ export { default as Modal } from './components/Modal';
 
 export * from './components/OList';
 export { default as OList } from './components/OList';
+
+export * from './components/Option';
+export { default as Option } from './components/Option';
 
 export * from './components/Overline';
 export { default as Overline } from './components/Overline';
@@ -93,9 +84,6 @@ export { default as Text } from './components/Text';
 export * from './components/Textarea';
 export { default as Textarea } from './components/Textarea';
 
-export * from './components/Textbox';
-export { default as Textbox } from './components/Textbox';
-
 export * from './components/TextInput';
 export { default as TextInput } from './components/TextInput';
 
@@ -105,11 +93,8 @@ export { default as Title } from './components/Title';
 export * from './components/Toast';
 export { default as Toast } from './components/Toast';
 
-export * from './components/ToastContainer';
-export { default as ToastContainer } from './components/ToastContainer';
+export * from './components/Toast/ToastContainer';
+export { default as ToastContainer } from './components/Toast/ToastContainer';
 
 export * from './components/UList';
 export { default as UList } from './components/UList';
-
-// Styles
-export * from './styles';

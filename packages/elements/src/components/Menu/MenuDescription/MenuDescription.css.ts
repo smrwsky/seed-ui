@@ -1,25 +1,22 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { theme } from '@seed-ui/styles';
+import { spacing, vars } from '@seed-ui/styles';
 
 export const root = style({
   gridArea: 'description',
-  ...theme.typography.caption,
+  fontFamily: vars.fontFamily.secondary,
+  ...vars.typography.caption,
   textOverflow: 'ellipsis',
-  overflow: 'hidden',
-  paddingTop: '.125rem',
+  margin: `0 ${spacing[1.5]}`,
 });
 
 export const rootVariant = styleVariants({
   primary: {
-    color: theme.color.neutral500,
+    color: vars.color.neutral500,
   },
   secondary: {
-    color: theme.color.neutral500,
+    color: vars.color.neutral500,
   },
-  dark: {
-    color: 'inherit',
-  },
-  light: {
+  alt: {
     color: 'inherit',
   },
 });

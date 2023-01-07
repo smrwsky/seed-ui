@@ -1,28 +1,39 @@
 import React from 'react';
 import cn from 'classnames';
-import { atoms, Atoms } from '@seed-ui/styles';
+import {
+  Atoms,
+  atoms,
+  textBreakStyle,
+  textTruncateStyle,
+} from '@seed-ui/styles';
 
 import * as S from './Subtitle.css';
+
+export type SubtitleFontFamily = 'primary' | 'secondary';
 
 export type SubtitleSize = 'sm' | 'md';
 
 export type SubtitleVariant =
   | 'primary'
-  | 'accent'
   | 'secondary'
+  | 'tertiary'
   | 'info'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'light'
-  | 'dark';
+  | 'alt'
+  | 'default';
 
 export interface SubtitleProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
-  serif?: boolean;
+  breakWord?: boolean;
+  fontFamily?: SubtitleFontFamily;
   size?: SubtitleSize;
   textAlign?: Atoms['textAlign'];
+  textOverflow?: Atoms['textOverflow'];
+  truncate?: boolean;
   variant?: SubtitleVariant;
+  whiteSpace?: Atoms['whiteSpace'];
 }
 
 const Subtitle: React.FC<SubtitleProps & React.RefAttributes<HTMLElement>> =
@@ -30,11 +41,15 @@ const Subtitle: React.FC<SubtitleProps & React.RefAttributes<HTMLElement>> =
     (
       {
         as: As = 'h6',
-        serif,
+        breakWord,
+        className,
+        fontFamily = 'secondary',
         size = 'md',
         textAlign,
-        variant = 'dark',
-        className,
+        textOverflow,
+        truncate,
+        variant = 'default',
+        whiteSpace,
         children,
         ...elemProps
       },
@@ -42,10 +57,17 @@ const Subtitle: React.FC<SubtitleProps & React.RefAttributes<HTMLElement>> =
     ) => (
       <As
         className={cn(
-          serif ? S.rootSerifSize[size] : S.rootSize[size],
-          S.rootVariant[variant],
+          S.root({
+            fontFamily,
+            size,
+            variant,
+          }),
+          breakWord && textBreakStyle,
+          truncate && textTruncateStyle,
           atoms({
             textAlign,
+            textOverflow,
+            whiteSpace,
           }),
           className,
         )}

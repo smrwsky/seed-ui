@@ -1,5 +1,11 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import React, { forwardRef, useCallback, useEffect, useState } from 'react';
+import React, {
+  CSSProperties,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 
 import Popover, {
   PopoverPlacement,
@@ -17,6 +23,8 @@ export interface PopupMenuProps
   autoFocus?: MenuAutoFocus;
   defaultOpen?: boolean;
   open?: boolean;
+  popoverClassName?: string;
+  popoverStyle?: CSSProperties;
   placement?: PopoverPlacement;
   strategy?: PopoverStrategy;
   trigger?: PopoverTrigger | PopoverTrigger[];
@@ -31,6 +39,8 @@ const PopupMenu = forwardRef<HTMLUListElement, PopupMenuProps>(
       autoFocus = 'on',
       defaultOpen,
       open,
+      popoverClassName,
+      popoverStyle,
       placement = 'bottom-start',
       strategy = 'absolute',
       trigger = 'click',
@@ -116,11 +126,12 @@ const PopupMenu = forwardRef<HTMLUListElement, PopupMenuProps>(
     return (
       <Popover
         anchorElement={anchorElement}
+        className={popoverClassName}
         onOpenChange={handleOpenChange}
         open={openState}
         placement={placement}
-        shouldLockBody
         strategy={strategy}
+        style={popoverStyle}
         trigger={trigger}
       >
         <Menu
@@ -130,7 +141,6 @@ const PopupMenu = forwardRef<HTMLUListElement, PopupMenuProps>(
           ref={mergedRefs}
           size="sm"
           type="vertical"
-          variant="light"
           {...menuProps}
         >
           {children}

@@ -1,30 +1,14 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { transitionTime, transitionTimingFunction } from '@seed-ui/styles';
-
-export const root = style({
-  transitionProperty: 'all',
-  transitionTimingFunction: transitionTimingFunction['in-out'],
-});
+import { vars } from '@seed-ui/styles';
 
 export const rootType = styleVariants({
   fade: {
     opacity: 0,
+    transition: vars.transition.fade,
   },
   slide: {
     maxHeight: 0,
-    overflow: 'hidden',
-  },
-});
-
-export const rootDuration = styleVariants({
-  150: {
-    transitionDuration: transitionTime.sm,
-  },
-  300: {
-    transitionDuration: transitionTime.md,
-  },
-  600: {
-    transitionDuration: transitionTime.lg,
+    overflow: vars.transition.collapse,
   },
 });
 

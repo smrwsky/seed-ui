@@ -14,12 +14,7 @@ import PopupMenu from './PopupMenu';
 
 const types: MenuProps['type'][] = ['horizontal', 'inline', 'vertical'];
 
-const variants: MenuProps['variant'][] = [
-  'primary',
-  'secondary',
-  'light',
-  'dark',
-];
+const variants: MenuProps['variant'][] = ['primary', 'secondary', 'alt'];
 
 const sizes: MenuProps['size'][] = ['sm', 'md'];
 
@@ -33,7 +28,7 @@ export default {
 
 export function Base(args: MenuProps): JSX.Element {
   const renderAction = useCallback(
-    () => <Icon name="crown" size="sm" type="solid" variant="accent" />,
+    () => <Icon name="crown" size="sm" type="solid" variant="primary" />,
     [],
   );
 
@@ -48,11 +43,11 @@ export function Base(args: MenuProps): JSX.Element {
         className={atoms({
           width:
             args.type === 'horizontal'
-              ? '1/1'
-              : { mobile: '1/1', mobileLg: '1/2', desktop: '1/3' },
+              ? 'full'
+              : { mobile: 'full', mobileLg: '1/2', desktop: '1/3' },
         })}
       >
-        <MenuItem icon="home" renderAction={renderAction} selected>
+        <MenuItem ActionComponent={renderAction} icon="home" selected>
           Option 1
         </MenuItem>
 
@@ -131,11 +126,11 @@ export function Variant(args: MenuProps): JSX.Element {
   );
 }
 
-export function PopupMenuStory(): JSX.Element {
+export function StandalonePopupMenu(): JSX.Element {
   const [buttonElement, setButtonElement] = useState<HTMLElement | null>(null);
 
   const renderAction = useCallback(
-    () => <Icon name="crown" size="sm" type="solid" variant="accent" />,
+    () => <Icon name="crown" size="sm" type="solid" variant="primary" />,
     [],
   );
 
@@ -146,12 +141,12 @@ export function PopupMenuStory(): JSX.Element {
         minHeight: '50vh',
       }}
     >
-      <IconButton ref={setButtonElement} title="Show menu" variant="dark">
+      <IconButton ref={setButtonElement} title="Show menu" variant="default">
         <Icon name="dots-vertical-rounded" />
       </IconButton>
 
       <PopupMenu anchorElement={buttonElement}>
-        <MenuItem icon="home" renderAction={renderAction}>
+        <MenuItem ActionComponent={renderAction} icon="home">
           Option 1
         </MenuItem>
 

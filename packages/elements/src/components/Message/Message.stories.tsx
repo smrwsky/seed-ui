@@ -20,13 +20,7 @@ export default {
   },
   argTypes: {
     children: {
-      control: 'text',
       defaultValue: 'This is message',
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
     },
   },
 };
@@ -39,7 +33,7 @@ export function Variants(args: MessageProps): JSX.Element {
   return (
     <Row gutter={2}>
       {variants.map((variant, i) => (
-        <Col key={i} width="1/1">
+        <Col key={i} width="full">
           <Message {...args} variant={variant}>
             This is {variant} message.
           </Message>

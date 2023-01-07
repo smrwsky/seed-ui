@@ -11,7 +11,7 @@ import {
   UList,
   Link,
 } from '@seed-ui/elements';
-import { color } from '@seed-ui/styles';
+import { color, ThemeProvider } from '@seed-ui/styles';
 
 export const theme = create({
   base: 'light',
@@ -22,7 +22,8 @@ export const theme = create({
 });
 
 export const components = {
-  h1: (p) => <Title {...p} as="h1" size="lg" mb="3" />,
+  wrapper: ({ children, ...p}) => <div {...p}><ThemeProvider>{children}</ThemeProvider></div>,
+  h1: (p) =>  <Title {...p} as="h1" size="lg" mb="3" />,
   h2: (p) => <Title {...p} as="h2" size="md" mb="2" mt="12" />,
   h3: (p) => <Title {...p} as="h3" size="sm" mb="1.5" mt="6" />,
   h4: (p) => <Title {...p} as="h4" size="xs" mb="1" mt="4" />,

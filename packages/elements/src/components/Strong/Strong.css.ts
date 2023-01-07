@@ -1,5 +1,54 @@
-import { style } from '@vanilla-extract/css';
+import { recipe } from '@vanilla-extract/recipes';
+import { vars } from '@seed-ui/styles';
 
-export const root = style({
-  fontWeight: 'inherit',
+export const root = recipe({
+  base: {
+    fontWeight: 'inherit',
+  },
+
+  variants: {
+    bold: {
+      true: {
+        ...vars.typography.bold,
+      },
+    },
+
+    variant: {
+      primary: {
+        color: vars.color.primary500,
+      },
+
+      secondary: {
+        color: vars.color.secondary500,
+      },
+
+      tertiary: {
+        color: vars.color.neutral500,
+      },
+
+      info: {
+        color: vars.color.info500,
+      },
+
+      success: {
+        color: vars.color.success500,
+      },
+
+      warning: {
+        color: vars.color.warning500,
+      },
+
+      danger: {
+        color: vars.color.danger500,
+      },
+
+      alt: {
+        color: vars.color.white,
+      },
+
+      default: {
+        color: 'inherit',
+      },
+    },
+  },
 });

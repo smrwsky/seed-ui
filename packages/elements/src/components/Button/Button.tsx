@@ -1,52 +1,49 @@
 import React from 'react';
 import cn from 'classnames';
-import { Icon } from '@seed-ui/icons';
+import { Icon, IconType } from '@seed-ui/icons';
 
 import * as S from './Button.css';
-
-export type ButtonShape = 'stadium' | 'rectangle';
 
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 
 export type ButtonVariant =
-  | 'primary'
-  | 'accent'
   | 'secondary'
+  | 'primary'
+  | 'tertiary'
   | 'info'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'light'
-  | 'dark'
-  | 'primary-outline'
-  | 'accent-outline'
-  | 'secondary-outline'
-  | 'info-outline'
-  | 'success-outline'
-  | 'warning-outline'
-  | 'danger-outline'
-  | 'light-outline'
-  | 'dark-outline'
-  | 'primary-overlay'
-  | 'accent-overlay'
-  | 'secondary-overlay'
-  | 'info-overlay'
-  | 'success-overlay'
-  | 'warning-overlay'
-  | 'danger-overlay'
-  | 'light-overlay'
-  | 'dark-overlay';
+  | 'alt'
+  | 'outline-secondary'
+  | 'outline-primary'
+  | 'outline-tertiary'
+  | 'outline-info'
+  | 'outline-success'
+  | 'outline-warning'
+  | 'outline-danger'
+  | 'outline-alt'
+  | 'overlay-secondary'
+  | 'overlay-primary'
+  | 'overlay-tertiary'
+  | 'overlay-info'
+  | 'overlay-success'
+  | 'overlay-warning'
+  | 'overlay-danger'
+  | 'overlay-alt';
 
 export interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
     React.AnchorHTMLAttributes<HTMLElement>,
     React.RefAttributes<HTMLElement> {
   as?: React.ElementType;
-  endIcon?: React.ReactElement;
   loading?: boolean;
-  shape?: ButtonShape;
+  rounded?: boolean;
   size?: ButtonSize;
-  startIcon?: React.ReactElement;
+  startIcon?: string;
+  startIconType?: IconType;
+  endIcon?: string;
+  endIconType?: IconType;
   variant?: ButtonVariant;
 }
 
@@ -55,11 +52,13 @@ const Button: React.FC<ButtonProps & React.RefAttributes<HTMLElement>> =
     (
       {
         as: As = 'button',
-        shape = 'rectangle',
+        rounded,
         size = 'md',
         startIcon,
+        startIconType,
         endIcon,
-        variant = 'primary',
+        endIconType,
+        variant = 'secondary',
         loading,
         className,
         children,
@@ -70,31 +69,39 @@ const Button: React.FC<ButtonProps & React.RefAttributes<HTMLElement>> =
       <As
         className={cn(
           S.root,
-          S.rootShape[shape],
           S.rootSize[size],
           S.rootVariant[variant],
+          rounded && S.rootRounded,
           className,
         )}
         ref={ref}
         {...props}
       >
         {loading && (
-          <Icon animation="spin" className={S.icon} name="loader-alt" />
+          <Icon
+            animation="spin"
+            className={cn(S.icon, S.iconSize[size])}
+            name="loader-alt"
+          />
         )}
 
-        {!loading &&
-          startIcon &&
-          React.cloneElement(startIcon, {
-            className: cn(S.icon, S.startIconSize[size]),
-          })}
+        {!loading && startIcon && (
+          <Icon
+            className={cn(S.icon, S.iconSize[size])}
+            name={startIcon}
+            type={startIconType}
+          />
+        )}
 
         {!loading && <span className={S.label}>{children}</span>}
 
-        {!loading &&
-          endIcon &&
-          React.cloneElement(endIcon, {
-            className: cn(S.icon, S.endIconSize[size]),
-          })}
+        {!loading && endIcon && (
+          <Icon
+            className={cn(S.icon, S.iconSize[size])}
+            name={endIcon}
+            type={endIconType}
+          />
+        )}
       </As>
     ),
   );

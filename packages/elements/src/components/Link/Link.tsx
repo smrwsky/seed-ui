@@ -1,59 +1,49 @@
-import React from 'react';
+import React, { FC, forwardRef, memo, RefAttributes } from 'react';
 import cn from 'classnames';
-
-import { textBoldStyle } from '../../styles';
 
 import * as S from './Link.css';
 
-export type LinkDisplay = 'block' | 'inline' | 'inline-block';
-
 export type LinkVariant =
   | 'primary'
-  | 'accent'
   | 'secondary'
+  | 'tertiary'
   | 'info'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'light'
-  | 'dark';
+  | 'alt'
+  | 'default';
 
 export interface LinkProps
   extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
     React.AnchorHTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   bold?: boolean;
-  display?: LinkDisplay;
   variant?: LinkVariant;
 }
 
-function Link(
-  {
-    as: As = 'a',
-    bold,
-    display = 'inline',
-    variant = 'primary',
-    className,
-    children,
-    ...elemProps
-  }: LinkProps,
-  ref: React.Ref<HTMLElement>,
-): JSX.Element {
-  return (
+const Link: FC<LinkProps & RefAttributes<HTMLElement>> = forwardRef(
+  (
+    {
+      as: As = 'a',
+      bold,
+      variant = 'secondary',
+      className,
+      children,
+      ...elemProps
+    }: LinkProps,
+    ref: React.Ref<HTMLElement>,
+  ) => (
     <As
-      className={cn(
-        S.root,
-        S.rootDisplay[display],
-        S.rootVariant[variant],
-        bold && textBoldStyle,
-        className,
-      )}
+      className={cn(S.root({ bold, variant }), className)}
       ref={ref}
       {...elemProps}
     >
       {children}
     </As>
-  );
-}
+  ),
+);
 
-export default React.forwardRef(Link);
+Link.displayName = 'Link';
+
+export default memo(Link);

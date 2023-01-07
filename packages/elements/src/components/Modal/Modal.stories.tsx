@@ -6,227 +6,13 @@ import Subtitle from '../Subtitle';
 
 import docs from './Modal.docs.mdx';
 import Modal, { ModalProps } from './Modal';
-import { ModalSize } from './Modal.Provider';
-
-const sizes: ModalSize[] = ['sm', 'md', 'lg'];
+import { ModalSize } from './context';
 
 export default {
   title: 'Feedback/Modal',
   component: Modal,
   parameters: {
     docs: { page: docs },
-  },
-  argTypes: {
-    appElement: {
-      table: {
-        type: {
-          summary: 'HTMLElement | HTMLElement[] | HTMLCollection | NodeList',
-        },
-      },
-    },
-    aria: {
-      table: {
-        type: {
-          summary:
-            '{\n' +
-            '  labelledby?: string | undefined;\n' +
-            '  describedby?: string | undefined;\n' +
-            "  modal?: boolean | 'false' | 'true' | undefined;\n" +
-            '}',
-        },
-      },
-    },
-    ariaHideApp: {
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-      },
-    },
-    children: {
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
-    },
-    closeButtonLabel: {
-      table: {
-        type: {
-          summary: 'string',
-        },
-        defaultValue: {
-          summary: 'Close',
-        },
-      },
-    },
-    contentElement: {
-      table: {
-        type: {
-          summary:
-            '(\n' +
-            "  props: React.ComponentPropsWithRef<'div'>,\n" +
-            '  children: React.ReactNode,\n' +
-            ') => React.ReactElement',
-        },
-      },
-    },
-    contentLabel: {
-      table: {
-        type: {
-          summary: 'string',
-        },
-      },
-    },
-    contentRef: {
-      table: {
-        type: {
-          summary: '(instance: HTMLDivElement) => void',
-        },
-      },
-    },
-    data: {
-      table: {
-        type: {
-          summary: 'Record<string, string>d',
-        },
-      },
-    },
-    id: {
-      table: {
-        type: {
-          summary: 'string',
-        },
-      },
-    },
-    onAfterClose: {
-      table: {
-        type: {
-          summary: '() => void',
-        },
-      },
-    },
-    onAfterOpen: {
-      table: {
-        type: {
-          summary:
-            '({\n' +
-            '  overlayEl: Element;\n' +
-            '  contentEl: HTMLDivElement;\n' +
-            '}) => void',
-        },
-      },
-    },
-    onClose: {
-      table: {
-        type: {
-          summary: '() => void',
-        },
-        required: {
-          summary: 'true',
-        },
-      },
-    },
-    open: {
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        required: {
-          summary: 'true',
-        },
-      },
-    },
-    overlayElement: {
-      table: {
-        type: {
-          summary:
-            '(\n' +
-            "  props: ComponentPropsWithRef<'div'>,\n" +
-            '  contentEl: ReactElement,\n' +
-            ') => ReactElement',
-        },
-      },
-    },
-    overlayRef: {
-      table: {
-        type: {
-          summary: '(instance: HTMLDivElement) => void',
-        },
-      },
-    },
-    parentSelector: {
-      table: {
-        type: {
-          summary: 'HTMLElement',
-        },
-      },
-    },
-    preventScroll: {
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-      },
-    },
-    role: {
-      table: {
-        type: {
-          summary: 'string | null',
-        },
-      },
-    },
-    shouldCloseOnEsc: {
-      control: 'boolean',
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-      },
-    },
-    shouldCloseOnOverlayClick: {
-      control: 'boolean',
-      defaultValue: 'true',
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'true',
-        },
-      },
-    },
-    shouldFocusAfterRender: {
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-      },
-    },
-    shouldReturnFocusAfterClose: {
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-      },
-    },
-    size: {
-      control: 'select',
-      defaultValue: 'md',
-      table: {
-        type: {
-          summary: sizes.join(' | '),
-        },
-        defaultValue: { summary: 'md' },
-      },
-    },
-    testId: {
-      table: {
-        type: {
-          summary: 'string',
-        },
-      },
-    },
   },
 };
 
@@ -246,12 +32,10 @@ export function Base(args: ModalProps): JSX.Element {
         </Modal.Body>
         <Modal.Footer>
           <Space gutter={1.5} justifyContent="end">
-            <Button onClick={() => setOpen(false)} variant="secondary-overlay">
+            <Button onClick={() => setOpen(false)} variant="overlay-tertiary">
               Cancel
             </Button>
-            <Button onClick={() => setOpen(false)} variant="primary">
-              OK
-            </Button>
+            <Button onClick={() => setOpen(false)}>OK</Button>
           </Space>
         </Modal.Footer>
       </Modal>
@@ -285,13 +69,13 @@ export function Sizes(args: ModalProps): JSX.Element {
   return (
     <>
       <Space gutter={2}>
-        <Button onClick={handleOpenSmallModal} variant="primary-outline">
+        <Button onClick={handleOpenSmallModal} variant="outline-secondary">
           Open small modal
         </Button>
-        <Button onClick={handleOpenMediumModal} variant="primary-outline">
+        <Button onClick={handleOpenMediumModal} variant="outline-secondary">
           Open medium modal
         </Button>
-        <Button onClick={handleOpenLargeModal} variant="primary-outline">
+        <Button onClick={handleOpenLargeModal} variant="outline-secondary">
           Open large modal
         </Button>
       </Space>
@@ -332,7 +116,7 @@ export function Sizes(args: ModalProps): JSX.Element {
         </Modal.Body>
         <Modal.Footer>
           <Space gutter={1.5} justifyContent="end">
-            <Button onClick={handleClose} variant="secondary-overlay">
+            <Button onClick={handleClose} variant="overlay-tertiary">
               Cancel
             </Button>
             <Button onClick={() => setOpen(false)} variant="primary">
@@ -358,7 +142,7 @@ export function Sizes(args: ModalProps): JSX.Element {
         </Modal.Body>
         <Modal.Footer>
           <Space gutter={1.5} justifyContent="end">
-            <Button onClick={handleClose} variant="secondary-overlay">
+            <Button onClick={handleClose} variant="overlay-tertiary">
               Cancel
             </Button>
             <Button onClick={() => setOpen(false)} variant="primary">

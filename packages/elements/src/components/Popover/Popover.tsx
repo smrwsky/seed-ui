@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { CSSProperties, useEffect, useRef } from 'react';
 import cn from 'classnames';
 import {
   arrow as arrowMiddleware,
@@ -26,8 +26,9 @@ export type PopoverProps = {
   offset?: number;
   open?: boolean;
   placement?: PopoverPlacement;
-  shouldLockBody?: boolean;
+  role?: string;
   strategy?: PopoverStrategy;
+  style?: CSSProperties;
   trigger?: PopoverTrigger | PopoverTrigger[];
   onOpenChange?: (visible: boolean) => void;
   children: React.ReactNode;
@@ -42,7 +43,9 @@ const Popover: React.FC<PopoverProps> = ({
   offset = 0,
   open,
   placement = 'bottom',
+  role,
   strategy = 'absolute',
+  style,
   trigger = 'click',
   onOpenChange,
   children,
@@ -168,10 +171,12 @@ const Popover: React.FC<PopoverProps> = ({
     <div
       className={cn(S.root, className)}
       ref={floating}
+      role={role}
       style={{
         position: strategy,
         top: y ? `${y}px` : 0,
         left: x ? `${x}px` : 0,
+        ...style,
       }}
     >
       <div className={cn(S.content)}>{children}</div>

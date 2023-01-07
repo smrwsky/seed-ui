@@ -10,8 +10,9 @@ import React, {
   useState,
 } from 'react';
 import { Icon, IconType } from '@seed-ui/icons';
+import cn from 'classnames';
 
-import MenuContext, { MenuSize, MenuVariant } from '../context';
+import MenuContext from '../context';
 import PopupMenu from '../PopupMenu';
 import MenuListItem from '../MenuListItem';
 import MenuLink, { MenuLinkProps } from '../MenuLink';
@@ -27,8 +28,6 @@ export interface SubMenuProps extends MenuLinkProps {
   icon?: string;
   iconType?: IconType;
   label: string;
-  size?: MenuSize;
-  variant?: MenuVariant;
   children?: ReactNode;
 }
 
@@ -37,8 +36,6 @@ const SubMenu: FC<SubMenuProps> = ({
   icon,
   iconType,
   label,
-  size,
-  variant,
   onClick,
   onKeyDown,
   children,
@@ -53,13 +50,7 @@ const SubMenu: FC<SubMenuProps> = ({
   );
 
   const menuRef = useRef<HTMLUListElement>(null);
-  const {
-    collapsed,
-    indent,
-    size: parentSize,
-    type,
-    variant: parentVariant,
-  } = useContext(MenuContext);
+  const { collapsed, indent, size, type, variant } = useContext(MenuContext);
 
   const handleAutoFocusChange = useCallback((value: MenuAutoFocus) => {
     setAutoFocus(value);
@@ -202,13 +193,14 @@ const SubMenu: FC<SubMenuProps> = ({
 
         <MenuAction>
           {type === 'vertical' ? (
-            <Icon name="chevron-right" />
+            <Icon name="chevron-right" size="sm" />
           ) : (
             <Icon
               flip={
                 type === 'horizontal' || !submenuOpened ? 'vertical' : 'none'
               }
               name="chevron-up"
+              size="sm"
             />
           )}
         </MenuAction>
@@ -219,13 +211,13 @@ const SubMenu: FC<SubMenuProps> = ({
           <Menu
             anchorElement={anchorElement}
             autoFocus={autoFocus}
-            className={S.menu}
+            className={cn(S.menu, S.menuVariant[variant])}
             indent={indent + 1}
             onAutoFocusChange={handleAutoFocusChange}
             ref={menuRef}
-            size={size ?? parentSize}
+            size={size}
             type="inline"
-            variant={variant ?? parentVariant}
+            variant={variant === 'alt' ? 'alt' : 'secondary'}
           >
             {children}
           </Menu>

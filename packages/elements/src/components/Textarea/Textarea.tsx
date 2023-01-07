@@ -1,132 +1,91 @@
-import React from 'react';
+import React, {
+  FC,
+  forwardRef,
+  memo,
+  RefAttributes,
+  TextareaHTMLAttributes,
+} from 'react';
 import cn from 'classnames';
 
 import { textboxStyle } from '../../styles';
-import InputGroup from '../InputGroup';
-import Label from '../Label';
-import InputContainer from '../InputContainer';
-import InputAction from '../InputAction';
+import { InputContainer } from '../InputGroup';
 
 import * as S from './Textarea.css';
 
-export type TextareaShape = 'rectangle' | 'stadium';
-
 export type TextareaSize = 'sm' | 'md' | 'lg';
 
-export type TextareaDirection = 'row' | 'column';
-
 export interface TextareaProps
-  extends Omit<
-    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-    'size' | 'action' | 'label'
-  > {
-  action?: React.ReactNode;
-  direction?: TextareaDirection;
+  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  defaultValue?: string;
   disabled?: boolean;
-  error?: string;
   invalid?: boolean;
-  label?: React.ReactNode;
-  message?: React.ReactNode;
-  shape?: TextareaShape;
+  readOnly?: boolean;
+  rounded?: boolean;
   size?: TextareaSize;
-  submitOnEnter?: boolean;
+  value?: string;
 }
 
-const Textarea = (
-  {
-    direction = 'column',
-    label,
-    shape,
-    size,
-    submitOnEnter = false,
-    action,
-    error,
-    message,
-    disabled,
-    invalid,
-    readOnly,
-    id,
-    onFocus,
-    onBlur,
-    onKeyPress,
-    ...inputProps
-  }: TextareaProps,
-  ref: React.Ref<HTMLTextAreaElement>,
-): JSX.Element => {
-  const [focused, setFocused] = React.useState(false);
+const Textarea: FC<TextareaProps & RefAttributes<HTMLTextAreaElement>> =
+  forwardRef<HTMLTextAreaElement, TextareaProps>(
+    (
+      {
+        rounded,
+        size,
+        disabled,
+        invalid,
+        readOnly,
+        id,
+        onFocus,
+        onBlur,
+        onKeyPress,
+        ...inputProps
+      },
+      ref,
+    ) => {
+      const [focused, setFocused] = React.useState(false);
 
-  const handleKeyPress = (
-    e: React.KeyboardEvent<HTMLTextAreaElement>,
-  ): void => {
-    if (submitOnEnter && e.key === 'Enter' && !e.shiftKey) {
-      e.currentTarget.form?.dispatchEvent(
-        new Event('submit', { cancelable: true }),
-      );
-      e.preventDefault();
-    }
+      const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>): void => {
+        setFocused(true);
 
-    if (onKeyPress) {
-      e.persist();
-      onKeyPress(e);
-    }
-  };
+        if (onFocus) {
+          e.persist();
+          onFocus(e);
+        }
+      };
 
-  const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>): void => {
-    setFocused(true);
+      const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>): void => {
+        setFocused(false);
 
-    if (onFocus) {
-      e.persist();
-      onFocus(e);
-    }
-  };
+        if (onBlur) {
+          e.persist();
+          onBlur(e);
+        }
+      };
 
-  const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>): void => {
-    setFocused(false);
-
-    if (onBlur) {
-      e.persist();
-      onBlur(e);
-    }
-  };
-
-  return (
-    <InputGroup
-      direction={direction}
-      error={error}
-      htmlFor={id}
-      label={
-        typeof label === 'string' ? (
-          <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
-        ) : (
-          label
-        )
-      }
-      message={message}
-    >
-      <InputContainer
-        disabled={disabled}
-        focused={focused}
-        invalid={invalid || Boolean(error)}
-        readOnly={readOnly}
-        shape={shape}
-        size={size}
-      >
-        <textarea
-          {...inputProps}
-          className={cn(textboxStyle, S.textarea)}
+      return (
+        <InputContainer
           disabled={disabled}
-          id={id}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          onKeyPress={handleKeyPress}
+          focused={focused}
+          invalid={invalid}
           readOnly={readOnly}
-          ref={ref}
-        />
-
-        {action && <InputAction>{action}</InputAction>}
-      </InputContainer>
-    </InputGroup>
+          rounded={rounded}
+          size={size}
+        >
+          <textarea
+            className={cn(textboxStyle, S.textarea)}
+            disabled={disabled}
+            id={id}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            readOnly={readOnly}
+            ref={ref}
+            {...inputProps}
+          />
+        </InputContainer>
+      );
+    },
   );
-};
 
-export default React.forwardRef(Textarea);
+Textarea.displayName = 'Textarea';
+
+export default memo(Textarea);

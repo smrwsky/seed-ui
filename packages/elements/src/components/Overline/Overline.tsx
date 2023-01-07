@@ -1,27 +1,33 @@
 import React from 'react';
 import cn from 'classnames';
-import { atoms, Atoms } from '@seed-ui/styles';
-
-import { CaptionVariant } from '../Caption';
-import { textVariantStyle } from '../../styles';
+import {
+  atoms,
+  Atoms,
+  textBreakStyle,
+  textTruncateStyle,
+} from '@seed-ui/styles';
 
 import * as S from './Overline.css';
 
 export type OverlineVariant =
   | 'primary'
-  | 'accent'
   | 'secondary'
+  | 'tertiary'
   | 'info'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'light'
-  | 'dark';
+  | 'alt'
+  | 'default';
 
 export interface OverlineProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
+  breakWord?: boolean;
   textAlign?: Atoms['textAlign'];
-  variant?: CaptionVariant;
+  textOverflow?: Atoms['textOverflow'];
+  truncate?: boolean;
+  variant?: OverlineVariant;
+  whiteSpace?: Atoms['whiteSpace'];
 }
 
 const Overline: React.FC<OverlineProps & React.RefAttributes<HTMLElement>> =
@@ -29,9 +35,13 @@ const Overline: React.FC<OverlineProps & React.RefAttributes<HTMLElement>> =
     (
       {
         as: As = 'div',
-        variant = 'dark',
-        textAlign,
+        breakWord,
         className,
+        textAlign,
+        textOverflow,
+        truncate,
+        variant = 'default',
+        whiteSpace,
         children,
         ...elemProps
       },
@@ -39,9 +49,10 @@ const Overline: React.FC<OverlineProps & React.RefAttributes<HTMLElement>> =
     ) => (
       <As
         className={cn(
-          S.root,
-          textVariantStyle[variant],
-          atoms({ textAlign }),
+          S.root({ variant }),
+          breakWord && textBreakStyle,
+          truncate && textTruncateStyle,
+          atoms({ textAlign, textOverflow, whiteSpace }),
           className,
         )}
         ref={ref}

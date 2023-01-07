@@ -1,20 +1,20 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import {
-  borderRadius,
-  theme,
-  transitionTime,
-  transitionTimingFunction,
-} from '@seed-ui/styles';
+import { spacing, vars } from '@seed-ui/styles';
 
 export const root = style({
   display: 'inline-flex',
   alignItems: 'center',
   maxWidth: '100%',
-  transition: `all ${transitionTime.sm} ${transitionTimingFunction['in-out']}`,
+  transition: vars.transition.base,
   outline: 'none',
+  borderRadius: vars.borderRadius.md,
+  padding: `0 ${spacing[1.5]}`,
 
   selectors: {
-    '&[data-clickable="true"]:not([aria-disabled="true"])': {
+    '&:active': {
+      transition: 'none',
+    },
+    '&:not([data-deletable]):not([aria-disabled="true"])': {
       cursor: 'pointer',
     },
     '&[aria-disabled="true"]': {
@@ -26,328 +26,351 @@ export const root = style({
 export const rootSize = styleVariants({
   md: {
     height: '1.5rem',
-    ...theme.typography.textSm.base,
+    ...vars.typography.textSm.secondary,
   },
   sm: {
     height: '1rem',
-    ...theme.typography.caption,
+    ...vars.typography.caption,
   },
 });
 
-export const rootShape = styleVariants({
-  rectangle: {
-    borderRadius: borderRadius.sm,
-    padding: '0 0.25rem',
-  },
-  stadium: {
-    borderRadius: borderRadius.max,
-    padding: '0 0.5rem',
-  },
+export const rootRounded = style({
+  borderRadius: vars.borderRadius.full,
 });
 
 export const rootVariant = styleVariants({
   'primary': {
-    background: theme.color.primary100,
-    color: theme.color.primary600,
+    background: vars.color.primary100,
+    color: vars.color.primary600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.primary200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.primary200,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.primary300,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.primary300,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral100,
-        color: theme.color.neutral400,
-      },
-    },
-  },
-  'accent': {
-    background: theme.color.accent100,
-    color: theme.color.accent600,
-
-    selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.accent200,
-      },
-
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.accent300,
-      },
-
-      '&[aria-disabled="true"]': {
-        background: theme.color.neutral100,
-        color: theme.color.neutral400,
+        background: vars.color.neutral100,
+        color: vars.color.neutral400,
       },
     },
   },
 
   'secondary': {
-    background: theme.color.neutral100,
-    color: theme.color.neutral600,
+    background: vars.color.secondary100,
+    color: vars.color.secondary600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.neutral200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.secondary200,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.neutral300,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.secondary300,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral100,
-        color: theme.color.neutral400,
+        background: vars.color.neutral100,
+        color: vars.color.neutral400,
+      },
+    },
+  },
+
+  'tertiary': {
+    background: vars.color.neutral100,
+    color: vars.color.neutral600,
+
+    selectors: {
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.neutral200,
+      },
+
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.neutral300,
+      },
+
+      '&[aria-disabled="true"]': {
+        background: vars.color.neutral100,
+        color: vars.color.neutral400,
       },
     },
   },
 
   'info': {
-    background: theme.color.info100,
-    color: theme.color.info600,
+    background: vars.color.info100,
+    color: vars.color.info600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.info200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.info200,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.info300,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.info300,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral100,
-        color: theme.color.neutral400,
+        background: vars.color.neutral100,
+        color: vars.color.neutral400,
       },
     },
   },
 
   'success': {
-    background: theme.color.success100,
-    color: theme.color.success600,
+    background: vars.color.success100,
+    color: vars.color.success600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.success200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.success200,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.success300,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.success300,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral100,
-        color: theme.color.neutral400,
+        background: vars.color.neutral100,
+        color: vars.color.neutral400,
       },
     },
   },
 
   'warning': {
-    background: theme.color.warning100,
-    color: theme.color.warning600,
+    background: vars.color.warning100,
+    color: vars.color.warning600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.warning200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.warning200,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.warning300,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.warning300,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral100,
-        color: theme.color.neutral400,
+        background: vars.color.neutral100,
+        color: vars.color.neutral400,
       },
     },
   },
 
   'danger': {
-    background: theme.color.danger100,
-    color: theme.color.danger600,
+    background: vars.color.danger100,
+    color: vars.color.danger600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.danger200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.danger200,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.danger300,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.danger300,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral100,
-        color: theme.color.neutral400,
+        background: vars.color.neutral100,
+        color: vars.color.neutral400,
       },
     },
   },
 
-  'primary-outline': {
-    background: theme.color.primary50,
-    boxShadow: `0 0 0 1px ${theme.color.primary300}`,
-    color: theme.color.primary600,
+  'alt': {
+    background: vars.color.light400,
+    color: vars.color.white,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.primary100,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.light500,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.primary200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.light600,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral50,
-        boxShadow: `0 0 0 1px ${theme.color.neutral200}`,
-        color: theme.color.neutral400,
+        background: vars.color.neutral100,
+        color: vars.color.neutral400,
       },
     },
   },
 
-  'accent-outline': {
-    background: theme.color.accent50,
-    boxShadow: `0 0 0 1px ${theme.color.accent300}`,
-    color: theme.color.accent600,
+  'outline-primary': {
+    background: vars.color.primary50,
+    boxShadow: `0 0 0 1px ${vars.color.primary300}`,
+    color: vars.color.primary600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.accent100,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.primary100,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.accent200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.primary200,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral50,
-        boxShadow: `0 0 0 1px ${theme.color.neutral200}`,
-        color: theme.color.neutral400,
+        background: vars.color.neutral50,
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
+        color: vars.color.neutral400,
       },
     },
   },
 
-  'secondary-outline': {
-    background: theme.color.neutral50,
-    boxShadow: `0 0 0 1px ${theme.color.neutral300}`,
-    color: theme.color.neutral600,
+  'outline-secondary': {
+    background: vars.color.secondary50,
+    boxShadow: `0 0 0 1px ${vars.color.secondary300}`,
+    color: vars.color.secondary600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.neutral100,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.secondary100,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.neutral200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.secondary200,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral50,
-        boxShadow: `0 0 0 1px ${theme.color.neutral200}`,
-        color: theme.color.neutral400,
+        background: vars.color.neutral50,
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
+        color: vars.color.neutral400,
       },
     },
   },
 
-  'info-outline': {
-    background: theme.color.info50,
-    boxShadow: `0 0 0 1px ${theme.color.info300}`,
-    color: theme.color.info600,
+  'outline-tertiary': {
+    background: vars.color.neutral50,
+    boxShadow: `0 0 0 1px ${vars.color.neutral300}`,
+    color: vars.color.neutral600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.info100,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.neutral100,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.info200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.neutral200,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral50,
-        boxShadow: `0 0 0 1px ${theme.color.neutral200}`,
-        color: theme.color.neutral400,
+        background: vars.color.neutral50,
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
+        color: vars.color.neutral400,
       },
     },
   },
 
-  'success-outline': {
-    background: theme.color.success50,
-    boxShadow: `0 0 0 1px ${theme.color.success300}`,
-    color: theme.color.success600,
+  'outline-info': {
+    background: vars.color.info50,
+    boxShadow: `0 0 0 1px ${vars.color.info300}`,
+    color: vars.color.info600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.success100,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.info100,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.success200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.info200,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral50,
-        boxShadow: `0 0 0 1px ${theme.color.neutral200}`,
-        color: theme.color.neutral400,
+        background: vars.color.neutral50,
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
+        color: vars.color.neutral400,
       },
     },
   },
 
-  'warning-outline': {
-    background: theme.color.warning50,
-    boxShadow: `0 0 0 1px ${theme.color.warning300}`,
-    color: theme.color.warning600,
+  'outline-success': {
+    background: vars.color.success50,
+    boxShadow: `0 0 0 1px ${vars.color.success300}`,
+    color: vars.color.success600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.warning100,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.success100,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.warning200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.success200,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral50,
-        boxShadow: `0 0 0 1px ${theme.color.neutral200}`,
-        color: theme.color.neutral400,
+        background: vars.color.neutral50,
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
+        color: vars.color.neutral400,
       },
     },
   },
 
-  'danger-outline': {
-    background: theme.color.danger50,
-    boxShadow: `0 0 0 1px ${theme.color.danger300}`,
-    color: theme.color.danger600,
+  'outline-warning': {
+    background: vars.color.warning50,
+    boxShadow: `0 0 0 1px ${vars.color.warning300}`,
+    color: vars.color.warning600,
 
     selectors: {
-      ['&[data-clickable="true"]:not([aria-disabled="true"]):hover,' +
-      '&[data-clickable="true"]:not([aria-disabled="true"]):focus']: {
-        background: theme.color.danger100,
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.warning100,
       },
 
-      '&[data-clickable="true"]:not([aria-disabled="true"]):active': {
-        background: theme.color.danger200,
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.warning200,
       },
 
       '&[aria-disabled="true"]': {
-        background: theme.color.neutral50,
-        boxShadow: `0 0 0 1px ${theme.color.neutral200}`,
+        background: vars.color.neutral50,
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
+        color: vars.color.neutral400,
+      },
+    },
+  },
+
+  'outline-danger': {
+    background: vars.color.danger50,
+    boxShadow: `0 0 0 1px ${vars.color.danger300}`,
+    color: vars.color.danger600,
+
+    selectors: {
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.danger100,
+      },
+
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.danger200,
+      },
+
+      '&[aria-disabled="true"]': {
+        background: vars.color.neutral50,
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
+        color: vars.color.neutral400,
+      },
+    },
+  },
+
+  'outline-alt': {
+    background: vars.color.light200,
+    boxShadow: `0 0 0 1px ${vars.color.light700}`,
+    color: vars.color.white,
+
+    selectors: {
+      '&:not([data-deletable]):not([aria-disabled="true"]):hover': {
+        background: vars.color.light300,
+      },
+
+      '&:not([data-deletable]):not([aria-disabled="true"]):active': {
+        background: vars.color.light400,
+      },
+
+      '&[aria-disabled="true"]': {
+        background: vars.color.neutral50,
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
+        color: vars.color.neutral400,
       },
     },
   },
@@ -357,12 +380,21 @@ export const text = style({
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
   overflow: 'hidden',
+  margin: `0 ${spacing[0.5]}`,
+  padding: `${spacing[0.5]} 0 0`,
 });
 
 export const icon = style({
   cursor: 'pointer',
-  transition: `color ${transitionTime.sm} ${transitionTimingFunction['in-out']}`,
-  marginLeft: '0.25rem',
+  transition: vars.transition.base,
+  margin: `0 ${spacing[0.5]}`,
+  pointerEvents: 'auto',
+
+  selectors: {
+    '&:active': {
+      transition: 'none',
+    },
+  },
 });
 
 export const iconSize = styleVariants({
@@ -375,175 +407,204 @@ export const iconSize = styleVariants({
 });
 
 export const iconVariant = styleVariants({
-  'primary': {
-    color: theme.color.primary500,
-    selectors: {
-      '&:hover': {
-        color: theme.color.primary400,
-      },
-      '&:active': {
-        color: theme.color.primary600,
-      },
-    },
-  },
-
-  'accent': {
-    color: theme.color.accent500,
-    selectors: {
-      '&:hover': {
-        color: theme.color.accent400,
-      },
-      '&:active': {
-        color: theme.color.accent600,
-      },
-    },
-  },
-
   'secondary': {
-    color: theme.color.neutral500,
+    color: vars.color.secondary500,
     selectors: {
       '&:hover': {
-        color: theme.color.neutral400,
+        color: vars.color.secondary400,
       },
       '&:active': {
-        color: theme.color.neutral600,
+        color: vars.color.secondary600,
+      },
+    },
+  },
+
+  'primary': {
+    color: vars.color.primary500,
+    selectors: {
+      '&:hover': {
+        color: vars.color.primary400,
+      },
+      '&:active': {
+        color: vars.color.primary600,
+      },
+    },
+  },
+
+  'tertiary': {
+    color: vars.color.neutral500,
+    selectors: {
+      '&:hover': {
+        color: vars.color.neutral400,
+      },
+      '&:active': {
+        color: vars.color.neutral600,
       },
     },
   },
 
   'info': {
-    color: theme.color.info500,
+    color: vars.color.info500,
     selectors: {
       '&:hover': {
-        color: theme.color.info400,
+        color: vars.color.info400,
       },
       '&:active': {
-        color: theme.color.info600,
+        color: vars.color.info600,
       },
     },
   },
 
   'success': {
-    color: theme.color.success500,
+    color: vars.color.success500,
     selectors: {
       '&:hover': {
-        color: theme.color.success400,
+        color: vars.color.success400,
       },
       '&:active': {
-        color: theme.color.success600,
+        color: vars.color.success600,
       },
     },
   },
 
   'warning': {
-    color: theme.color.warning500,
+    color: vars.color.warning500,
     selectors: {
       '&:hover': {
-        color: theme.color.warning400,
+        color: vars.color.warning400,
       },
       '&:active': {
-        color: theme.color.warning600,
+        color: vars.color.warning600,
       },
     },
   },
 
   'danger': {
-    color: theme.color.danger500,
+    color: vars.color.danger500,
     selectors: {
       '&:hover': {
-        color: theme.color.danger400,
+        color: vars.color.danger400,
       },
       '&:active': {
-        color: theme.color.danger600,
+        color: vars.color.danger600,
       },
     },
   },
 
-  'primary-outline': {
-    color: theme.color.primary500,
+  'alt': {
+    color: vars.color.white,
+
     selectors: {
       '&:hover': {
-        color: theme.color.primary400,
+        color: vars.color.light800,
       },
+
       '&:active': {
-        color: theme.color.primary600,
+        color: vars.color.light700,
       },
     },
   },
 
-  'accent-outline': {
-    color: theme.color.accent500,
+  'outline-secondary': {
+    color: vars.color.secondary500,
     selectors: {
       '&:hover': {
-        color: theme.color.accent400,
+        color: vars.color.secondary400,
       },
       '&:active': {
-        color: theme.color.accent600,
+        color: vars.color.secondary600,
       },
     },
   },
 
-  'secondary-outline': {
-    color: theme.color.neutral500,
+  'outline-primary': {
+    color: vars.color.primary500,
     selectors: {
       '&:hover': {
-        color: theme.color.neutral400,
+        color: vars.color.primary400,
       },
       '&:active': {
-        color: theme.color.neutral600,
+        color: vars.color.primary600,
       },
     },
   },
 
-  'info-outline': {
-    color: theme.color.info500,
+  'outline-tertiary': {
+    color: vars.color.neutral500,
     selectors: {
       '&:hover': {
-        color: theme.color.info400,
+        color: vars.color.neutral400,
       },
       '&:active': {
-        color: theme.color.info600,
+        color: vars.color.neutral600,
       },
     },
   },
 
-  'success-outline': {
-    color: theme.color.success500,
+  'outline-info': {
+    color: vars.color.info500,
     selectors: {
       '&:hover': {
-        color: theme.color.success400,
+        color: vars.color.info400,
       },
       '&:active': {
-        color: theme.color.success600,
+        color: vars.color.info600,
       },
     },
   },
 
-  'warning-outline': {
-    color: theme.color.warning500,
+  'outline-success': {
+    color: vars.color.success500,
     selectors: {
       '&:hover': {
-        color: theme.color.warning400,
+        color: vars.color.success400,
       },
       '&:active': {
-        color: theme.color.warning600,
+        color: vars.color.success600,
       },
     },
   },
 
-  'danger-outline': {
-    color: theme.color.danger500,
+  'outline-warning': {
+    color: vars.color.warning500,
     selectors: {
       '&:hover': {
-        color: theme.color.danger400,
+        color: vars.color.warning400,
       },
       '&:active': {
-        color: theme.color.danger600,
+        color: vars.color.warning600,
+      },
+    },
+  },
+
+  'outline-danger': {
+    color: vars.color.danger500,
+    selectors: {
+      '&:hover': {
+        color: vars.color.danger400,
+      },
+      '&:active': {
+        color: vars.color.danger600,
+      },
+    },
+  },
+
+  'outline-alt': {
+    color: vars.color.white,
+
+    selectors: {
+      '&:hover': {
+        color: vars.color.light800,
+      },
+
+      '&:active': {
+        color: vars.color.light700,
       },
     },
   },
 });
 
 export const iconDisabled = style({
-  color: theme.color.neutral400,
+  color: vars.color.neutral400,
+  pointerEvents: 'none',
 });

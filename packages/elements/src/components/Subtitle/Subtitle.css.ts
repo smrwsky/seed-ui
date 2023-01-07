@@ -1,62 +1,100 @@
-import { styleVariants } from '@vanilla-extract/css';
-import { theme } from '@seed-ui/styles';
+import { recipe } from '@vanilla-extract/recipes';
+import { vars } from '@seed-ui/styles';
 
-export const rootSize = styleVariants({
-  md: {
-    fontFamily: theme.fontFamily.base,
-    ...theme.typography.subtitleMd.base,
-  },
-  sm: {
-    fontFamily: theme.fontFamily.base,
-    ...theme.typography.subtitleSm.base,
-  },
-});
+export const root = recipe({
+  variants: {
+    fontFamily: {
+      primary: {
+        fontFamily: vars.fontFamily.primary,
+      },
+      secondary: {
+        fontFamily: vars.fontFamily.secondary,
+      },
+    },
 
-export const rootSerifSize = styleVariants({
-  md: {
-    fontFamily: theme.fontFamily.serif,
-    ...theme.typography.subtitleMd.serif,
-  },
-  sm: {
-    fontFamily: theme.fontFamily.serif,
-    ...theme.typography.subtitleSm.serif,
-  },
-});
+    size: {
+      sm: {},
+      md: {},
+    },
 
-export const rootVariant = styleVariants({
-  primary: {
-    color: theme.color.primary600,
+    variant: {
+      primary: {
+        color: vars.color.primary600,
+      },
+
+      secondary: {
+        color: vars.color.secondary600,
+      },
+
+      tertiary: {
+        color: vars.color.neutral600,
+      },
+
+      info: {
+        color: vars.color.info600,
+      },
+
+      success: {
+        color: vars.color.success600,
+      },
+
+      warning: {
+        color: vars.color.warning600,
+      },
+
+      danger: {
+        color: vars.color.danger600,
+      },
+
+      alt: {
+        color: vars.color.white,
+      },
+
+      default: {
+        color: 'inherit',
+      },
+    },
   },
 
-  accent: {
-    color: theme.color.accent600,
-  },
+  compoundVariants: [
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'md',
+      },
+      style: {
+        ...vars.typography.subtitleMd.primary,
+      },
+    },
 
-  secondary: {
-    color: theme.color.neutral600,
-  },
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'sm',
+      },
+      style: {
+        ...vars.typography.subtitleSm.primary,
+      },
+    },
 
-  info: {
-    color: theme.color.info600,
-  },
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'md',
+      },
+      style: {
+        ...vars.typography.subtitleMd.secondary,
+      },
+    },
 
-  success: {
-    color: theme.color.success600,
-  },
-
-  warning: {
-    color: theme.color.warning600,
-  },
-
-  danger: {
-    color: theme.color.danger600,
-  },
-
-  light: {
-    color: theme.color.white,
-  },
-
-  dark: {
-    color: theme.color.neutral900,
-  },
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'sm',
+      },
+      style: {
+        ...vars.typography.subtitleSm.secondary,
+      },
+    },
+  ],
 });

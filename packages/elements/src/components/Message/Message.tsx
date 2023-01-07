@@ -2,29 +2,53 @@ import React from 'react';
 import cn from 'classnames';
 import { Icon } from '@seed-ui/icons';
 
+import Text from '../Text';
+
 import * as S from './Message.css';
 
 export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
-  icon?: React.ReactElement;
   variant?: 'danger' | 'warning' | 'info' | 'success' | 'default';
 }
 
 const getIconByVariant = (variant: MessageProps['variant']) =>
-  (variant === 'danger' && <Icon name="error-circle" size="md" />) ||
-  (variant === 'warning' && <Icon name="error" size="md" />) ||
-  (variant === 'success' && <Icon name="check-circle" size="md" />) ||
-  (variant === 'info' && <Icon name="info-circle" size="md" />) ||
+  (variant === 'danger' && (
+    <Icon
+      className={cn(S.icon, S.iconVariant[variant])}
+      name="error-circle"
+      size="md"
+    />
+  )) ||
+  (variant === 'warning' && (
+    <Icon
+      className={cn(S.icon, S.iconVariant[variant])}
+      name="error"
+      size="md"
+    />
+  )) ||
+  (variant === 'success' && (
+    <Icon
+      className={cn(S.icon, S.iconVariant[variant])}
+      name="check-circle"
+      size="md"
+    />
+  )) ||
+  (variant === 'info' && (
+    <Icon
+      className={cn(S.icon, S.iconVariant[variant])}
+      name="info-circle"
+      size="md"
+    />
+  )) ||
   null;
 
 const Message: React.FC<MessageProps> = ({
   className,
   children,
-  icon,
   role = 'alert',
   variant = 'default',
   ...props
 }) => {
-  const displayIcon = icon || getIconByVariant(variant);
+  const icon = getIconByVariant(variant);
 
   return (
     <div
@@ -32,12 +56,11 @@ const Message: React.FC<MessageProps> = ({
       role={role}
       {...props}
     >
-      {React.isValidElement<React.HTMLAttributes<HTMLElement>>(displayIcon) &&
-        React.cloneElement(displayIcon, {
-          className: cn(S.icon, S.iconVariant[variant]),
-        })}
+      {icon}
 
-      <div className={S.content}>{children}</div>
+      <Text className={S.content} size="sm" truncate>
+        {children}
+      </Text>
     </div>
   );
 };

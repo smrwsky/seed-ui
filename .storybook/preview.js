@@ -2,16 +2,16 @@ import React from 'react';
 import { addParameters } from '@storybook/react';
 import { withPerformance } from 'storybook-addon-performance';
 import { withThemes } from 'storybook-addon-themes/react';
-import { GlobalStyle, theme as vars } from '@seed-ui/styles';
+import { color, GlobalStyle, ThemeProvider } from '@seed-ui/styles';
 import { theme, components, sortStories } from './utils';
 import 'boxicons/css/boxicons.min.css';
 
 function withGlobalStyle(Story) {
   return (
-    <>
+    <ThemeProvider>
       <GlobalStyle />
       <Story />
-    </>
+    </ThemeProvider>
   );
 }
 
@@ -31,20 +31,20 @@ export const parameters = {
     default: 'White',
     values: [
       {
-        name: 'Primary',
-        value: vars.color.primary500,
+        name: 'Secondary',
+        value: color.turquose500,
       },
       {
-        name: 'Secondary',
-        value: vars.color.neutral50,
+        name: 'Tertiary',
+        value: color.grey50,
       },
       {
         name: 'White',
-        value: vars.color.white,
+        value: color.white,
       },
       {
         name: 'Black',
-        value: vars.color.black,
+        value: color.black,
       },
     ],
   },

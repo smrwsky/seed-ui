@@ -22,17 +22,11 @@ export default {
   },
   argTypes: {
     children: {
-      control: 'text',
       defaultValue: (
         <>
           This is toast message - <Link href="#">Check this out</Link>
         </>
       ),
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
     },
   },
 };

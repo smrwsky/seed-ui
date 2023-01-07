@@ -1,115 +1,129 @@
 import {
+  ConditionalValue,
   createMapValueFn,
   createSprinkles,
   defineProperties,
-  ConditionalValue,
 } from '@vanilla-extract/sprinkles';
 import { mapValues } from 'lodash';
 
 import {
-  border,
-  borderRadius,
-  boxShadow,
+  alignItems,
+  alignSelf,
   breakpoint,
+  display,
+  flex,
+  flexDirection,
+  flexWrap,
   height,
+  justifyContent,
+  lineHeight,
   margin,
   offset,
   order,
+  overflow,
+  position,
   spacing,
+  textAlign,
+  textOverflow,
+  whiteSpace,
   width,
 } from './const';
-import { theme } from './theme.css';
+import { vars } from './vars.css';
 
 export type ResponsiveValue<Value extends string | number> = ConditionalValue<
   typeof responsiveProperties,
   Value
 >;
 
-const alignItems = [
-  'baseline',
-  'center',
-  'end',
-  'flex-end',
-  'flex-start',
-  'start',
-  'stretch',
-] as const;
+export const baseProperties = defineProperties({
+  properties: {
+    textOverflow,
+    whiteSpace,
+    borderColor: vars.color,
+    color: vars.color,
+    backgroundColor: vars.color,
+    boxShadow: vars.boxShadow,
+  },
+  shorthands: {
+    bg: ['backgroundColor'],
+    shadow: ['boxShadow'],
+  },
+});
 
-const alignSelf = [...alignItems, 'self-end', 'self-start'] as const;
-
-const display = ['block', 'none'] as const;
-
-const flex = {
-  none: 'none',
-  1: '1 0 0',
+const widthProperties = {
+  ...width,
+  ...vars.width,
 };
-
-const flexDirection = [
-  'column',
-  'column-reverse',
-  'row',
-  'row-reverse',
-] as const;
-
-const justifyContent = [
-  ...alignItems,
-  'space-around',
-  'space-between',
-  'space-evenly',
-] as const;
-
-const justifySelf = alignSelf;
-
-const position = ['absolute', 'fixed', 'relative', 'static', 'sticky'] as const;
-
-const textAlign = {
-  center: 'center',
-  start: 'start',
-  end: 'end',
-  justify: 'justify',
-} as const;
 
 export const responsiveProperties = defineProperties({
   conditions: mapValues(breakpoint, (bp) =>
     bp === 0 ? {} : { '@media': `screen and (min-width: ${bp}px)` },
   ),
+
+  responsiveArray: [
+    'mobile',
+    'mobileLg',
+    'tablet',
+    'desktop',
+    'desktopLg',
+    'desktopXl',
+  ],
+
   defaultCondition: 'mobile',
+
   properties: {
-    alignItems,
-    alignSelf,
-    borderRadius,
-    display,
-    flex,
-    flexDirection,
-    height,
-    justifyContent,
-    justifySelf,
-    order,
     position,
-    textAlign,
-    width,
-    borderBottom: border,
-    borderLeft: border,
-    borderRight: border,
-    borderTop: border,
+
     bottom: offset,
     left: offset,
+    right: offset,
+    top: offset,
+
+    display,
+
+    flex,
+    flexWrap,
+    flexDirection,
+    alignItems,
+    alignSelf,
+    justifyContent,
+    order,
+
+    width: widthProperties,
+    maxWidth: widthProperties,
+    minWidth: widthProperties,
+
+    height,
+    maxHeight: height,
+    minHeight: height,
+
+    borderBottom: vars.border,
+    borderLeft: vars.border,
+    borderRight: vars.border,
+    borderTop: vars.border,
+    borderRadius: vars.borderRadius,
+
+    lineHeight,
+    textAlign,
+
     marginBottom: margin,
     marginLeft: margin,
     marginRight: margin,
     marginTop: margin,
-    maxHeight: height,
-    maxWidth: width,
-    minHeight: height,
-    minWidth: width,
+
     paddingBottom: spacing,
     paddingLeft: spacing,
     paddingRight: spacing,
     paddingTop: spacing,
-    right: offset,
-    top: offset,
+
+    overflowX: overflow,
+    overflowY: overflow,
+
+    zIndex: vars.zIndex,
   },
+
   shorthands: {
+    inset: ['top', 'right', 'bottom', 'left'],
     border: ['borderBottom', 'borderLeft', 'borderRight', 'borderTop'],
     borderX: ['borderLeft', 'borderRight'],
     borderY: ['borderBottom', 'borderTop'],
@@ -127,22 +141,11 @@ export const responsiveProperties = defineProperties({
     pt: ['paddingTop'],
     px: ['paddingLeft', 'paddingRight'],
     py: ['paddingBottom', 'paddingTop'],
+    overflow: ['overflowX', 'overflowY'],
   },
 });
-
-export const unresponsiveProperties = defineProperties({
-  properties: {
-    boxShadow,
-    backgroundColor: theme.color,
-    borderColor: theme.color,
-  },
-});
-
-export type Atoms = Parameters<typeof atoms>[0];
-
-export const atoms = createSprinkles(
-  responsiveProperties,
-  unresponsiveProperties,
-);
 
 export const mapResponsiveValue = createMapValueFn(responsiveProperties);
+export type Atoms = Parameters<typeof atoms>[0];
+
+export const atoms = createSprinkles(baseProperties, responsiveProperties);

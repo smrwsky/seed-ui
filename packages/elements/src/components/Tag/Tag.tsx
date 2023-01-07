@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, forwardRef, RefAttributes } from 'react';
 import cn from 'classnames';
 import { Icon } from '@seed-ui/icons';
 
@@ -6,95 +6,96 @@ import * as S from './Tag.css';
 
 export type TagVariant =
   | 'primary'
-  | 'accent'
   | 'secondary'
+  | 'tertiary'
   | 'info'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'primary-outline'
-  | 'accent-outline'
-  | 'secondary-outline'
-  | 'info-outline'
-  | 'success-outline'
-  | 'warning-outline'
-  | 'danger-outline';
+  | 'alt'
+  | 'outline-primary'
+  | 'outline-secondary'
+  | 'outline-tertiary'
+  | 'outline-info'
+  | 'outline-success'
+  | 'outline-warning'
+  | 'outline-danger'
+  | 'outline-alt';
 
 export type TagSize = 'sm' | 'md';
 
-export type TagShape = 'rectangle' | 'stadium';
-
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
-  children?: React.ReactNode;
+  deletable?: boolean;
   disabled?: boolean;
-  onDelete?: () => void;
-  shape?: TagShape;
+  rounded?: boolean;
   size?: TagSize;
   variant?: TagVariant;
+  children?: React.ReactNode;
 }
 
-function Tag({
-  disabled,
-  shape = 'rectangle',
-  size = 'md',
-  variant = 'primary',
-  role,
-  tabIndex,
-  onDelete,
-  onClick,
-  children,
-  ...elementProps
-}: TagProps): JSX.Element {
-  function handleClickDelete(e: React.MouseEvent<HTMLElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (!disabled) {
-      onDelete?.();
-    }
-  }
-
-  function handleKeyDown(e: React.KeyboardEvent<HTMLElement>) {
-    if (e.key === 'Delete') {
-      onDelete?.();
-    }
-  }
-
-  return (
-    <div
-      {...elementProps}
-      aria-disabled={disabled}
-      className={cn(
-        S.root,
-        S.rootSize[size],
-        S.rootShape[shape],
-        S.rootVariant[variant],
-      )}
-      data-clickable={Boolean(onClick)}
-      onClick={onClick}
-      onKeyDown={handleKeyDown}
-      role={(onClick || onDelete) && !role ? 'button' : role}
-      tabIndex={
-        (onClick || onDelete) && typeof tabIndex === 'undefined' ? 0 : tabIndex
+const Tag: FC<TagProps & RefAttributes<HTMLDivElement>> = forwardRef<
+  HTMLDivElement,
+  TagProps
+>(
+  (
+    {
+      disabled,
+      deletable,
+      rounded,
+      size = 'md',
+      variant = 'secondary',
+      role,
+      tabIndex,
+      onClick,
+      onKeyDown,
+      children,
+      ...props
+    },
+    ref,
+  ): JSX.Element => {
+    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+      if (deletable && e.code === 'Delete') {
+        e.currentTarget.click();
       }
-    >
-      <div className={S.text}>{children}</div>
 
-      {onDelete && (
-        <Icon
-          className={cn(
-            S.icon,
-            S.iconSize[size],
-            S.iconVariant[variant],
-            disabled && S.iconDisabled,
-          )}
-          name="x"
-          onClick={(e) => e.stopPropagation()}
-          onMouseDown={handleClickDelete}
-        />
-      )}
-    </div>
-  );
-}
+      onKeyDown?.(e);
+    }
+
+    return (
+      <div
+        aria-disabled={disabled}
+        className={cn(
+          S.root,
+          S.rootSize[size],
+          S.rootVariant[variant],
+          rounded && S.rootRounded,
+        )}
+        data-deletable={deletable}
+        onClick={onClick}
+        onKeyDown={handleKeyDown}
+        ref={ref}
+        role={onClick && !role ? 'button' : role}
+        tabIndex={onClick && typeof tabIndex === 'undefined' ? 0 : tabIndex}
+        {...props}
+      >
+        <div className={S.text}>{children}</div>
+
+        {deletable && (
+          <Icon
+            className={cn(
+              S.icon,
+              S.iconSize[size],
+              S.iconVariant[variant],
+              disabled && S.iconDisabled,
+            )}
+            name="x"
+          />
+        )}
+      </div>
+    );
+  },
+);
+
+Tag.displayName = 'Tag';
 
 export default Tag;

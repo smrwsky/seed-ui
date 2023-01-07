@@ -1,8 +1,8 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { theme } from '@seed-ui/styles';
+import { vars } from '@seed-ui/styles';
 
 export const root = style({
-  background: theme.color.neutral100,
+  background: vars.color.neutral100,
 });
 
 export const rootDirection = styleVariants({

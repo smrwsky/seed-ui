@@ -1,5 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { borderRadius, theme } from '@seed-ui/styles';
+import { vars } from '@seed-ui/styles';
 
 export const root = style({
   display: 'inline-flex',
@@ -9,14 +9,11 @@ export const root = style({
   position: 'relative',
   width: '1em',
   height: '1em',
-  verticalAlign: '-0.125em',
+  borderRadius: vars.borderRadius.md,
 });
 
-export const rootShape = styleVariants({
-  circle: {
-    borderRadius: borderRadius.max,
-  },
-  square: {},
+export const rootRounded = style({
+  borderRadius: vars.borderRadius.full,
 });
 
 export const rootSize = styleVariants({
@@ -46,15 +43,15 @@ export const image = style({
 
 export const icon = style({
   position: 'absolute',
-  color: theme.color.white,
+  color: vars.color.white,
   fontSize: '.625em',
   lineHeight: 1,
 });
 
 export const text = style({
   position: 'absolute',
-  color: theme.color.white,
-  ...theme.typography.labelMd,
+  color: vars.color.white,
+  ...vars.typography.labelMd,
   fontSize: '.45em',
   whiteSpace: 'nowrap',
 });

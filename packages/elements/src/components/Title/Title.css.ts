@@ -1,86 +1,163 @@
-import { styleVariants } from '@vanilla-extract/css';
-import { theme } from '@seed-ui/styles';
+import { recipe } from '@vanilla-extract/recipes';
+import { vars } from '@seed-ui/styles';
 
-export const rootSize = styleVariants({
-  xl: {
-    fontFamily: theme.fontFamily.base,
-    ...theme.typography.titleXl.base,
-  },
-  lg: {
-    fontFamily: theme.fontFamily.base,
-    ...theme.typography.titleLg.base,
-  },
-  md: {
-    fontFamily: theme.fontFamily.base,
-    ...theme.typography.titleMd.base,
-  },
-  sm: {
-    fontFamily: theme.fontFamily.base,
-    ...theme.typography.titleSm.base,
-  },
-  xs: {
-    fontFamily: theme.fontFamily.base,
-    ...theme.typography.titleXs.base,
-  },
-});
+export const root = recipe({
+  variants: {
+    fontFamily: {
+      primary: {
+        fontFamily: vars.fontFamily.primary,
+      },
+      secondary: {
+        fontFamily: vars.fontFamily.secondary,
+      },
+    },
 
-export const rootSerifSize = styleVariants({
-  xl: {
-    fontFamily: theme.fontFamily.serif,
-    ...theme.typography.titleXl.serif,
-  },
-  lg: {
-    fontFamily: theme.fontFamily.serif,
-    ...theme.typography.titleLg.serif,
-  },
-  md: {
-    fontFamily: theme.fontFamily.serif,
-    ...theme.typography.titleMd.serif,
-  },
-  sm: {
-    fontFamily: theme.fontFamily.serif,
-    ...theme.typography.titleSm.serif,
-  },
-  xs: {
-    fontFamily: theme.fontFamily.serif,
-    ...theme.typography.titleXs.serif,
-  },
-});
+    size: {
+      xs: {},
+      sm: {},
+      md: {},
+      lg: {},
+      xl: {},
+    },
 
-export const rootVariant = styleVariants({
-  primary: {
-    color: theme.color.primary600,
-  },
+    variant: {
+      primary: {
+        color: vars.color.primary600,
+      },
 
-  accent: {
-    color: theme.color.accent600,
-  },
+      secondary: {
+        color: vars.color.secondary600,
+      },
 
-  secondary: {
-    color: theme.color.neutral600,
-  },
+      tertiary: {
+        color: vars.color.neutral600,
+      },
 
-  info: {
-    color: theme.color.info600,
+      info: {
+        color: vars.color.info600,
+      },
+
+      success: {
+        color: vars.color.success600,
+      },
+
+      warning: {
+        color: vars.color.warning600,
+      },
+
+      danger: {
+        color: vars.color.danger600,
+      },
+
+      alt: {
+        color: vars.color.white,
+      },
+
+      default: {
+        color: 'inherit',
+      },
+    },
   },
 
-  success: {
-    color: theme.color.success600,
-  },
+  compoundVariants: [
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'xl',
+      },
+      style: {
+        ...vars.typography.titleXl.primary,
+      },
+    },
 
-  warning: {
-    color: theme.color.warning600,
-  },
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'lg',
+      },
+      style: {
+        ...vars.typography.titleLg.primary,
+      },
+    },
 
-  danger: {
-    color: theme.color.danger600,
-  },
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'md',
+      },
+      style: {
+        ...vars.typography.titleMd.primary,
+      },
+    },
 
-  light: {
-    color: theme.color.white,
-  },
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'sm',
+      },
+      style: {
+        ...vars.typography.titleSm.primary,
+      },
+    },
 
-  dark: {
-    color: theme.color.neutral900,
-  },
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'xs',
+      },
+      style: {
+        ...vars.typography.titleXs.primary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'xl',
+      },
+      style: {
+        ...vars.typography.titleXl.secondary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'lg',
+      },
+      style: {
+        ...vars.typography.titleLg.secondary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'md',
+      },
+      style: {
+        ...vars.typography.titleMd.secondary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'sm',
+      },
+      style: {
+        ...vars.typography.titleSm.secondary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'xs',
+      },
+      style: {
+        ...vars.typography.titleXs.secondary,
+      },
+    },
+  ],
 });

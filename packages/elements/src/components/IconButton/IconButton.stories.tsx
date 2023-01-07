@@ -1,6 +1,5 @@
 import React from 'react';
 import { Col, Row } from '@seed-ui/layout';
-import { Icon } from '@seed-ui/icons';
 
 import Avatar from '../Avatar';
 
@@ -13,23 +12,21 @@ import docs from './IconButton.docs.mdx';
 
 const variants: IconButtonVariant[] = [
   'primary',
-  'accent',
   'secondary',
+  'tertiary',
   'info',
   'success',
   'warning',
   'danger',
-  'light',
-  'dark',
-  'primary-outline',
-  'accent-outline',
-  'secondary-outline',
-  'info-outline',
-  'success-outline',
-  'warning-outline',
-  'danger-outline',
-  'light-outline',
-  'dark-outline',
+  'alt',
+  'outline-primary',
+  'outline-secondary',
+  'outline-tertiary',
+  'outline-info',
+  'outline-success',
+  'outline-warning',
+  'outline-danger',
+  'outline-alt',
 ];
 
 const sizes: IconButtonSize[] = ['sm', 'md', 'lg'];
@@ -41,68 +38,17 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    'as': {
-      table: {
-        type: {
-          summary: 'ElementType',
-        },
-        defaultValue: { summary: 'button' },
-      },
+    icon: {
+      defaultValue: 'like',
     },
-    'disabled': {
-      control: 'boolean',
-      defaultValue: false,
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    'size': {
-      control: 'select',
-      defaultValue: 'md',
-      table: {
-        type: {
-          summary: sizes.join(' | '),
-        },
-        defaultValue: { summary: 'md' },
-      },
-    },
-    'variant': {
-      control: 'select',
-      defaultValue: 'primary',
-      options: variants,
-      table: {
-        type: {
-          summary: variants.join(' | '),
-        },
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    '[Element props]': {
-      table: {
-        type: {
-          summary: 'HTMLAttributes',
-        },
-      },
-    },
-    'children': {
-      table: {
-        type: {
-          summary: 'ReactElement',
-        },
-      },
+    iconType: {
+      defaultValue: 'solid',
     },
   },
 };
 
 export function Base(args: IconButtonProps): JSX.Element {
-  return (
-    <IconButton {...args}>
-      <Icon name="like" type="solid" />
-    </IconButton>
-  );
+  return <IconButton {...args} />;
 }
 
 export function Variants(args: IconButtonProps): JSX.Element {
@@ -110,9 +56,11 @@ export function Variants(args: IconButtonProps): JSX.Element {
     <Row gutter={2}>
       {variants.map((variant, i) => (
         <Col key={i} title={`${variant} variant IconButton`}>
-          <IconButton {...args} variant={variant}>
-            <Icon name="like" type="solid" />
-          </IconButton>
+          <IconButton
+            {...args}
+            title={`${variant} variant IconButton`}
+            variant={variant}
+          />
         </Col>
       ))}
     </Row>
@@ -124,13 +72,15 @@ export function Sizes(args: IconButtonProps): JSX.Element {
     <Row alignItems="center" gutter={2}>
       {sizes.map((size, i) => (
         <Col key={i}>
-          <IconButton {...args} size={size} title={`${size} size IconButton`}>
-            <Icon name="like" type="solid" />
-          </IconButton>
+          <IconButton {...args} size={size} title={`${size} size IconButton`} />
         </Col>
       ))}
     </Row>
   );
+}
+
+export function Rounded(args: IconButtonProps): JSX.Element {
+  return <IconButton {...args} rounded title={'Rounded IconButton'} />;
 }
 
 export function WithAvatar(args: IconButtonProps): JSX.Element {

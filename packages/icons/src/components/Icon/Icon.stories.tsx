@@ -7,14 +7,10 @@ import Icon, {
   IconAnimation,
   IconFlip,
   IconProps,
-  IconPull,
   IconRotate,
   IconSize,
-  IconType,
   IconVariant,
 } from './Icon';
-
-const TYPE_OPTIONS: IconType[] = ['regular', 'solid', 'logo'];
 
 const VARIANT_OPTIONS: IconVariant[] = [
   'primary',
@@ -33,8 +29,6 @@ const SIZE_OPTIONS: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', 'none'];
 const ROTATE_OPTIONS: IconRotate[] = [0, 90, 180, 270];
 
 const FLIP_OPTIONS: IconFlip[] = ['vertical', 'horizontal', 'none'];
-
-const PULL_OPTIONS: IconPull[] = ['left', 'right', 'none'];
 
 const ANIMATION_OPTIONS: IconAnimation[] = [
   'spin',
@@ -86,93 +80,17 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    'name': {
-      control: 'text',
+    name: {
       defaultValue: 'like',
-      table: {
-        type: {
-          summary: 'string',
-        },
-      },
     },
-    'type': {
-      control: 'radio',
+    type: {
       defaultValue: 'solid',
-      options: TYPE_OPTIONS,
-      table: {
-        type: {
-          summary: TYPE_OPTIONS.map(String).join(' | '),
-        },
-        defaultValue: {
-          summary: 'regular',
-        },
-      },
     },
-    'variant': {
-      control: 'select',
-      defaultValue: 'secondary',
-      options: VARIANT_OPTIONS,
-      table: {
-        type: {
-          summary: VARIANT_OPTIONS.map(String).join(' | '),
-        },
-        defaultValue: {
-          summary: 'dark',
-        },
-      },
+    variant: {
+      defaultValue: 'default',
     },
-    'size': {
-      control: 'select',
-      options: SIZE_OPTIONS,
+    size: {
       defaultValue: 'sm',
-      table: {
-        type: {
-          summary: SIZE_OPTIONS.map(String).join(' | '),
-        },
-      },
-    },
-    'rotate': {
-      control: 'select',
-      options: ROTATE_OPTIONS,
-      table: {
-        type: {
-          summary: ROTATE_OPTIONS.map(String).join(' | '),
-        },
-      },
-    },
-    'flip': {
-      control: 'radio',
-      options: FLIP_OPTIONS,
-      table: {
-        type: {
-          summary: FLIP_OPTIONS.map(String).join(' | '),
-        },
-      },
-    },
-    'pull': {
-      control: 'radio',
-      options: PULL_OPTIONS,
-      table: {
-        type: {
-          summary: PULL_OPTIONS.map(String).join(' | '),
-        },
-      },
-    },
-    'animation': {
-      control: 'select',
-      options: ANIMATION_OPTIONS,
-      table: {
-        type: {
-          summary: ANIMATION_OPTIONS.map(String).join(' | '),
-        },
-      },
-    },
-    '[Element props]': {
-      table: {
-        type: {
-          summary: 'HTMLAttributes',
-        },
-      },
     },
   },
 };
@@ -186,9 +104,9 @@ export function Variants(args: IconProps): JSX.Element {
     <Row alignItems="center" gutter={2}>
       {VARIANT_OPTIONS.map((variant, i) => (
         <Col key={i}>
-          <Space align="center" direction="column" gutter={1}>
+          <Space alignItems="center" direction="column" gutter={1}>
             <Icon {...args} name="like" type="solid" variant={variant} />
-            <Caption variant="secondary">
+            <Caption variant="tertiary">
               {capitalize(variant ?? undefined)}
             </Caption>
           </Space>
@@ -203,9 +121,9 @@ export function Sizes(args: IconProps): JSX.Element {
     <Row alignItems="end" gutter={2}>
       {SIZE_OPTIONS.map((size, i) => (
         <Col key={i}>
-          <Space align="center" direction="column" gutter={1}>
+          <Space alignItems="center" direction="column" gutter={1}>
             <Icon {...args} name="like" size={size} type="solid" />
-            <Caption variant="secondary">
+            <Caption variant="tertiary">
               {capitalize(size ?? undefined)}
             </Caption>
           </Space>
@@ -220,9 +138,9 @@ export function Rotate(args: IconProps): JSX.Element {
     <Row alignItems="center" gutter={2}>
       {ROTATE_OPTIONS.map((rotate, i) => (
         <Col key={i}>
-          <Space align="center" direction="column" gutter={1}>
+          <Space alignItems="center" direction="column" gutter={1}>
             <Icon {...args} rotate={rotate} />
-            <Caption variant="secondary">{rotate ?? undefined}</Caption>
+            <Caption variant="tertiary">{rotate ?? undefined}</Caption>
           </Space>
         </Col>
       ))}
@@ -235,9 +153,9 @@ export function Flip(args: IconProps): JSX.Element {
     <Row alignItems="center" gutter={2}>
       {FLIP_OPTIONS.map((flip, i) => (
         <Col key={i}>
-          <Space align="center" direction="column" gutter={1}>
+          <Space alignItems="center" direction="column" gutter={1}>
             <Icon {...args} flip={flip} />
-            <Caption variant="secondary">
+            <Caption variant="tertiary">
               {capitalize(flip ?? undefined)}
             </Caption>
           </Space>
@@ -271,13 +189,13 @@ export function Animation(args: IconProps): JSX.Element {
     <Row alignItems="center" gutter={2}>
       {ANIMATION_OPTIONS.map((animation, i) => (
         <Col key={i}>
-          <Space align="center" direction="column" gutter={1}>
+          <Space alignItems="center" direction="column" gutter={1}>
             <Icon
               {...args}
               {...ANIMATION_SAMPLES_MAP[animation]}
               animation={animation}
             />
-            <Caption variant="secondary">
+            <Caption variant="tertiary">
               {capitalize(animation ?? undefined)}
             </Caption>
           </Space>

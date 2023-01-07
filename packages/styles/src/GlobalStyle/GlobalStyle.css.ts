@@ -1,6 +1,8 @@
 import { globalStyle } from '@vanilla-extract/css';
 
-import { theme } from '../theme.css';
+import { vars } from '../vars.css';
+
+export const stub = null;
 
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 
@@ -69,25 +71,12 @@ globalStyle('td, th', {
   padding: 0,
 });
 
-/**
- *  1. Responsive base font size.
- *    Devises of size 1440px has initial font size 1rem.
- *    See: https://www.codementor.io/@ricardozea/100-responsive-typography-system-using-a-modular-scale-s5rhft58g
- */
-
 globalStyle('body', {
-  fontSize: 'calc(0.75rem + .35vw)' /* 1 */,
-  fontFamily: theme.fontFamily.base,
-  color: theme.color.neutral900,
-  backgroundColor: theme.color.white,
-  textRendering: 'optimizeLegibility',
+  color: vars.color.neutral900,
+  fontFamily: vars.fontFamily.secondary,
+  ...vars.typography.textMd.secondary,
+
   fontSmooth: 'antialiased',
+  textRendering: 'optimizeLegibility',
+  backgroundColor: vars.color.white,
 });
-
-globalStyle('*:focus-visible', {
-  outlineOffset: '1px',
-  outline: `2px auto ${theme.color.accent500}`,
-});
-
-// eslint-disable-next-line import/prefer-default-export
-export const stub = null;

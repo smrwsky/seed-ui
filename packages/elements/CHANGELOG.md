@@ -1,11 +1,5 @@
 # @seed-ui/elements
 
-## 0.7.4
-
-### Patch Changes
-
-- 7acba26: Changed min width of menu items.
-
 ## 0.7.3
 
 ### Patch Changes
@@ -53,7 +47,7 @@
 
 ### Minor Changes
 
-- 36fa7b0: Improved icons styles. Removed Box component and deprecated spacing properties.
+- 36fa7b0: Improved icons styles. Removed Flex component and deprecated spacing properties.
 
 ## 0.5.2
 
@@ -173,7 +167,7 @@
 
 ### Patch Changes
 
-- ce95a2a: Added border props to Box component.
+- ce95a2a: Added border props to Flex component.
 
 ## 0.3.13
 
@@ -239,7 +233,7 @@
 
 ### Patch Changes
 
-- 2ed6629: Added justifySelf property and classNames to Col component.
+- 2ed6629: Added justifySelf property and classNames to Flex component.
 
 ## 0.3.2
 
