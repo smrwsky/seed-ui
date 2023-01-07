@@ -1,10 +1,16 @@
 # @seed-ui/elements
 
+## 0.8.2
+
+### Patch Changes
+
+- c21d472: Elements styles polishing.
+
 ## 0.8.1
 
 ### Patch Changes
 
-- e8260f9: 
+- e8260f9:
   - Normalised buttons sizes
   - Added flexbox package
 - Updated dependencies [e8260f9]
