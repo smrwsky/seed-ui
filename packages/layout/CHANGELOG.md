@@ -1,5 +1,19 @@
 # @seed-ui/layout
 
+## 0.7.0
+
+### Minor Changes
+
+- e183122: - Added new properties for theme
+  - Added new style utilities
+  - Standardised variant and props names
+  - Polished components' styles
+
+### Patch Changes
+
+- Updated dependencies [e183122]
+  - @seed-ui/styles@0.7.0
+
 ## 0.6.2
 
 ### Patch Changes
