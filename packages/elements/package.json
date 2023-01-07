@@ -1,6 +1,6 @@
 {
   "name": "@seed-ui/elements",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "",
   "files": [
     "dist",
@@ -97,7 +97,7 @@
     "@floating-ui/react-dom": "^1.0.1",
     "@react-hook/debounce": "^4.0.0",
     "@seed-ui/icons": "^0.5.0",
-    "@seed-ui/flexbox": "^0.0.0",
+    "@seed-ui/flexbox": "^0.1.0",
     "@seed-ui/layout": "^0.7.0",
     "@seed-ui/styles": "^0.7.0",
     "@vanilla-extract/dynamic": "^2.0.2",

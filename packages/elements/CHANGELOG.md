@@ -1,10 +1,19 @@
 # @seed-ui/elements
 
+## 0.8.1
+
+### Patch Changes
+
+- e8260f9: - Normalised buttons sizes
+  - Added flexbox package
+- Updated dependencies [e8260f9]
+  - @seed-ui/flexbox@0.1.0
+
 ## 0.8.0
 
 ### Minor Changes
 
-- e183122: 
+- e183122:
   - Added new properties for theme
   - Added new style utilities
   - Standardised variant and props names

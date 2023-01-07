@@ -1,10 +1,17 @@
 # @seed-ui/icons
 
+## 0.5.1
+
+### Patch Changes
+
+- e8260f9: - Normalised buttons sizes
+  - Added flexbox package
+
 ## 0.5.0
 
 ### Minor Changes
 
-- e183122: 
+- e183122:
   - Added new properties for theme
   - Added new style utilities
   - Standardised variant and props names
