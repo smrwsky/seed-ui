@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 
-import { defaultThemeStyle } from './ThemeProvider.css';
+import { defaultThemeStyle } from '../themes';
 
 export type ThemeProviderProps = {
   children?: React.ReactNode;
@@ -11,7 +11,14 @@ function ThemeProvider({
   theme = defaultThemeStyle,
   children,
 }: ThemeProviderProps): JSX.Element {
-  return <div className={theme}>{children}</div>;
+  useLayoutEffect(() => {
+    document.body.classList.add(theme);
+
+    return () => {
+      document.body.classList.remove(theme);
+    };
+  }, [theme]);
+  return <>{children}</>;
 }
 
 export default ThemeProvider;

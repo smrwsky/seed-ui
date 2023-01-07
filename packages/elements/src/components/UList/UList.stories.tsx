@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { atoms } from '@seed-ui/styles';
+import { atoms, FontFamily } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
 import { Icon } from '@seed-ui/icons';
 
@@ -12,19 +12,21 @@ import UList, { UListProps, UListSize, UListType, UListVariant } from './UList';
 
 const types: UListType[] = ['disc', 'dash', 'none'];
 
+const fontFamilies: FontFamily[] = ['primary', 'secondary'];
+
+const sizes: UListSize[] = ['sm', 'md'];
+
 const variants: UListVariant[] = [
   'primary',
-  'accent',
   'secondary',
+  'tertiary',
   'info',
   'success',
   'warning',
   'danger',
-  'light',
-  'dark',
+  'alt',
+  'default',
 ];
-
-const sizes: UListSize[] = ['sm', 'md'];
 
 const listItems = [
   'Peter',
@@ -56,16 +58,16 @@ export function Base(args: UListProps): JSX.Element {
   );
 }
 
-export function Type(args: UListProps): JSX.Element {
+export function Types(args: UListProps): JSX.Element {
   return (
     <>
       {types.map((type, i) => (
         <Fragment key={i}>
-          <Title className={atoms({ mt: i > 0 ? 4 : 0 })} size="xs">
+          <Title className={atoms({ mt: i > 0 ? 8 : 0 })} size="xs">
             {capitalize(type)}
           </Title>
 
-          <UList {...args} className={atoms({ mt: 1.5 })} type={type}>
+          <UList {...args} className={atoms({ mt: 3 })} type={type}>
             {listItems.map((val, j) => (
               <ListItem key={j}>{val}</ListItem>
             ))}
@@ -76,13 +78,57 @@ export function Type(args: UListProps): JSX.Element {
   );
 }
 
-export function Variant(args: UListProps): JSX.Element {
+export function FontFamilies(args: UListProps): JSX.Element {
+  return (
+    <>
+      {fontFamilies.map((fontFamily, i) => (
+        <Fragment key={i}>
+          <Title
+            className={atoms({ mt: i > 0 ? 8 : 0 })}
+            fontFamily={fontFamily}
+            size="xs"
+          >
+            {capitalize(fontFamily)}
+          </Title>
+
+          <UList {...args} className={atoms({ mt: 3 })} fontFamily={fontFamily}>
+            {listItems.map((val, j) => (
+              <ListItem key={j}>{val}</ListItem>
+            ))}
+          </UList>
+        </Fragment>
+      ))}
+    </>
+  );
+}
+
+export function Sizes(args: UListProps): JSX.Element {
+  return (
+    <>
+      {sizes.map((size, i) => (
+        <Fragment key={i}>
+          <Title className={atoms({ mt: i > 0 ? 8 : 0 })} size="xs">
+            {capitalize(size)}
+          </Title>
+
+          <UList {...args} className={atoms({ mt: 3 })} size={size}>
+            {listItems.map((val, j) => (
+              <ListItem key={j}>{val}</ListItem>
+            ))}
+          </UList>
+        </Fragment>
+      ))}
+    </>
+  );
+}
+
+export function Variants(args: UListProps): JSX.Element {
   return (
     <>
       {variants.map((variant, i) => (
         <Fragment key={i}>
           <Title
-            className={atoms({ mt: i > 0 ? 4 : 0 })}
+            className={atoms({ mt: i > 0 ? 8 : 0 })}
             size="xs"
             variant={variant}
           >
@@ -91,7 +137,7 @@ export function Variant(args: UListProps): JSX.Element {
 
           <UList
             {...args}
-            className={atoms({ mt: 1.5 })}
+            className={atoms({ mt: 3 })}
             key={i}
             variant={variant}
           >
@@ -102,36 +148,6 @@ export function Variant(args: UListProps): JSX.Element {
         </Fragment>
       ))}
     </>
-  );
-}
-
-export function Size(args: UListProps): JSX.Element {
-  return (
-    <>
-      {sizes.map((size, i) => (
-        <Fragment key={i}>
-          <Title className={atoms({ mt: i > 0 ? 4 : 0 })} size="xs">
-            {capitalize(size)}
-          </Title>
-
-          <UList {...args} className={atoms({ mt: 1.5 })} size={size}>
-            {listItems.map((val, j) => (
-              <ListItem key={j}>{val}</ListItem>
-            ))}
-          </UList>
-        </Fragment>
-      ))}
-    </>
-  );
-}
-
-export function Serif(args: UListProps): JSX.Element {
-  return (
-    <UList {...args} serif>
-      {listItems.map((val, idx) => (
-        <ListItem key={idx}>{val}</ListItem>
-      ))}
-    </UList>
   );
 }
 

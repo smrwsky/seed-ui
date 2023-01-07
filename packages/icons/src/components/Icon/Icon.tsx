@@ -7,16 +7,16 @@ export type IconType = 'regular' | 'solid' | 'logo';
 
 export type IconVariant =
   | 'primary'
-  | 'accent'
   | 'secondary'
+  | 'tertiary'
   | 'info'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'light'
-  | 'dark';
+  | 'alt'
+  | 'default';
 
-export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none';
+export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type IconRotate = 0 | 90 | 180 | 270;
 
@@ -57,8 +57,8 @@ export type IconProps = HTMLAttributes<HTMLElement> & {
 function Icon({
   name,
   type = 'regular',
-  variant = 'dark',
-  size = 'none',
+  variant = 'default',
+  size = 'md',
   rotate = 0,
   flip = 'none',
   pull = 'none',

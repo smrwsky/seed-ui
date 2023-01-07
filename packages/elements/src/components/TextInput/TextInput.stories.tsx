@@ -2,18 +2,9 @@ import React from 'react';
 import { Space } from '@seed-ui/layout';
 
 import docs from './TextInput.docs.mdx';
-import TextInput, {
-  TextInputDirection,
-  TextInputProps,
-  TextInputShape,
-  TextInputSize,
-} from './TextInput';
-
-const shapes: TextInputShape[] = ['rectangle', 'stadium'];
+import TextInput, { TextInputProps, TextInputSize } from './TextInput';
 
 const sizes: TextInputSize[] = ['sm', 'md', 'lg'];
-
-const directions: TextInputDirection[] = ['column', 'row'];
 
 export default {
   title: 'Inputs/TextInput',
@@ -22,71 +13,11 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    'direction': {
-      control: 'select',
-      options: directions,
-      defaultValue: 'column',
-      table: {
-        type: {
-          summary: directions.join(' | '),
-        },
-        defaultValue: {
-          summary: 'column',
-        },
-      },
+    defaultValue: {
+      defaultValue: 'Bob',
     },
-    'shape': {
-      control: 'select',
-      options: shapes,
-      defaultValue: 'rectangle',
-      table: {
-        type: {
-          summary: shapes.join(' | '),
-        },
-        defaultValue: {
-          summary: 'rectangle',
-        },
-      },
-    },
-    'size': {
-      control: 'select',
-      options: sizes,
-      defaultValue: 'md',
-      table: {
-        type: {
-          summary: sizes.join(' | '),
-        },
-        defaultValue: {
-          summary: 'md',
-        },
-      },
-    },
-    'label': {
-      control: 'text',
-      defaultValue: 'First name',
-      type: {
-        summary: 'ReactNode',
-      },
-    },
-    'placeholder': {
-      control: 'text',
-      defaultValue: 'Johny',
-      type: {
-        summary: 'string',
-      },
-    },
-    'value': {
-      control: 'text',
-      type: {
-        summary: 'string',
-      },
-    },
-    '[Element props]': {
-      table: {
-        type: {
-          summary: 'HTMLInputAttributes',
-        },
-      },
+    placeholder: {
+      defaultValue: 'First Name',
     },
   },
 };
@@ -96,12 +27,7 @@ export function Base(args: TextInputProps): JSX.Element {
 }
 
 export function Invalid(args: TextInputProps): JSX.Element {
-  return (
-    <Space direction="column" gutter={2}>
-      <TextInput {...args} invalid label="Invalid input" />
-      <TextInput {...args} error="You lie!" label="Input with error" />
-    </Space>
-  );
+  return <TextInput {...args} invalid />;
 }
 
 export function Disabled(args: TextInputProps): JSX.Element {
@@ -112,32 +38,16 @@ export function ReadOnly(args: TextInputProps): JSX.Element {
   return <TextInput {...args} readOnly value="Readonly value" />;
 }
 
-export function Directions(args: TextInputProps): JSX.Element {
-  return (
-    <Space direction="column" gutter={2}>
-      {directions.map((direction, i) => (
-        <TextInput {...args} direction={direction} key={i} label={direction} />
-      ))}
-    </Space>
-  );
-}
-
 export function Sizes(args: TextInputProps): JSX.Element {
   return (
     <Space direction="column" gutter={2}>
       {sizes.map((size, i) => (
-        <TextInput {...args} key={i} label={size} size={size} />
+        <TextInput {...args} key={i} size={size} />
       ))}
     </Space>
   );
 }
 
-export function Shapes(args: TextInputProps): JSX.Element {
-  return (
-    <Space direction="column" gutter={2}>
-      {shapes.map((shape, i) => (
-        <TextInput {...args} key={i} label={shape} shape={shape} />
-      ))}
-    </Space>
-  );
+export function Rounded(args: TextInputProps): JSX.Element {
+  return <TextInput {...args} rounded />;
 }

@@ -1,27 +1,29 @@
 import React from 'react';
+import { capitalize } from 'lodash';
 
-import { TitleProps } from '../Title';
-
-import docs from './Subtitle.docs.mdx';
 import Subtitle, {
+  SubtitleFontFamily,
   SubtitleProps,
   SubtitleSize,
   SubtitleVariant,
 } from './Subtitle';
+import docs from './Subtitle.docs.mdx';
+
+const fontFamilies: SubtitleFontFamily[] = ['primary', 'secondary'];
+
+const sizes: SubtitleSize[] = ['sm', 'md'];
 
 const variants: SubtitleVariant[] = [
   'primary',
-  'accent',
   'secondary',
+  'tertiary',
   'info',
   'success',
   'warning',
   'danger',
-  'light',
-  'dark',
+  'alt',
+  'default',
 ];
-
-const sizes: SubtitleSize[] = ['sm', 'md'];
 
 export default {
   title: 'Typography/Subtitle',
@@ -30,50 +32,8 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    'as': {
-      table: {
-        type: {
-          summary: 'ElementType',
-        },
-        defaultValue: { summary: 'div' },
-      },
-    },
-    'variant': {
-      control: 'select',
-      defaultValue: 'dark',
-      table: {
-        type: {
-          summary: variants.join(' | '),
-        },
-        defaultValue: { summary: 'dark' },
-      },
-    },
-
-    'serif': {
-      control: 'boolean',
-      defaultValue: false,
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    '[Element props]': {
-      table: {
-        type: {
-          summary: 'HTMLAttributes',
-        },
-      },
-    },
-    'children': {
-      control: 'text',
-      defaultValue: 'This is a subtitle',
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
+    children: {
+      defaultValue: 'This is a title',
     },
   },
 };
@@ -82,12 +42,12 @@ export function Base(args: SubtitleProps): JSX.Element {
   return <Subtitle {...args} />;
 }
 
-export function Variants(args: SubtitleProps): JSX.Element {
+export function FontFamilies(args: SubtitleProps): JSX.Element {
   return (
     <>
-      {variants.map((variant, i) => (
-        <Subtitle {...args} key={i} variant={variant}>
-          This is {variant} subtitle
+      {fontFamilies.map((fontFamily, i) => (
+        <Subtitle {...args} fontFamily={fontFamily} key={i}>
+          {capitalize(fontFamily)}
         </Subtitle>
       ))}
     </>
@@ -99,19 +59,19 @@ export function Sizes(args: SubtitleProps): JSX.Element {
     <>
       {sizes.map((size, i) => (
         <Subtitle {...args} key={i} size={size}>
-          A subtitle with size {size}
+          A title with size {size}
         </Subtitle>
       ))}
     </>
   );
 }
 
-export function Serif(args: TitleProps): JSX.Element {
+export function Variants(args: SubtitleProps): JSX.Element {
   return (
     <>
-      {sizes.map((size, i) => (
-        <Subtitle {...args} key={i} serif size={size}>
-          A subtitle with size {size}
+      {variants.map((variant, i) => (
+        <Subtitle {...args} key={i} variant={variant}>
+          This is {variant} title
         </Subtitle>
       ))}
     </>

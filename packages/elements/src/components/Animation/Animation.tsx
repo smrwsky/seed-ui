@@ -22,14 +22,14 @@ export type AnimationProps = Omit<TransitionProps, 'addEndListener'> & {
   type: AnimationType;
   className?: string;
   children: ReactNode;
-  duration?: 150 | 300 | 600;
+  duration?: number;
 };
 
 function Animation({
   as: Element = Fragment,
   in: inProp,
   addEndListener,
-  duration = 300,
+  duration = 200,
   type,
   style,
   className,
@@ -55,11 +55,9 @@ function Animation({
         Element === Fragment && isValidElement(children) ? (
           cloneElement(children, {
             className: cn(
-              S.root,
               S.rootType[type],
               status === 'entered' && S.rootEntered[type],
               !inProp && status === 'exited' && S.rootExited,
-              S.rootDuration[duration],
               className,
               children.props.className,
             ),
@@ -71,11 +69,9 @@ function Animation({
         ) : (
           <Element
             className={cn(
-              S.root,
               S.rootType[type],
               status === 'entered' && S.rootEntered[type],
               !inProp && status === 'exited' && S.rootExited,
-              S.rootDuration[duration],
               className,
             )}
             style={style}

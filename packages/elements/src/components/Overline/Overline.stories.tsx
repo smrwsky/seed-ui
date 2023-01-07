@@ -5,14 +5,14 @@ import docs from './Overline.docs.mdx';
 
 const variants: OverlineVariant[] = [
   'primary',
-  'accent',
   'secondary',
+  'tertiary',
   'info',
   'success',
   'warning',
   'danger',
-  'light',
-  'dark',
+  'alt',
+  'default',
 ];
 
 export default {
@@ -22,39 +22,8 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    'as': {
-      table: {
-        type: {
-          summary: 'ElementType',
-        },
-        defaultValue: { summary: 'div' },
-      },
-    },
-    'variant': {
-      control: 'select',
-      defaultValue: 'dark',
-      table: {
-        type: {
-          summary: variants.join(' | '),
-        },
-        defaultValue: { summary: 'dark' },
-      },
-    },
-    '[Element props]': {
-      table: {
-        type: {
-          summary: 'HTMLAttributes',
-        },
-      },
-    },
-    'children': {
-      control: 'text',
+    children: {
       defaultValue: 'This is an overline',
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
     },
   },
 };

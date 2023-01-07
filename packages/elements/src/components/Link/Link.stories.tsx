@@ -7,13 +7,14 @@ import docs from './Link.docs.mdx';
 
 const variants: LinkVariant[] = [
   'primary',
-  'accent',
   'secondary',
+  'tertiary',
   'info',
   'success',
   'warning',
   'danger',
-  'light',
+  'alt',
+  'default',
 ];
 
 export default {
@@ -23,58 +24,8 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    'as': {
-      table: {
-        type: {
-          summary: 'ElementType',
-        },
-        defaultValue: { summary: 'div' },
-      },
-    },
-    'bold': {
-      control: 'boolean',
-      defaultValue: false,
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    'href': {
-      control: 'text',
-      defaultValue: '#',
-      table: {
-        type: {
-          summary: 'string',
-        },
-      },
-    },
-    'variant': {
-      control: 'select',
-      defaultValue: 'primary',
-      table: {
-        type: {
-          summary: variants.join(' | '),
-        },
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    '[Element props]': {
-      table: {
-        type: {
-          summary: 'HTMLAttributes',
-        },
-      },
-    },
-    'children': {
-      control: 'text',
+    children: {
       defaultValue: 'This is a link',
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
     },
   },
 };

@@ -1,23 +1,25 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { theme } from '@seed-ui/styles';
+import { spacing, vars } from '@seed-ui/styles';
 
 export const root = style({
   gridArea: 'label',
+  fontFamily: vars.fontFamily.secondary,
   textOverflow: 'ellipsis',
-  overflow: 'hidden',
+  margin: `0 ${spacing[1.5]}`,
 });
 
 export const rootSize = styleVariants({
   sm: {
-    ...theme.typography.textSm.base,
+    ...vars.typography.textSm.secondary,
   },
   md: {
-    ...theme.typography.textMd.base,
+    ...vars.typography.textMd.secondary,
   },
 });
 
 export const rootCollapsed = style({
-  ...theme.typography.caption,
+  ...vars.typography.caption,
   whiteSpace: 'nowrap',
   textAlign: 'center',
+  margin: 0,
 });

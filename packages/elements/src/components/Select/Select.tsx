@@ -1,139 +1,133 @@
-import React from 'react';
+import React, {
+  forwardRef,
+  memo,
+  ReactElement,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 import cn from 'classnames';
-import { Icon } from '@seed-ui/icons';
+import { Icon, IconType } from '@seed-ui/icons';
 
-import IconButton from '../IconButton';
-import InputContainer from '../InputContainer';
-import InputAction from '../InputAction';
-import Label from '../Label';
-import InputGroup from '../InputGroup';
+import { InputAction, InputContainer } from '../InputGroup';
 import { textboxStyle } from '../../styles';
 
 import * as S from './Select.css';
 
-export type SelectShape = 'rectangle' | 'stadium';
-
 export type SelectSize = 'sm' | 'md' | 'lg';
 
-export type SelectDirection = 'row' | 'column';
+export type SelectValue = string | string[];
 
-export interface SelectProps {
+export interface SelectProps<TValue extends SelectValue = SelectValue> {
   autoFocus?: boolean;
-  children?: React.ReactNode;
-  defaultValue?: string | number | readonly string[];
-  direction?: SelectDirection;
+  defaultValue?: TValue;
   disabled?: boolean;
-  error?: string;
+  icon?: string;
+  iconType?: IconType;
   id?: string;
   invalid?: boolean;
-  label?: React.ReactNode;
   maxRows?: number;
-  message?: string;
   multiple?: boolean;
   name?: string;
   onBlur?: React.FocusEventHandler<HTMLSelectElement>;
-  onChange?: (value: string | number | readonly string[]) => void;
+  onChange?: (value: TValue) => void;
   onFocus?: React.FocusEventHandler<HTMLSelectElement>;
-  readOnly?: boolean;
-  shape?: SelectShape;
+  rounded?: boolean;
   size?: SelectSize;
   success?: boolean;
-  value?: string | number | readonly string[];
+  value?: TValue;
+  children?: ReactNode;
 }
 
-function Select(
-  {
-    defaultValue,
-    direction = 'row',
-    disabled,
-    error,
-    invalid,
-    label,
-    maxRows,
-    message,
-    multiple,
-    readOnly,
-    shape = 'rectangle',
-    size = 'md',
-    success,
-    id = 'select',
-    value,
-    onChange,
-    onFocus,
-    onBlur,
-    children,
-    ...inputProps
-  }: SelectProps,
-  ref: React.Ref<HTMLSelectElement>,
-): JSX.Element {
-  const [valueState, setValueState] = React.useState<
-    string | number | readonly string[] | undefined
-  >(defaultValue);
+export interface SelectFn {
+  <TValue extends SelectValue = SelectValue>(
+    props: SelectProps<TValue> & RefAttributes<HTMLSelectElement>,
+  ): ReactElement | null;
+}
 
-  const [focused, setFocused] = React.useState(false);
+const Select = forwardRef<HTMLSelectElement, SelectProps>(
+  (
+    {
+      defaultValue,
+      disabled,
+      icon,
+      iconType,
+      invalid,
+      maxRows,
+      multiple,
+      rounded,
+      size = 'md',
+      success,
+      id = 'select',
+      value,
+      onChange,
+      onFocus,
+      onBlur,
+      children,
+      ...inputProps
+    },
+    ref,
+  ) => {
+    const [valueState, setValueState] = React.useState<
+      string | number | readonly string[] | undefined
+    >(defaultValue);
 
-  React.useEffect(() => {
-    if (typeof value !== 'undefined') {
-      setValueState(value);
-    }
-  }, [value]);
+    const [focused, setFocused] = React.useState(false);
 
-  function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const nextValue = multiple
-      ? Array.from(e.target.selectedOptions, (v) => v.value)
-      : e.target.value;
-
-    if (typeof value === 'undefined' && !onChange) {
-      setValueState(nextValue);
-    } else {
-      onChange?.(nextValue);
-    }
-  }
-
-  function handleFocus(e: React.FocusEvent<HTMLSelectElement>): void {
-    e.persist();
-    setFocused(true);
-
-    if (onFocus) {
-      onFocus(e);
-    }
-  }
-
-  function handleBlur(e: React.FocusEvent<HTMLSelectElement>): void {
-    e.persist();
-    setFocused(false);
-
-    if (onBlur) {
-      onBlur(e);
-    }
-  }
-
-  return (
-    <InputGroup
-      direction={direction}
-      error={error}
-      htmlFor={id}
-      label={
-        typeof label === 'string' ? (
-          <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
-        ) : (
-          label
-        )
+    React.useEffect(() => {
+      if (typeof value !== 'undefined') {
+        setValueState(value);
       }
-      message={message}
-    >
+    }, [value]);
+
+    function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+      const nextValue = multiple
+        ? Array.from(e.target.selectedOptions, (v) => v.value)
+        : e.target.value;
+
+      if (typeof value === 'undefined' && !onChange) {
+        setValueState(nextValue);
+      } else {
+        onChange?.(nextValue);
+      }
+    }
+
+    function handleFocus(e: React.FocusEvent<HTMLSelectElement>): void {
+      e.persist();
+      setFocused(true);
+
+      if (onFocus) {
+        onFocus(e);
+      }
+    }
+
+    function handleBlur(e: React.FocusEvent<HTMLSelectElement>): void {
+      e.persist();
+      setFocused(false);
+
+      if (onBlur) {
+        onBlur(e);
+      }
+    }
+
+    return (
       <InputContainer
         className={S.container}
         disabled={disabled}
         focused={focused}
-        invalid={invalid || Boolean(error)}
-        readOnly={readOnly}
-        shape={shape}
+        invalid={invalid}
+        rounded={rounded}
         size={size}
       >
+        {icon && (
+          <InputAction>
+            <Icon name={icon} size="sm" type={iconType} variant="secondary" />
+          </InputAction>
+        )}
+
         <select
           {...inputProps}
           className={cn(S.select, textboxStyle, multiple && S.selectMultiple)}
+          disabled={disabled}
           id={id}
           multiple={multiple}
           onBlur={handleBlur}
@@ -146,21 +140,16 @@ function Select(
           {children}
         </select>
 
-        {!multiple && (
+        {!multiple && !disabled && (
           <InputAction className={S.action}>
-            <IconButton
-              as="span"
-              className={S.icon}
-              size="sm"
-              variant="secondary"
-            >
-              <Icon name="chevron-down" />
-            </IconButton>
+            <Icon name="chevron-down" size="sm" />
           </InputAction>
         )}
       </InputContainer>
-    </InputGroup>
-  );
-}
+    );
+  },
+);
 
-export default React.forwardRef(Select);
+Select.displayName = 'Select';
+
+export default memo(Select) as SelectFn;

@@ -4,7 +4,7 @@ export type MenuType = 'horizontal' | 'inline' | 'vertical';
 
 export type MenuSize = 'sm' | 'md';
 
-export type MenuVariant = 'primary' | 'secondary' | 'light' | 'dark';
+export type MenuVariant = 'primary' | 'secondary' | 'alt';
 
 export type MenuContextType = {
   collapsed: boolean;
@@ -19,7 +19,7 @@ const MenuContext = React.createContext<MenuContextType>({
   indent: 0,
   size: 'md',
   type: 'vertical',
-  variant: 'light',
+  variant: 'secondary',
 });
 
 export default MenuContext;

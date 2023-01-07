@@ -1,21 +1,25 @@
 import React from 'react';
+import { FontFamily } from '@seed-ui/styles';
+import { capitalize } from 'lodash';
 
-import docs from './Title.docs.mdx';
 import Title, { TitleProps, TitleSize, TitleVariant } from './Title';
+import docs from './Title.docs.mdx';
+
+const fontFamilies: FontFamily[] = ['primary', 'secondary'];
+
+const sizes: TitleSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 const variants: TitleVariant[] = [
   'primary',
-  'accent',
   'secondary',
+  'tertiary',
   'info',
   'success',
   'warning',
   'danger',
-  'light',
-  'dark',
+  'alt',
+  'default',
 ];
-
-const sizes: TitleSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export default {
   title: 'Typography/Title',
@@ -24,50 +28,8 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    'as': {
-      table: {
-        type: {
-          summary: 'ElementType',
-        },
-        defaultValue: { summary: 'div' },
-      },
-    },
-    'variant': {
-      control: 'select',
-      defaultValue: 'dark',
-      table: {
-        type: {
-          summary: variants.join(' | '),
-        },
-        defaultValue: { summary: 'dark' },
-      },
-    },
-
-    'serif': {
-      control: 'boolean',
-      defaultValue: false,
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    '[Element props]': {
-      table: {
-        type: {
-          summary: 'HTMLAttributes',
-        },
-      },
-    },
-    'children': {
-      control: 'text',
+    children: {
       defaultValue: 'This is a title',
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
     },
   },
 };
@@ -76,12 +38,12 @@ export function Base(args: TitleProps): JSX.Element {
   return <Title {...args} />;
 }
 
-export function Variants(args: TitleProps): JSX.Element {
+export function FontFamilies(args: TitleProps): JSX.Element {
   return (
     <>
-      {variants.map((variant, i) => (
-        <Title {...args} key={i} variant={variant}>
-          This is {variant} title
+      {fontFamilies.map((fontFamily, i) => (
+        <Title {...args} fontFamily={fontFamily} key={i}>
+          {capitalize(fontFamily)}
         </Title>
       ))}
     </>
@@ -100,12 +62,12 @@ export function Sizes(args: TitleProps): JSX.Element {
   );
 }
 
-export function Serif(args: TitleProps): JSX.Element {
+export function Variants(args: TitleProps): JSX.Element {
   return (
     <>
-      {sizes.map((size, i) => (
-        <Title {...args} key={i} serif size={size}>
-          A title with size {size}
+      {variants.map((variant, i) => (
+        <Title {...args} key={i} variant={variant}>
+          This is {variant} title
         </Title>
       ))}
     </>

@@ -68,6 +68,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/no-throw-literal': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'warn',
     '@typescript-eslint/unbound-method': 'off',
     'class-methods-use-this': [
       'error',

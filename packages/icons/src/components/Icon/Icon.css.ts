@@ -1,10 +1,9 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { theme } from '@seed-ui/styles';
+import { vars } from '@seed-ui/styles';
 
 export const root = style({
   width: '1em',
   height: '1em',
-  verticalAlign: '-0.13em',
 });
 
 export const rootSize = styleVariants({
@@ -23,43 +22,42 @@ export const rootSize = styleVariants({
   xl: {
     fontSize: '3rem',
   },
-  none: {},
 });
 
 export const rootVariant = styleVariants({
   primary: {
-    color: theme.color.primary500,
-  },
-
-  accent: {
-    color: theme.color.accent500,
+    color: vars.color.primary500,
   },
 
   secondary: {
-    color: theme.color.neutral500,
+    color: vars.color.secondary500,
+  },
+
+  tertiary: {
+    color: vars.color.neutral500,
   },
 
   info: {
-    color: theme.color.info500,
+    color: vars.color.info500,
   },
 
   success: {
-    color: theme.color.success500,
+    color: vars.color.success500,
   },
 
   warning: {
-    color: theme.color.warning500,
+    color: vars.color.warning500,
   },
 
   danger: {
-    color: theme.color.danger500,
+    color: vars.color.danger500,
   },
 
-  light: {
-    color: theme.color.white,
+  alt: {
+    color: vars.color.white,
   },
 
-  dark: {
-    color: theme.color.neutral900,
+  default: {
+    color: 'inherit',
   },
 });

@@ -21,7 +21,6 @@ export default {
   },
   argTypes: {
     children: {
-      control: 'text',
       defaultValue: (
         <>
           This is danger message -{' '}
@@ -30,11 +29,6 @@ export default {
           </Link>
         </>
       ),
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
     },
   },
 };

@@ -1,4 +1,12 @@
-import React, { ComponentType, forwardRef, memo, RefAttributes } from 'react';
+import React, {
+  AnchorHTMLAttributes,
+  ComponentType,
+  FC,
+  forwardRef,
+  memo,
+  RefAttributes,
+  useContext,
+} from 'react';
 import cx from 'classnames';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
 import { IconType } from '@seed-ui/icons';
@@ -12,8 +20,9 @@ import MenuAction from '../MenuAction';
 import * as S from './MenuLink.css';
 
 export interface MenuLinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    React.RefAttributes<HTMLAnchorElement> {
+  extends AnchorHTMLAttributes<HTMLAnchorElement>,
+    RefAttributes<HTMLAnchorElement> {
+  ActionComponent?: ComponentType;
   active?: boolean;
   description?: string;
   disabled?: boolean;
@@ -22,76 +31,73 @@ export interface MenuLinkProps
   indent?: number;
   invalid?: boolean;
   selected?: boolean;
-  renderAction?: ComponentType;
 }
 
-const MenuLink: React.FC<MenuLinkProps & RefAttributes<HTMLAnchorElement>> =
-  forwardRef<HTMLAnchorElement, MenuLinkProps>(
-    (
-      {
-        active,
-        disabled,
-        description,
-        href,
-        icon,
-        iconType,
-        indent = 0,
-        invalid,
-        role = 'menuitem',
-        selected,
-        style,
-        renderAction: ActionComponent,
-        children,
-        ...elementProps
-      },
-      ref,
-    ) => {
-      const { collapsed, type, size, variant } = React.useContext(MenuContext);
-      const indentBase = size === 'md' ? 2 : 1.75;
-
-      return (
-        <a
-          className={cx(
-            S.root,
-            S.rootType[type],
-            S.rootSize[size],
-            S.rootVariant[variant],
-            active && S.rootActiveVariant[variant],
-            collapsed && S.rootCollapsed,
-          )}
-          href={href}
-          ref={ref}
-          role={role}
-          style={{
-            ...assignInlineVars({
-              [S.rootIndentVar]: `${indentBase * indent}rem`,
-            }),
-            ...style,
-          }}
-          {...elementProps}
-          aria-disabled={disabled}
-          aria-invalid={invalid}
-          aria-selected={selected}
-        >
-          {icon && <MenuIcon name={icon} type={iconType} />}
-
-          {typeof children === 'string' ? (
-            <MenuLabel>{children}</MenuLabel>
-          ) : (
-            children
-          )}
-
-          {description && <MenuDescription>{description}</MenuDescription>}
-
-          {ActionComponent && (
-            <MenuAction>
-              <ActionComponent />
-            </MenuAction>
-          )}
-        </a>
-      );
+const MenuLink: FC<MenuLinkProps> = forwardRef(
+  (
+    {
+      ActionComponent,
+      active,
+      disabled,
+      description,
+      href,
+      icon,
+      iconType,
+      indent = 0,
+      invalid,
+      selected,
+      style,
+      children,
+      ...elementProps
     },
-  );
+    ref,
+  ) => {
+    const { collapsed, type, size, variant } = useContext(MenuContext);
+    const indentBase = size === 'md' ? 1.75 : 1.5;
+
+    return (
+      <a
+        aria-disabled={disabled}
+        className={cx(
+          S.root({
+            type,
+            size,
+            variant,
+            collapsed,
+            active,
+            selected,
+          }),
+        )}
+        href={href}
+        ref={ref}
+        role="menuitem"
+        style={{
+          ...assignInlineVars({
+            [S.rootIndentVar]: `${indentBase * indent}rem`,
+          }),
+          ...style,
+        }}
+        {...elementProps}
+      >
+        {icon && <MenuIcon name={icon} type={iconType} />}
+
+        {typeof children === 'string' ? (
+          <MenuLabel>{children}</MenuLabel>
+        ) : (
+          children
+        )}
+
+        {description && <MenuDescription>{description}</MenuDescription>}
+
+        {ActionComponent && (
+          <MenuAction>
+            <ActionComponent />
+          </MenuAction>
+        )}
+      </a>
+    );
+  },
+);
 
 MenuLink.displayName = 'MenuLink';
 

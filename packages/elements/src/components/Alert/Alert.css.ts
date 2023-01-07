@@ -1,58 +1,59 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { borderRadius, spacing, theme } from '@seed-ui/styles';
+import { margin, spacing, vars } from '@seed-ui/styles';
 
 export const root = style({
   display: 'flex',
-  borderRadius: borderRadius.md,
-  padding: spacing[1.5],
+  borderRadius: vars.borderRadius.lg,
+  padding: spacing[3],
 });
 
 export const rootVariant = styleVariants({
   danger: {
-    border: `1px solid ${theme.color.danger100}`,
-    color: theme.color.danger600,
-    background: theme.color.danger50,
+    border: `1px solid ${vars.color.danger100}`,
+    color: vars.color.danger600,
+    background: vars.color.danger50,
   },
   warning: {
-    border: `1px solid ${theme.color.warning100}`,
-    color: theme.color.warning600,
-    background: theme.color.warning50,
+    border: `1px solid ${vars.color.warning100}`,
+    color: vars.color.warning600,
+    background: vars.color.warning50,
   },
   info: {
-    border: `1px solid ${theme.color.info100}`,
-    color: theme.color.info600,
-    background: theme.color.info50,
+    border: `1px solid ${vars.color.info100}`,
+    color: vars.color.info600,
+    background: vars.color.info50,
   },
   success: {
-    border: `1px solid ${theme.color.success100}`,
-    color: theme.color.success600,
-    background: theme.color.success50,
+    border: `1px solid ${vars.color.success100}`,
+    color: vars.color.success600,
+    background: vars.color.success50,
   },
 });
 
 export const icon = style({
   fontSize: '1.5rem',
-  marginRight: spacing[1.5],
+  marginRight: spacing[3],
 });
 
 export const iconVariant = styleVariants({
   danger: {
-    color: theme.color.danger400,
+    color: vars.color.danger400,
   },
   warning: {
-    color: theme.color.warning400,
+    color: vars.color.warning400,
   },
   info: {
-    color: theme.color.info400,
+    color: vars.color.info400,
   },
   success: {
-    color: theme.color.success400,
+    color: vars.color.success400,
   },
 });
 
 export const title = style({
   color: 'inherit!important',
-  marginBottom: spacing[0.5],
+  marginTop: margin[-0.5],
+  marginBottom: margin[1],
 });
 
 export const content = style({
@@ -61,5 +62,5 @@ export const content = style({
   justifyContent: 'center',
   minHeight: '1.5rem',
   color: 'inherit',
-  ...theme.typography.textSm.base,
+  marginTop: margin[0.5],
 });

@@ -14,20 +14,19 @@ export interface MenuIconProps extends React.HTMLAttributes<HTMLSpanElement> {
 const MenuIcon: React.FC<
   MenuIconProps & React.RefAttributes<HTMLAnchorElement>
 > = React.forwardRef(({ className, name, type, ...props }, ref) => {
-  const { collapsed, size, variant } = React.useContext(MenuContext);
+  const { collapsed, variant } = React.useContext(MenuContext);
 
   return (
     <Icon
       className={cx(
         S.root,
-        S.rootSize[size],
         S.rootVariant[variant],
         collapsed && S.rootCollapsed,
         className,
       )}
       name={name}
       ref={ref}
-      size="none"
+      size="sm"
       type={type}
       {...props}
     />

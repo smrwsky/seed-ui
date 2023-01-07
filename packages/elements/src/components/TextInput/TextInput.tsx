@@ -1,111 +1,104 @@
-import React from 'react';
+import React, {
+  FC,
+  forwardRef,
+  InputHTMLAttributes,
+  memo,
+  RefAttributes,
+} from 'react';
+import { Icon, IconType } from '@seed-ui/icons';
 
-import Textbox from '../Textbox';
-import InputContainer from '../InputContainer';
-import InputGroup from '../InputGroup';
-import Label from '../Label';
-import InputAction from '../InputAction';
-
-export type TextInputShape = 'rectangle' | 'stadium';
+import { InputAction, InputContainer, Textbox } from '../InputGroup';
 
 export type TextInputSize = 'sm' | 'md' | 'lg';
 
-export type TextInputDirection = 'row' | 'column';
-
 export interface TextInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
-  action?: React.ReactNode;
-  direction?: TextInputDirection;
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  defaultValue?: string;
   disabled?: boolean;
-  error?: string;
+  icon?: string;
+  iconType?: IconType;
+  inputSize?: number;
   invalid?: boolean;
-  label?: React.ReactNode;
-  message?: React.ReactNode;
-  shape?: TextInputShape;
+  rounded?: boolean;
   size?: TextInputSize;
+  value?: string;
 }
 
-const TextInput = (
-  {
-    direction = 'column',
-    label,
-    shape,
-    size,
-    action,
-    error,
-    message,
-    disabled,
-    invalid,
-    readOnly,
-    id,
-    onFocus,
-    onBlur,
-    ...inputProps
-  }: TextInputProps,
-  ref: React.Ref<HTMLInputElement>,
-): JSX.Element => {
-  const [focused, setFocused] = React.useState(false);
+const TextInput: FC<TextInputProps & RefAttributes<HTMLInputElement>> =
+  forwardRef<HTMLInputElement, TextInputProps>(
+    (
+      {
+        rounded,
+        size,
+        disabled,
+        icon,
+        iconType,
+        inputSize,
+        invalid,
+        readOnly,
+        id,
+        onFocus,
+        onBlur,
+        ...inputProps
+      },
+      ref,
+    ) => {
+      const [focused, setFocused] = React.useState(false);
 
-  const handleFocus = React.useCallback(
-    (e: React.FocusEvent<HTMLInputElement>) => {
-      e.persist();
-      setFocused(true);
+      const handleFocus = React.useCallback(
+        (e: React.FocusEvent<HTMLInputElement>) => {
+          e.persist();
+          setFocused(true);
 
-      if (onFocus) {
-        onFocus(e);
-      }
-    },
-    [onFocus],
-  );
+          if (onFocus) {
+            onFocus(e);
+          }
+        },
+        [onFocus],
+      );
 
-  const handleBlur = React.useCallback(
-    (e: React.FocusEvent<HTMLInputElement>) => {
-      e.persist();
-      setFocused(false);
+      const handleBlur = React.useCallback(
+        (e: React.FocusEvent<HTMLInputElement>) => {
+          e.persist();
+          setFocused(false);
 
-      if (onBlur) {
-        onBlur(e);
-      }
-    },
-    [onBlur],
-  );
+          if (onBlur) {
+            onBlur(e);
+          }
+        },
+        [onBlur],
+      );
 
-  return (
-    <InputGroup
-      direction={direction}
-      error={error}
-      htmlFor={id}
-      label={
-        typeof label === 'string' ? (
-          <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
-        ) : (
-          label
-        )
-      }
-      message={message}
-    >
-      <InputContainer
-        disabled={disabled}
-        focused={focused}
-        invalid={invalid || Boolean(error)}
-        readOnly={readOnly}
-        shape={shape}
-        size={size}
-      >
-        <Textbox
-          {...inputProps}
+      return (
+        <InputContainer
           disabled={disabled}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
+          focused={focused}
+          invalid={invalid}
           readOnly={readOnly}
-          ref={ref}
-          type="text"
-        />
+          rounded={rounded}
+          size={size}
+        >
+          {icon && (
+            <InputAction>
+              <Icon name={icon} size="sm" type={iconType} variant="secondary" />
+            </InputAction>
+          )}
 
-        {action && <InputAction>{action}</InputAction>}
-      </InputContainer>
-    </InputGroup>
+          <Textbox
+            {...inputProps}
+            disabled={disabled}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            readOnly={readOnly}
+            ref={ref}
+            size={inputSize}
+            type="text"
+          />
+        </InputContainer>
+      );
+    },
   );
-};
 
-export default React.forwardRef(TextInput);
+TextInput.displayName = 'TextInput';
+
+export default memo(TextInput);

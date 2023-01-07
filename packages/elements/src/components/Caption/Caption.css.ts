@@ -1,7 +1,48 @@
-import { style } from '@vanilla-extract/css';
-import { theme } from '@seed-ui/styles';
+import { recipe } from '@vanilla-extract/recipes';
+import { vars } from '@seed-ui/styles';
 
-export const root = style({
-  fontFamily: theme.fontFamily.base,
-  ...theme.typography.caption,
+export const root = recipe({
+  base: {
+    ...vars.typography.caption,
+  },
+
+  variants: {
+    variant: {
+      primary: {
+        color: vars.color.primary500,
+      },
+
+      secondary: {
+        color: vars.color.secondary500,
+      },
+
+      tertiary: {
+        color: vars.color.neutral500,
+      },
+
+      info: {
+        color: vars.color.info500,
+      },
+
+      success: {
+        color: vars.color.success500,
+      },
+
+      warning: {
+        color: vars.color.warning500,
+      },
+
+      danger: {
+        color: vars.color.danger500,
+      },
+
+      alt: {
+        color: vars.color.white,
+      },
+
+      default: {
+        color: 'inherit',
+      },
+    },
+  },
 });

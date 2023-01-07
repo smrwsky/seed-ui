@@ -1,31 +1,28 @@
 import React from 'react';
 import cn from 'classnames';
 
-import {
-  uListStyle,
-  uListTypeStyle,
-  textSerifSizeStyle,
-  textSizeStyle,
-  textVariantStyle,
-} from '../../styles';
-
-export type UListSize = 'sm' | 'md';
+import * as S from './UList.css';
 
 export type UListType = 'disc' | 'dash' | 'none';
 
+export type UListFontFamily = 'primary' | 'secondary';
+
+export type UListSize = 'sm' | 'md';
+
 export type UListVariant =
   | 'primary'
-  | 'accent'
   | 'secondary'
+  | 'tertiary'
   | 'info'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'light'
-  | 'dark';
+  | 'alt'
+  | 'default';
 
 export interface UListProps extends React.HTMLAttributes<HTMLUListElement> {
-  serif?: boolean;
+  bold?: boolean;
+  fontFamily?: UListFontFamily;
   size?: UListSize;
   type?: UListType;
   variant?: UListVariant;
@@ -35,11 +32,12 @@ const UList: React.FC<UListProps & React.RefAttributes<HTMLUListElement>> =
   React.forwardRef(
     (
       {
-        serif,
+        bold,
+        className,
+        fontFamily = 'secondary',
         size = 'md',
         type = 'disc',
-        variant = 'dark',
-        className,
+        variant = 'default',
         children,
         ...elemProps
       },
@@ -47,10 +45,13 @@ const UList: React.FC<UListProps & React.RefAttributes<HTMLUListElement>> =
     ) => (
       <ul
         className={cn(
-          uListStyle,
-          uListTypeStyle[type],
-          serif ? textSerifSizeStyle[size] : textSizeStyle[size],
-          textVariantStyle[variant],
+          S.root({
+            type,
+            fontFamily,
+            size,
+            variant,
+            bold,
+          }),
           className,
         )}
         ref={ref}

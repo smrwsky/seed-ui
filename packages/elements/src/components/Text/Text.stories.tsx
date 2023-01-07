@@ -1,24 +1,28 @@
 import React from 'react';
+import { capitalize } from 'lodash';
 
 import { TitleProps } from '../Title';
 import { StrongProps } from '../Strong';
+import Subtitle, { SubtitleProps } from '../Subtitle';
 
 import docs from './Text.docs.mdx';
-import Text, { TextProps, TextSize, TextVariant } from './Text';
+import Text, { TextFontFamily, TextProps, TextSize, TextVariant } from './Text';
+
+const fontFamilies: TextFontFamily[] = ['primary', 'secondary'];
+
+const sizes: TextSize[] = ['sm', 'md'];
 
 const variants: TextVariant[] = [
   'primary',
-  'accent',
   'secondary',
+  'tertiary',
   'info',
   'success',
   'warning',
   'danger',
-  'light',
-  'dark',
+  'alt',
+  'default',
 ];
-
-const sizes: TextSize[] = ['sm', 'md'];
 
 export default {
   title: 'Typography/Text',
@@ -27,70 +31,8 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    'as': {
-      table: {
-        type: {
-          summary: 'ElementType',
-        },
-        defaultValue: { summary: 'div' },
-      },
-    },
-    'bold': {
-      control: 'boolean',
-      defaultValue: false,
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    'serif': {
-      control: 'boolean',
-      defaultValue: false,
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    'size': {
-      control: 'select',
-      defaultValue: 'md',
-      table: {
-        type: {
-          summary: sizes.join(' | '),
-        },
-        defaultValue: { summary: 'md' },
-      },
-    },
-    'variant': {
-      control: 'select',
-      defaultValue: 'dark',
-      table: {
-        type: {
-          summary: variants.join(' | '),
-        },
-        defaultValue: { summary: 'dark' },
-      },
-    },
-
-    '[Element props]': {
-      table: {
-        type: {
-          summary: 'HTMLAttributes',
-        },
-      },
-    },
-    'children': {
-      control: 'text',
+    children: {
       defaultValue: 'This is a text',
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
     },
   },
 };
@@ -99,12 +41,12 @@ export function Base(args: TextProps): JSX.Element {
   return <Text {...args} />;
 }
 
-export function Variants(args: TextProps): JSX.Element {
+export function FontFamilies(args: TextProps): JSX.Element {
   return (
     <>
-      {variants.map((variant, i) => (
-        <Text {...args} key={i} variant={variant}>
-          This is {variant} text
+      {fontFamilies.map((fontFamily, i) => (
+        <Text {...args} fontFamily={fontFamily} key={i}>
+          {capitalize(fontFamily)}
         </Text>
       ))}
     </>
@@ -123,12 +65,12 @@ export function Sizes(args: TextProps): JSX.Element {
   );
 }
 
-export function Serif(args: TitleProps): JSX.Element {
+export function Variants(args: TextProps): JSX.Element {
   return (
     <>
-      {sizes.map((size, i) => (
-        <Text {...args} key={i} serif size={size}>
-          A text with size {size}
+      {variants.map((variant, i) => (
+        <Text {...args} key={i} variant={variant}>
+          This is {variant} text
         </Text>
       ))}
     </>

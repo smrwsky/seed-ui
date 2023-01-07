@@ -1,8 +1,9 @@
-import { style } from '@vanilla-extract/css';
-import { theme } from '@seed-ui/styles';
+import { style, styleVariants } from '@vanilla-extract/css';
+import { vars } from '@seed-ui/styles';
 
 export const menu = style({
   position: 'relative',
+
   selectors: {
     '&:before': {
       content: '',
@@ -10,7 +11,30 @@ export const menu = style({
       inset: 0,
       width: '100%',
       height: '100%',
-      background: theme.color.dark50,
+    },
+  },
+});
+
+export const menuVariant = styleVariants({
+  primary: {
+    selectors: {
+      '&:before': {
+        background: vars.color.dark50,
+      },
+    },
+  },
+  secondary: {
+    selectors: {
+      '&:before': {
+        background: vars.color.dark50,
+      },
+    },
+  },
+  alt: {
+    selectors: {
+      '&:before': {
+        background: vars.color.dark300,
+      },
     },
   },
 });

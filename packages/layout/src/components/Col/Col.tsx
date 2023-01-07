@@ -5,7 +5,6 @@ import { atoms, Atoms, ResponsiveValue } from '@seed-ui/styles';
 import * as S from './Col.css';
 
 export type ColWidthValue =
-  | '1/1'
   | '1/2'
   | '1/3'
   | '2/3'
@@ -29,6 +28,7 @@ export type ColWidthValue =
   | '6/12'
   | '7/12'
   | '8/12'
+  | 'full'
   | 'auto';
 
 export type ColWidth = ResponsiveValue<ColWidthValue>;
@@ -37,7 +37,6 @@ export interface ColProps extends React.HTMLAttributes<HTMLElement> {
   alignSelf?: Atoms['alignSelf'];
   display?: Atoms['display'];
   flex?: Atoms['flex'];
-  justifySelf?: Atoms['justifySelf'];
   order?: Atoms['order'];
   width?: ColWidth;
 }
@@ -49,7 +48,6 @@ const Col: React.FC<ColProps & React.RefAttributes<HTMLDivElement>> =
         alignSelf,
         display,
         flex = 'none',
-        justifySelf,
         order,
         width,
         className,
@@ -65,7 +63,6 @@ const Col: React.FC<ColProps & React.RefAttributes<HTMLDivElement>> =
             alignSelf,
             display,
             flex,
-            justifySelf,
             order,
             width,
           }),

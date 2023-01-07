@@ -1,14 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import {
-  borderRadius,
-  boxShadow,
-  bpUp,
-  spacing,
-  theme,
-  transitionTime,
-  transitionTimingFunction,
-  zIndex,
-} from '@seed-ui/styles';
+import { bpUp, spacing, vars } from '@seed-ui/styles';
 
 export const overlay = style({
   position: 'fixed',
@@ -17,20 +8,20 @@ export const overlay = style({
   flexDirection: 'column',
   alignItems: 'center',
   opacity: 0,
-  transition: `opacity ${transitionTime.sm} ${transitionTimingFunction['in-out']}`,
-  backgroundColor: theme.color.dark400,
-  zIndex: zIndex.modalBackdrop,
+  transition: vars.transition.fade,
+  backgroundColor: vars.color.dark900,
+  zIndex: vars.zIndex.modalBackdrop,
 });
 
 export const overlaySize = styleVariants({
   sm: {
     justifyContent: 'center',
     overflow: 'auto',
-    padding: `${spacing[2]} ${spacing[1]}`,
+    padding: `${spacing[4]} ${spacing[2]}`,
   },
   md: {
     justifyContent: 'center',
-    padding: `${spacing[2]} ${spacing[1]}`,
+    padding: `${spacing[4]} ${spacing[2]}`,
     overflow: 'auto',
   },
   lg: {
@@ -38,7 +29,7 @@ export const overlaySize = styleVariants({
     overflow: 'hidden',
 
     ...bpUp('tablet')({
-      padding: `${spacing[2]} ${spacing[1]}`,
+      padding: `${spacing[4]} ${spacing[2]}`,
       overflow: 'auto',
     }),
   },
@@ -50,22 +41,23 @@ export const overlayEntered = style({
 
 export const content = style({
   width: '100%',
-  backgroundColor: theme.color.white,
+  backgroundColor: vars.color.white,
   opacity: 0,
   transform: 'translateY(-40px)',
-  transition: `opacity ${transitionTime.sm} ${transitionTimingFunction['in-out']}, transform ${transitionTime.sm} ${transitionTimingFunction['in-out']}`,
-  zIndex: zIndex.modal,
+  transition: vars.transition.base,
+  overflow: 'hidden',
+  zIndex: vars.zIndex.modal,
 });
 
 export const contentSize = styleVariants({
   sm: {
-    borderRadius: borderRadius.sm,
-    boxShadow: boxShadow.md,
+    borderRadius: vars.borderRadius.lg,
+    boxShadow: vars.boxShadow.md,
     maxWidth: '344px',
   },
   md: {
-    borderRadius: borderRadius.sm,
-    boxShadow: boxShadow.md,
+    borderRadius: vars.borderRadius.lg,
+    boxShadow: vars.boxShadow.md,
     maxWidth: '480px',
   },
   lg: {
@@ -79,10 +71,10 @@ export const contentSize = styleVariants({
     ...bpUp('tablet')({
       height: 'auto',
       position: 'static',
-      borderRadius: borderRadius.sm,
-      boxShadow: boxShadow.md,
+      borderRadius: vars.borderRadius.lg,
+      boxShadow: vars.boxShadow.md,
       maxWidth: '864px',
-      overflow: 'visible',
+      overflow: 'hidden',
       padding: 0,
     }),
   },

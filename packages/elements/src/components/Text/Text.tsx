@@ -1,36 +1,40 @@
 import React from 'react';
 import cn from 'classnames';
-import { atoms, Atoms } from '@seed-ui/styles';
-
 import {
-  textNowrapStyle,
-  textSerifSizeStyle,
-  textSizeStyle,
-  textBoldStyle,
-  textVariantStyle,
-} from '../../styles';
+  atoms,
+  Atoms,
+  textBreakStyle,
+  textTruncateStyle,
+} from '@seed-ui/styles';
+
+import * as S from './Text.css';
+
+export type TextFontFamily = 'primary' | 'secondary';
 
 export type TextSize = 'sm' | 'md';
 
 export type TextVariant =
   | 'primary'
-  | 'accent'
   | 'secondary'
+  | 'tertiary'
   | 'info'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'light'
-  | 'dark';
+  | 'alt'
+  | 'default';
 
 export interface TextProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   bold?: boolean;
-  nowrap?: boolean;
-  serif?: boolean;
+  breakWord?: boolean;
+  fontFamily?: TextFontFamily;
   size?: TextSize;
   textAlign?: Atoms['textAlign'];
+  textOverflow?: Atoms['textOverflow'];
+  truncate?: boolean;
   variant?: TextVariant;
+  whiteSpace?: Atoms['whiteSpace'];
 }
 
 const Text: React.FC<TextProps & React.RefAttributes<HTMLElement>> =
@@ -39,12 +43,15 @@ const Text: React.FC<TextProps & React.RefAttributes<HTMLElement>> =
       {
         as: As = 'p',
         bold,
-        nowrap,
-        serif,
+        breakWord,
+        className,
+        fontFamily = 'secondary',
         size = 'md',
         textAlign,
-        variant = 'dark',
-        className,
+        textOverflow,
+        truncate,
+        variant = 'default',
+        whiteSpace,
         children,
         ...elemProps
       },
@@ -52,12 +59,13 @@ const Text: React.FC<TextProps & React.RefAttributes<HTMLElement>> =
     ) => (
       <As
         className={cn(
-          bold && textBoldStyle,
-          nowrap && textNowrapStyle,
-          serif ? textSerifSizeStyle[size] : textSizeStyle[size],
-          textVariantStyle[variant],
+          S.root({ bold, fontFamily, size, variant }),
+          breakWord && textBreakStyle,
+          truncate && textTruncateStyle,
           atoms({
             textAlign,
+            textOverflow,
+            whiteSpace,
           }),
           className,
         )}

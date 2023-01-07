@@ -13,11 +13,35 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 const getIconByVariant = (variant: AlertProps['variant']) =>
-  (variant === 'warning' && <Icon name="error" size="md" />) ||
-  (variant === 'success' && <Icon name="check-circle" size="md" />) ||
-  (variant === 'info' && <Icon name="info-circle" size="md" />) || (
-    <Icon name="error-circle" size="md" />
-  );
+  (variant === 'warning' && (
+    <Icon
+      className={cn(S.icon, S.iconVariant[variant])}
+      name="error"
+      size="md"
+    />
+  )) ||
+  (variant === 'success' && (
+    <Icon
+      className={cn(S.icon, S.iconVariant[variant])}
+      name="check-circle"
+      size="md"
+    />
+  )) ||
+  (variant === 'info' && (
+    <Icon
+      className={cn(S.icon, S.iconVariant[variant])}
+      name="info-circle"
+      size="md"
+    />
+  )) ||
+  (variant === 'danger' && (
+    <Icon
+      className={cn(S.icon, S.iconVariant[variant])}
+      name="error-circle"
+      size="md"
+    />
+  )) ||
+  null;
 
 const Alert: React.FC<AlertProps> = ({
   title,
@@ -35,11 +59,9 @@ const Alert: React.FC<AlertProps> = ({
       role={role}
       {...props}
     >
-      {React.cloneElement(icon, {
-        className: cn(S.icon, S.iconVariant[variant]),
-      })}
+      {icon}
 
-      <div className={S.content}>
+      <Text as="div" className={S.content} size="sm">
         {title && (
           <Text as="div" bold className={S.title}>
             {title}
@@ -47,7 +69,7 @@ const Alert: React.FC<AlertProps> = ({
         )}
 
         {children}
-      </div>
+      </Text>
     </div>
   );
 };

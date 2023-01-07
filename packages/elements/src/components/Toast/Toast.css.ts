@@ -1,39 +1,39 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { borderRadius, boxShadow, spacing, theme } from '@seed-ui/styles';
+import { margin, spacing, vars } from '@seed-ui/styles';
 
 export const root = style({
   position: 'relative',
   display: 'flex',
   width: '100%',
   maxWidth: '380px',
-  borderRadius: borderRadius.md,
-  border: `1px solid ${theme.color.neutral100}`,
-  background: theme.color.white,
-  boxShadow: boxShadow.md,
-  padding: `${spacing['1.5']} ${spacing['5.5']} ${spacing['1.5']} ${spacing['1.5']}`,
+  borderRadius: vars.borderRadius.lg,
+  border: `1px solid ${vars.color.neutral100}`,
+  background: vars.color.white,
+  boxShadow: vars.boxShadow.md,
+  padding: `${spacing[2]} ${spacing[11]} ${spacing[2]} ${spacing[3]}`,
   pointerEvents: 'auto',
 });
 
 export const icon = style({
   fontSize: '1.5rem',
-  marginRight: spacing['1.5'],
+  marginRight: spacing[2],
 });
 
 export const iconVariant = styleVariants({
   default: {
-    color: theme.color.primary400,
+    color: vars.color.primary400,
   },
   danger: {
-    color: theme.color.danger400,
+    color: vars.color.danger400,
   },
   warning: {
-    color: theme.color.warning400,
+    color: vars.color.warning400,
   },
   info: {
-    color: theme.color.info400,
+    color: vars.color.info400,
   },
   success: {
-    color: theme.color.success400,
+    color: vars.color.success400,
   },
 });
 
@@ -42,16 +42,18 @@ export const content = style({
   flexDirection: 'column',
   justifyContent: 'center',
   minHeight: '1.5rem',
-  color: theme.color.neutral900,
-  ...theme.typography.textSm.base,
+  color: vars.color.neutral900,
+  marginTop: margin[0.5],
+  ...vars.typography.textSm.secondary,
 });
 
 export const title = style({
-  marginBottom: spacing[0.5],
+  marginTop: margin[-0.5],
+  marginBottom: margin[1],
 });
 
 export const close = style({
   position: 'absolute',
-  top: spacing[1],
-  right: spacing[1],
+  top: spacing[2],
+  right: spacing[2],
 });

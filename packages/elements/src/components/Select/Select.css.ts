@@ -21,7 +21,3 @@ export const action = style({
   right: '0.5rem',
   margin: 'auto 0',
 });
-
-export const icon = style({
-  backgroundColor: 'transparent !important',
-});

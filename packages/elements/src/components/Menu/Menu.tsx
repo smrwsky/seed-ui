@@ -1,6 +1,8 @@
 import React, {
   Children,
+  FC,
   KeyboardEvent,
+  RefAttributes,
   useCallback,
   useEffect,
   useMemo,
@@ -20,7 +22,9 @@ import MenuList from './MenuList';
 
 export type MenuAutoFocus = 'on' | 'reversed' | 'off';
 
-export interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {
+export interface MenuProps
+  extends React.HTMLAttributes<HTMLUListElement>,
+    RefAttributes<HTMLUListElement> {
   activeIndex?: number;
   anchorElement?: HTMLElement | null;
   autoFocus?: MenuAutoFocus;
@@ -34,7 +38,7 @@ export interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {
   onAutoFocusChange?: (autoFocus: MenuAutoFocus) => void;
 }
 
-const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
+const Menu: FC<MenuProps> = React.forwardRef(
   (
     {
       activeIndex,
@@ -45,7 +49,7 @@ const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       indent = 0,
       type = 'vertical',
       size = 'md',
-      variant = 'primary',
+      variant = 'secondary',
       onActiveIndexChange,
       onAutoFocusChange,
       children,

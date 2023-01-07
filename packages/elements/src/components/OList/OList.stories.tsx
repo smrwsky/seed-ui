@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { atoms } from '@seed-ui/styles';
+import { atoms, FontFamily } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
 
 import ListItem from '../ListItem';
@@ -8,19 +8,21 @@ import Title from '../Title';
 import docs from './OList.docs.mdx';
 import OList, { OListProps, OListSize, OListVariant } from './OList';
 
+const fontFamilies: FontFamily[] = ['primary', 'secondary'];
+
+const sizes: OListSize[] = ['sm', 'md'];
+
 const variants: OListVariant[] = [
   'primary',
-  'accent',
   'secondary',
+  'tertiary',
   'info',
   'success',
   'warning',
   'danger',
-  'light',
-  'dark',
+  'alt',
+  'default',
 ];
-
-const sizes: OListSize[] = ['sm', 'md'];
 
 const listItems = [
   'Peter',
@@ -52,13 +54,57 @@ export function Base(args: OListProps): JSX.Element {
   );
 }
 
-export function Variant(args: OListProps): JSX.Element {
+export function FontFamilies(args: OListProps): JSX.Element {
+  return (
+    <>
+      {fontFamilies.map((fontFamily, i) => (
+        <Fragment key={i}>
+          <Title
+            className={atoms({ mt: i > 0 ? 8 : 0 })}
+            fontFamily={fontFamily}
+            size="xs"
+          >
+            {capitalize(fontFamily)}
+          </Title>
+
+          <OList {...args} className={atoms({ mt: 3 })} fontFamily={fontFamily}>
+            {listItems.map((val, j) => (
+              <ListItem key={j}>{val}</ListItem>
+            ))}
+          </OList>
+        </Fragment>
+      ))}
+    </>
+  );
+}
+
+export function Sizes(args: OListProps): JSX.Element {
+  return (
+    <>
+      {sizes.map((size, i) => (
+        <Fragment key={i}>
+          <Title className={atoms({ mt: i > 0 ? 8 : 0 })} size="xs">
+            {capitalize(size)}
+          </Title>
+
+          <OList {...args} className={atoms({ mt: 3 })} size={size}>
+            {listItems.map((val, j) => (
+              <ListItem key={j}>{val}</ListItem>
+            ))}
+          </OList>
+        </Fragment>
+      ))}
+    </>
+  );
+}
+
+export function Variants(args: OListProps): JSX.Element {
   return (
     <>
       {variants.map((variant, i) => (
         <Fragment key={i}>
           <Title
-            className={atoms({ mt: i > 0 ? 4 : 0 })}
+            className={atoms({ mt: i > 0 ? 8 : 0 })}
             size="xs"
             variant={variant}
           >
@@ -67,7 +113,7 @@ export function Variant(args: OListProps): JSX.Element {
 
           <OList
             {...args}
-            className={atoms({ mt: 1.5 })}
+            className={atoms({ mt: 3 })}
             key={i}
             variant={variant}
           >
@@ -78,35 +124,5 @@ export function Variant(args: OListProps): JSX.Element {
         </Fragment>
       ))}
     </>
-  );
-}
-
-export function Size(args: OListProps): JSX.Element {
-  return (
-    <>
-      {sizes.map((size, i) => (
-        <Fragment key={i}>
-          <Title className={atoms({ mt: i > 0 ? 4 : 0 })} size="xs">
-            {capitalize(size)}
-          </Title>
-
-          <OList {...args} className={atoms({ mt: 1.5 })} size={size}>
-            {listItems.map((val, j) => (
-              <ListItem key={j}>{val}</ListItem>
-            ))}
-          </OList>
-        </Fragment>
-      ))}
-    </>
-  );
-}
-
-export function Serif(args: OListProps): JSX.Element {
-  return (
-    <OList {...args} serif>
-      {listItems.map((val, idx) => (
-        <ListItem key={idx}>{val}</ListItem>
-      ))}
-    </OList>
   );
 }

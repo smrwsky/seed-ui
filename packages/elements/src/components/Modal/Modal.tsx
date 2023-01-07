@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import cn from 'classnames';
 import ReactModal, { Aria, OnAfterOpenCallback } from 'react-modal';
 import { TransitionStatus } from 'react-transition-group/Transition';
@@ -6,10 +6,10 @@ import { Transition } from 'react-transition-group';
 
 import useTimeout from '../../utils/use-timeout';
 
-import { ModalProvider, ModalSize } from './Modal.Provider';
-import { ModalHeader } from './Modal.Header';
-import ModalBody from './Modal.Body';
-import ModalFooter from './Modal.Footer';
+import ModalContext, { ModalSize } from './context';
+import { ModalHeader } from './ModalHeader';
+import ModalBody from './ModalBody';
+import ModalFooter from './ModalFooter';
 import * as S from './Modal.css';
 
 export type ModalProps = {
@@ -46,31 +46,31 @@ export type ModalProps = {
   testId?: string;
 };
 
-const MODAL_ANIMATION_DURATION = 150;
-
-function Modal({
+const Modal: React.FC<ModalProps> = ({
   open,
   size = 'md',
   children,
   onClose,
   ...modalProps
-}: ModalProps): JSX.Element {
+}) => {
   const { setTimeout } = useTimeout();
 
-  function handleRequestClose() {
+  const context = useMemo(() => ({ size }), []);
+
+  const handleRequestClose = useCallback(() => {
     setTimeout(() => {
       onClose();
     }, 300);
-  }
+  }, [onClose, setTimeout]);
 
   return (
-    <ModalProvider size={size}>
+    <ModalContext.Provider value={context}>
       <Transition
         in={open}
         timeout={{
           appear: 0,
           enter: 0,
-          exit: MODAL_ANIMATION_DURATION,
+          exit: 200,
         }}
       >
         {(status: TransitionStatus, ...childProps) => (
@@ -94,9 +94,9 @@ function Modal({
           </ReactModal>
         )}
       </Transition>
-    </ModalProvider>
+    </ModalContext.Provider>
   );
-}
+};
 
 export default Object.assign(Modal, {
   Header: ModalHeader,

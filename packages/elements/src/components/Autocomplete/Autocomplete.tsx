@@ -1,69 +1,70 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 import React, {
+  memo,
+  ReactElement,
   useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
+  ComponentType,
+  ChangeEvent,
+  FocusEvent,
+  FocusEventHandler,
+  MouseEvent,
+  KeyboardEvent,
 } from 'react';
-import { Icon } from '@seed-ui/icons';
+import { Icon, IconType } from '@seed-ui/icons';
+import { useDebounceCallback } from '@react-hook/debounce';
 
 import Tag from '../Tag';
-import InputTags from '../InputTags';
-import Textbox from '../Textbox';
-import InputGroup from '../InputGroup';
-import Label from '../Label';
+import {
+  InputAction,
+  InputContainer,
+  InputTag,
+  InputTags,
+  Textbox,
+} from '../InputGroup';
 import slug from '../../utils/slug';
-import InputContainer from '../InputContainer';
-import InputAction from '../InputAction';
 import IconButton from '../IconButton';
-import useDebounce from '../../utils/use-debounce';
-import { MenuAction, MenuItem, MenuLabel, PopupMenu } from '../Menu';
-
-export type AutocompleteShape = 'rectangle' | 'stadium';
+import Popover from '../Popover';
+import Option, { OptionProps } from '../Option';
 
 export type AutocompleteSize = 'sm' | 'md' | 'lg';
 
-export type AutocompleteDirection = 'row' | 'column';
+export interface OptionComponentProps<TOption> extends OptionProps {
+  option: TOption;
+}
 
-export interface AutocompleteProps<TOption = unknown> {
-  action?: React.ReactNode;
+export interface AutocompleteProps<TOption = unknown, TValue = TOption> {
+  OptionComponent?: ComponentType<OptionComponentProps<TOption>>;
   allowEmptyQuery?: boolean;
   allowInputValue?: boolean;
   autoFocus?: boolean;
   clearText?: string;
-  defaultValue?: unknown;
+  defaultValue?: TValue;
   delay?: number;
-  direction?: AutocompleteDirection;
   disabled?: boolean;
-  error?: string;
-  errorText?: string;
   getLabel?: (option: TOption) => string;
+  icon?: string;
+  iconType?: IconType;
   id?: string;
   invalid?: boolean;
-  label?: React.ReactNode;
   loading?: boolean;
-  loadingError?: boolean | string;
   loadingText?: string;
-  message?: string;
   multiple?: boolean;
   name?: string;
   noResultText?: string;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  onChange?: (value: unknown) => void;
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
-  onSearch?: (query: string) => void | Promise<void>;
-  onSelect?: (option: TOption) => void;
   options?: TOption[];
   placeholder?: string;
   readOnly?: boolean;
-  renderOption?: (option: TOption) => JSX.Element;
-  shape?: AutocompleteShape;
+  rounded?: boolean;
   size?: AutocompleteSize;
-  value?: unknown;
+  value?: TValue;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
+  onChange?: (value: TValue) => void;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  onSearch?: (query: string) => void | Promise<void>;
 }
-
-export const AUTOCOMPLETE_DEFAULT_DELAY = 500;
 
 export const LISTBOX_ID = 'listbox';
 
@@ -76,40 +77,41 @@ const toggleOption = (value: unknown, items: unknown[]): unknown[] =>
 
 const defaultGetLabel = (option: unknown): string => option as string;
 
-function Autocomplete<TOption = unknown>({
-  direction = 'column',
-  options,
-  shape = 'rectangle',
-  value,
-  getLabel = defaultGetLabel,
-  multiple = false,
-  allowInputValue = false,
-  allowEmptyQuery = false,
-  defaultValue,
-  delay = AUTOCOMPLETE_DEFAULT_DELAY,
-  loading = false,
-  loadingError,
+export interface AutocompleteFn {
+  <TOption = unknown, TValue = TOption>(
+    props: AutocompleteProps<TOption, TValue>,
+  ): ReactElement;
+  displayName: 'Autocomplete';
+}
+
+const Autocomplete: AutocompleteFn = ({
+  OptionComponent,
+  allowEmptyQuery,
+  allowInputValue,
   clearText = 'Clear',
-  loadingText = 'Searching...',
-  errorText = 'Search failed',
-  size = 'md',
-  label,
-  action,
-  invalid,
-  error,
-  message,
-  disabled = false,
+  defaultValue,
+  delay = 500,
+  disabled,
+  getLabel = defaultGetLabel,
+  icon,
+  iconType,
   id = '',
-  readOnly = false,
-  renderOption,
-  onSearch,
-  onSelect,
+  invalid,
+  loading,
+  loadingText = 'Searching...',
+  multiple,
+  noResultText = 'No result',
+  options,
+  readOnly,
+  rounded,
+  size = 'md',
+  value,
+  onBlur,
   onChange,
   onFocus,
-  onBlur,
+  onSearch,
   ...inputProps
-}: AutocompleteProps<TOption>): JSX.Element {
-  const debounce = useDebounce();
+}) => {
   const [valueState, setValueState] = useState(defaultValue);
   const [openListbox, setOpenListbox] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -117,26 +119,27 @@ function Autocomplete<TOption = unknown>({
   const [displayText, setDisplayText] = useState('');
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const listboxRef = useRef<HTMLUListElement>(null);
+  const hasDisplayText = Boolean(displayText);
 
   const optList = useMemo(
-    (): TOption[] => (Array.isArray(options) ? options : []),
+    (): unknown[] => (Array.isArray(options) ? options : []),
     [options],
   );
 
   const valuesList = useMemo(
-    (): TOption[] =>
+    (): unknown[] =>
       ((Array.isArray(valueState) && valueState) ||
         (valueState && [valueState]) ||
-        []) as TOption[],
+        []) as unknown[],
     [valueState],
   );
 
   const changeValue = useCallback(
-    (v: unknown): void => {
+    (nextValue: unknown): void => {
       if (typeof value === 'undefined' && !onChange) {
-        setValueState(v);
+        setValueState(nextValue as never);
       } else {
-        onChange?.(v);
+        onChange?.(nextValue as never);
       }
     },
     [onChange, value],
@@ -147,8 +150,8 @@ function Autocomplete<TOption = unknown>({
       const option = optList[index];
 
       if (typeof option !== 'undefined') {
-        const v = multiple ? toggleOption(option, valuesList) : option;
-        changeValue(v);
+        const nextValue = multiple ? toggleOption(option, valuesList) : option;
+        changeValue(nextValue);
       }
     },
     [changeValue, multiple, optList, valuesList],
@@ -158,9 +161,148 @@ function Autocomplete<TOption = unknown>({
     setOpenListbox(visible);
   }, []);
 
-  const handleActiveIndexChange = useCallback((index) => {
-    setActiveOption(index);
+  const invokeSearch = useCallback(
+    (val: string) => onSearch?.(val),
+    [onSearch],
+  );
+
+  const debouncedSearch = useDebounceCallback(invokeSearch, delay, false);
+
+  const handleBlur = useCallback(
+    (e: FocusEvent<HTMLInputElement>) => {
+      e.persist();
+      setFocused(false);
+      setOpenListbox(false);
+      onBlur?.(e);
+    },
+    [onBlur],
+  );
+
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setOpenListbox(true);
+
+      if (allowInputValue) {
+        changeValue(e.target.value);
+      } else {
+        setDisplayText(e.target.value);
+      }
+    },
+    [allowInputValue, changeValue],
+  );
+
+  const handleFocus = useCallback(
+    (e: FocusEvent<HTMLInputElement>) => {
+      setFocused(true);
+
+      if (onFocus) {
+        e.persist();
+        onFocus(e);
+      }
+    },
+    [onFocus],
+  );
+
+  const handleClick = useCallback(() => {
+    if (!disabled && !readOnly) {
+      setOpenListbox((prevState) => hasDisplayText || !prevState);
+    }
+  }, [hasDisplayText]);
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'ArrowDown' && openListbox) {
+        e.preventDefault();
+
+        const nextOption =
+          activeIndex >= optList.length - 1 ? 0 : activeIndex + 1;
+
+        listboxRef.current
+          ?.querySelector(`[data-index="${nextOption}"]`)
+          ?.scrollIntoView({ block: 'nearest' });
+
+        setActiveOption(nextOption);
+      }
+
+      if (e.key === 'ArrowUp' && openListbox) {
+        e.preventDefault();
+
+        const nextOption =
+          activeIndex <= 0 ? optList.length - 1 : activeIndex - 1;
+
+        listboxRef.current
+          ?.querySelector(`[data-index="${nextOption}"]`)
+          ?.scrollIntoView({ block: 'nearest' });
+
+        setActiveOption(nextOption);
+      }
+
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        selectOption(activeIndex);
+        setActiveOption(-1);
+        setOpenListbox((prevState) => !prevState);
+      }
+
+      if (e.key === 'Escape') {
+        setActiveOption(-1);
+        setOpenListbox(false);
+      }
+    },
+    [activeIndex, openListbox, optList.length, selectOption],
+  );
+
+  const handleClear = useCallback(
+    (e: MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      changeValue(null);
+      setDisplayText('');
+      setActiveOption(-1);
+      setOpenListbox(false);
+    },
+    [changeValue],
+  );
+
+  const handleOptionMouseDown = useCallback(
+    (e: MouseEvent<HTMLLIElement>) => {
+      e.preventDefault();
+      selectOption(Number(e.currentTarget.dataset.index));
+      setOpenListbox(false);
+      setActiveOption(-1);
+    },
+    [selectOption],
+  );
+
+  const handleOptionMouseEnter = useCallback((e: MouseEvent<HTMLLIElement>) => {
+    const idx = Number(e.currentTarget.dataset.index);
+
+    if (Number.isNaN(idx)) {
+      return;
+    }
+
+    setActiveOption(idx);
   }, []);
+
+  const handleOptionMouseLeave = useCallback(() => {
+    setActiveOption(-1);
+  }, []);
+
+  const handleRemove = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const index = Number(e.currentTarget.dataset.index);
+
+      if (!Number.isNaN(index)) {
+        const nextVal = [...valuesList];
+        nextVal.splice(index, 1);
+        changeValue(nextVal);
+      }
+    },
+    [changeValue, valuesList],
+  );
 
   useEffect(() => {
     if (typeof value !== 'undefined') {
@@ -173,7 +315,7 @@ function Autocomplete<TOption = unknown>({
       const text =
         !valueState || Array.isArray(valueState)
           ? ''
-          : getLabel(valueState as TOption);
+          : getLabel(valueState as never);
 
       setDisplayText(text);
       setActiveOption(-1);
@@ -184,153 +326,49 @@ function Autocomplete<TOption = unknown>({
   useEffect(() => {
     if (
       displayText &&
-      (multiple ||
-        !valueState ||
-        displayText !== getLabel(valueState as TOption))
+      (multiple || !valueState || displayText !== getLabel(valueState as never))
     ) {
       setOpenListbox(true);
     }
 
-    if ((displayText || allowEmptyQuery) && onSearch) {
-      debounce(() => onSearch(displayText), delay);
+    if (displayText || allowEmptyQuery) {
+      debouncedSearch(displayText);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayText]);
 
-  function handleBlur(e: React.FocusEvent<HTMLInputElement>): void {
-    setFocused(false);
-    setOpenListbox(false);
-
-    if (onBlur) {
-      e.persist();
-      onBlur(e);
-    }
-  }
-
-  function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>): void {
-    setOpenListbox(true);
-
-    if (allowInputValue) {
-      changeValue(e.target.value);
-    } else {
-      setDisplayText(e.target.value);
-    }
-  }
-
-  function handleFocus(e: React.FocusEvent<HTMLInputElement>): void {
-    setFocused(true);
-
-    if (onFocus) {
-      e.persist();
-      onFocus(e);
-    }
-  }
-
-  function handleClick(): void {
-    setOpenListbox((prevState) => !prevState);
-  }
-
-  function handleKeyDownInput(e: React.KeyboardEvent<HTMLInputElement>): void {
-    if (e.key === 'ArrowDown' && openListbox) {
-      e.preventDefault();
-
-      const nextOption =
-        activeIndex >= optList.length - 1 ? 0 : activeIndex + 1;
-
-      listboxRef.current
-        ?.querySelector(`[data-index="${nextOption}"]`)
-        ?.scrollIntoView({ block: 'nearest' });
-
-      setActiveOption(nextOption);
-    }
-
-    if (e.key === 'ArrowUp' && openListbox) {
-      e.preventDefault();
-
-      const nextOption =
-        activeIndex <= 0 ? optList.length - 1 : activeIndex - 1;
-
-      listboxRef.current
-        ?.querySelector(`[data-index="${nextOption}"]`)
-        ?.scrollIntoView({ block: 'nearest' });
-
-      setActiveOption(nextOption);
-    }
-
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      selectOption(activeIndex);
-      setActiveOption(-1);
-      setOpenListbox((prevState) => !prevState);
-    }
-
-    if (e.key === 'Escape') {
-      setActiveOption(-1);
-      setOpenListbox(false);
-    }
-  }
-
-  function handleMouseDownClear(e: React.MouseEvent<HTMLButtonElement>): void {
-    e.preventDefault();
-    e.stopPropagation();
-    changeValue(undefined);
-    setDisplayText('');
-    setActiveOption(-1);
-    setOpenListbox(false);
-  }
-
-  function handleMouseDownOption(e: React.MouseEvent<HTMLAnchorElement>): void {
-    e.preventDefault();
-    selectOption(Number(e.currentTarget.dataset.index));
-    setOpenListbox(false);
-    setActiveOption(-1);
-  }
-
-  function removeOption(option: TOption, list: TOption[]): void {
-    const newVal = list.filter((item) => getLabel(item) !== getLabel(option));
-    changeValue(newVal);
-  }
-
   return (
-    <InputGroup
-      direction={direction}
-      error={error}
-      htmlFor={id}
-      label={
-        typeof label === 'string' ? (
-          <Label size={size === 'sm' ? 'sm' : 'md'}>{label}</Label>
-        ) : (
-          label
-        )
-      }
-      message={message}
-    >
+    <>
       <InputContainer
         disabled={disabled}
         focused={focused}
-        invalid={invalid || Boolean(error)}
+        invalid={invalid}
         readOnly={readOnly}
         ref={setAnchorEl}
-        shape={shape}
+        rounded={rounded}
         size={size}
       >
+        {icon && (
+          <InputAction>
+            <Icon name={icon} size="sm" type={iconType} variant="secondary" />
+          </InputAction>
+        )}
+
         <InputTags>
           {multiple &&
             valuesList.map((item, idx) => (
-              <Tag
-                key={idx}
-                onDelete={(): void => {
-                  removeOption(item, valuesList);
-                }}
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                }}
-                tabIndex={-1}
-                variant="secondary-outline"
-              >
-                {getLabel(item)}
-              </Tag>
+              <InputTag key={idx}>
+                <Tag
+                  data-index={idx}
+                  deletable
+                  onMouseDown={handleRemove}
+                  role="button"
+                  tabIndex={-1}
+                  variant="outline-tertiary"
+                >
+                  {getLabel(item as never)}
+                </Tag>
+              </InputTag>
             ))}
 
           <Textbox
@@ -341,16 +379,16 @@ function Autocomplete<TOption = unknown>({
             aria-controls={openListbox ? slug(id, LISTBOX_ID) : ''}
             aria-expanded={openListbox}
             aria-haspopup="listbox"
-            aria-invalid={invalid || Boolean(error)}
+            aria-invalid={invalid}
             aria-owns={openListbox ? slug(id, LISTBOX_ID) : ''}
             autoComplete="off"
             disabled={disabled}
             id={id}
             onBlur={handleBlur}
-            onChange={handleChangeInput}
+            onChange={handleChange}
             onClick={handleClick}
             onFocus={handleFocus}
-            onKeyDown={handleKeyDownInput}
+            onKeyDown={handleKeyDown}
             readOnly={readOnly}
             role="combobox"
             type="text"
@@ -365,64 +403,83 @@ function Autocomplete<TOption = unknown>({
             <InputAction>
               <IconButton
                 aria-label={clearText}
-                onMouseDown={handleMouseDownClear}
+                icon="x"
+                onMouseDown={handleClear}
+                rounded
                 size="sm"
                 tabIndex={-1}
-                variant="secondary"
-              >
-                <Icon name="x" />
-              </IconButton>
+                variant="tertiary"
+              />
             </InputAction>
           )}
-
-        {action && <InputAction>{action}</InputAction>}
       </InputContainer>
 
-      <PopupMenu
-        activeIndex={activeIndex}
+      <Popover
         anchorElement={anchorEl}
-        autoFocus="off"
-        id={slug(id, LISTBOX_ID)}
-        onActiveIndexChange={handleActiveIndexChange}
         onOpenChange={handleChangeOpenListbox}
         open={openListbox}
         placement="bottom-start"
-        ref={listboxRef}
-        role="listbox"
+        role="presentation"
         style={{
           width: anchorEl ? `${anchorEl.offsetWidth}px` : undefined,
+          maxWidth: '100%',
+          margin: 0,
         }}
         trigger="manual"
       >
-        {optList.map((item, idx) => (
-          <MenuItem
-            id={slug(id, OPTION_ID, idx)}
-            key={idx}
-            onMouseDown={handleMouseDownOption}
-            role="option"
-            selected={valuesList.includes(item)}
-          >
-            <MenuLabel>{getLabel(item)}</MenuLabel>
-            {valuesList.includes(item) && (
-              <MenuAction>
-                <Icon name="check" size="sm" variant="primary" />
-              </MenuAction>
-            )}
-          </MenuItem>
-        ))}
+        <ul id={slug(id, LISTBOX_ID)} ref={listboxRef} role="listbox">
+          {optList.map((item, idx) =>
+            OptionComponent ? (
+              <OptionComponent
+                active={idx === activeIndex}
+                data-index={idx}
+                id={slug(id, OPTION_ID, idx)}
+                key={idx}
+                onMouseDown={handleOptionMouseDown}
+                onMouseEnter={handleOptionMouseEnter}
+                onMouseLeave={handleOptionMouseLeave}
+                option={item as never}
+                selected={valuesList.includes(item)}
+              />
+            ) : (
+              <Option
+                active={idx === activeIndex}
+                data-index={idx}
+                id={slug(id, OPTION_ID, idx)}
+                key={idx}
+                onMouseDown={handleOptionMouseDown}
+                onMouseEnter={handleOptionMouseEnter}
+                onMouseLeave={handleOptionMouseLeave}
+                selected={valuesList.includes(item)}
+              >
+                <Option.Label>{getLabel(item as never)}</Option.Label>
 
-        {loading && loadingText && <MenuItem disabled>{loadingText}</MenuItem>}
-
-        {!loading &&
-          loadingError &&
-          (typeof loadingError === 'string' || loadingText) && (
-            <MenuItem disabled invalid>
-              {typeof loadingError === 'string' ? loadingError : errorText}
-            </MenuItem>
+                {valuesList.includes(item) && (
+                  <Option.Action>
+                    <Icon name="check" size="sm" variant="secondary" />
+                  </Option.Action>
+                )}
+              </Option>
+            ),
           )}
-      </PopupMenu>
-    </InputGroup>
-  );
-}
 
-export default Autocomplete;
+          {loading && (
+            <Option disabled role="presentation">
+              {loadingText}
+            </Option>
+          )}
+
+          {!loading && optList.length === 0 && (
+            <Option disabled role="presentation">
+              {noResultText}
+            </Option>
+          )}
+        </ul>
+      </Popover>
+    </>
+  );
+};
+
+Autocomplete.displayName = 'Autocomplete';
+
+export default memo(Autocomplete) as AutocompleteFn;

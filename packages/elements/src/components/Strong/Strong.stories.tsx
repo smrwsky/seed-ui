@@ -25,49 +25,8 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    'as': {
-      table: {
-        type: {
-          summary: 'ElementType',
-        },
-        defaultValue: { summary: 'div' },
-      },
-    },
-    'bold': {
-      control: 'boolean',
-      defaultValue: true,
-      table: {
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: { summary: 'true' },
-      },
-    },
-    'variant': {
-      control: 'select',
-      defaultValue: 'primary',
-      table: {
-        type: {
-          summary: variants.join(' | '),
-        },
-        defaultValue: { summary: 'primary' },
-      },
-    },
-    '[Element props]': {
-      table: {
-        type: {
-          summary: 'HTMLAttributes',
-        },
-      },
-    },
-    'children': {
-      control: 'text',
+    children: {
       defaultValue: 'This is strong element',
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
     },
   },
 };
