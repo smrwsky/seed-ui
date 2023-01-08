@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.8.3
+
+### Patch Changes
+
+- f0b18e8: Menu variants polishing.
+
 ## 0.8.2
 
 ### Patch Changes

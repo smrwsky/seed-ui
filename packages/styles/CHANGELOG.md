@@ -1,10 +1,16 @@
 # @seed-ui/styles
 
+## 0.7.1
+
+### Patch Changes
+
+- f0b18e8: Menu variants polishing.
+
 ## 0.7.0
 
 ### Minor Changes
 
-- e183122: 
+- e183122:
   - Added new properties for theme
   - Added new style utilities
   - Standardised variant and props names
