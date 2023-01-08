@@ -10,16 +10,11 @@ export type MenuLabelProps = React.HTMLAttributes<HTMLSpanElement>;
 const MenuLabel: React.FC<
   MenuLabelProps & React.RefAttributes<HTMLSpanElement>
 > = React.forwardRef(({ children, className, ...props }, ref) => {
-  const { collapsed, size } = React.useContext(MenuContext);
+  const { collapsed } = React.useContext(MenuContext);
 
   return (
     <span
-      className={cn(
-        S.root,
-        S.rootSize[size],
-        collapsed && S.rootCollapsed,
-        className,
-      )}
+      className={cn(S.root, collapsed && S.rootCollapsed, className)}
       ref={ref}
       {...props}
     >

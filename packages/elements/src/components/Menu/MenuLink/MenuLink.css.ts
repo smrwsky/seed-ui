@@ -20,6 +20,8 @@ export const root = recipe({
     gridTemplateRows: 'max-content max-content',
     alignItems: 'center',
     alignContent: 'center',
+    fontFamily: vars.fontFamily.secondary,
+
     textDecoration: 'none',
     outline: 0,
     transition: vars.transition.base,
@@ -103,15 +105,24 @@ export const root = recipe({
 
     size: {
       sm: {
-        minWidth: '8rem',
-        minHeight: '2.5rem',
-        padding: `${spacing[0.5]} ${spacing[2]}`,
+        minWidth: '7rem',
+        minHeight: '2rem',
+        ...vars.typography.textSm.secondary,
+        padding: `${spacing[0.5]} ${spacing[1.5]}`,
       },
 
       md: {
+        minWidth: '8rem',
+        minHeight: '2.5rem',
+        ...vars.typography.textMd.secondary,
+        padding: `${spacing[1]} ${spacing[2]}`,
+      },
+
+      lg: {
         minWidth: '9rem',
         minHeight: '3rem',
-        padding: `${spacing[1]} ${spacing[3]}`,
+        ...vars.typography.textMd.secondary,
+        padding: `${spacing[1]} ${spacing[2.5]}`,
       },
     },
 
@@ -137,8 +148,10 @@ export const root = recipe({
         `,
         gridTemplateColumns: 'auto',
         minWidth: 0,
+        minHeight: '3rem',
         justifyItems: 'center',
-        padding: spacing[2],
+        ...vars.typography.caption,
+        padding: `${spacing[1]} ${spacing[2]}`,
 
         selectors: {
           '&:after': {
@@ -153,7 +166,9 @@ export const root = recipe({
     },
 
     selected: {
-      true: {},
+      true: {
+        ...vars.typography.bold,
+      },
     },
   },
 
@@ -161,71 +176,9 @@ export const root = recipe({
     {
       variants: {
         variant: 'primary',
-        collapsed: true,
-      },
-      style: {
-        color: vars.color.neutral500,
-      },
-    },
-
-    {
-      variants: {
-        variant: 'secondary',
-        collapsed: true,
-      },
-      style: {
-        color: vars.color.neutral500,
-      },
-    },
-
-    {
-      variants: {
-        variant: 'alt',
-        collapsed: true,
-      },
-      style: {
-        color: vars.color.white,
-      },
-    },
-
-    {
-      variants: {
-        variant: 'primary',
-        active: true,
-      },
-      style: {
-        background: vars.color.dark100,
-      },
-    },
-
-    {
-      variants: {
-        variant: 'secondary',
-        active: true,
-      },
-      style: {
-        background: vars.color.dark100,
-      },
-    },
-
-    {
-      variants: {
-        variant: 'alt',
-        active: true,
-      },
-      style: {
-        background: vars.color.secondary600,
-      },
-    },
-
-    {
-      variants: {
-        variant: 'primary',
         selected: true,
       },
       style: {
-        color: vars.color.secondary500,
-
         selectors: {
           '&:after': {
             background: vars.color.secondary500,
@@ -241,19 +194,7 @@ export const root = recipe({
       },
 
       style: {
-        color: vars.color.neutral900,
-        background: vars.color.secondary50,
-      },
-    },
-
-    {
-      variants: {
-        variant: 'secondary',
-        active: true,
-        selected: true,
-      },
-      style: {
-        background: vars.color.secondary100,
+        background: vars.color.dark50,
       },
     },
 
@@ -261,6 +202,36 @@ export const root = recipe({
       variants: {
         variant: 'alt',
         selected: true,
+      },
+      style: {
+        background: vars.color.secondary600,
+      },
+    },
+
+    {
+      variants: {
+        variant: 'primary',
+        active: true,
+      },
+      style: {
+        background: vars.color.dark100,
+      },
+    },
+
+    {
+      variants: {
+        variant: 'secondary',
+        active: true,
+      },
+      style: {
+        background: vars.color.dark100,
+      },
+    },
+
+    {
+      variants: {
+        variant: 'alt',
+        active: true,
       },
       style: {
         background: vars.color.secondary500,
@@ -269,12 +240,11 @@ export const root = recipe({
 
     {
       variants: {
-        variant: 'alt',
-        active: true,
-        selected: true,
+        variant: 'primary',
+        collapsed: true,
       },
       style: {
-        background: vars.color.secondary400,
+        color: vars.color.neutral500,
       },
     },
 
@@ -282,56 +252,35 @@ export const root = recipe({
       variants: {
         variant: 'secondary',
         collapsed: true,
-        selected: true,
       },
       style: {
-        color: vars.color.secondary500,
-        background: vars.color.white,
+        color: vars.color.neutral500,
       },
     },
 
     {
       variants: {
-        variant: 'secondary',
+        variant: 'primary',
         collapsed: true,
-        active: true,
-        selected: true,
-      },
-      style: {
-        background: vars.color.dark100,
-      },
-    },
-
-    {
-      variants: {
-        type: 'horizontal',
-        variant: 'secondary',
         selected: true,
       },
       style: {
         color: vars.color.secondary500,
-        background: vars.color.white,
-      },
-    },
 
-    {
-      variants: {
-        type: 'horizontal',
-        variant: 'secondary',
-        active: true,
-        selected: true,
-      },
-      style: {
-        background: vars.color.dark100,
+        selectors: {
+          '&:after': {
+            background: 'transparent',
+          },
+        },
       },
     },
   ],
 });
 
 globalStyle(
-  `.${root()}[aria-disabled="true"] > i, .${
-    root({ selected: true }).split(' ')[1]
-  } > i`,
+  `.${
+    root({ collapsed: true }).split(' ')[1]
+  } > i, .${root()}[aria-disabled="true"] > i`,
   {
     color: 'currentColor',
   },

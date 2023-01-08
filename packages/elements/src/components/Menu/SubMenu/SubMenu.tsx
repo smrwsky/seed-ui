@@ -27,7 +27,7 @@ import * as S from './SubMenu.css';
 export interface SubMenuProps extends MenuLinkProps {
   icon?: string;
   iconType?: IconType;
-  label: string;
+  label?: string;
   children?: ReactNode;
 }
 

@@ -349,7 +349,7 @@ const defaultTheme = {
     },
 
     bold: {
-      fontWeight: '600',
+      fontWeight: '500',
     },
 
     button: {

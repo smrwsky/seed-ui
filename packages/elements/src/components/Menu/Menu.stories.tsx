@@ -16,7 +16,7 @@ const types: MenuProps['type'][] = ['horizontal', 'inline', 'vertical'];
 
 const variants: MenuProps['variant'][] = ['primary', 'secondary', 'alt'];
 
-const sizes: MenuProps['size'][] = ['sm', 'md'];
+const sizes: MenuProps['size'][] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Navigation/Menu',

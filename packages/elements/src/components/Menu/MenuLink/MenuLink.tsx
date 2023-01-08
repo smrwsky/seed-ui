@@ -33,6 +33,8 @@ export interface MenuLinkProps
   selected?: boolean;
 }
 
+const INDENT_BASE = 1.75;
+
 const MenuLink: FC<MenuLinkProps> = forwardRef(
   (
     {
@@ -53,7 +55,6 @@ const MenuLink: FC<MenuLinkProps> = forwardRef(
     ref,
   ) => {
     const { collapsed, type, size, variant } = useContext(MenuContext);
-    const indentBase = size === 'md' ? 1.75 : 1.5;
 
     return (
       <a
@@ -73,7 +74,7 @@ const MenuLink: FC<MenuLinkProps> = forwardRef(
         role="menuitem"
         style={{
           ...assignInlineVars({
-            [S.rootIndentVar]: `${indentBase * indent}rem`,
+            [S.rootIndentVar]: `${INDENT_BASE * indent}rem`,
           }),
           ...style,
         }}
