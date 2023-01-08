@@ -2,7 +2,7 @@ import React from 'react';
 
 export type MenuType = 'horizontal' | 'inline' | 'vertical';
 
-export type MenuSize = 'sm' | 'md';
+export type MenuSize = 'sm' | 'md' | 'lg';
 
 export type MenuVariant = 'primary' | 'secondary' | 'alt';
 

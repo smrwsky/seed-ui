@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@seed-ui/styles';
+import { spacing, vars } from '@seed-ui/styles';
 
 /**
  *  Root style
@@ -7,7 +7,6 @@ import { vars } from '@seed-ui/styles';
 
 export const root = style({
   position: 'relative',
-  flex: 1,
   display: 'grid',
   gridTemplate: `
     "icon label action" max-content
@@ -15,21 +14,18 @@ export const root = style({
   `,
   alignItems: 'center',
   alignContent: 'center',
-  minWidth: '8rem',
-  minHeight: '2.5rem',
+  minWidth: '7rem',
+  minHeight: '2rem',
   color: vars.color.neutral900,
-  backgroundColor: vars.color.white,
-  lineHeight: 1,
+  fontFamily: vars.fontFamily.secondary,
+  ...vars.typography.textSm.secondary,
+  background: vars.color.white,
   textDecoration: 'none',
   transition: vars.transition.base,
-  padding: '0.125rem 0.75rem',
+  padding: `${spacing[0.5]} ${spacing[1.5]}`,
   cursor: 'pointer',
 
   selectors: {
-    '&[aria-selected="true"]': {
-      backgroundColor: vars.color.secondary50,
-    },
-
     '&[aria-disabled="true"]': {
       color: vars.color.neutral200,
       pointerEvents: 'none',
@@ -37,12 +33,11 @@ export const root = style({
   },
 });
 
-export const rootActive = style({
-  backgroundColor: vars.color.dark100,
+export const rootSelected = style({
+  ...vars.typography.bold,
+  background: vars.color.dark50,
+});
 
-  selectors: {
-    '&[aria-selected="true"]': {
-      backgroundColor: vars.color.secondary100,
-    },
-  },
+export const rootActive = style({
+  background: vars.color.dark100,
 });

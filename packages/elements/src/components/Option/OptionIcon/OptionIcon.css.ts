@@ -8,12 +8,6 @@ export const root = style({
   margin: `0 ${spacing[1.5]}`,
 });
 
-globalStyle(
-  `${
-    `[role="option"][aria-selected="true"] > ${root},` +
-    `[role="option"][aria-disabled="true"] > ${root},`
-  }`,
-  {
-    color: 'currentColor',
-  },
-);
+globalStyle(`[role="option"][aria-disabled="true"] > .${root},`, {
+  color: 'currentColor',
+});

@@ -397,19 +397,21 @@ const Autocomplete: AutocompleteFn = ({
           />
         </InputTags>
 
-        {!0 && (
-          <InputAction>
-            <IconButton
-              aria-label={clearText}
-              icon="x"
-              onMouseDown={handleClear}
-              rounded
-              size="xs"
-              tabIndex={-1}
-              variant="tertiary"
-            />
-          </InputAction>
-        )}
+        {!readOnly &&
+          !disabled &&
+          (displayText.length > 0 || valuesList.length > 0) && (
+            <InputAction>
+              <IconButton
+                aria-label={clearText}
+                icon="x"
+                onMouseDown={handleClear}
+                rounded
+                size="xs"
+                tabIndex={-1}
+                variant="tertiary"
+              />
+            </InputAction>
+          )}
       </InputContainer>
 
       <Popover
@@ -450,13 +452,7 @@ const Autocomplete: AutocompleteFn = ({
                 onMouseLeave={handleOptionMouseLeave}
                 selected={valuesList.includes(item)}
               >
-                <Option.Label>{getLabel(item as never)}</Option.Label>
-
-                {valuesList.includes(item) && (
-                  <Option.Action>
-                    <Icon name="check" size="sm" variant="secondary" />
-                  </Option.Action>
-                )}
+                {getLabel(item as never)}
               </Option>
             ),
           )}

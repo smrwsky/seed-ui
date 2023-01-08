@@ -36,7 +36,7 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
     <li
       aria-disabled={disabled}
       aria-selected={selected}
-      className={cx(S.root, active && S.rootActive)}
+      className={cx(S.root, selected && S.rootSelected, active && S.rootActive)}
       ref={ref}
       role="option"
       {...elementProps}
