@@ -134,6 +134,10 @@ export const root = recipe({
           },
         },
       },
+
+      default: {
+        color: 'inherit',
+      },
     },
 
     bold: {
