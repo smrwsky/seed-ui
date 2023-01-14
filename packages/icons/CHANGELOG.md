@@ -1,5 +1,12 @@
 # @seed-ui/icons
 
+## 0.5.3
+
+### Patch Changes
+
+- Updated dependencies [32c592b]
+  - @seed-ui/styles@0.8.0
+
 ## 0.5.2
 
 ### Patch Changes
