@@ -1,5 +1,12 @@
 # @seed-ui/elements
 
+## 0.8.7
+
+### Patch Changes
+
+- 82b8ec7: - Added default variant for link
+  - Fixed `lineHeight` property of Box component
+
 ## 0.8.6
 
 ### Patch Changes
