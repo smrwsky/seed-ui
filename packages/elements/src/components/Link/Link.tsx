@@ -11,7 +11,8 @@ export type LinkVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt';
+  | 'alt'
+  | 'default';
 
 export interface LinkProps
   extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
