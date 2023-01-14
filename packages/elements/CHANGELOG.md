@@ -1,5 +1,14 @@
 # @seed-ui/elements
 
+## 0.8.6
+
+### Patch Changes
+
+- 7e578a2: Fixed import.
+- 32c592b: Fixed dependencies.
+- Updated dependencies [32c592b]
+  - @seed-ui/styles@0.8.0
+
 ## 0.8.5
 
 ### Patch Changes
