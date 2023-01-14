@@ -42,10 +42,6 @@ export const rootReadOnly = style({
 });
 
 export const rootSize = styleVariants({
-  xs: {
-    minHeight: '1.875rem',
-    padding: `${spacing[0.5]} ${spacing[1]}`,
-  },
   sm: {
     minHeight: '2.25rem',
     padding: `${spacing[0.5]} ${spacing[1]}`,

@@ -1,5 +1,5 @@
 import { recipe } from '@vanilla-extract/recipes';
-import { vars } from '@seed-ui/styles/src';
+import { vars } from '@seed-ui/styles';
 
 export const root = recipe({
   base: {

@@ -124,6 +124,7 @@ export const rootVariant = styleVariants({
 
       '&:disabled': {
         backgroundColor: vars.color.neutral200,
+        boxShadow: vars.boxShadow.sm,
       },
     },
   },
@@ -164,6 +165,7 @@ export const rootVariant = styleVariants({
 
       '&:disabled': {
         backgroundColor: vars.color.neutral200,
+        boxShadow: vars.boxShadow.sm,
       },
     },
   },
@@ -184,6 +186,7 @@ export const rootVariant = styleVariants({
 
       '&:disabled': {
         backgroundColor: vars.color.neutral200,
+        boxShadow: vars.boxShadow.sm,
       },
     },
   },
@@ -204,6 +207,7 @@ export const rootVariant = styleVariants({
 
       '&:disabled': {
         backgroundColor: vars.color.neutral200,
+        boxShadow: vars.boxShadow.sm,
       },
     },
   },
@@ -224,6 +228,7 @@ export const rootVariant = styleVariants({
 
       '&:disabled': {
         backgroundColor: vars.color.neutral200,
+        boxShadow: vars.boxShadow.sm,
       },
     },
   },
@@ -245,6 +250,7 @@ export const rootVariant = styleVariants({
       '&:disabled': {
         color: vars.color.white,
         backgroundColor: vars.color.neutral200,
+        boxShadow: vars.boxShadow.sm,
       },
     },
   },
