@@ -1,5 +1,12 @@
 # @seed-ui/flexbox
 
+## 0.1.3
+
+### Patch Changes
+
+- 82b8ec7: - Added default variant for link
+  - Fixed `lineHeight` property of Box component
+
 ## 0.1.2
 
 ### Patch Changes
