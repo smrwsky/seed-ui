@@ -4,7 +4,8 @@
 
 ### Patch Changes
 
-- 545ff2d: - Standardized elements sizes, so elements with same size look better in conjunction with each other
+- 545ff2d:
+  - Standardized elements sizes, so elements with same size look better in conjunction with each other
   - Made all properties of flexbox components optional
 
 ## 0.5.1
