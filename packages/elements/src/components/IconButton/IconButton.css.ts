@@ -48,16 +48,16 @@ export const rootRounded = style({
 
 export const rootSize = styleVariants({
   xs: {
-    fontSize: '1.5rem',
+    fontSize: '1.875rem', // 30px
   },
   sm: {
-    fontSize: '2rem',
+    fontSize: '2.25rem', // 36px
   },
   md: {
-    fontSize: '2.5rem',
+    fontSize: '2.625rem', // 42px
   },
   lg: {
-    fontSize: '3rem',
+    fontSize: '3rem', // 48px
   },
 });
 

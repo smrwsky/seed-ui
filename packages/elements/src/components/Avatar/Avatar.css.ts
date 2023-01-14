@@ -17,20 +17,29 @@ export const rootRounded = style({
 });
 
 export const rootSize = styleVariants({
-  xs: {
-    fontSize: '1rem',
+  'xs': {
+    fontSize: '0.875rem', // 14px
   },
-  sm: {
-    fontSize: '1.5rem',
+  'sm': {
+    fontSize: '1.125rem', // 18px
   },
-  md: {
-    fontSize: '2rem',
+  'md': {
+    fontSize: '1.375rem', // 22px
   },
-  lg: {
-    fontSize: '3rem',
+  'lg': {
+    fontSize: '1.625rem', // 26px
   },
-  xl: {
-    fontSize: '4rem',
+  'xl': {
+    fontSize: '1.875rem', // 30px
+  },
+  '2xl': {
+    fontSize: '2.25rem', // 36px
+  },
+  '3xl': {
+    fontSize: '2.625rem', // 42px
+  },
+  '4xl': {
+    fontSize: '3rem', // 48px
   },
 });
 

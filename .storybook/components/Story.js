@@ -1,11 +1,10 @@
 import React from 'react';
-import { Story as StorybookStory, Canvas } from '@storybook/addon-docs/blocks';
-import * as S from './Story.css';
+import { Story as StoryBlock, Canvas } from '@storybook/addon-docs/blocks';
 
-export const Story = ({ withToolbar = true, ...props }) => (
+const Story = ({ withToolbar = true, ...props }) => (
   <Canvas withToolbar={withToolbar}>
-      <div className={S.root}>
-        <StorybookStory {...props} />
-      </div>
+    <StoryBlock {...props} />
   </Canvas>
 );
+
+export default Story

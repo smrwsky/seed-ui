@@ -16,7 +16,7 @@ export type IconVariant =
   | 'alt'
   | 'default';
 
-export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 export type IconRotate = 0 | 90 | 180 | 270;
 

@@ -1,2 +1,2 @@
-export * from './Story';
-export * from './Props';
+export { default as Props } from './Props'
+export { default as Story } from './Story'

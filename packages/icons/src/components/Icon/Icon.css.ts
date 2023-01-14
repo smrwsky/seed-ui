@@ -7,20 +7,29 @@ export const root = style({
 });
 
 export const rootSize = styleVariants({
-  xs: {
-    fontSize: '0.75rem',
+  'xs': {
+    fontSize: '0.875rem', // 14px
   },
-  sm: {
-    fontSize: '1rem',
+  'sm': {
+    fontSize: '1.125rem', // 18px
   },
-  md: {
-    fontSize: '1.5rem',
+  'md': {
+    fontSize: '1.375rem', // 22px
   },
-  lg: {
-    fontSize: '2rem',
+  'lg': {
+    fontSize: '1.625rem', // 26px
   },
-  xl: {
-    fontSize: '3rem',
+  'xl': {
+    fontSize: '1.875rem', // 30px
+  },
+  '2xl': {
+    fontSize: '2.25rem', // 36px
+  },
+  '3xl': {
+    fontSize: '2.625rem', // 42px
+  },
+  '4xl': {
+    fontSize: '3rem', // 48px
   },
 });
 

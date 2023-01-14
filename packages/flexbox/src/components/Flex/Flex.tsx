@@ -5,9 +5,11 @@ import { Atoms, atoms } from '@seed-ui/styles';
 import Box, { BoxProps } from '../Box';
 
 export interface FlexProps
-  extends Pick<
-      Atoms,
-      'alignItems' | 'justifyContent' | 'flexDirection' | 'flexWrap'
+  extends Partial<
+      Pick<
+        Atoms,
+        'alignItems' | 'justifyContent' | 'flexDirection' | 'flexWrap'
+      >
     >,
     BoxProps,
     React.HTMLAttributes<HTMLElement>,

@@ -1,3 +1,5 @@
+import { Flex } from '@seed-ui/flexbox';
+
 import React from 'react';
 import { addParameters } from '@storybook/react';
 import { withPerformance } from 'storybook-addon-performance';

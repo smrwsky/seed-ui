@@ -1,5 +1,6 @@
 import { recipe } from '@vanilla-extract/recipes';
 import { vars } from '@seed-ui/styles';
+import { CSSProperties } from '@vanilla-extract/css';
 
 export const root = recipe({
   base: {
@@ -61,8 +62,51 @@ export const root = recipe({
 
     bold: {
       true: {
-        ...vars.typography.bold,
+        fontWeight:
+          `${vars.typography.bold.fontWeight} !important` as CSSProperties['fontWeight'],
       },
     },
   },
+
+  compoundVariants: [
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'md',
+      },
+      style: {
+        ...vars.typography.textMd.primary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'sm',
+      },
+      style: {
+        ...vars.typography.textSm.primary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'md',
+      },
+      style: {
+        ...vars.typography.textMd.secondary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'sm',
+      },
+      style: {
+        ...vars.typography.textSm.secondary,
+      },
+    },
+  ],
 });

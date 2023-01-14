@@ -1,5 +1,6 @@
 import React from 'react';
 import { atoms } from '@seed-ui/styles';
+import { Box, Flex } from '@seed-ui/flexbox';
 
 import docs from './TextInput.docs.mdx';
 import TextInput, { TextInputProps, TextInputSize } from './TextInput';
@@ -40,16 +41,13 @@ export function ReadOnly(args: TextInputProps): JSX.Element {
 
 export function Sizes(args: TextInputProps): JSX.Element {
   return (
-    <>
+    <Flex flexDirection="column">
       {sizes.map((size, i) => (
-        <TextInput
-          {...args}
-          className={atoms({ mt: i && 4 })}
-          key={i}
-          size={size}
-        />
+        <Box key={i} mt={i && 4}>
+          <TextInput {...args} className={atoms({ mt: i && 4 })} size={size} />
+        </Box>
       ))}
-    </>
+    </Flex>
   );
 }
 

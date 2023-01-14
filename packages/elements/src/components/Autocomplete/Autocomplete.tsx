@@ -1,18 +1,4 @@
-import React, {
-  memo,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  ComponentType,
-  ChangeEvent,
-  FocusEvent,
-  FocusEventHandler,
-  MouseEvent,
-  KeyboardEvent,
-} from 'react';
+import React from 'react';
 import { Icon, IconType } from '@seed-ui/icons';
 import { useDebounceCallback } from '@react-hook/debounce';
 
@@ -36,7 +22,7 @@ export interface OptionComponentProps<TOption> extends OptionProps {
 }
 
 export interface AutocompleteProps<TOption = unknown, TValue = TOption> {
-  OptionComponent?: ComponentType<OptionComponentProps<TOption>>;
+  OptionComponent?: React.ComponentType<OptionComponentProps<TOption>>;
   allowEmptyQuery?: boolean;
   allowInputValue?: boolean;
   autoFocus?: boolean;
@@ -57,12 +43,13 @@ export interface AutocompleteProps<TOption = unknown, TValue = TOption> {
   options?: TOption[];
   placeholder?: string;
   readOnly?: boolean;
+  ref?: React.Ref<HTMLInputElement>;
   rounded?: boolean;
   size?: AutocompleteSize;
   value?: TValue;
-  onBlur?: FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onChange?: (value: TValue) => void;
-  onFocus?: FocusEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onSearch?: (query: string) => void | Promise<void>;
 }
 
@@ -80,400 +67,414 @@ const defaultGetLabel = (option: unknown): string => option as string;
 export interface AutocompleteFn {
   <TOption = unknown, TValue = TOption>(
     props: AutocompleteProps<TOption, TValue>,
-  ): ReactElement;
+  ): React.ReactElement;
   displayName: 'Autocomplete';
 }
 
-const Autocomplete: AutocompleteFn = ({
-  OptionComponent,
-  allowEmptyQuery,
-  allowInputValue,
-  clearText = 'Clear',
-  defaultValue,
-  delay = 500,
-  disabled,
-  getLabel = defaultGetLabel,
-  icon,
-  iconType,
-  id = '',
-  invalid,
-  loading,
-  loadingText = 'Searching...',
-  multiple,
-  noResultText = 'No result',
-  options,
-  readOnly,
-  rounded,
-  size = 'md',
-  value,
-  onBlur,
-  onChange,
-  onFocus,
-  onSearch,
-  ...inputProps
-}) => {
-  const [valueState, setValueState] = useState(defaultValue);
-  const [openListbox, setOpenListbox] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const [activeIndex, setActiveOption] = useState<number>(-1);
-  const [displayText, setDisplayText] = useState('');
-  const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
-  const listboxRef = useRef<HTMLUListElement>(null);
-  const hasDisplayText = Boolean(displayText);
-
-  const optList = useMemo(
-    (): unknown[] => (Array.isArray(options) ? options : []),
-    [options],
-  );
-
-  const valuesList = useMemo(
-    (): unknown[] =>
-      ((Array.isArray(valueState) && valueState) ||
-        (valueState && [valueState]) ||
-        []) as unknown[],
-    [valueState],
-  );
-
-  const changeValue = useCallback(
-    (nextValue: unknown): void => {
-      if (typeof value === 'undefined' && !onChange) {
-        setValueState(nextValue as never);
-      } else {
-        onChange?.(nextValue as never);
-      }
+const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
+  (
+    {
+      OptionComponent,
+      allowEmptyQuery,
+      allowInputValue,
+      clearText = 'Clear',
+      defaultValue,
+      delay = 500,
+      disabled,
+      getLabel = defaultGetLabel,
+      icon,
+      iconType,
+      id = '',
+      invalid,
+      loading,
+      loadingText = 'Searching...',
+      multiple,
+      noResultText = 'No result',
+      options,
+      readOnly,
+      rounded,
+      size = 'md',
+      value,
+      onBlur,
+      onChange,
+      onFocus,
+      onSearch,
+      ...inputProps
     },
-    [onChange, value],
-  );
+    ref,
+  ) => {
+    const [valueState, setValueState] = React.useState(defaultValue);
+    const [openListbox, setOpenListbox] = React.useState(false);
+    const [focused, setFocused] = React.useState(false);
+    const [activeIndex, setActiveOption] = React.useState<number>(-1);
+    const [displayText, setDisplayText] = React.useState('');
+    const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
+    const listboxRef = React.useRef<HTMLUListElement>(null);
+    const hasDisplayText = Boolean(displayText);
 
-  const selectOption = useCallback(
-    (index: number): void => {
-      const option = optList[index];
+    const optList = React.useMemo(
+      (): unknown[] => (Array.isArray(options) ? options : []),
+      [options],
+    );
 
-      if (typeof option !== 'undefined') {
-        const nextValue = multiple ? toggleOption(option, valuesList) : option;
-        changeValue(nextValue);
-      }
-    },
-    [changeValue, multiple, optList, valuesList],
-  );
+    const valuesList = React.useMemo(
+      (): unknown[] =>
+        ((Array.isArray(valueState) && valueState) ||
+          (valueState && [valueState]) ||
+          []) as unknown[],
+      [valueState],
+    );
 
-  const handleChangeOpenListbox = useCallback((visible: boolean) => {
-    setOpenListbox(visible);
-  }, []);
+    const changeValue = React.useCallback(
+      (nextValue: unknown): void => {
+        if (typeof value === 'undefined' && !onChange) {
+          setValueState(nextValue as never);
+        } else {
+          onChange?.(nextValue as never);
+        }
+      },
+      [onChange, value],
+    );
 
-  const invokeSearch = useCallback(
-    (val: string) => onSearch?.(val),
-    [onSearch],
-  );
+    const selectOption = React.useCallback(
+      (index: number): void => {
+        const option = optList[index];
 
-  const debouncedSearch = useDebounceCallback(invokeSearch, delay, false);
+        if (typeof option !== 'undefined') {
+          const nextValue = multiple
+            ? toggleOption(option, valuesList)
+            : option;
+          changeValue(nextValue);
+        }
+      },
+      [changeValue, multiple, optList, valuesList],
+    );
 
-  const handleBlur = useCallback(
-    (e: FocusEvent<HTMLInputElement>) => {
-      e.persist();
-      setFocused(false);
-      setOpenListbox(false);
-      onBlur?.(e);
-    },
-    [onBlur],
-  );
+    const handleChangeOpenListbox = React.useCallback((visible: boolean) => {
+      setOpenListbox(visible);
+    }, []);
 
-  const handleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setOpenListbox(true);
+    const invokeSearch = React.useCallback(
+      (val: string) => onSearch?.(val),
+      [onSearch],
+    );
 
-      if (allowInputValue) {
-        changeValue(e.target.value);
-      } else {
-        setDisplayText(e.target.value);
-      }
-    },
-    [allowInputValue, changeValue],
-  );
+    const debouncedSearch = useDebounceCallback(invokeSearch, delay, false);
 
-  const handleFocus = useCallback(
-    (e: FocusEvent<HTMLInputElement>) => {
-      setFocused(true);
-
-      if (onFocus) {
+    const handleBlur = React.useCallback(
+      (e: React.FocusEvent<HTMLInputElement>) => {
         e.persist();
-        onFocus(e);
+        setFocused(false);
+        setOpenListbox(false);
+        onBlur?.(e);
+      },
+      [onBlur],
+    );
+
+    const handleChange = React.useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setOpenListbox(true);
+
+        if (allowInputValue) {
+          changeValue(e.target.value);
+        } else {
+          setDisplayText(e.target.value);
+        }
+      },
+      [allowInputValue, changeValue],
+    );
+
+    const handleFocus = React.useCallback(
+      (e: React.FocusEvent<HTMLInputElement>) => {
+        setFocused(true);
+
+        if (onFocus) {
+          e.persist();
+          onFocus(e);
+        }
+      },
+      [onFocus],
+    );
+
+    const handleClick = React.useCallback(() => {
+      if (!disabled && !readOnly) {
+        setOpenListbox((prevState) => hasDisplayText || !prevState);
       }
-    },
-    [onFocus],
-  );
+    }, [disabled, hasDisplayText, readOnly]);
 
-  const handleClick = useCallback(() => {
-    if (!disabled && !readOnly) {
-      setOpenListbox((prevState) => hasDisplayText || !prevState);
-    }
-  }, [disabled, hasDisplayText, readOnly]);
+    const handleKeyDown = React.useCallback(
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'ArrowDown' && openListbox) {
+          e.preventDefault();
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'ArrowDown' && openListbox) {
+          const nextOption =
+            activeIndex >= optList.length - 1 ? 0 : activeIndex + 1;
+
+          listboxRef.current
+            ?.querySelector(`[data-index="${nextOption}"]`)
+            ?.scrollIntoView({ block: 'nearest' });
+
+          setActiveOption(nextOption);
+        }
+
+        if (e.key === 'ArrowUp' && openListbox) {
+          e.preventDefault();
+
+          const nextOption =
+            activeIndex <= 0 ? optList.length - 1 : activeIndex - 1;
+
+          listboxRef.current
+            ?.querySelector(`[data-index="${nextOption}"]`)
+            ?.scrollIntoView({ block: 'nearest' });
+
+          setActiveOption(nextOption);
+        }
+
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          selectOption(activeIndex);
+          setActiveOption(-1);
+          setOpenListbox((prevState) => !prevState);
+        }
+
+        if (e.key === 'Escape') {
+          setActiveOption(-1);
+          setOpenListbox(false);
+        }
+      },
+      [activeIndex, openListbox, optList.length, selectOption],
+    );
+
+    const handleClear = React.useCallback(
+      (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-
-        const nextOption =
-          activeIndex >= optList.length - 1 ? 0 : activeIndex + 1;
-
-        listboxRef.current
-          ?.querySelector(`[data-index="${nextOption}"]`)
-          ?.scrollIntoView({ block: 'nearest' });
-
-        setActiveOption(nextOption);
-      }
-
-      if (e.key === 'ArrowUp' && openListbox) {
-        e.preventDefault();
-
-        const nextOption =
-          activeIndex <= 0 ? optList.length - 1 : activeIndex - 1;
-
-        listboxRef.current
-          ?.querySelector(`[data-index="${nextOption}"]`)
-          ?.scrollIntoView({ block: 'nearest' });
-
-        setActiveOption(nextOption);
-      }
-
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        selectOption(activeIndex);
-        setActiveOption(-1);
-        setOpenListbox((prevState) => !prevState);
-      }
-
-      if (e.key === 'Escape') {
+        e.stopPropagation();
+        changeValue(null);
+        setDisplayText('');
         setActiveOption(-1);
         setOpenListbox(false);
+      },
+      [changeValue],
+    );
+
+    const handleOptionMouseDown = React.useCallback(
+      (e: React.MouseEvent<HTMLLIElement>) => {
+        e.preventDefault();
+        selectOption(Number(e.currentTarget.dataset.index));
+        setOpenListbox(false);
+        setActiveOption(-1);
+      },
+      [selectOption],
+    );
+
+    const handleOptionMouseEnter = React.useCallback(
+      (e: React.MouseEvent<HTMLLIElement>) => {
+        const idx = Number(e.currentTarget.dataset.index);
+
+        if (Number.isNaN(idx)) {
+          return;
+        }
+
+        setActiveOption(idx);
+      },
+      [],
+    );
+
+    const handleOptionMouseLeave = React.useCallback(() => {
+      setActiveOption(-1);
+    }, []);
+
+    const handleRemove = React.useCallback(
+      (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const index = Number(e.currentTarget.dataset.index);
+
+        if (!Number.isNaN(index)) {
+          const nextVal = [...valuesList];
+          nextVal.splice(index, 1);
+          changeValue(nextVal);
+        }
+      },
+      [changeValue, valuesList],
+    );
+
+    React.useEffect(() => {
+      if (typeof value !== 'undefined') {
+        setValueState(value);
       }
-    },
-    [activeIndex, openListbox, optList.length, selectOption],
-  );
+    }, [value]);
 
-  const handleClear = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      changeValue(null);
-      setDisplayText('');
-      setActiveOption(-1);
-      setOpenListbox(false);
-    },
-    [changeValue],
-  );
+    React.useEffect(() => {
+      if (!openListbox) {
+        const text =
+          !valueState || Array.isArray(valueState)
+            ? ''
+            : getLabel(valueState as never);
 
-  const handleOptionMouseDown = useCallback(
-    (e: MouseEvent<HTMLLIElement>) => {
-      e.preventDefault();
-      selectOption(Number(e.currentTarget.dataset.index));
-      setOpenListbox(false);
-      setActiveOption(-1);
-    },
-    [selectOption],
-  );
-
-  const handleOptionMouseEnter = useCallback((e: MouseEvent<HTMLLIElement>) => {
-    const idx = Number(e.currentTarget.dataset.index);
-
-    if (Number.isNaN(idx)) {
-      return;
-    }
-
-    setActiveOption(idx);
-  }, []);
-
-  const handleOptionMouseLeave = useCallback(() => {
-    setActiveOption(-1);
-  }, []);
-
-  const handleRemove = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const index = Number(e.currentTarget.dataset.index);
-
-      if (!Number.isNaN(index)) {
-        const nextVal = [...valuesList];
-        nextVal.splice(index, 1);
-        changeValue(nextVal);
+        setDisplayText(text);
+        setActiveOption(-1);
       }
-    },
-    [changeValue, valuesList],
-  );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [openListbox, valueState]);
 
-  useEffect(() => {
-    if (typeof value !== 'undefined') {
-      setValueState(value);
-    }
-  }, [value]);
+    React.useEffect(() => {
+      if (
+        displayText &&
+        (multiple ||
+          !valueState ||
+          displayText !== getLabel(valueState as never))
+      ) {
+        setOpenListbox(true);
+      }
 
-  useEffect(() => {
-    if (!openListbox) {
-      const text =
-        !valueState || Array.isArray(valueState)
-          ? ''
-          : getLabel(valueState as never);
+      if (displayText || allowEmptyQuery) {
+        debouncedSearch(displayText);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [displayText]);
 
-      setDisplayText(text);
-      setActiveOption(-1);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openListbox, valueState]);
-
-  useEffect(() => {
-    if (
-      displayText &&
-      (multiple || !valueState || displayText !== getLabel(valueState as never))
-    ) {
-      setOpenListbox(true);
-    }
-
-    if (displayText || allowEmptyQuery) {
-      debouncedSearch(displayText);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [displayText]);
-
-  return (
-    <>
-      <InputContainer
-        disabled={disabled}
-        focused={focused}
-        invalid={invalid}
-        readOnly={readOnly}
-        ref={setAnchorEl}
-        rounded={rounded}
-        size={size}
-      >
-        {icon && (
-          <InputAction>
-            <Icon name={icon} size="sm" type={iconType} variant="secondary" />
-          </InputAction>
-        )}
-
-        <InputTags>
-          {multiple &&
-            valuesList.map((item, idx) => (
-              <InputTag key={idx}>
-                <Tag
-                  data-index={idx}
-                  deletable
-                  onMouseDown={handleRemove}
-                  role="button"
-                  tabIndex={-1}
-                  variant="outline-tertiary"
-                >
-                  {getLabel(item as never)}
-                </Tag>
-              </InputTag>
-            ))}
-
-          <Textbox
-            aria-activedescendant={
-              activeIndex !== -1 ? slug(id, OPTION_ID, activeIndex) : ''
-            }
-            aria-autocomplete="list"
-            aria-controls={openListbox ? slug(id, LISTBOX_ID) : ''}
-            aria-expanded={openListbox}
-            aria-haspopup="listbox"
-            aria-invalid={invalid}
-            aria-owns={openListbox ? slug(id, LISTBOX_ID) : ''}
-            autoComplete="off"
-            disabled={disabled}
-            id={id}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            onClick={handleClick}
-            onFocus={handleFocus}
-            onKeyDown={handleKeyDown}
-            readOnly={readOnly}
-            role="combobox"
-            type="text"
-            value={displayText}
-            {...inputProps}
-          />
-        </InputTags>
-
-        {!readOnly &&
-          !disabled &&
-          (displayText.length > 0 || valuesList.length > 0) && (
+    return (
+      <>
+        <InputContainer
+          disabled={disabled}
+          focused={focused}
+          invalid={invalid}
+          readOnly={readOnly}
+          ref={setAnchorEl}
+          rounded={rounded}
+          size={size}
+        >
+          {icon && (
             <InputAction>
-              <IconButton
-                aria-label={clearText}
-                icon="x"
-                onMouseDown={handleClear}
-                rounded
-                size="xs"
-                tabIndex={-1}
-                variant="tertiary"
-              />
+              <Icon name={icon} size="sm" type={iconType} variant="secondary" />
             </InputAction>
           )}
-      </InputContainer>
 
-      <Popover
-        anchorElement={anchorEl}
-        onOpenChange={handleChangeOpenListbox}
-        open={openListbox}
-        placement="bottom-start"
-        role="presentation"
-        style={{
-          width: anchorEl ? `${anchorEl.offsetWidth}px` : undefined,
-          maxWidth: '100%',
-          margin: 0,
-        }}
-        trigger="manual"
-      >
-        <ul id={slug(id, LISTBOX_ID)} ref={listboxRef} role="listbox">
-          {optList.map((item, idx) =>
-            OptionComponent ? (
-              <OptionComponent
-                active={idx === activeIndex}
-                data-index={idx}
-                id={slug(id, OPTION_ID, idx)}
-                key={idx}
-                onMouseDown={handleOptionMouseDown}
-                onMouseEnter={handleOptionMouseEnter}
-                onMouseLeave={handleOptionMouseLeave}
-                option={item as never}
-                selected={valuesList.includes(item)}
-              />
-            ) : (
-              <Option
-                active={idx === activeIndex}
-                data-index={idx}
-                id={slug(id, OPTION_ID, idx)}
-                key={idx}
-                onMouseDown={handleOptionMouseDown}
-                onMouseEnter={handleOptionMouseEnter}
-                onMouseLeave={handleOptionMouseLeave}
-                selected={valuesList.includes(item)}
-              >
-                {getLabel(item as never)}
+          <InputTags>
+            {multiple &&
+              valuesList.map((item, idx) => (
+                <InputTag key={idx}>
+                  <Tag
+                    data-index={idx}
+                    deletable
+                    onMouseDown={handleRemove}
+                    role="button"
+                    tabIndex={-1}
+                    variant="outline-tertiary"
+                  >
+                    {getLabel(item as never)}
+                  </Tag>
+                </InputTag>
+              ))}
+
+            <Textbox
+              aria-activedescendant={
+                activeIndex !== -1 ? slug(id, OPTION_ID, activeIndex) : ''
+              }
+              aria-autocomplete="list"
+              aria-controls={openListbox ? slug(id, LISTBOX_ID) : ''}
+              aria-expanded={openListbox}
+              aria-haspopup="listbox"
+              aria-invalid={invalid}
+              aria-owns={openListbox ? slug(id, LISTBOX_ID) : ''}
+              autoComplete="off"
+              disabled={disabled}
+              id={id}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              onClick={handleClick}
+              onFocus={handleFocus}
+              onKeyDown={handleKeyDown}
+              readOnly={readOnly}
+              ref={ref}
+              role="combobox"
+              type="text"
+              value={displayText}
+              {...inputProps}
+            />
+          </InputTags>
+
+          {!readOnly &&
+            !disabled &&
+            (displayText.length > 0 || valuesList.length > 0) && (
+              <InputAction>
+                <IconButton
+                  aria-label={clearText}
+                  icon="x"
+                  onMouseDown={handleClear}
+                  rounded
+                  size="xs"
+                  tabIndex={-1}
+                  variant="tertiary"
+                />
+              </InputAction>
+            )}
+        </InputContainer>
+
+        <Popover
+          anchorElement={anchorEl}
+          onOpenChange={handleChangeOpenListbox}
+          open={openListbox}
+          placement="bottom-start"
+          role="presentation"
+          strategy="absolute"
+          style={{
+            width: anchorEl ? `${anchorEl.offsetWidth}px` : undefined,
+            maxWidth: '100%',
+            margin: 0,
+          }}
+          trigger="manual"
+        >
+          <ul id={slug(id, LISTBOX_ID)} ref={listboxRef} role="listbox">
+            {optList.map((item, idx) =>
+              OptionComponent ? (
+                <OptionComponent
+                  active={idx === activeIndex}
+                  data-index={idx}
+                  id={slug(id, OPTION_ID, idx)}
+                  key={idx}
+                  onMouseDown={handleOptionMouseDown}
+                  onMouseEnter={handleOptionMouseEnter}
+                  onMouseLeave={handleOptionMouseLeave}
+                  option={item as never}
+                  selected={valuesList.includes(item)}
+                />
+              ) : (
+                <Option
+                  active={idx === activeIndex}
+                  data-index={idx}
+                  id={slug(id, OPTION_ID, idx)}
+                  key={idx}
+                  onMouseDown={handleOptionMouseDown}
+                  onMouseEnter={handleOptionMouseEnter}
+                  onMouseLeave={handleOptionMouseLeave}
+                  selected={valuesList.includes(item)}
+                >
+                  {getLabel(item as never)}
+                </Option>
+              ),
+            )}
+
+            {loading && (
+              <Option disabled role="presentation">
+                {loadingText}
               </Option>
-            ),
-          )}
+            )}
 
-          {loading && (
-            <Option disabled role="presentation">
-              {loadingText}
-            </Option>
-          )}
-
-          {!loading && optList.length === 0 && (
-            <Option disabled role="presentation">
-              {noResultText}
-            </Option>
-          )}
-        </ul>
-      </Popover>
-    </>
-  );
-};
+            {!loading && optList.length === 0 && (
+              <Option disabled role="presentation">
+                {noResultText}
+              </Option>
+            )}
+          </ul>
+        </Popover>
+      </>
+    );
+  },
+);
 
 Autocomplete.displayName = 'Autocomplete';
 
-export default memo(Autocomplete) as AutocompleteFn;
+export default React.memo(Autocomplete) as AutocompleteFn;

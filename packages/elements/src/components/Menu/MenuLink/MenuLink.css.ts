@@ -21,7 +21,7 @@ export const root = recipe({
     alignItems: 'center',
     alignContent: 'center',
     fontFamily: vars.fontFamily.secondary,
-
+    ...vars.typography.textMd.secondary,
     textDecoration: 'none',
     outline: 0,
     transition: vars.transition.base,
@@ -106,22 +106,19 @@ export const root = recipe({
     size: {
       sm: {
         minWidth: '7rem',
-        minHeight: '2rem',
-        ...vars.typography.textSm.secondary,
+        minHeight: '2.25rem',
         padding: `${spacing[0.5]} ${spacing[1.5]}`,
       },
 
       md: {
         minWidth: '8rem',
-        minHeight: '2.5rem',
-        ...vars.typography.textMd.secondary,
+        minHeight: '2.625rem',
         padding: `${spacing[1]} ${spacing[2]}`,
       },
 
       lg: {
         minWidth: '9rem',
         minHeight: '3rem',
-        ...vars.typography.textMd.secondary,
         padding: `${spacing[1]} ${spacing[2.5]}`,
       },
     },

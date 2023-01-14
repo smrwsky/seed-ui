@@ -5,4 +5,4 @@ import {
 
 Props.defaultProps = { ...Props.defaultProps, story: PRIMARY_STORY };
 
-export { Props };
+export  default Props;

@@ -17,7 +17,8 @@ export type SelectSize = 'sm' | 'md' | 'lg';
 
 export type SelectValue = string | string[];
 
-export interface SelectProps<TValue extends SelectValue = SelectValue> {
+export interface SelectProps<TValue extends SelectValue = SelectValue>
+  extends React.RefAttributes<HTMLSelectElement> {
   autoFocus?: boolean;
   defaultValue?: TValue;
   disabled?: boolean;
@@ -44,7 +45,7 @@ export interface SelectFn {
   ): ReactElement | null;
 }
 
-const Select = forwardRef<HTMLSelectElement, SelectProps>(
+const Select: React.FC<SelectProps> = forwardRef(
   (
     {
       defaultValue,
