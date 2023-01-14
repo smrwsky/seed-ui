@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.8.5
+
+### Patch Changes
+
+- 14ad650: Fixed import.
+
 ## 0.8.4
 
 ### Patch Changes
