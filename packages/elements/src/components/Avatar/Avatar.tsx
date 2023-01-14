@@ -6,7 +6,15 @@ import { Icon, IconType } from '@seed-ui/icons';
 
 import * as S from './Avatar.css';
 
-export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type AvatarSize =
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl';
 
 export type AvatarProps = {
   backgroundColor?: Atoms['backgroundColor'];

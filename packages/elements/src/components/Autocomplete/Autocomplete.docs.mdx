@@ -2,23 +2,41 @@ import { Props, Story } from '../../../../../.storybook/components';
 
 # Autocomplete
 
-<Story id="inputs-autocomplete--base" />
-<Props />
+Autocomplete is a web component that provides suggestions for completing a
+user's input based on a pre-defined list of options. It is often implemented as
+part of a [combobox pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox),
+in which a text input field is paired with a dropdown menu of suggestions. This
+pattern is defined by the W3C as a "combination of a drop-down list and an
+editable text box," allowing for both free-form input and pre-defined options.
 
-## Invalid
+<Story id="inputs-autocomplete--base" />
+
+### Component states
+
+#### Invalid
 <Story id="inputs-autocomplete--invalid" />
 
-## Disabled
+#### Disabled
 <Story id="inputs-autocomplete--disabled" />
 
-## Read Only
+#### Read Only
 <Story id="inputs-autocomplete--read-only" />
 
-## Multiple
-<Story id="inputs-autocomplete--multiple" />
+### Component variations
 
-## Sizes
+#### Sizes
 <Story id="inputs-autocomplete--sizes" />
 
-## Rounded
+#### Rounded
 <Story id="inputs-autocomplete--rounded" />
+
+### Multiple
+
+Use `multiple` property to allow multiple values. User will see tags with
+selected values if they exist.
+
+<Story id="inputs-autocomplete--multiple" />
+
+## API
+<Props />
+

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Box, Flex } from '@seed-ui/flexbox';
 
+import Text from '../Text';
+
 import Avatar, { AvatarProps, AvatarSize } from './Avatar';
 import docs from './Avatar.docs.mdx';
 
-const sizes: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
+const sizes: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
 
 export default {
   title: 'Data Display/Avatar',
@@ -29,7 +31,7 @@ export function Base(args: AvatarProps): JSX.Element {
       </Box>
       <Box mr={2}>
         <Avatar {...args} backgroundColor="primary500" />
-      </Box>{' '}
+      </Box>
       <Box>
         <Avatar {...args} icon="user" />
       </Box>

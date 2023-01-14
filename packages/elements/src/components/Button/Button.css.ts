@@ -49,19 +49,19 @@ export const rootRounded = style({
 export const rootSize = styleVariants({
   xs: {
     minWidth: '6rem',
-    height: '1.5rem',
+    height: '1.875rem',
     paddingLeft: spacing[1],
     paddingRight: spacing[1],
   },
   sm: {
     minWidth: '7rem',
-    height: '2rem',
+    height: '2.25rem',
     paddingLeft: spacing[1.5],
     paddingRight: spacing[1.5],
   },
   md: {
     minWidth: '8rem',
-    height: '2.5rem',
+    height: '2.625rem',
     paddingLeft: spacing[2],
     paddingRight: spacing[2],
   },

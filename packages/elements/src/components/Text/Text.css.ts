@@ -1,5 +1,6 @@
 import { recipe } from '@vanilla-extract/recipes';
 import { vars } from '@seed-ui/styles';
+import { CSSProperties } from '@vanilla-extract/css';
 
 export const root = recipe({
   variants: {
@@ -7,6 +8,7 @@ export const root = recipe({
       primary: {
         fontFamily: vars.fontFamily.primary,
       },
+
       secondary: {
         fontFamily: vars.fontFamily.secondary,
       },
@@ -57,7 +59,8 @@ export const root = recipe({
 
     bold: {
       true: {
-        ...vars.typography.bold,
+        fontWeight:
+          `${vars.typography.bold.fontWeight} !important` as CSSProperties['fontWeight'],
       },
     },
   },

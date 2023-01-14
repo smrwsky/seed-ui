@@ -3,36 +3,38 @@ import cn from 'classnames';
 import { atoms, Atoms } from '@seed-ui/styles';
 
 export interface BoxProps
-  extends Pick<
-      Atoms,
-      | 'display'
-      | 'alignSelf'
-      | 'flex'
-      | 'order'
-      | 'width'
-      | 'maxWidth'
-      | 'minWidth'
-      | 'height'
-      | 'maxHeight'
-      | 'minHeight'
-      | 'lineHeight'
-      | 'p'
-      | 'pt'
-      | 'pb'
-      | 'pl'
-      | 'pr'
-      | 'px'
-      | 'py'
-      | 'm'
-      | 'mt'
-      | 'mb'
-      | 'ml'
-      | 'mr'
-      | 'mx'
-      | 'my'
-      | 'overflow'
-      | 'overflowX'
-      | 'overflowY'
+  extends Partial<
+      Pick<
+        Atoms,
+        | 'display'
+        | 'alignSelf'
+        | 'flex'
+        | 'order'
+        | 'width'
+        | 'maxWidth'
+        | 'minWidth'
+        | 'height'
+        | 'maxHeight'
+        | 'minHeight'
+        | 'lineHeight'
+        | 'p'
+        | 'pt'
+        | 'pb'
+        | 'pl'
+        | 'pr'
+        | 'px'
+        | 'py'
+        | 'm'
+        | 'mt'
+        | 'mb'
+        | 'ml'
+        | 'mr'
+        | 'mx'
+        | 'my'
+        | 'overflow'
+        | 'overflowX'
+        | 'overflowY'
+      >
     >,
     React.HTMLAttributes<HTMLElement>,
     React.RefAttributes<HTMLElement> {

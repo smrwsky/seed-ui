@@ -24,7 +24,16 @@ const VARIANT_OPTIONS: IconVariant[] = [
   'default',
 ];
 
-const SIZE_OPTIONS: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
+const SIZE_OPTIONS: IconSize[] = [
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+  '2xl',
+  '3xl',
+  '4xl',
+];
 
 const ROTATE_OPTIONS: IconRotate[] = [0, 90, 180, 270];
 

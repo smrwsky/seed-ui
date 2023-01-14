@@ -1,6 +1,6 @@
 import { recipe } from '@vanilla-extract/recipes';
 import { vars, marker } from '@seed-ui/styles';
-import { globalStyle } from '@vanilla-extract/css';
+import { CSSProperties, globalStyle } from '@vanilla-extract/css';
 
 export const root = recipe({
   base: {
@@ -69,10 +69,53 @@ export const root = recipe({
 
     bold: {
       true: {
-        ...vars.typography.bold,
+        fontWeight:
+          `${vars.typography.bold.fontWeight} !important` as CSSProperties['fontWeight'],
       },
     },
   },
+
+  compoundVariants: [
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'md',
+      },
+      style: {
+        ...vars.typography.textMd.primary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'primary',
+        size: 'sm',
+      },
+      style: {
+        ...vars.typography.textSm.primary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'md',
+      },
+      style: {
+        ...vars.typography.textMd.secondary,
+      },
+    },
+
+    {
+      variants: {
+        fontFamily: 'secondary',
+        size: 'sm',
+      },
+      style: {
+        ...vars.typography.textSm.secondary,
+      },
+    },
+  ],
 });
 
 globalStyle(`.${root({ type: 'disc' }).split(' ')[1]} > li:before`, {

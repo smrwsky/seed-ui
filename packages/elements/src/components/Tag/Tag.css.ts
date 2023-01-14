@@ -26,11 +26,11 @@ export const root = style({
 
 export const rootSize = styleVariants({
   md: {
-    height: '1.5rem',
+    height: '1.625rem', // 26px
     padding: `0 ${spacing[1.5]}`,
   },
   sm: {
-    height: '1rem',
+    height: '1.125rem', // 18px
     padding: `0 ${spacing[1]}`,
   },
 });
@@ -400,10 +400,10 @@ export const icon = style({
 
 export const iconSize = styleVariants({
   sm: {
-    fontSize: '0.75rem',
+    fontSize: '0.875rem',
   },
   md: {
-    fontSize: '1rem',
+    fontSize: '1.125rem',
   },
 });
 
