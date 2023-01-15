@@ -50,26 +50,26 @@ export const rootSize = styleVariants({
   xs: {
     minWidth: '6rem',
     height: '1.875rem',
-    paddingLeft: spacing[1],
-    paddingRight: spacing[1],
+    paddingLeft: spacing[2.5],
+    paddingRight: spacing[2.5],
   },
   sm: {
     minWidth: '7rem',
     height: '2.25rem',
-    paddingLeft: spacing[1.5],
-    paddingRight: spacing[1.5],
+    paddingLeft: spacing[3],
+    paddingRight: spacing[3],
   },
   md: {
     minWidth: '8rem',
     height: '2.625rem',
-    paddingLeft: spacing[2],
-    paddingRight: spacing[2],
+    paddingLeft: spacing[3.5],
+    paddingRight: spacing[3.5],
   },
   lg: {
     minWidth: '9rem',
     height: '3rem',
-    paddingLeft: spacing[2.5],
-    paddingRight: spacing[2.5],
+    paddingLeft: spacing[4],
+    paddingRight: spacing[4],
   },
 });
 
