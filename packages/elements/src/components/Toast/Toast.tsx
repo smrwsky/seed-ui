@@ -10,7 +10,7 @@ import * as S from './Toast.css';
 export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
   onClose?: () => void;
   title?: string;
-  variant?: 'danger' | 'warning' | 'info' | 'success' | 'default';
+  variant?: 'danger' | 'warning' | 'info' | 'success' | 'light';
 }
 
 const getIconByVariant = (variant: ToastProps['variant']) =>
@@ -49,7 +49,7 @@ const Toast: React.FC<ToastProps> = ({
   children,
   role = 'alert',
   title,
-  variant = 'default',
+  variant = 'light',
   onClose,
   ...props
 }) => {

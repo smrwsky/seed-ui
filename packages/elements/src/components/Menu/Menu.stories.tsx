@@ -14,7 +14,7 @@ import PopupMenu from './PopupMenu';
 
 const types: MenuProps['type'][] = ['horizontal', 'inline', 'vertical'];
 
-const variants: MenuProps['variant'][] = ['primary', 'secondary', 'alt'];
+const variants: MenuProps['variant'][] = ['primary', 'secondary', 'dark'];
 
 const sizes: MenuProps['size'][] = ['sm', 'md', 'lg'];
 

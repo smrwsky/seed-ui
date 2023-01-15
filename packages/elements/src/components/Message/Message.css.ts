@@ -31,7 +31,7 @@ export const rootVariant = styleVariants({
     color: vars.color.white,
     background: vars.color.success500,
   },
-  default: {
+  light: {
     border: `1px solid ${vars.color.neutral100}`,
     background: vars.color.white,
     color: vars.color.neutral900,
@@ -44,7 +44,7 @@ export const icon = style({
 });
 
 export const iconVariant = styleVariants({
-  default: {
+  light: {
     color: vars.color.primary400,
   },
   danger: {

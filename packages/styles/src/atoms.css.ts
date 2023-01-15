@@ -39,14 +39,6 @@ export const baseProperties = defineProperties({
   properties: {
     textOverflow,
     whiteSpace,
-    borderColor: vars.color,
-    color: vars.color,
-    backgroundColor: vars.color,
-    boxShadow: vars.boxShadow,
-  },
-  shorthands: {
-    bg: ['backgroundColor'],
-    shadow: ['boxShadow'],
   },
 });
 
@@ -145,7 +137,25 @@ export const responsiveProperties = defineProperties({
   },
 });
 
+export const colorProperties = defineProperties({
+  properties: {
+    borderColor: vars.color,
+    color: vars.color,
+    backgroundColor: vars.color,
+    boxShadow: vars.boxShadow,
+  },
+  shorthands: {
+    bg: ['backgroundColor'],
+    shadow: ['boxShadow'],
+  },
+});
+
 export const mapResponsiveValue = createMapValueFn(responsiveProperties);
+
 export type Atoms = Parameters<typeof atoms>[0];
 
-export const atoms = createSprinkles(baseProperties, responsiveProperties);
+export const atoms = createSprinkles(
+  baseProperties,
+  responsiveProperties,
+  colorProperties,
+);

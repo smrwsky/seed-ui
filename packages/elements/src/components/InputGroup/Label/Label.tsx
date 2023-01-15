@@ -19,7 +19,8 @@ export type LabelVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
+  | 'dark'
   | 'default';
 
 export interface LabelProps extends React.HTMLAttributes<HTMLElement> {

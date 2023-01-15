@@ -21,8 +21,8 @@ const variants: SubtitleVariant[] = [
   'success',
   'warning',
   'danger',
-  'alt',
-  'default',
+  'light',
+  'dark',
 ];
 
 export default {

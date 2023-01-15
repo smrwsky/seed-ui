@@ -21,7 +21,8 @@ export type TitleVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
+  | 'dark'
   | 'default';
 
 export interface TitleProps extends React.HTMLAttributes<HTMLElement> {

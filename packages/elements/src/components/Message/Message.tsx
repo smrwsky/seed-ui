@@ -7,7 +7,7 @@ import Text from '../Text';
 import * as S from './Message.css';
 
 export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'danger' | 'warning' | 'info' | 'success' | 'default';
+  variant?: 'danger' | 'warning' | 'info' | 'success' | 'light';
 }
 
 const getIconByVariant = (variant: MessageProps['variant']) =>
@@ -45,7 +45,7 @@ const Message: React.FC<MessageProps> = ({
   className,
   children,
   role = 'alert',
-  variant = 'default',
+  variant = 'light',
   ...props
 }) => {
   const icon = getIconByVariant(variant);

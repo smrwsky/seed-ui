@@ -13,8 +13,8 @@ const variants: LinkVariant[] = [
   'success',
   'warning',
   'danger',
-  'alt',
-  'default',
+  'light',
+  'dark',
 ];
 
 export default {

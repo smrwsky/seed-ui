@@ -36,8 +36,12 @@ export const root = recipe({
         color: vars.color.danger500,
       },
 
-      alt: {
+      light: {
         color: vars.color.white,
+      },
+
+      dark: {
+        color: vars.color.neutral900,
       },
 
       default: {

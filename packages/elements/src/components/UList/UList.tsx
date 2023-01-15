@@ -17,7 +17,8 @@ export type UListVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
+  | 'dark'
   | 'default';
 
 export interface UListProps extends React.HTMLAttributes<HTMLUListElement> {

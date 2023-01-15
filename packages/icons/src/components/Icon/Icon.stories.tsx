@@ -20,8 +20,8 @@ const VARIANT_OPTIONS: IconVariant[] = [
   'success',
   'warning',
   'danger',
-  'alt',
-  'default',
+  'light',
+  'dark',
 ];
 
 const SIZE_OPTIONS: IconSize[] = [

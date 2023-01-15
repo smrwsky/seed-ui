@@ -20,7 +20,7 @@ export const icon = style({
 });
 
 export const iconVariant = styleVariants({
-  default: {
+  light: {
     color: vars.color.primary400,
   },
   danger: {

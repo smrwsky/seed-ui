@@ -30,8 +30,8 @@ const variants: UListVariant[] = [
   'success',
   'warning',
   'danger',
-  'alt',
-  'default',
+  'light',
+  'dark',
 ];
 
 const listItems = [

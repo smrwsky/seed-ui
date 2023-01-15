@@ -89,488 +89,566 @@ globalStyle(
 
 export const rootVariant = styleVariants({
   'primary': {
-    backgroundColor: vars.color.primary500,
+    background: vars.color.primary500,
     color: vars.color.white,
     boxShadow: vars.boxShadow.primary,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.primary400,
+        background: vars.color.primary400,
       },
 
       '&:active': {
-        backgroundColor: vars.color.primary600,
+        background: vars.color.primary600,
       },
 
       '&:disabled': {
-        backgroundColor: vars.color.neutral200,
+        background: vars.color.neutral200,
       },
     },
   },
 
   'secondary': {
-    backgroundColor: vars.color.secondary500,
+    background: vars.color.secondary500,
     color: vars.color.white,
     boxShadow: vars.boxShadow.secondary,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.secondary400,
+        background: vars.color.secondary400,
       },
 
       '&:active': {
-        backgroundColor: vars.color.secondary600,
+        background: vars.color.secondary600,
       },
 
       '&:disabled': {
-        backgroundColor: vars.color.neutral200,
+        background: vars.color.neutral200,
         boxShadow: vars.boxShadow.sm,
       },
     },
   },
 
   'tertiary': {
-    backgroundColor: vars.color.neutral500,
+    background: vars.color.neutral500,
     color: vars.color.white,
     boxShadow: vars.boxShadow.sm,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.neutral400,
+        background: vars.color.neutral400,
       },
 
       '&:active': {
-        backgroundColor: vars.color.neutral600,
+        background: vars.color.neutral600,
       },
 
       '&:disabled': {
-        backgroundColor: vars.color.neutral200,
+        background: vars.color.neutral200,
       },
     },
   },
 
   'info': {
-    backgroundColor: vars.color.info500,
+    background: vars.color.info500,
     color: vars.color.white,
     boxShadow: vars.boxShadow.info,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.info400,
+        background: vars.color.info400,
       },
 
       '&:active': {
-        backgroundColor: vars.color.info600,
+        background: vars.color.info600,
       },
 
       '&:disabled': {
-        backgroundColor: vars.color.neutral200,
+        background: vars.color.neutral200,
         boxShadow: vars.boxShadow.sm,
       },
     },
   },
 
   'success': {
-    backgroundColor: vars.color.success500,
+    background: vars.color.success500,
     color: vars.color.white,
     boxShadow: vars.boxShadow.success,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.success400,
+        background: vars.color.success400,
       },
 
       '&:active': {
-        backgroundColor: vars.color.success600,
+        background: vars.color.success600,
       },
 
       '&:disabled': {
-        backgroundColor: vars.color.neutral200,
+        background: vars.color.neutral200,
         boxShadow: vars.boxShadow.sm,
       },
     },
   },
 
   'warning': {
-    backgroundColor: vars.color.warning500,
+    background: vars.color.warning500,
     color: vars.color.white,
     boxShadow: vars.boxShadow.warning,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.warning400,
+        background: vars.color.warning400,
       },
 
       '&:active': {
-        backgroundColor: vars.color.warning600,
+        background: vars.color.warning600,
       },
 
       '&:disabled': {
-        backgroundColor: vars.color.neutral200,
+        background: vars.color.neutral200,
         boxShadow: vars.boxShadow.sm,
       },
     },
   },
 
   'danger': {
-    backgroundColor: vars.color.danger500,
+    background: vars.color.danger500,
     color: vars.color.white,
     boxShadow: vars.boxShadow.danger,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.danger400,
+        background: vars.color.danger400,
       },
 
       '&:active': {
-        backgroundColor: vars.color.danger600,
+        background: vars.color.danger600,
       },
 
       '&:disabled': {
-        backgroundColor: vars.color.neutral200,
+        background: vars.color.neutral200,
         boxShadow: vars.boxShadow.sm,
       },
     },
   },
 
-  'alt': {
-    backgroundColor: vars.color.white,
+  'light': {
+    background: vars.color.white,
     color: vars.color.secondary500,
-    boxShadow: vars.boxShadow.alt,
+    boxShadow: vars.boxShadow.light,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.light900,
+        background: vars.color.light900,
       },
 
       '&:active': {
-        backgroundColor: vars.color.light700,
+        background: vars.color.light700,
       },
 
       '&:disabled': {
         color: vars.color.white,
-        backgroundColor: vars.color.neutral200,
+        background: vars.color.neutral200,
         boxShadow: vars.boxShadow.sm,
+      },
+    },
+  },
+
+  'dark': {
+    background: vars.color.neutral900,
+    color: vars.color.white,
+    boxShadow: vars.boxShadow.sm,
+
+    selectors: {
+      '&:hover': {
+        background: vars.color.neutral600,
+      },
+
+      '&:active': {
+        background: vars.color.neutral800,
+      },
+
+      '&:disabled': {
+        background: vars.color.neutral200,
       },
     },
   },
 
   'outline-primary': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.primary500,
     boxShadow: `0 0 0 1px ${vars.color.primary200}`,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.primary50,
+        background: vars.color.primary50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.primary100,
+        background: vars.color.primary100,
       },
 
       '&:disabled': {
-        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
         color: vars.color.neutral200,
+        background: 'transparent',
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
       },
     },
   },
 
   'outline-secondary': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.secondary500,
     boxShadow: `0 0 0 1px ${vars.color.secondary200}`,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.secondary50,
+        background: vars.color.secondary50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.secondary100,
+        background: vars.color.secondary100,
       },
 
       '&:disabled': {
-        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
         color: vars.color.neutral200,
+        background: 'transparent',
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
       },
     },
   },
 
   'outline-tertiary': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.neutral500,
     boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.neutral50,
+        background: vars.color.neutral50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.neutral100,
+        background: vars.color.neutral100,
       },
 
       '&:disabled': {
-        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
         color: vars.color.neutral200,
+        background: 'transparent',
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
       },
     },
   },
 
   'outline-info': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.info500,
     boxShadow: `0 0 0 1px ${vars.color.info200}`,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.info50,
+        background: vars.color.info50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.info100,
+        background: vars.color.info100,
       },
 
       '&:disabled': {
-        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
         color: vars.color.neutral200,
+        background: 'transparent',
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
       },
     },
   },
 
   'outline-success': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.success500,
     boxShadow: `0 0 0 1px ${vars.color.success200}`,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.success50,
+        background: vars.color.success50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.success100,
+        background: vars.color.success100,
       },
 
       '&:disabled': {
-        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
         color: vars.color.neutral200,
+        background: 'transparent',
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
       },
     },
   },
 
   'outline-warning': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.warning500,
     boxShadow: `0 0 0 1px ${vars.color.warning200}`,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.warning50,
+        background: vars.color.warning50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.warning100,
+        background: vars.color.warning100,
       },
 
       '&:disabled': {
-        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
         color: vars.color.neutral200,
+        background: 'transparent',
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
       },
     },
   },
 
   'outline-danger': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.danger500,
     boxShadow: `0 0 0 1px ${vars.color.danger200}`,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.danger50,
+        background: vars.color.danger50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.danger100,
+        background: vars.color.danger100,
       },
 
       '&:disabled': {
-        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
         color: vars.color.neutral200,
+        background: 'transparent',
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
       },
     },
   },
 
-  'outline-alt': {
-    backgroundColor: 'transparent',
+  'outline-light': {
+    background: 'transparent',
     boxShadow: `0 0 0 1px ${vars.color.light600}`,
     color: vars.color.white,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.light200,
+        background: vars.color.light200,
       },
 
       '&:active': {
-        backgroundColor: vars.color.light300,
+        background: vars.color.light300,
       },
 
       '&:disabled': {
-        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
         color: vars.color.neutral200,
+        background: 'transparent',
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
+      },
+    },
+  },
+
+  'outline-dark': {
+    color: vars.color.neutral900,
+    background: 'transparent',
+    boxShadow: `0 0 0 1px ${vars.color.neutral400}`,
+
+    selectors: {
+      '&:hover': {
+        background: vars.color.neutral50,
+      },
+
+      '&:active': {
+        background: vars.color.neutral100,
+      },
+
+      '&:disabled': {
+        color: vars.color.neutral200,
+        background: 'transparent',
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
       },
     },
   },
 
   'overlay-secondary': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.secondary500,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.secondary50,
+        background: vars.color.secondary50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.secondary100,
+        background: vars.color.secondary100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
 
   'overlay-primary': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.primary500,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.primary50,
+        background: vars.color.primary50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.primary100,
+        background: vars.color.primary100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
 
   'overlay-tertiary': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.neutral500,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.neutral50,
+        background: vars.color.neutral50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.neutral100,
+        background: vars.color.neutral100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
 
   'overlay-info': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.info500,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.info50,
+        background: vars.color.info50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.info100,
+        background: vars.color.info100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
 
   'overlay-success': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.success500,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.success50,
+        background: vars.color.success50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.success100,
+        background: vars.color.success100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
 
   'overlay-warning': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.warning500,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.warning50,
+        background: vars.color.warning50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.warning100,
+        background: vars.color.warning100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
 
   'overlay-danger': {
-    backgroundColor: 'transparent',
+    background: 'transparent',
     color: vars.color.danger500,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.danger50,
+        background: vars.color.danger50,
       },
 
       '&:active': {
-        backgroundColor: vars.color.danger100,
+        background: vars.color.danger100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
 
-  'overlay-alt': {
-    backgroundColor: 'transparent',
+  'overlay-light': {
+    background: 'transparent',
     color: vars.color.white,
 
     selectors: {
       '&:hover': {
-        backgroundColor: vars.color.light200,
+        background: vars.color.light200,
       },
 
       '&:active': {
-        backgroundColor: vars.color.light300,
+        background: vars.color.light300,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
+      },
+    },
+  },
+
+  'overlay-dark': {
+    color: vars.color.neutral900,
+    background: 'transparent',
+
+    selectors: {
+      '&:hover': {
+        background: vars.color.neutral50,
+      },
+
+      '&:active': {
+        background: vars.color.neutral100,
+      },
+
+      '&:disabled': {
+        color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },

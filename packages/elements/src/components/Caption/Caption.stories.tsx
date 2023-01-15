@@ -11,8 +11,8 @@ const variants: CaptionVariant[] = [
   'success',
   'warning',
   'danger',
-  'alt',
-  'default',
+  'light',
+  'dark',
 ];
 
 export default {
@@ -22,9 +22,6 @@ export default {
     docs: { page: docs },
   },
   argTypes: {
-    variant: {
-      defaultValue: 'default',
-    },
     children: {
       defaultValue: 'This is a caption',
     },

@@ -63,20 +63,21 @@ export const rootSize = styleVariants({
 
 export const rootVariant = styleVariants({
   'primary': {
-    color: vars.color.primary500,
     background: 'transparent',
+    color: vars.color.primary500,
 
     selectors: {
       '&:hover': {
-        color: vars.color.primary400,
+        background: vars.color.primary50,
       },
 
       '&:active': {
-        color: vars.color.primary600,
+        background: vars.color.primary100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
@@ -87,15 +88,16 @@ export const rootVariant = styleVariants({
 
     selectors: {
       '&:hover': {
-        color: vars.color.secondary400,
+        background: vars.color.secondary50,
       },
 
       '&:active': {
-        color: vars.color.secondary600,
+        background: vars.color.secondary100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
@@ -106,15 +108,16 @@ export const rootVariant = styleVariants({
 
     selectors: {
       '&:hover': {
-        color: vars.color.neutral400,
+        background: vars.color.neutral50,
       },
 
       '&:active': {
-        color: vars.color.neutral600,
+        background: vars.color.neutral100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
@@ -125,15 +128,16 @@ export const rootVariant = styleVariants({
 
     selectors: {
       '&:hover': {
-        color: vars.color.info400,
+        background: vars.color.info50,
       },
 
       '&:active': {
-        color: vars.color.info600,
+        background: vars.color.info100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
@@ -144,15 +148,16 @@ export const rootVariant = styleVariants({
 
     selectors: {
       '&:hover': {
-        color: vars.color.success400,
+        background: vars.color.success50,
       },
 
       '&:active': {
-        color: vars.color.success600,
+        background: vars.color.success100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
@@ -163,15 +168,16 @@ export const rootVariant = styleVariants({
 
     selectors: {
       '&:hover': {
-        color: vars.color.warning400,
+        background: vars.color.warning50,
       },
 
       '&:active': {
-        color: vars.color.warning600,
+        background: vars.color.warning100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
@@ -182,34 +188,56 @@ export const rootVariant = styleVariants({
 
     selectors: {
       '&:hover': {
-        color: vars.color.danger400,
+        background: vars.color.danger50,
       },
 
       '&:active': {
-        color: vars.color.danger600,
+        background: vars.color.danger100,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
 
-  'alt': {
+  'light': {
     color: vars.color.white,
     background: 'transparent',
 
     selectors: {
       '&:hover': {
-        color: vars.color.light800,
+        background: vars.color.light200,
       },
 
       '&:active': {
-        color: vars.color.light700,
+        background: vars.color.light300,
       },
 
       '&:disabled': {
         color: vars.color.neutral200,
+        background: 'transparent',
+      },
+    },
+  },
+
+  'dark': {
+    color: vars.color.neutral900,
+    background: 'transparent',
+
+    selectors: {
+      '&:hover': {
+        background: vars.color.neutral50,
+      },
+
+      '&:active': {
+        background: vars.color.neutral100,
+      },
+
+      '&:disabled': {
+        color: vars.color.neutral200,
+        background: 'transparent',
       },
     },
   },
@@ -368,7 +396,7 @@ export const rootVariant = styleVariants({
     },
   },
 
-  'outline-alt': {
+  'outline-light': {
     color: vars.color.white,
     background: 'transparent',
     boxShadow: `0 0 0 1px ${vars.color.light600}`,
@@ -390,49 +418,10 @@ export const rootVariant = styleVariants({
     },
   },
 
-  'overlay-primary': {
+  'outline-dark': {
+    color: vars.color.neutral900,
     background: 'transparent',
-    color: vars.color.primary500,
-
-    selectors: {
-      '&:hover': {
-        background: vars.color.primary50,
-      },
-
-      '&:active': {
-        background: vars.color.primary100,
-      },
-
-      '&:disabled': {
-        color: vars.color.neutral200,
-        background: 'transparent',
-      },
-    },
-  },
-
-  'overlay-secondary': {
-    color: vars.color.secondary500,
-    background: 'transparent',
-
-    selectors: {
-      '&:hover': {
-        background: vars.color.secondary50,
-      },
-
-      '&:active': {
-        background: vars.color.secondary100,
-      },
-
-      '&:disabled': {
-        color: vars.color.neutral200,
-        background: 'transparent',
-      },
-    },
-  },
-
-  'overlay-tertiary': {
-    color: vars.color.neutral500,
-    background: 'transparent',
+    boxShadow: `0 0 0 1px ${vars.color.neutral400}`,
 
     selectors: {
       '&:hover': {
@@ -446,106 +435,7 @@ export const rootVariant = styleVariants({
       '&:disabled': {
         color: vars.color.neutral200,
         background: 'transparent',
-      },
-    },
-  },
-
-  'overlay-info': {
-    color: vars.color.info500,
-    background: 'transparent',
-
-    selectors: {
-      '&:hover': {
-        background: vars.color.info50,
-      },
-
-      '&:active': {
-        background: vars.color.info100,
-      },
-
-      '&:disabled': {
-        color: vars.color.neutral200,
-        background: 'transparent',
-      },
-    },
-  },
-
-  'overlay-success': {
-    color: vars.color.success500,
-    background: 'transparent',
-
-    selectors: {
-      '&:hover': {
-        background: vars.color.success50,
-      },
-
-      '&:active': {
-        background: vars.color.success100,
-      },
-
-      '&:disabled': {
-        color: vars.color.neutral200,
-        background: 'transparent',
-      },
-    },
-  },
-
-  'overlay-warning': {
-    color: vars.color.warning500,
-    background: 'transparent',
-
-    selectors: {
-      '&:hover': {
-        background: vars.color.warning50,
-      },
-
-      '&:active': {
-        background: vars.color.warning100,
-      },
-
-      '&:disabled': {
-        color: vars.color.neutral200,
-        background: 'transparent',
-      },
-    },
-  },
-
-  'overlay-danger': {
-    color: vars.color.danger500,
-    background: 'transparent',
-
-    selectors: {
-      '&:hover': {
-        background: vars.color.danger50,
-      },
-
-      '&:active': {
-        background: vars.color.danger100,
-      },
-
-      '&:disabled': {
-        color: vars.color.neutral200,
-        background: 'transparent',
-      },
-    },
-  },
-
-  'overlay-alt': {
-    color: vars.color.white,
-    background: 'transparent',
-
-    selectors: {
-      '&:hover': {
-        background: vars.color.light200,
-      },
-
-      '&:active': {
-        background: vars.color.light300,
-      },
-
-      '&:disabled': {
-        color: vars.color.neutral200,
-        background: 'transparent',
+        boxShadow: `0 0 0 1px ${vars.color.neutral200}`,
       },
     },
   },
@@ -554,26 +444,11 @@ export const rootVariant = styleVariants({
 // override avatar styles
 globalStyle(`.${root}> *:not(i)`, {
   borderRadius: 'inherit !important',
-  fontSize: 'inherit !important',
-});
-
-globalStyle(`.${root} > *:not(i):after`, {
-  content: '',
-  position: 'absolute',
-  inset: 0,
-  width: '100%',
-  height: '100%',
-  background: vars.color.light400,
-  opacity: 0,
-  transition: vars.transition.fade,
-});
-
-globalStyle(`.${root}:hover > *:not(i):after`, {
-  opacity: 1,
+  fontSize: '0.875em !important',
 });
 
 // override icon styles
 globalStyle(`.${root} > i`, {
   color: 'currentColor !important',
-  fontSize: '0.63em !important',
+  fontSize: '0.625em !important',
 });

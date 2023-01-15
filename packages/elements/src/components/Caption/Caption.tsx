@@ -17,7 +17,8 @@ export type CaptionVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
+  | 'dark'
   | 'default';
 
 export interface CaptionProps extends React.HTMLAttributes<HTMLElement> {

@@ -12,7 +12,7 @@ export type TagVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
   | 'outline-primary'
   | 'outline-secondary'
   | 'outline-tertiary'
@@ -20,7 +20,7 @@ export type TagVariant =
   | 'outline-success'
   | 'outline-warning'
   | 'outline-danger'
-  | 'outline-alt';
+  | 'outline-light';
 
 export type TagSize = 'sm' | 'md';
 

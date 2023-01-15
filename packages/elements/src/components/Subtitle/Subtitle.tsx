@@ -21,7 +21,8 @@ export type SubtitleVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
+  | 'dark'
   | 'default';
 
 export interface SubtitleProps extends React.HTMLAttributes<HTMLElement> {

@@ -180,7 +180,7 @@ export const rootVariant = styleVariants({
     },
   },
 
-  'alt': {
+  'light': {
     background: vars.color.light400,
     color: vars.color.white,
 
@@ -354,7 +354,7 @@ export const rootVariant = styleVariants({
     },
   },
 
-  'outline-alt': {
+  'outline-light': {
     background: vars.color.light200,
     boxShadow: `0 0 0 1px ${vars.color.light700}`,
     color: vars.color.white,
@@ -492,7 +492,7 @@ export const iconVariant = styleVariants({
     },
   },
 
-  'alt': {
+  'light': {
     color: vars.color.white,
 
     selectors: {
@@ -590,7 +590,7 @@ export const iconVariant = styleVariants({
     },
   },
 
-  'outline-alt': {
+  'outline-light': {
     color: vars.color.white,
 
     selectors: {

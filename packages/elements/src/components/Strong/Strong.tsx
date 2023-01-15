@@ -11,7 +11,8 @@ export type StrongVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
+  | 'dark'
   | 'default';
 
 export interface StrongProps extends React.HTMLAttributes<HTMLElement> {
