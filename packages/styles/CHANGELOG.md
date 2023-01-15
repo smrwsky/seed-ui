@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.8.1
+
+### Patch Changes
+
+- 89c40f5: Added dark variant to elements.
+
 ## 0.8.0
 
 ### Minor Changes
