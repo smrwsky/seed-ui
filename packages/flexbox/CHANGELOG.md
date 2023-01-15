@@ -1,5 +1,11 @@
 # @seed-ui/flexbox
 
+## 0.1.4
+
+### Patch Changes
+
+- 89c40f5: Added dark variant to elements.
+
 ## 0.1.3
 
 ### Patch Changes
