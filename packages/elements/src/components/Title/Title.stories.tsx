@@ -16,8 +16,8 @@ const variants: TitleVariant[] = [
   'success',
   'warning',
   'danger',
-  'alt',
-  'default',
+  'light',
+  'dark',
 ];
 
 export default {

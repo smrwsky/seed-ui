@@ -16,7 +16,7 @@ export const rootVariant = styleVariants({
   secondary: {
     color: vars.color.neutral500,
   },
-  alt: {
+  dark: {
     color: 'inherit',
   },
 });

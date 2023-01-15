@@ -26,7 +26,7 @@ export const rootVariant = styleVariants({
   secondary: {
     backgroundColor: vars.color.white,
   },
-  alt: {
+  dark: {
     backgroundColor: vars.color.secondary700,
   },
 });

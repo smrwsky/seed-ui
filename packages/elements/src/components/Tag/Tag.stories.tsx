@@ -13,7 +13,7 @@ const variants: TagVariant[] = [
   'success',
   'warning',
   'danger',
-  'alt',
+  'light',
   'outline-primary',
   'outline-secondary',
   'outline-tertiary',
@@ -21,7 +21,7 @@ const variants: TagVariant[] = [
   'outline-success',
   'outline-warning',
   'outline-danger',
-  'outline-alt',
+  'outline-light',
 ];
 
 const sizes: TagSize[] = ['sm', 'md'];

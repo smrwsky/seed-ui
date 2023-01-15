@@ -5,11 +5,11 @@ import docs from './Message.docs.mdx';
 import Message, { MessageProps } from './Message';
 
 const variants: MessageProps['variant'][] = [
-  'default',
   'info',
   'success',
   'warning',
   'danger',
+  'light',
 ];
 
 export default {

@@ -13,7 +13,8 @@ export type IconVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
+  | 'dark'
   | 'default';
 
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';

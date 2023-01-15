@@ -132,7 +132,7 @@ export const root = recipe({
         color: vars.color.neutral900,
       },
 
-      alt: {
+      dark: {
         color: vars.color.white,
       },
     },
@@ -197,7 +197,7 @@ export const root = recipe({
 
     {
       variants: {
-        variant: 'alt',
+        variant: 'dark',
         selected: true,
       },
       style: {
@@ -227,7 +227,7 @@ export const root = recipe({
 
     {
       variants: {
-        variant: 'alt',
+        variant: 'dark',
         active: true,
       },
       style: {

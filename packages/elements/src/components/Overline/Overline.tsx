@@ -17,7 +17,8 @@ export type OverlineVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
+  | 'dark'
   | 'default';
 
 export interface OverlineProps extends React.HTMLAttributes<HTMLElement> {

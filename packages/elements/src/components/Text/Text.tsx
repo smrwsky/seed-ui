@@ -21,7 +21,8 @@ export type TextVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
+  | 'dark'
   | 'default';
 
 export interface TextProps extends React.HTMLAttributes<HTMLElement> {

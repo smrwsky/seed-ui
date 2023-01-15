@@ -7,11 +7,11 @@ import docs from './Toast.docs.mdx';
 import Toast, { ToastProps } from './Toast';
 
 const variants: ToastProps['variant'][] = [
-  'default',
   'info',
   'success',
   'warning',
   'danger',
+  'light',
 ];
 
 export default {

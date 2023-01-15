@@ -121,7 +121,7 @@ export const root = recipe({
         },
       },
 
-      alt: {
+      light: {
         color: vars.color.white,
 
         selectors: {
@@ -131,6 +131,20 @@ export const root = recipe({
 
           '&:active': {
             color: vars.color.light700,
+          },
+        },
+      },
+
+      dark: {
+        color: vars.color.neutral900,
+
+        selectors: {
+          '&:hover': {
+            color: vars.color.neutral600,
+          },
+
+          '&:active': {
+            color: vars.color.neutral800,
           },
         },
       },

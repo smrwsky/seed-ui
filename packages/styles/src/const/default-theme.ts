@@ -62,7 +62,9 @@ const defaultTheme = {
       0.2,
     )}, 0 1px 2px 0 ${hexToRgba(color.red500, 0.1)}`,
 
-    alt: '0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06)',
+    light:
+      '0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06)',
+
     focus: `0 0 0 3px ${hexToRgba(color.turquose500, 0.5)}`,
     focusDanger: `0 0 0 3px ${hexToRgba(color.red500, 0.5)}`,
     inset: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
@@ -322,14 +324,14 @@ const defaultTheme = {
 
     labelMd: {
       fontSize: '1rem', // 16px
-      fontWeight: '500',
+      fontWeight: '600',
       letterSpacing: '0.5px',
       lineHeight: '1.2',
     },
 
     labelSm: {
       fontSize: '0.833rem', // 13.333px
-      fontWeight: '500',
+      fontWeight: '600',
       letterSpacing: '0.5px',
       lineHeight: '1.2',
     },
@@ -349,7 +351,7 @@ const defaultTheme = {
     },
 
     bold: {
-      fontWeight: '500',
+      fontWeight: '600',
     },
 
     button: {

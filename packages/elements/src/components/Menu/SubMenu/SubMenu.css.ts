@@ -30,7 +30,7 @@ export const menuVariant = styleVariants({
       },
     },
   },
-  alt: {
+  dark: {
     selectors: {
       '&:before': {
         background: vars.color.dark300,

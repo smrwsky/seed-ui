@@ -217,7 +217,7 @@ const SubMenu: FC<SubMenuProps> = ({
             ref={menuRef}
             size={size}
             type="inline"
-            variant={variant === 'alt' ? 'alt' : 'secondary'}
+            variant={variant === 'dark' ? 'dark' : 'secondary'}
           >
             {children}
           </Menu>

@@ -11,8 +11,8 @@ const variants: OverlineVariant[] = [
   'success',
   'warning',
   'danger',
-  'alt',
-  'default',
+  'light',
+  'dark',
 ];
 
 export default {

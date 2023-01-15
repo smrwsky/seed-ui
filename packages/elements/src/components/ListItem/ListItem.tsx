@@ -12,7 +12,8 @@ export type ListItemVariant =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'alt'
+  | 'light'
+  | 'dark'
   | 'default';
 
 export interface ListItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
