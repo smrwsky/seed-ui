@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.8.9
+
+### Patch Changes
+
+- 9cba6b9: Changed buttons' paddings.
+
 ## 0.8.8
 
 ### Patch Changes
