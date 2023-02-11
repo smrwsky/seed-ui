@@ -1,5 +1,12 @@
 # @seed-ui/layout
 
+## 0.7.2
+
+### Patch Changes
+
+- ad6dd9f: - Made label tag default in the Label component;
+  - Updated Icon, IconButton, and Avatar components.
+
 ## 0.7.1
 
 ### Patch Changes

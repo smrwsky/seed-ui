@@ -1,5 +1,12 @@
 # @seed-ui/flexbox
 
+## 0.1.5
+
+### Patch Changes
+
+- ad6dd9f: - Made label tag default in the Label component;
+  - Updated Icon, IconButton, and Avatar components.
+
 ## 0.1.4
 
 ### Patch Changes
