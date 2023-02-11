@@ -1,34 +1,54 @@
-import { Flex } from '@seed-ui/flexbox';
-
 import React from 'react';
-import { addParameters } from '@storybook/react';
-import { withPerformance } from 'storybook-addon-performance';
-import { withThemes } from 'storybook-addon-themes/react';
 import { color, GlobalStyle, ThemeProvider } from '@seed-ui/styles';
-import { theme, components, sortStories } from './utils';
+import {
+  atoms,
+  Link,
+  ListItem,
+  OList,
+  Strong,
+  Subtitle,
+  Text,
+  Title,
+  UList,
+} from '@seed-ui/elements';
+import { theme } from './theme';
+
 import 'boxicons/css/boxicons.min.css';
 
-function withGlobalStyle(Story) {
-  return (
-    <ThemeProvider>
-      <GlobalStyle />
-      <Story />
-    </ThemeProvider>
-  );
-}
-
-const SORT_ORDER = {
-  Overview: {
-    'Design tokens': {},
-    'Icons': {},
-  },
+const components = {
+  wrapper: ({ children, ...p }) => (
+    <div {...p}>
+      <ThemeProvider>
+        <GlobalStyle />
+        {children}
+      </ThemeProvider>
+    </div>
+  ),
+  h1: (p) => <Title {...p} as="h1" size="md" className={atoms({ mb: 3 })} />,
+  h2: (p) => (
+    <Title {...p} as="h2" size="sm" className={atoms({ mb: 4, mt: 12 })} />
+  ),
+  h3: (p) => (
+    <Title {...p} as="h3" size="xs" className={atoms({ mb: 3, mt: 8 })} />
+  ),
+  h4: (p) => (
+    <Subtitle {...p} as="h4"  className={atoms({ mb: 2, mt: 6 })} />
+  ),
+  h5: (p) => <Subtitle {...p} as="h5" size="sm" className={atoms({ mb: 1, mt: 3 })} />,
+  h6: (p) => (
+    <Text {...p} as="h6" bold className={atoms({ mb: 1, mt: 3 })} />
+  ),
+  p: (p) => <Text {...p}  className={atoms({ mb: 3 })} />,
+  li: (p) => <ListItem {...p}  />,
+  strong: (p) => <Strong {...p} />,
+  ul: (p) => <UList {...p}  gutter={2} className={atoms({ mb: 3 })} />,
+  ol: (p) => <OList {...p}  gutter={2} className={atoms({ mb: 3 })} />,
+  a: (p) => <Link {...p} />,
 };
 
 export const parameters = {
   layout: 'centered',
-  options: {
-    storySort: sortStories(SORT_ORDER),
-  },
+  viewMode: 'docs',
   backgrounds: {
     default: 'White',
     values: [
@@ -50,16 +70,17 @@ export const parameters = {
       },
     ],
   },
+  controls: {
+    hideNoControlsWarning: true,
+  },
   docs: { theme, components },
 };
 
-// Run only client tasks in prod builds of Storybook, SSR tasks are failing.
-// See https://github.com/atlassian-labs/storybook-addon-performance/pull/40
-addParameters({
-  performance: {
-    allowedGroups:
-      process.env.NODE_ENV === 'production' ? ['client'] : ['server', 'client'],
-  },
-});
+const withGlobalStyle = (Story) => (
+  <ThemeProvider>
+    <GlobalStyle />
+    <Story />
+  </ThemeProvider>
+);
 
-export const decorators = [withGlobalStyle, withThemes, withPerformance];
+export const decorators = [withGlobalStyle];
