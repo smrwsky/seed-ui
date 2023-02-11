@@ -23,7 +23,8 @@ export type LabelVariant =
   | 'dark'
   | 'default';
 
-export interface LabelProps extends React.HTMLAttributes<HTMLElement> {
+export interface LabelProps
+  extends React.LabelHTMLAttributes<HTMLLabelElement> {
   as?: React.ElementType;
   breakWord?: boolean;
   size?: LabelSize;
@@ -34,43 +35,42 @@ export interface LabelProps extends React.HTMLAttributes<HTMLElement> {
   whiteSpace?: Atoms['whiteSpace'];
 }
 
-const Label: React.FC<LabelProps & React.RefAttributes<HTMLElement>> =
-  React.forwardRef(
-    (
-      {
-        as: As = 'div',
-        breakWord,
+const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
+  (
+    {
+      as: As = 'label',
+      breakWord,
+      className,
+      size = 'md',
+      textAlign,
+      textOverflow,
+      truncate,
+      variant = 'default',
+      whiteSpace,
+      children,
+      ...elemProps
+    },
+    ref,
+  ) => (
+    <As
+      className={cn(
+        S.root({ size, variant }),
+        breakWord && textBreakStyle,
+        truncate && textTruncateStyle,
+        atoms({
+          textAlign,
+          textOverflow,
+          whiteSpace,
+        }),
         className,
-        size = 'md',
-        textAlign,
-        textOverflow,
-        truncate,
-        variant = 'default',
-        whiteSpace,
-        children,
-        ...elemProps
-      },
-      ref,
-    ) => (
-      <As
-        className={cn(
-          S.root({ size, variant }),
-          breakWord && textBreakStyle,
-          truncate && textTruncateStyle,
-          atoms({
-            textAlign,
-            textOverflow,
-            whiteSpace,
-          }),
-          className,
-        )}
-        ref={ref}
-        {...elemProps}
-      >
-        {children}
-      </As>
-    ),
-  );
+      )}
+      ref={ref}
+      {...elemProps}
+    >
+      {children}
+    </As>
+  ),
+);
 
 Label.displayName = 'Label';
 

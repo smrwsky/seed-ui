@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 import { Icon, IconType } from '@seed-ui/icons';
 
-import { InputAction, InputContainer, Textbox } from '../InputGroup';
+import { InputAction, InputBox, TextBox } from '../InputGroup';
 
 export type DateInputSize = 'sm' | 'md' | 'lg';
 
@@ -76,7 +76,7 @@ const DateInput: FC<DateInputProps & RefAttributes<HTMLInputElement>> =
       }
 
       return (
-        <InputContainer
+        <InputBox
           className={className}
           disabled={disabled}
           focused={focused}
@@ -91,7 +91,7 @@ const DateInput: FC<DateInputProps & RefAttributes<HTMLInputElement>> =
             </InputAction>
           )}
 
-          <Textbox
+          <TextBox
             {...inputProps}
             disabled={disabled}
             id={id}
@@ -101,7 +101,7 @@ const DateInput: FC<DateInputProps & RefAttributes<HTMLInputElement>> =
             ref={ref}
             type="date"
           />
-        </InputContainer>
+        </InputBox>
       );
     },
   );

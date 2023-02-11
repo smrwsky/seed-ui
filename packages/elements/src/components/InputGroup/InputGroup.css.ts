@@ -11,10 +11,6 @@ export const grid = style({
   margin: `${margin[-1]} ${margin[-0.5]} 0`,
 });
 
-globalStyle(`.${grid} > *`, {
-  margin: `${margin[1]} ${margin[0.5]} 0`,
-});
-
 export const gridDirection = styleVariants({
   row: {
     gridTemplate: `
@@ -31,4 +27,8 @@ export const gridDirection = styleVariants({
       "error" max-content / 1fr
     `,
   },
+});
+
+globalStyle(`.${grid} > *`, {
+  margin: `${margin[1]} ${margin[0.5]} 0`,
 });

@@ -5,10 +5,10 @@ import { useDebounceCallback } from '@react-hook/debounce';
 import Tag from '../Tag';
 import {
   InputAction,
-  InputContainer,
+  InputBox,
   InputTag,
   InputTags,
-  Textbox,
+  TextBox,
 } from '../InputGroup';
 import slug from '../../utils/slug';
 import IconButton from '../IconButton';
@@ -17,39 +17,163 @@ import Option, { OptionProps } from '../Option';
 
 export type AutocompleteSize = 'sm' | 'md' | 'lg';
 
-export interface OptionComponentProps<TOption> extends OptionProps {
-  option: TOption;
+export interface OptionComponentProps<Option> extends OptionProps {
+  option: Option;
 }
 
-export interface AutocompleteProps<TOption = unknown, TValue = TOption> {
-  OptionComponent?: React.ComponentType<OptionComponentProps<TOption>>;
+export interface AutocompleteProps<Option = unknown, Value = Option> {
+  /**
+   * Triggers `onSearch` when input is empty if true. Ignores empty
+   * queries otherwise.
+   */
   allowEmptyQuery?: boolean;
+
+  /**
+   * If `true`, allows using input value as primary value and fires `onChange`
+   * callback with this value, when it changes. Implements
+   * Editable Combobox With List Autocomplete pattern.
+   */
   allowInputValue?: boolean;
+
+  /**
+   * If `true`, the input element will be focused when the component is mounted.
+   */
   autoFocus?: boolean;
-  clearText?: string;
-  defaultValue?: TValue;
-  delay?: number;
+
+  /**
+   * Aria label for clear button.
+   */
+  clearLabel?: string;
+
+  /**
+   * Default value of the input element.
+   */
+  defaultValue?: Value;
+
+  /**
+   * If `true`, the input element is disabled and can't be interacted with.
+   */
   disabled?: boolean;
-  getLabel?: (option: TOption) => string;
+
+  /**
+   * A function that takes an `Option` and returns a string to use as the label
+   * for that option.
+   */
+  getLabel?: (option: Option) => string;
+
+  /**
+   * Icon to display in the input element.
+   */
   icon?: string;
+
+  /**
+   * Type of the icon to display in the input element.
+   */
   iconType?: IconType;
+
+  /**
+   * ID attribute for the input element.
+   */
   id?: string;
+
+  /**
+   * If `true`, the input element will have a validation error style.
+   */
   invalid?: boolean;
+
+  /**
+   * If `true`, a loading label will be displayed inside the dropdown list.
+   */
   loading?: boolean;
-  loadingText?: string;
+
+  /**
+   * Error message to display when loading has failed.
+   */
+  loadingError?: string;
+
+  /**
+   * Label to display when data is being loaded.
+   */
+  loadingLabel?: string;
+
+  /**
+   * If `true`, the component allows multiple values to be selected.
+   */
   multiple?: boolean;
+
+  /**
+   * Name attribute for input element.
+   */
   name?: string;
-  noResultText?: string;
-  options?: TOption[];
+
+  /**
+   * Feedback text shown when no options were provided.
+   */
+  noResultLabel?: string;
+
+  /**
+   * A component to render each option in the dropdown list.
+   */
+  OptionComponent?: React.ComponentType<OptionComponentProps<Option>>;
+
+  /**
+   * Array of options to display in the dropdown list.
+   */
+  options?: Option[];
+
+  /**
+   * Placeholder text to display in the input element when it has no value.
+   */
   placeholder?: string;
+
+  /**
+   * If `true`, the input element is read-only and can't be interacted with.
+   */
   readOnly?: boolean;
+
+  /**
+   * Ref passed to the input element.
+   */
   ref?: React.Ref<HTMLInputElement>;
+
+  /**
+   * If `true`, input box has rounded corners.
+   */
   rounded?: boolean;
+
+  /**
+   * The amount of time to wait after the user stops typing before triggering a search.
+   */
+  searchTimeout?: number;
+
+  /**
+   * The size of the Autocomplete component.
+   */
   size?: AutocompleteSize;
-  value?: TValue;
+
+  /**
+   * The current value of Autocomplete component.
+   */
+  value?: Value;
+
+  /**
+   * Callback function fired when the input element loses focus.
+   */
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  onChange?: (value: TValue) => void;
+
+  /**
+   * Callback function fired when the value of Autocomplete component changes.
+   */
+  onChange?: (value: Value) => void;
+
+  /**
+   * Callback function fired when the input element receives focus.
+   */
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
+
+  /**
+   * Callback function fired when the search query changes.
+   */
   onSearch?: (query: string) => void | Promise<void>;
 }
 
@@ -65,8 +189,8 @@ const toggleOption = (value: unknown, items: unknown[]): unknown[] =>
 const defaultGetLabel = (option: unknown): string => option as string;
 
 export interface AutocompleteFn {
-  <TOption = unknown, TValue = TOption>(
-    props: AutocompleteProps<TOption, TValue>,
+  <Option = unknown, Value = Option>(
+    props: AutocompleteProps<Option, Value>,
   ): React.ReactElement;
   displayName: 'Autocomplete';
 }
@@ -74,25 +198,26 @@ export interface AutocompleteFn {
 const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
   (
     {
-      OptionComponent,
-      allowEmptyQuery,
-      allowInputValue,
-      clearText = 'Clear',
+      allowEmptyQuery = false,
+      allowInputValue = false,
+      clearLabel = 'Clear',
       defaultValue,
-      delay = 500,
-      disabled,
+      searchTimeout = 500,
+      disabled = false,
       getLabel = defaultGetLabel,
       icon,
       iconType,
-      id = '',
-      invalid,
-      loading,
-      loadingText = 'Searching...',
-      multiple,
-      noResultText = 'No result',
+      id,
+      invalid = false,
+      loading = false,
+      loadingError,
+      loadingLabel = 'Searching...',
+      multiple = false,
+      noResultLabel = 'No result',
+      OptionComponent,
       options,
-      readOnly,
-      rounded,
+      readOnly = false,
+      rounded = false,
       size = 'md',
       value,
       onBlur,
@@ -159,7 +284,11 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [onSearch],
     );
 
-    const debouncedSearch = useDebounceCallback(invokeSearch, delay, false);
+    const debouncedSearch = useDebounceCallback(
+      invokeSearch,
+      searchTimeout,
+      false,
+    );
 
     const handleBlur = React.useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {
@@ -337,7 +466,7 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
 
     return (
       <>
-        <InputContainer
+        <InputBox
           disabled={disabled}
           focused={focused}
           invalid={invalid}
@@ -369,7 +498,7 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
                 </InputTag>
               ))}
 
-            <Textbox
+            <TextBox
               aria-activedescendant={
                 activeIndex !== -1 ? slug(id, OPTION_ID, activeIndex) : ''
               }
@@ -401,7 +530,7 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
             (displayText.length > 0 || valuesList.length > 0) && (
               <InputAction>
                 <IconButton
-                  aria-label={clearText}
+                  aria-label={clearLabel}
                   icon="x"
                   onMouseDown={handleClear}
                   rounded
@@ -411,7 +540,7 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
                 />
               </InputAction>
             )}
-        </InputContainer>
+        </InputBox>
 
         <Popover
           anchorElement={anchorEl}
@@ -459,13 +588,19 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
 
             {loading && (
               <Option disabled role="presentation">
-                {loadingText}
+                {loadingLabel}
               </Option>
             )}
 
-            {!loading && optList.length === 0 && (
+            {!loading && loadingError && (
+              <Option disabled invalid role="alert">
+                {loadingError}
+              </Option>
+            )}
+
+            {!loading && !loadingError && optList.length === 0 && (
               <Option disabled role="presentation">
-                {noResultText}
+                {noResultLabel}
               </Option>
             )}
           </ul>
@@ -477,4 +612,4 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
 
 Autocomplete.displayName = 'Autocomplete';
 
-export default React.memo(Autocomplete) as AutocompleteFn;
+export default Autocomplete as AutocompleteFn;

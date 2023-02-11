@@ -1,10 +1,8 @@
-import React, { useCallback, useMemo } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import ReactModal, { Aria, OnAfterOpenCallback } from 'react-modal';
 import { TransitionStatus } from 'react-transition-group/Transition';
 import { Transition } from 'react-transition-group';
-
-import useTimeout from '../../utils/use-timeout';
 
 import ModalContext, { ModalSize } from './context';
 import { ModalHeader } from './ModalHeader';
@@ -17,7 +15,6 @@ export type ModalProps = {
   aria?: Aria;
   ariaHideApp?: boolean;
   children?: React.ReactNode;
-  closeButtonLabel?: string;
   contentElement?: (
     props: React.ComponentPropsWithRef<'div'>,
     children: React.ReactNode,
@@ -53,15 +50,7 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   ...modalProps
 }) => {
-  const { setTimeout } = useTimeout();
-
-  const context = useMemo(() => ({ size }), []);
-
-  const handleRequestClose = useCallback(() => {
-    setTimeout(() => {
-      onClose();
-    }, 300);
-  }, [onClose, setTimeout]);
+  const context = React.useMemo(() => ({ size }), [size]);
 
   return (
     <ModalContext.Provider value={context}>
@@ -82,8 +71,9 @@ const Modal: React.FC<ModalProps> = ({
               S.contentSize[size],
               status === 'entered' && S.contentEntered,
             )}
+            closeTimeoutMS={200}
             isOpen={status !== 'exited'}
-            onRequestClose={handleRequestClose}
+            onRequestClose={onClose}
             overlayClassName={cn(
               S.overlay,
               S.overlaySize[size],
