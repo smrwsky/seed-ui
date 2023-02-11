@@ -1,12 +1,10 @@
 import React from 'react';
 import { Box, Flex } from '@seed-ui/flexbox';
 
-import Text from '../Text';
-
 import Avatar, { AvatarProps, AvatarSize } from './Avatar';
 import docs from './Avatar.docs.mdx';
 
-const sizes: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+const sizes: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export default {
   title: 'Data Display/Avatar',

@@ -17,28 +17,19 @@ export const rootRounded = style({
 });
 
 export const rootSize = styleVariants({
-  'xs': {
-    fontSize: '0.875rem', // 14px
+  xs: {
+    fontSize: '1.25rem', // 20px
   },
-  'sm': {
-    fontSize: '1.125rem', // 18px
+  sm: {
+    fontSize: '1.5rem', // 24px
   },
-  'md': {
-    fontSize: '1.375rem', // 22px
+  md: {
+    fontSize: '2rem', // 32px
   },
-  'lg': {
-    fontSize: '1.625rem', // 26px
+  lg: {
+    fontSize: '2.5rem', // 40px
   },
-  'xl': {
-    fontSize: '1.875rem', // 30px
-  },
-  '2xl': {
-    fontSize: '2.25rem', // 36px
-  },
-  '3xl': {
-    fontSize: '2.625rem', // 42px
-  },
-  '4xl': {
+  xl: {
     fontSize: '3rem', // 48px
   },
 });
@@ -56,7 +47,6 @@ export const icon = style({
   position: 'absolute',
   color: vars.color.white,
   fontSize: '.625em',
-  lineHeight: 1,
 });
 
 export const text = style({
