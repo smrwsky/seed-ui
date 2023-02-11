@@ -5,7 +5,7 @@
 ### Patch Changes
 
 - ad6dd9f: 
-  - Made label tag default in the Label component;
+  - Made label tag default in the Label component.
   - Updated Icon, IconButton, and Avatar components.
 
 ## 0.8.9
