@@ -4,6 +4,7 @@ import { vars } from '@seed-ui/styles';
 export const root = style({
   width: '1em',
   height: '1em',
+  verticalAlign: 'middle',
 });
 
 export const rootSize = styleVariants({

@@ -444,11 +444,11 @@ export const rootVariant = styleVariants({
 // override avatar styles
 globalStyle(`.${root}> *:not(i)`, {
   borderRadius: 'inherit !important',
-  fontSize: '0.875em !important',
+  fontSize: '0.85em !important',
 });
 
 // override icon styles
 globalStyle(`.${root} > i`, {
   color: 'currentColor !important',
-  fontSize: '0.625em !important',
+  fontSize: '0.63em !important',
 });
