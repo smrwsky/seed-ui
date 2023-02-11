@@ -43,7 +43,7 @@
   "author": "Sergey Murawsky",
   "license": "MIT",
   "peerDependencies": {
-    "@vanilla-extract/css": "^1.6.1",
+    "@vanilla-extract/css": "1.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -62,13 +62,14 @@
     "@types/jest": "^26.0.24",
     "@types/jest-axe": "^3.5.4",
     "@types/lodash": "^4.14.182",
+    "@types/prop-types": "^15.7.5",
     "@types/react-dom": "^18.0.3",
     "@types/react-modal": "^3.13.1",
     "@types/react-transition-group": "^4.4.4",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@vanilla-extract/babel-plugin": "^1.1.1",
-    "@vanilla-extract/css": "^1.6.1",
+    "@vanilla-extract/css": "1.6.1",
     "babel-jest": "^26.6.3",
     "babel-plugin-lodash": "^3.3.4",
     "cross-env": "^7.0.3",
@@ -89,6 +90,7 @@
     "jest-axe": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
+    "prop-types": "^15.8.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.5.6",
     "typescript": "4.2.2"
@@ -96,8 +98,8 @@
   "dependencies": {
     "@floating-ui/react-dom": "^1.0.1",
     "@react-hook/debounce": "^4.0.0",
-    "@seed-ui/icons": "^0.5.0",
     "@seed-ui/flexbox": "^0.1.0",
+    "@seed-ui/icons": "^0.5.0",
     "@seed-ui/layout": "^0.7.0",
     "@seed-ui/styles": "^0.8.0",
     "@vanilla-extract/dynamic": "^2.0.2",
