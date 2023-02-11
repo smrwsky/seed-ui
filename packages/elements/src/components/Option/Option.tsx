@@ -15,6 +15,7 @@ export interface OptionProps extends React.LiHTMLAttributes<HTMLLIElement> {
   disabled?: boolean;
   icon?: string;
   iconType?: IconType;
+  invalid?: boolean;
   selected?: boolean;
 }
 
@@ -27,6 +28,7 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
       description,
       icon,
       iconType,
+      invalid,
       selected,
       children,
       ...elementProps
@@ -36,7 +38,12 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
     <li
       aria-disabled={disabled}
       aria-selected={selected}
-      className={cx(S.root, selected && S.rootSelected, active && S.rootActive)}
+      className={cx(
+        S.root,
+        selected && S.rootSelected,
+        active && S.rootActive,
+        invalid && S.rootInvalid,
+      )}
       ref={ref}
       role="option"
       {...elementProps}

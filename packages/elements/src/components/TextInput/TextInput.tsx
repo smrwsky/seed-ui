@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { Icon, IconType } from '@seed-ui/icons';
 
-import { InputAction, InputContainer, Textbox } from '../InputGroup';
+import { InputAction, InputBox, TextBox } from '../InputGroup';
 
 export type TextInputSize = 'sm' | 'md' | 'lg';
 
@@ -70,7 +70,7 @@ const TextInput: FC<TextInputProps & RefAttributes<HTMLInputElement>> =
       );
 
       return (
-        <InputContainer
+        <InputBox
           disabled={disabled}
           focused={focused}
           invalid={invalid}
@@ -84,7 +84,7 @@ const TextInput: FC<TextInputProps & RefAttributes<HTMLInputElement>> =
             </InputAction>
           )}
 
-          <Textbox
+          <TextBox
             {...inputProps}
             disabled={disabled}
             onBlur={handleBlur}
@@ -94,7 +94,7 @@ const TextInput: FC<TextInputProps & RefAttributes<HTMLInputElement>> =
             size={inputSize}
             type="text"
           />
-        </InputContainer>
+        </InputBox>
       );
     },
   );

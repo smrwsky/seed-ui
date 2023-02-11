@@ -189,9 +189,7 @@ export const spacing = {
   3: '0.75rem', // 12px
   3.5: '0.875rem', // 14px
   4: '1rem', // 16px
-  4.5: '1.125rem', // 18px
   5: '1.25rem', // 20px
-  5.5: '1.375rem', // 22px
   6: '1.5rem', // 24px
   7: '1.75rem', // 28px
   8: '2rem', // 32px

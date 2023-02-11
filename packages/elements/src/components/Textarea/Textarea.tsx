@@ -8,7 +8,7 @@ import React, {
 import cn from 'classnames';
 
 import { textboxStyle } from '../../styles';
-import { InputContainer } from '../InputGroup';
+import { InputBox } from '../InputGroup';
 
 import * as S from './Textarea.css';
 
@@ -63,7 +63,7 @@ const Textarea: FC<TextareaProps & RefAttributes<HTMLTextAreaElement>> =
       };
 
       return (
-        <InputContainer
+        <InputBox
           disabled={disabled}
           focused={focused}
           invalid={invalid}
@@ -81,7 +81,7 @@ const Textarea: FC<TextareaProps & RefAttributes<HTMLTextAreaElement>> =
             ref={ref}
             {...inputProps}
           />
-        </InputContainer>
+        </InputBox>
       );
     },
   );

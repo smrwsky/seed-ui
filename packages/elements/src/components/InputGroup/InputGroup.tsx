@@ -1,33 +1,21 @@
-import React, { ElementType, forwardRef } from 'react';
+import React from 'react';
 import cn from 'classnames';
 
 import * as S from './InputGroup.css';
 
 export type InputGroupDirection = 'row' | 'column';
 
-export interface InputGroupProps
-  extends React.LabelHTMLAttributes<HTMLElement>,
-    React.RefAttributes<HTMLElement> {
-  as?: ElementType;
+export interface InputGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   direction?: InputGroupDirection;
 }
 
-const InputGroup = forwardRef<HTMLElement, InputGroupProps>(
-  (
-    {
-      as: Element = 'label',
-      direction = 'column',
-      className,
-      children,
-      ...props
-    },
-    ref,
-  ) => (
-    <Element className={className} ref={ref} {...props}>
+const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
+  ({ direction = 'column', className, children, ...props }, ref) => (
+    <div className={className} ref={ref} {...props}>
       <div className={cn(S.grid, S.gridDirection[direction], className)}>
         {children}
       </div>
-    </Element>
+    </div>
   ),
 );
 

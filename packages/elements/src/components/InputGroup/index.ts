@@ -1,8 +1,8 @@
 export * from './InputAction';
 export { default as InputAction } from './InputAction';
 
-export * from './InputContainer';
-export { default as InputContainer } from './InputContainer';
+export * from './InputBox';
+export { default as InputBox } from './InputBox';
 
 export * from './InputError';
 export { default as InputError } from './InputError';
@@ -19,8 +19,8 @@ export { default as InputTags } from './InputTags';
 export * from './Label';
 export { default as Label } from './Label';
 
-export * from './Textbox';
-export { default as Textbox } from './Textbox';
+export * from './TextBox';
+export { default as TextBox } from './TextBox';
 
 export * from './InputGroup';
 export { default } from './InputGroup';

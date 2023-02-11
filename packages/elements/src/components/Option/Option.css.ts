@@ -41,3 +41,8 @@ export const rootSelected = style({
 export const rootActive = style({
   background: vars.color.dark100,
 });
+
+export const rootInvalid = style({
+  ...vars.typography.textMd.secondary,
+  color: vars.color.danger500,
+});

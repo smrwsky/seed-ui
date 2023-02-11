@@ -8,7 +8,7 @@ import React, {
 import cn from 'classnames';
 import { Icon, IconType } from '@seed-ui/icons';
 
-import { InputAction, InputContainer } from '../InputGroup';
+import { InputAction, InputBox } from '../InputGroup';
 import { textboxStyle } from '../../styles';
 
 import * as S from './Select.css';
@@ -111,7 +111,7 @@ const Select: React.FC<SelectProps> = forwardRef(
     }
 
     return (
-      <InputContainer
+      <InputBox
         className={S.container}
         disabled={disabled}
         focused={focused}
@@ -146,7 +146,7 @@ const Select: React.FC<SelectProps> = forwardRef(
             <Icon name="chevron-down" size="sm" />
           </InputAction>
         )}
-      </InputContainer>
+      </InputBox>
     );
   },
 );

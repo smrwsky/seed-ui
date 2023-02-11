@@ -1,36 +1,35 @@
 import React from 'react';
 import cn from 'classnames';
 
-import * as S from './InputContainer.css';
+import * as S from './InputBox.css';
 
-export type InputContainerSize = 'sm' | 'md' | 'lg';
+export type InputBoxSize = 'sm' | 'md' | 'lg';
 
-export interface InputContainerProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface InputBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
   disabled?: boolean;
   focused?: boolean;
   invalid?: boolean;
   readOnly?: boolean;
   rounded?: boolean;
-  size?: InputContainerSize;
+  size?: InputBoxSize;
 }
 
-function InputContainer(
-  {
-    rounded,
-    size = 'md',
-    disabled,
-    focused,
-    invalid,
-    readOnly,
-    className,
-    children,
-    ...elementProps
-  }: InputContainerProps,
-  ref: React.Ref<HTMLDivElement>,
-): JSX.Element {
-  return (
+const InputBox = React.forwardRef<HTMLDivElement, InputBoxProps>(
+  (
+    {
+      rounded,
+      size = 'md',
+      disabled,
+      focused,
+      invalid,
+      readOnly,
+      className,
+      children,
+      ...elementProps
+    },
+    ref,
+  ) => (
     <div
       className={cn(
         S.root,
@@ -50,7 +49,9 @@ function InputContainer(
     >
       {children}
     </div>
-  );
-}
+  ),
+);
 
-export default React.forwardRef(InputContainer);
+InputBox.displayName = 'InputBox';
+
+export default InputBox;

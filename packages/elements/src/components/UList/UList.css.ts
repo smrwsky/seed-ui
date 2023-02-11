@@ -128,6 +128,6 @@ globalStyle(`.${root({ type: 'disc' }).split(' ')[1]} > li:before`, {
 });
 
 globalStyle(`.${root({ type: 'dash' }).split(' ')[1]} > li:before`, {
-  content: '\\2022',
+  content: '\\2014',
   ...marker(),
 });
