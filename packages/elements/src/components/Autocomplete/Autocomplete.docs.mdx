@@ -1,42 +1,92 @@
-import { Props, Story } from '../../../../../.storybook/components';
+import { Description, DocsStory, ArgsTable } from '@storybook/addon-docs';
 
 # Autocomplete
 
-Autocomplete is a web component that provides suggestions for completing a
-user's input based on a pre-defined list of options. It is often implemented as
-part of a [combobox pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox),
-in which a text input field is paired with a dropdown menu of suggestions. This
-pattern is defined by the W3C as a "combination of a drop-down list and an
-editable text box," allowing for both free-form input and pre-defined options.
+A component that provides suggestions to the user as they
+type.
 
-<Story id="inputs-autocomplete--base" />
+## When to use
 
-### Component states
+- Large set of possible values: Autocomplete can help reduce
+the number of options that users need to sift through, making it easier for them
+to find what they're looking for.
 
-#### Invalid
-<Story id="inputs-autocomplete--invalid" />
+- Enforcing Consistency: Autocomplete can enforce consistency
+by presenting only valid options to the user, helping to prevent spelling errors
+or other mistakes.
 
-#### Disabled
-<Story id="inputs-autocomplete--disabled" />
+- Saving time: Autocomplete can save users time by reducing
+the amount of typing they need to do and by providing suggestions that are
+relevant to what they're looking for.
 
-#### Read Only
-<Story id="inputs-autocomplete--read-only" />
+- Complex data entry: Autocomplete can be useful for complex data entry,
+such as entering addresses or product names, where a pre-defined list
+of options can simplify the process for the user.
 
-### Component variations
+## Examples
 
-#### Sizes
-<Story id="inputs-autocomplete--sizes" />
+### Basic
 
-#### Rounded
-<Story id="inputs-autocomplete--rounded" />
+<DocsStory id="inputs-autocomplete--basic" />
 
 ### Multiple
 
-Use `multiple` property to allow multiple values. User will see tags with
-selected values if they exist.
+Set `multiple` to `true` to allow multiple values. User will see tags
+with values that were selected.
 
-<Story id="inputs-autocomplete--multiple" />
+<DocsStory id="inputs-autocomplete--multiple" />
 
-## API
-<Props />
+### Invalid
+
+Set `invalid` to `true` to indicate an error or an issue with the
+input value. If value is `thue`, then a clear error feedback should be provided
+using ErrorMessage component.
+
+<DocsStory id="inputs-autocomplete--invalid" />
+
+### Sizes
+
+Use `size` property to specify the size of input box. Available values: `sm`,
+`md`, `lg`.
+
+<DocsStory id="inputs-autocomplete--sizes" />
+
+### Rounded
+
+Set `rounded` to `true` to use input box with rounded corners.
+
+<DocsStory id="inputs-autocomplete--rounded" />
+
+## Guidelines
+
+- When no suggestions are available because of an error, provide clear error
+feedback using `loadingError` property.
+
+- Use Label component for providing a label that accurately describes
+the purpose of the input. Label component should be associated
+with the Autocomplete component using the "htmlFor" and "id" properties.
+
+- Use ErrorMessage component for providing error feedback to indicate
+that the input value is invalid or required.
+
+- Provide placeholder text that contains a brief description of what the input
+field is for and what type of information is expected using `placeholder`
+property.
+
+- If necessary, add help text that provides additional information or guidance
+using InputMessage component.
+
+- Use localized values for text that is accessible for the user or screen
+readers. Use these properties to provide custom labels: `clearLabel`,
+`loadingLabel`, and `noResultLabel`.
+
+## Accessibility
+
+Autocomplete is implemented as part of a [combobox pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox)
+defined in WAI ARIA Practices.
+
+## Component API
+
+<ArgsTable />
+
 

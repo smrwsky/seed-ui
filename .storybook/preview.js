@@ -26,23 +26,21 @@ const components = {
   ),
   h1: (p) => <Title {...p} as="h1" size="md" className={atoms({ mb: 3 })} />,
   h2: (p) => (
-    <Title {...p} as="h2" size="sm" className={atoms({ mb: 4, mt: 12 })} />
+    <Title {...p} as="h2" size="xs" className={atoms({ mb: 4, mt: 12 })} />
   ),
-  h3: (p) => (
-    <Title {...p} as="h3" size="xs" className={atoms({ mb: 3, mt: 8 })} />
-  ),
+  h3: (p) => <Subtitle {...p} as="h3" className={atoms({ mb: 3, mt: 6 })} />,
   h4: (p) => (
-    <Subtitle {...p} as="h4"  className={atoms({ mb: 2, mt: 6 })} />
+    <Subtitle {...p} as="h4" size="sm" className={atoms({ mb: 2, mt: 3 })} />
   ),
-  h5: (p) => <Subtitle {...p} as="h5" size="sm" className={atoms({ mb: 1, mt: 3 })} />,
+  h5: (p) => <Text {...p} as="h5" bold className={atoms({ mb: 1, mt: 3 })} />,
   h6: (p) => (
-    <Text {...p} as="h6" bold className={atoms({ mb: 1, mt: 3 })} />
+    <Text {...p} as="h6" bold size="sm" className={atoms({ mb: 1, mt: 3 })} />
   ),
-  p: (p) => <Text {...p}  className={atoms({ mb: 3 })} />,
-  li: (p) => <ListItem {...p}  />,
+  p: (p) => <Text {...p} className={atoms({ mb: 3 })} />,
+  li: (p) => <ListItem {...p} />,
   strong: (p) => <Strong {...p} />,
-  ul: (p) => <UList {...p}  gutter={2} className={atoms({ mb: 3 })} />,
-  ol: (p) => <OList {...p}  gutter={2} className={atoms({ mb: 3 })} />,
+  ul: (p) => <UList {...p} gutter={2} className={atoms({ mb: 3 })} />,
+  ol: (p) => <OList {...p} gutter={2} className={atoms({ mb: 3 })} />,
   a: (p) => <Link {...p} />,
 };
 

@@ -14,7 +14,7 @@ module.exports = {
     previewCsfV3: true,
   },
   framework: '@storybook/react',
-  staticDirs: ['../public'],
+  staticDirs: ['./public'],
   stories: ['../packages/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
   webpack: (config) => {
     config.plugins.push(new VanillaExtractPlugin());
