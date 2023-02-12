@@ -24,100 +24,57 @@ export default {
   },
 };
 
-export function Base(args: AutocompleteProps): JSX.Element {
-  return (
-    <Flex flexDirection="column" minHeight={56}>
-      <div>
-        <Autocomplete
-          {...args}
-          id="autocomplete-base"
-          options={SELECT_OPTIONS}
-        />
-      </div>
-    </Flex>
-  );
-}
+export const Basic: React.FC<AutocompleteProps> = (args) => (
+  <Box minHeight={64}>
+    <Autocomplete {...args} id="autocomplete-base" options={SELECT_OPTIONS} />
+  </Box>
+);
 
-export function Invalid(args: AutocompleteProps): JSX.Element {
-  return (
-    <Flex flexDirection="column" minHeight={56}>
-      <div>
-        <Autocomplete
-          {...args}
-          id="autocomplete-invalid"
-          invalid
-          options={SELECT_OPTIONS}
-        />
-      </div>
-    </Flex>
-  );
-}
-
-export function Disabled(args: AutocompleteProps): JSX.Element {
-  return (
+export const Multiple: React.FC<AutocompleteProps> = (args) => (
+  <Box minHeight={64}>
     <Autocomplete
       {...args}
-      disabled
-      id="autocomplete-disabled"
+      defaultValue={['Peter', 'Chris', 'Stewie']}
+      id="autocomplete-multiple"
+      multiple
       options={SELECT_OPTIONS}
-      value={SELECT_OPTIONS[0]}
     />
-  );
-}
+  </Box>
+);
 
-export function ReadOnly(args: AutocompleteProps): JSX.Element {
-  return (
+export const Invalid: React.FC<AutocompleteProps> = (args) => (
+  <Box minHeight={64}>
     <Autocomplete
       {...args}
-      id="autocomplete-readonly"
+      id="autocomplete-invalid"
+      invalid
       options={SELECT_OPTIONS}
-      readOnly
-      value={SELECT_OPTIONS[1]}
     />
-  );
-}
+  </Box>
+);
 
-export function Sizes(args: AutocompleteProps): JSX.Element {
-  return (
-    <Flex flexDirection="column" minHeight={96}>
-      {SIZE_OPTIONS.map((size, i) => (
-        <Box key={i} mt={i && 4}>
-          <Autocomplete
-            {...args}
-            id={`autocomplete-sizes-${size}`}
-            options={SELECT_OPTIONS}
-            size={size}
-          />{' '}
-        </Box>
-      ))}
-    </Flex>
-  );
-}
-
-export function Rounded(args: AutocompleteProps): JSX.Element {
-  return (
-    <Flex flexDirection="column" minHeight={56}>
-      <div>
+export const Sizes: React.FC<AutocompleteProps> = (args) => (
+  <Flex flexDirection="column" minHeight={96}>
+    {SIZE_OPTIONS.map((size, i) => (
+      <Box key={i} mt={i && 4}>
         <Autocomplete
           {...args}
-          id={`autocomplete-rounded`}
+          id={`autocomplete-sizes-${size}`}
           options={SELECT_OPTIONS}
-          rounded
+          size={size}
         />
-      </div>
-    </Flex>
-  );
-}
+      </Box>
+    ))}
+  </Flex>
+);
 
-export function Multiple(args: AutocompleteProps): JSX.Element {
-  return (
-    <Flex flexDirection="column" minHeight={56}>
-      <Autocomplete
-        {...args}
-        id="autocomplete-multiple"
-        multiple
-        options={SELECT_OPTIONS}
-      />
-    </Flex>
-  );
-}
+export const Rounded: React.FC<AutocompleteProps> = (args) => (
+  <Box minHeight={64}>
+    <Autocomplete
+      {...args}
+      id={`autocomplete-rounded`}
+      options={SELECT_OPTIONS}
+      rounded
+    />
+  </Box>
+);
