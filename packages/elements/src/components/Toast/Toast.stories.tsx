@@ -1,10 +1,9 @@
-import React from 'react';
 import { atoms } from '@seed-ui/styles';
 
-import Link from '../Link';
+import { Link } from '../Link';
 
-import docs from './Toast.docs.mdx';
 import Toast, { ToastProps } from './Toast';
+import docs from './Toast.docs.mdx';
 
 const variants: ToastProps['variant'][] = [
   'info',

@@ -1,23 +1,28 @@
-import React from 'react';
 import cn from 'classnames';
+import {
+  FC,
+  forwardRef,
+  HTMLAttributes,
+  RefAttributes,
+  useContext,
+} from 'react';
 
-import MenuContext from '../context';
+import { MenuContext } from '../context';
 
 import * as S from './MenuAction.css';
 
-export type MenuActionProps = React.HTMLAttributes<HTMLSpanElement>;
+export type MenuActionProps = HTMLAttributes<HTMLSpanElement>;
 
-const MenuAction: React.FC<
-  MenuActionProps & React.RefAttributes<HTMLSpanElement>
-> = React.forwardRef(({ children, className, ...props }, ref) => {
-  const { collapsed } = React.useContext(MenuContext);
+const MenuAction: FC<MenuActionProps & RefAttributes<HTMLSpanElement>> =
+  forwardRef(({ children, className, ...props }, ref) => {
+    const { collapsed } = useContext(MenuContext);
 
-  return !collapsed ? (
-    <span className={cn(S.root, className)} ref={ref} {...props}>
-      {children}
-    </span>
-  ) : null;
-});
+    return !collapsed ? (
+      <span className={cn(S.root, className)} ref={ref} {...props}>
+        {children}
+      </span>
+    ) : null;
+  });
 
 MenuAction.displayName = 'MenuAction';
 

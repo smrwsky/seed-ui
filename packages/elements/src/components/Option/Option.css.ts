@@ -1,5 +1,5 @@
-import { style } from '@vanilla-extract/css';
 import { spacing, vars } from '@seed-ui/styles';
+import { style } from '@vanilla-extract/css';
 
 /**
  *  Root style

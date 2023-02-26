@@ -1,10 +1,9 @@
-import React from 'react';
 import { atoms } from '@seed-ui/styles';
 
-import Link from '../Link';
+import { Link } from '../Link';
 
-import docs from './Alert.docs.mdx';
 import Alert, { AlertProps } from './Alert';
+import docs from './Alert.docs.mdx';
 
 const variants: AlertProps['variant'][] = [
   'info',

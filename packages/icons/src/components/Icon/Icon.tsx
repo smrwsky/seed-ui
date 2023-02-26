@@ -1,5 +1,5 @@
-import React, { HTMLAttributes } from 'react';
 import cn from 'classnames';
+import { HTMLAttributes } from 'react';
 
 import * as S from './Icon.css';
 

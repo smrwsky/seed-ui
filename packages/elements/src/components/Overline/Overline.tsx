@@ -1,11 +1,17 @@
-import React from 'react';
-import cn from 'classnames';
 import {
   atoms,
   Atoms,
   textBreakStyle,
   textTruncateStyle,
 } from '@seed-ui/styles';
+import cn from 'classnames';
+import {
+  ElementType,
+  FC,
+  forwardRef,
+  HTMLAttributes,
+  RefAttributes,
+} from 'react';
 
 import * as S from './Overline.css';
 
@@ -21,8 +27,8 @@ export type OverlineVariant =
   | 'dark'
   | 'default';
 
-export interface OverlineProps extends React.HTMLAttributes<HTMLElement> {
-  as?: React.ElementType;
+export interface OverlineProps extends HTMLAttributes<HTMLElement> {
+  as?: ElementType;
   breakWord?: boolean;
   textAlign?: Atoms['textAlign'];
   textOverflow?: Atoms['textOverflow'];
@@ -31,38 +37,37 @@ export interface OverlineProps extends React.HTMLAttributes<HTMLElement> {
   whiteSpace?: Atoms['whiteSpace'];
 }
 
-const Overline: React.FC<OverlineProps & React.RefAttributes<HTMLElement>> =
-  React.forwardRef(
-    (
-      {
-        as: As = 'div',
-        breakWord,
+const Overline: FC<OverlineProps & RefAttributes<HTMLElement>> = forwardRef(
+  (
+    {
+      as: As = 'div',
+      breakWord,
+      className,
+      textAlign,
+      textOverflow,
+      truncate,
+      variant = 'default',
+      whiteSpace,
+      children,
+      ...elemProps
+    },
+    ref,
+  ) => (
+    <As
+      className={cn(
+        S.root({ variant }),
+        breakWord && textBreakStyle,
+        truncate && textTruncateStyle,
+        atoms({ textAlign, textOverflow, whiteSpace }),
         className,
-        textAlign,
-        textOverflow,
-        truncate,
-        variant = 'default',
-        whiteSpace,
-        children,
-        ...elemProps
-      },
-      ref,
-    ) => (
-      <As
-        className={cn(
-          S.root({ variant }),
-          breakWord && textBreakStyle,
-          truncate && textTruncateStyle,
-          atoms({ textAlign, textOverflow, whiteSpace }),
-          className,
-        )}
-        ref={ref}
-        {...elemProps}
-      >
-        {children}
-      </As>
-    ),
-  );
+      )}
+      ref={ref}
+      {...elemProps}
+    >
+      {children}
+    </As>
+  ),
+);
 
 Overline.displayName = 'Overline';
 

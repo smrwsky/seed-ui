@@ -1,4 +1,3 @@
-import React from 'react';
 import { Story as StoryBlock, Canvas } from '@storybook/addon-docs/blocks';
 
 const Story = ({ withToolbar = true, ...props }) => (
@@ -7,4 +6,4 @@ const Story = ({ withToolbar = true, ...props }) => (
   </Canvas>
 );
 
-export default Story
+export default Story;

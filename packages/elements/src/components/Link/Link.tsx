@@ -1,5 +1,14 @@
-import React, { FC, forwardRef, memo, RefAttributes } from 'react';
 import cn from 'classnames';
+import {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ElementType,
+  FC,
+  forwardRef,
+  memo,
+  Ref,
+  RefAttributes,
+} from 'react';
 
 import * as S from './Link.css';
 
@@ -16,9 +25,9 @@ export type LinkVariant =
   | 'default';
 
 export interface LinkProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
-    React.AnchorHTMLAttributes<HTMLElement> {
-  as?: React.ElementType;
+  extends Omit<ButtonHTMLAttributes<HTMLElement>, 'type'>,
+    AnchorHTMLAttributes<HTMLElement> {
+  as?: ElementType;
   bold?: boolean;
   variant?: LinkVariant;
 }
@@ -33,7 +42,7 @@ const Link: FC<LinkProps & RefAttributes<HTMLElement>> = forwardRef(
       children,
       ...elemProps
     }: LinkProps,
-    ref: React.Ref<HTMLElement>,
+    ref: Ref<HTMLElement>,
   ) => (
     <As
       className={cn(S.root({ bold, variant }), className)}

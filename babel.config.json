@@ -1,9 +1,14 @@
 {
-  "presets": [["@babel/preset-env", { "loose": true }], "@babel/preset-react"],
-  "plugins": [
-    ["@babel/plugin-proposal-class-properties", { "loose": true }],
-    "@vanilla-extract/babel-plugin"
+  "presets": [
+    ["@babel/preset-env", { "loose": true }],
+    [
+      "@babel/preset-react",
+      {
+        "runtime": "automatic"
+      }
+    ]
   ],
+  "plugins": ["@vanilla-extract/babel-plugin"],
   "env": {
     "test": {
       "presets": [
@@ -16,8 +21,7 @@
             }
           }
         ]
-      ],
-      "plugins": ["dynamic-import-node"]
+      ]
     }
   }
 }

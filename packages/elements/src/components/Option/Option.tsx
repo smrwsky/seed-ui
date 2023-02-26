@@ -1,14 +1,14 @@
-import React, { ComponentType, forwardRef, memo } from 'react';
-import cx from 'classnames';
 import { IconType } from '@seed-ui/icons';
+import cx from 'classnames';
+import { ComponentType, forwardRef, LiHTMLAttributes, memo } from 'react';
 
-import OptionLabel from './OptionLabel';
-import OptionIcon from './OptionIcon';
-import OptionDescription from './OptionDescription';
-import OptionAction from './OptionAction';
 import * as S from './Option.css';
+import { OptionAction } from './OptionAction';
+import { OptionDescription } from './OptionDescription';
+import { OptionIcon } from './OptionIcon';
+import { OptionLabel } from './OptionLabel';
 
-export interface OptionProps extends React.LiHTMLAttributes<HTMLLIElement> {
+export interface OptionProps extends LiHTMLAttributes<HTMLLIElement> {
   ActionComponent?: ComponentType;
   active?: boolean;
   description?: string;

@@ -1,12 +1,7 @@
 import cn from 'classnames';
-import React, {
-  forwardRef,
-  HTMLAttributes,
-  ReactNode,
-  useContext,
-} from 'react';
+import { forwardRef, HTMLAttributes, ReactNode, useContext } from 'react';
 
-import MenuContext from '../context';
+import { MenuContext } from '../context';
 
 import * as S from './MenuList.css';
 

@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import { ReactNode, useContext } from 'react';
 
-import ModalContext from '../context';
+import { ModalContext } from '../context';
 
 import * as S from './ModalBody.css';
 
 export type ModalBodyProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 function ModalBody({ children }: ModalBodyProps): JSX.Element {

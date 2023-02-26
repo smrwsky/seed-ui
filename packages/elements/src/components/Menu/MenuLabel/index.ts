@@ -1,2 +1,2 @@
 export * from './MenuLabel';
-export { default } from './MenuLabel';
+export { default as MenuLabel } from './MenuLabel';

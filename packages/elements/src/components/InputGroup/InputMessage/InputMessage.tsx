@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import { FC, memo } from 'react';
 
-import Text, { TextVariant } from '../../Text';
+import { Text, TextVariant } from '../../Text';
 
 import * as S from './InputMessage.css';
 
@@ -9,7 +9,7 @@ export interface InputMessageProps {
   children?: string;
 }
 
-const InputMessage: React.FC<InputMessageProps> = ({
+const InputMessage: FC<InputMessageProps> = ({
   variant = 'secondary',
   children,
 }) => (

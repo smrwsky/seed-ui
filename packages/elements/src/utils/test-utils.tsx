@@ -1,10 +1,4 @@
-import React, {
-  FunctionComponent,
-  ReactElement,
-  PropsWithChildren,
-} from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import { configureAxe } from 'jest-axe';
+import { ThemeProvider } from '@seed-ui/styles';
 import {
   act,
   fireEvent,
@@ -15,9 +9,10 @@ import {
 } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
-import { ThemeProvider } from '@seed-ui/styles';
+import { configureAxe } from 'jest-axe';
+import { FunctionComponent, ReactElement, PropsWithChildren } from 'react';
 
-export { act, fireEvent, renderHook, userEvent, waitFor };
+import '@testing-library/jest-dom/extend-expect';
 
 export type RenderFn<T = unknown> = (
   component: ReactElement,
@@ -39,3 +34,5 @@ export const axe = configureAxe({
     region: { enabled: false },
   },
 });
+
+export { act, fireEvent, renderHook, userEvent, waitFor };

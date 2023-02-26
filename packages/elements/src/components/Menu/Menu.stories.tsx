@@ -1,16 +1,16 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import { Icon } from '@seed-ui/icons';
 import { atoms } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
-import { Icon } from '@seed-ui/icons';
+import { Fragment, useCallback, useState } from 'react';
 
-import Title from '../Title';
-import IconButton from '../IconButton';
+import { IconButton } from '../IconButton';
+import { Title } from '../Title';
 
-import MenuItem from './MenuItem';
-import SubMenu from './SubMenu';
 import Menu, { MenuProps } from './Menu';
 import docs from './Menu.docs.mdx';
-import PopupMenu from './PopupMenu';
+import { MenuItem } from './MenuItem';
+import { PopupMenu } from './PopupMenu';
+import { SubMenu } from './SubMenu';
 
 const types: MenuProps['type'][] = ['horizontal', 'inline', 'vertical'];
 

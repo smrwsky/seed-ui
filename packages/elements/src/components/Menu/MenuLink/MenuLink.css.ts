@@ -1,5 +1,5 @@
-import { createVar, globalStyle } from '@vanilla-extract/css';
 import { spacing, vars } from '@seed-ui/styles';
+import { createVar, globalStyle } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
 /**

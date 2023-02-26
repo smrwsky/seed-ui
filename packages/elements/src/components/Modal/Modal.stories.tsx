@@ -1,11 +1,11 @@
-import React from 'react';
 import { Box, Flex } from '@seed-ui/flexbox';
+import { useState } from 'react';
 
-import Button from '../Button';
-import Subtitle from '../Subtitle';
+import { Button } from '../Button';
+import { Subtitle } from '../Subtitle';
 
-import docs from './Modal.docs.mdx';
 import Modal, { ModalProps } from './Modal';
+import docs from './Modal.docs.mdx';
 import { ModalSize } from './context';
 
 export default {
@@ -17,7 +17,7 @@ export default {
 };
 
 export function Base(args: ModalProps): JSX.Element {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -49,8 +49,8 @@ export function Base(args: ModalProps): JSX.Element {
 }
 
 export function Sizes(args: ModalProps): JSX.Element {
-  const [open, setOpen] = React.useState(false);
-  const [modalSize, setModalSize] = React.useState<ModalSize>('md');
+  const [open, setOpen] = useState(false);
+  const [modalSize, setModalSize] = useState<ModalSize>('md');
 
   function handleOpenSmallModal() {
     setOpen(true);

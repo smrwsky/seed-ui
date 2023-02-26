@@ -1,7 +1,7 @@
+import { FC } from 'react';
+
 import { stub } from './GlobalStyle.css';
 
-function GlobalStyle(): null {
-  return stub;
-}
+const GlobalStyle: FC = () => stub;
 
 export default GlobalStyle;

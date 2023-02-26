@@ -1,11 +1,13 @@
-import React, {
+import cn from 'classnames';
+import {
   FC,
+  FocusEvent,
   forwardRef,
   memo,
   RefAttributes,
   TextareaHTMLAttributes,
+  useState,
 } from 'react';
-import cn from 'classnames';
 
 import { textboxStyle } from '../../styles';
 import { InputBox } from '../InputGroup';
@@ -37,14 +39,13 @@ const Textarea: FC<TextareaProps & RefAttributes<HTMLTextAreaElement>> =
         id,
         onFocus,
         onBlur,
-        onKeyPress,
         ...inputProps
       },
       ref,
     ) => {
-      const [focused, setFocused] = React.useState(false);
+      const [focused, setFocused] = useState(false);
 
-      const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>): void => {
+      const handleFocus = (e: FocusEvent<HTMLTextAreaElement>): void => {
         setFocused(true);
 
         if (onFocus) {
@@ -53,7 +54,7 @@ const Textarea: FC<TextareaProps & RefAttributes<HTMLTextAreaElement>> =
         }
       };
 
-      const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>): void => {
+      const handleBlur = (e: FocusEvent<HTMLTextAreaElement>): void => {
         setFocused(false);
 
         if (onBlur) {

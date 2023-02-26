@@ -1,2 +1,2 @@
 export * from './OptionAction';
-export { default } from './OptionAction';
+export { default as OptionAction } from './OptionAction';

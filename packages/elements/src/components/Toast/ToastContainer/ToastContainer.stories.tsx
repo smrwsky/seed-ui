@@ -1,14 +1,14 @@
-import React from 'react';
-import { capitalize } from 'lodash';
-import { atoms } from '@seed-ui/styles';
 import { Box, Flex } from '@seed-ui/flexbox';
+import { atoms } from '@seed-ui/styles';
+import { capitalize } from 'lodash';
+import { MouseEvent, useState } from 'react';
 
-import Link from '../../Link';
-import Toast from '../index';
-import Button from '../../Button';
+import { Button } from '../../Button';
+import { Link } from '../../Link';
+import { Toast } from '../index';
 
-import docs from './ToastContainer.docs.mdx';
 import ToastContainer, { ToastContainerProps } from './ToastContainer';
+import docs from './ToastContainer.docs.mdx';
 
 const placements = [
   'top-left',
@@ -45,9 +45,9 @@ export function Base(args: ToastContainerProps): JSX.Element {
 
 export function Placement(args: ToastContainerProps): JSX.Element {
   const [placement, setPlacement] =
-    React.useState<ToastContainerProps['placement']>('top-right');
+    useState<ToastContainerProps['placement']>('top-right');
 
-  function handleChangePosition(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleChangePosition(e: MouseEvent<HTMLButtonElement>) {
     setPlacement(e.currentTarget.value as ToastContainerProps['placement']);
   }
 

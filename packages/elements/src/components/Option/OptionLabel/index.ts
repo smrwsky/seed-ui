@@ -1,2 +1,2 @@
 export * from './OptionLabel';
-export { default } from './OptionLabel';
+export { default as OptionLabel } from './OptionLabel';

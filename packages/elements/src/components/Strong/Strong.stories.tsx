@@ -1,15 +1,14 @@
-import React from 'react';
 import { atoms } from '@seed-ui/styles';
 
-import Text from '../Text';
+import { Text } from '../Text';
 
 import Strong, { StrongProps, StrongVariant } from './Strong';
 import docs from './Strong.docs.mdx';
 
 const variants: StrongVariant[] = [
   'primary',
-  'accent',
   'secondary',
+  'tertiary',
   'info',
   'success',
   'warning',

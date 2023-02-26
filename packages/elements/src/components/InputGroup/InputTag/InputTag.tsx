@@ -1,9 +1,9 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
 import * as S from './InputTag.css';
 
 export type InputTagProps = {
-  children?: React.ReactNode;
+  children?: ReactNode;
 };
 
 function InputTag({ children }: InputTagProps): JSX.Element {

@@ -1,2 +1,2 @@
 export * from './MenuAction';
-export { default } from './MenuAction';
+export { default as MenuAction } from './MenuAction';

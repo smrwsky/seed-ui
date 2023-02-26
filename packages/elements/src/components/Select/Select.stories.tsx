@@ -1,8 +1,7 @@
-import React from 'react';
 import { Box, Flex } from '@seed-ui/flexbox';
 
-import docs from './Select.docs.mdx';
 import Select, { SelectProps, SelectSize } from './Select';
+import docs from './Select.docs.mdx';
 
 const SIZE_OPTIONS: SelectSize[] = ['sm', 'md', 'lg'];
 

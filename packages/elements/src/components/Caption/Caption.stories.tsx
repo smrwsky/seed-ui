@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Caption, { CaptionProps, CaptionVariant } from './Caption';
 import docs from './Caption.docs.mdx';
 

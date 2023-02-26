@@ -1,5 +1,5 @@
-import React, { forwardRef, InputHTMLAttributes, memo } from 'react';
 import cn from 'classnames';
+import { forwardRef, InputHTMLAttributes, memo } from 'react';
 
 import { textboxStyle } from '../../../styles';
 

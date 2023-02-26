@@ -1,12 +1,9 @@
-import React from 'react';
 import { capitalize } from 'lodash';
 
-import { TitleProps } from '../Title';
 import { StrongProps } from '../Strong';
-import Subtitle, { SubtitleProps } from '../Subtitle';
 
-import docs from './Text.docs.mdx';
 import Text, { TextFontFamily, TextProps, TextSize, TextVariant } from './Text';
+import docs from './Text.docs.mdx';
 
 const fontFamilies: TextFontFamily[] = ['primary', 'secondary'];
 

@@ -1,7 +1,7 @@
-import React, { FC, memo } from 'react';
+import { FC, memo } from 'react';
 
-import MenuLink, { MenuLinkProps } from '../MenuLink';
-import MenuListItem from '../MenuListItem';
+import { MenuLink, MenuLinkProps } from '../MenuLink';
+import { MenuListItem } from '../MenuListItem';
 
 export type MenuItemProps = MenuLinkProps;
 

@@ -1,8 +1,8 @@
-import React from 'react';
+import { Icon, IconType } from '@seed-ui/icons';
 import { atoms, Atoms } from '@seed-ui/styles';
 import cn from 'classnames';
 import { startCase } from 'lodash';
-import { Icon, IconType } from '@seed-ui/icons';
+import { cloneElement, FC, ReactElement } from 'react';
 
 import * as S from './Avatar.css';
 
@@ -10,7 +10,7 @@ export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface AvatarProps {
   backgroundColor?: Atoms['backgroundColor'];
-  children?: React.ReactElement;
+  children?: ReactElement;
   className?: string;
   icon?: string;
   iconType?: IconType;
@@ -26,7 +26,7 @@ const formatText = (str: string): string =>
     .map((w) => w[0])
     .join('');
 
-const Avatar: React.FC<AvatarProps> = ({
+const Avatar: FC<AvatarProps> = ({
   backgroundColor = 'secondary500',
   icon,
   iconType,
@@ -52,7 +52,7 @@ const Avatar: React.FC<AvatarProps> = ({
     )}
 
     {children &&
-      React.cloneElement(children, {
+      cloneElement(children, {
         className: cn(S.image, children.props.className),
       })}
   </div>

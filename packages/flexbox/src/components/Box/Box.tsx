@@ -1,6 +1,12 @@
-import React, { ElementType } from 'react';
-import cn from 'classnames';
 import { atoms, Atoms } from '@seed-ui/styles';
+import cn from 'classnames';
+import {
+  ElementType,
+  FC,
+  forwardRef,
+  HTMLAttributes,
+  RefAttributes,
+} from 'react';
 
 export interface BoxProps
   extends Partial<
@@ -36,12 +42,12 @@ export interface BoxProps
         | 'overflowY'
       >
     >,
-    React.HTMLAttributes<HTMLElement>,
-    React.RefAttributes<HTMLElement> {
+    HTMLAttributes<HTMLElement>,
+    RefAttributes<HTMLElement> {
   as?: ElementType;
 }
 
-const Box: React.FC<BoxProps> = React.forwardRef(
+const Box: FC<BoxProps> = forwardRef(
   (
     {
       as: Element = 'div',

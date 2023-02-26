@@ -1,13 +1,12 @@
-import React, { Fragment } from 'react';
+import { Icon } from '@seed-ui/icons';
 import { atoms } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
-import { Icon } from '@seed-ui/icons';
+import { Fragment } from 'react';
 
-import ListItem from '../ListItem';
-import Title from '../Title';
-import Marker from '../Marker';
+import { ListItem } from '../ListItem';
+import { Marker } from '../Marker';
+import { Title } from '../Title';
 
-import docs from './UList.docs.mdx';
 import UList, {
   UListProps,
   UListFontFamily,
@@ -15,6 +14,7 @@ import UList, {
   UListType,
   UListVariant,
 } from './UList';
+import docs from './UList.docs.mdx';
 
 const types: UListType[] = ['disc', 'dash', 'none'];
 

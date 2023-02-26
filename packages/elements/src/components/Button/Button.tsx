@@ -1,6 +1,13 @@
-import React from 'react';
-import cn from 'classnames';
 import { Icon, IconType } from '@seed-ui/icons';
+import cn from 'classnames';
+import {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ElementType,
+  FC,
+  forwardRef,
+  RefAttributes,
+} from 'react';
 
 import * as S from './Button.css';
 
@@ -36,10 +43,10 @@ export type ButtonVariant =
   | 'overlay-dark';
 
 export interface ButtonProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLElement>, 'type'>,
-    React.AnchorHTMLAttributes<HTMLElement>,
-    React.RefAttributes<HTMLElement> {
-  as?: React.ElementType;
+  extends Omit<ButtonHTMLAttributes<HTMLElement>, 'type'>,
+    AnchorHTMLAttributes<HTMLElement>,
+    RefAttributes<HTMLElement> {
+  as?: ElementType;
   loading?: boolean;
   rounded?: boolean;
   size?: ButtonSize;
@@ -50,64 +57,63 @@ export interface ButtonProps
   variant?: ButtonVariant;
 }
 
-const Button: React.FC<ButtonProps & React.RefAttributes<HTMLElement>> =
-  React.forwardRef(
-    (
-      {
-        as: As = 'button',
-        rounded,
-        size = 'md',
-        startIcon,
-        startIconType,
-        endIcon,
-        endIconType,
-        variant = 'secondary',
-        loading,
+const Button: FC<ButtonProps & RefAttributes<HTMLElement>> = forwardRef(
+  (
+    {
+      as: As = 'button',
+      rounded,
+      size = 'md',
+      startIcon,
+      startIconType,
+      endIcon,
+      endIconType,
+      variant = 'secondary',
+      loading,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => (
+    <As
+      className={cn(
+        S.root,
+        S.rootSize[size],
+        S.rootVariant[variant],
+        rounded && S.rootRounded,
         className,
-        children,
-        ...props
-      },
-      ref,
-    ) => (
-      <As
-        className={cn(
-          S.root,
-          S.rootSize[size],
-          S.rootVariant[variant],
-          rounded && S.rootRounded,
-          className,
-        )}
-        ref={ref}
-        {...props}
-      >
-        {loading && (
-          <Icon
-            animation="spin"
-            className={cn(S.icon, S.iconSize[size])}
-            name="loader-alt"
-          />
-        )}
+      )}
+      ref={ref}
+      {...props}
+    >
+      {loading && (
+        <Icon
+          animation="spin"
+          className={cn(S.icon, S.iconSize[size])}
+          name="loader-alt"
+        />
+      )}
 
-        {!loading && startIcon && (
-          <Icon
-            className={cn(S.icon, S.iconSize[size])}
-            name={startIcon}
-            type={startIconType}
-          />
-        )}
+      {!loading && startIcon && (
+        <Icon
+          className={cn(S.icon, S.iconSize[size])}
+          name={startIcon}
+          type={startIconType}
+        />
+      )}
 
-        {!loading && <span className={S.label}>{children}</span>}
+      {!loading && <span className={S.label}>{children}</span>}
 
-        {!loading && endIcon && (
-          <Icon
-            className={cn(S.icon, S.iconSize[size])}
-            name={endIcon}
-            type={endIconType}
-          />
-        )}
-      </As>
-    ),
-  );
+      {!loading && endIcon && (
+        <Icon
+          className={cn(S.icon, S.iconSize[size])}
+          name={endIcon}
+          type={endIconType}
+        />
+      )}
+    </As>
+  ),
+);
 
 Button.displayName = 'Button';
 

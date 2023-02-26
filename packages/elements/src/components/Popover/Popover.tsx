@@ -1,5 +1,3 @@
-import React, { CSSProperties, useEffect, useRef } from 'react';
-import cn from 'classnames';
 import {
   arrow as arrowMiddleware,
   offset as offsetMiddleware,
@@ -8,6 +6,17 @@ import {
   useFloating,
   Placement,
 } from '@floating-ui/react-dom';
+import cn from 'classnames';
+import {
+  CSSProperties,
+  FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import * as S from './Popover.css';
 
@@ -31,10 +40,10 @@ export type PopoverProps = {
   style?: CSSProperties;
   trigger?: PopoverTrigger | PopoverTrigger[];
   onOpenChange?: (visible: boolean) => void;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const Popover: React.FC<PopoverProps> = ({
+const Popover: FC<PopoverProps> = ({
   anchorElement,
   arrow,
   className,
@@ -63,16 +72,16 @@ const Popover: React.FC<PopoverProps> = ({
     ],
   });
 
-  const [openState, setOpenState] = React.useState(defaultOpen);
+  const [openState, setOpenState] = useState(defaultOpen);
 
-  const triggers = React.useMemo(
+  const triggers = useMemo(
     () => (Array.isArray(trigger) ? trigger : [trigger]),
     [trigger],
   );
 
   const isUncontrolled = typeof open === 'undefined' && !onOpenChange;
 
-  const changeOpen = React.useCallback(
+  const changeOpen = useCallback(
     (val: boolean) => {
       if (isUncontrolled) {
         setOpenState(val);

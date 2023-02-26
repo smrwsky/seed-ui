@@ -1,7 +1,6 @@
-import React from 'react';
 import { Box, Flex } from '@seed-ui/flexbox';
 
-import Avatar from '../Avatar';
+import { Avatar } from '../Avatar';
 
 import IconButton, {
   IconButtonProps,
@@ -55,7 +54,7 @@ export function Base(args: IconButtonProps): JSX.Element {
 
 export function Variants(args: IconButtonProps): JSX.Element {
   return (
-    <Flex flexWrap="wrap" mt={-4} mx={-2}>
+    <Flex flexWrap="wrap" mt="-4" mx="-2">
       {variants.map((variant, i) => (
         <Box key={i} mt={4} px={2} title={`${variant} variant IconButton`}>
           <IconButton
@@ -71,7 +70,7 @@ export function Variants(args: IconButtonProps): JSX.Element {
 
 export function Sizes(args: IconButtonProps): JSX.Element {
   return (
-    <Flex alignItems="center" flexWrap="wrap" mt={-4} mx={-2}>
+    <Flex alignItems="center" flexWrap="wrap" mt="-4" mx="-2">
       {sizes.map((size, i) => (
         <Box key={i} mt={4} px={2}>
           <IconButton {...args} size={size} title={`${size} size IconButton`} />

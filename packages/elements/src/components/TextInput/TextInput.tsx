@@ -1,11 +1,14 @@
-import React, {
+import { Icon, IconType } from '@seed-ui/icons';
+import {
   FC,
+  FocusEvent,
   forwardRef,
   InputHTMLAttributes,
   memo,
   RefAttributes,
+  useCallback,
+  useState,
 } from 'react';
-import { Icon, IconType } from '@seed-ui/icons';
 
 import { InputAction, InputBox, TextBox } from '../InputGroup';
 
@@ -36,17 +39,16 @@ const TextInput: FC<TextInputProps & RefAttributes<HTMLInputElement>> =
         inputSize,
         invalid,
         readOnly,
-        id,
         onFocus,
         onBlur,
         ...inputProps
       },
       ref,
     ) => {
-      const [focused, setFocused] = React.useState(false);
+      const [focused, setFocused] = useState(false);
 
-      const handleFocus = React.useCallback(
-        (e: React.FocusEvent<HTMLInputElement>) => {
+      const handleFocus = useCallback(
+        (e: FocusEvent<HTMLInputElement>) => {
           e.persist();
           setFocused(true);
 
@@ -57,8 +59,8 @@ const TextInput: FC<TextInputProps & RefAttributes<HTMLInputElement>> =
         [onFocus],
       );
 
-      const handleBlur = React.useCallback(
-        (e: React.FocusEvent<HTMLInputElement>) => {
+      const handleBlur = useCallback(
+        (e: FocusEvent<HTMLInputElement>) => {
           e.persist();
           setFocused(false);
 

@@ -1,8 +1,7 @@
-import React from 'react';
 import { Box, Flex } from '@seed-ui/flexbox';
 
-import docs from './Message.docs.mdx';
 import Message, { MessageProps } from './Message';
+import docs from './Message.docs.mdx';
 
 const variants: MessageProps['variant'][] = [
   'info',
@@ -31,7 +30,7 @@ export function Base(args: MessageProps): JSX.Element {
 
 export function Variants(args: MessageProps): JSX.Element {
   return (
-    <Flex flexWrap="wrap" mt={-4}>
+    <Flex flexWrap="wrap" mt="-4">
       {variants.map((variant, i) => (
         <Box key={i} mt={4} width="full">
           <Message {...args} variant={variant}>

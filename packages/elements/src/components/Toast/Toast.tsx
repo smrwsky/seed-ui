@@ -1,13 +1,13 @@
-import React from 'react';
-import cn from 'classnames';
 import { Icon } from '@seed-ui/icons';
+import cn from 'classnames';
+import { FC, HTMLAttributes } from 'react';
 
-import IconButton from '../IconButton';
-import Text from '../Text';
+import { IconButton } from '../IconButton';
+import { Text } from '../Text';
 
 import * as S from './Toast.css';
 
-export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   onClose?: () => void;
   title?: string;
   variant?: 'danger' | 'warning' | 'info' | 'success' | 'light';
@@ -44,7 +44,7 @@ const getIconByVariant = (variant: ToastProps['variant']) =>
   )) ||
   null;
 
-const Toast: React.FC<ToastProps> = ({
+const Toast: FC<ToastProps> = ({
   className,
   children,
   role = 'alert',

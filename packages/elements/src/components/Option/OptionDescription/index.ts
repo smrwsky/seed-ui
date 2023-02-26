@@ -1,2 +1,2 @@
 export * from './OptionDescription';
-export { default } from './OptionDescription';
+export { default as OptionDescription } from './OptionDescription';

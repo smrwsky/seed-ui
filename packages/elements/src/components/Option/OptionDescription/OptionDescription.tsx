@@ -1,18 +1,17 @@
-import React, { memo } from 'react';
 import cn from 'classnames';
+import { forwardRef, HTMLAttributes, memo } from 'react';
 
 import * as S from './OptionDescription.css';
 
-export type OptionDescriptionProps = React.HTMLAttributes<HTMLSpanElement>;
+export type OptionDescriptionProps = HTMLAttributes<HTMLSpanElement>;
 
-const OptionDescription = React.forwardRef<
-  HTMLSpanElement,
-  OptionDescriptionProps
->(({ children, className, ...props }, ref) => (
-  <span className={cn(S.root, className)} ref={ref} {...props}>
-    {children}
-  </span>
-));
+const OptionDescription = forwardRef<HTMLSpanElement, OptionDescriptionProps>(
+  ({ children, className, ...props }, ref) => (
+    <span className={cn(S.root, className)} ref={ref} {...props}>
+      {children}
+    </span>
+  ),
+);
 
 OptionDescription.displayName = 'OptionDescription';
 

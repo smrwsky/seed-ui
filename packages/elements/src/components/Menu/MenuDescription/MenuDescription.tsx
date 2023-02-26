@@ -1,16 +1,23 @@
-import React, { memo } from 'react';
 import cn from 'classnames';
+import {
+  FC,
+  forwardRef,
+  HTMLAttributes,
+  memo,
+  RefAttributes,
+  useContext,
+} from 'react';
 
-import MenuContext from '../context';
+import { MenuContext } from '../context';
 
 import * as S from './MenuDescription.css';
 
-export type MenuDescriptionProps = React.HTMLAttributes<HTMLSpanElement>;
+export type MenuDescriptionProps = HTMLAttributes<HTMLSpanElement>;
 
-const MenuDescription: React.FC<
-  MenuDescriptionProps & React.RefAttributes<HTMLSpanElement>
-> = React.forwardRef(({ children, className, ...props }, ref) => {
-  const { collapsed, variant } = React.useContext(MenuContext);
+const MenuDescription: FC<
+  MenuDescriptionProps & RefAttributes<HTMLSpanElement>
+> = forwardRef(({ children, className, ...props }, ref) => {
+  const { collapsed, variant } = useContext(MenuContext);
 
   return !collapsed ? (
     <span

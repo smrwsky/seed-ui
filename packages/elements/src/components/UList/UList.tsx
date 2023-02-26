@@ -1,5 +1,5 @@
-import React from 'react';
 import cn from 'classnames';
+import { FC, forwardRef, HTMLAttributes, RefAttributes } from 'react';
 
 import * as S from './UList.css';
 
@@ -21,7 +21,7 @@ export type UListVariant =
   | 'dark'
   | 'default';
 
-export interface UListProps extends React.HTMLAttributes<HTMLUListElement> {
+export interface UListProps extends HTMLAttributes<HTMLUListElement> {
   bold?: boolean;
   fontFamily?: UListFontFamily;
   size?: UListSize;
@@ -29,39 +29,38 @@ export interface UListProps extends React.HTMLAttributes<HTMLUListElement> {
   variant?: UListVariant;
 }
 
-const UList: React.FC<UListProps & React.RefAttributes<HTMLUListElement>> =
-  React.forwardRef(
-    (
-      {
-        bold,
+const UList: FC<UListProps & RefAttributes<HTMLUListElement>> = forwardRef(
+  (
+    {
+      bold,
+      className,
+      fontFamily = 'secondary',
+      size = 'md',
+      type = 'disc',
+      variant = 'default',
+      children,
+      ...elemProps
+    },
+    ref,
+  ) => (
+    <ul
+      className={cn(
+        S.root({
+          type,
+          fontFamily,
+          size,
+          variant,
+          bold,
+        }),
         className,
-        fontFamily = 'secondary',
-        size = 'md',
-        type = 'disc',
-        variant = 'default',
-        children,
-        ...elemProps
-      },
-      ref,
-    ) => (
-      <ul
-        className={cn(
-          S.root({
-            type,
-            fontFamily,
-            size,
-            variant,
-            bold,
-          }),
-          className,
-        )}
-        ref={ref}
-        {...elemProps}
-      >
-        {children}
-      </ul>
-    ),
-  );
+      )}
+      ref={ref}
+      {...elemProps}
+    >
+      {children}
+    </ul>
+  ),
+);
 
 UList.displayName = 'UList';
 

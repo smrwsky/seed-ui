@@ -1,16 +1,16 @@
-import React, { useLayoutEffect } from 'react';
+import { FC, ReactNode, useLayoutEffect } from 'react';
 
 import { defaultThemeStyle } from '../themes';
 
 export type ThemeProviderProps = {
-  children?: React.ReactNode;
+  children?: ReactNode;
   theme?: string;
 };
 
-function ThemeProvider({
+const ThemeProvider: FC<ThemeProviderProps> = ({
   theme = defaultThemeStyle,
   children,
-}: ThemeProviderProps): JSX.Element {
+}): JSX.Element => {
   useLayoutEffect(() => {
     document.body.classList.add(theme);
 
@@ -19,6 +19,6 @@ function ThemeProvider({
     };
   }, [theme]);
   return <>{children}</>;
-}
+};
 
 export default ThemeProvider;

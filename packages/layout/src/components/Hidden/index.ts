@@ -1,2 +1,2 @@
 export * from './Hidden';
-export { default } from './Hidden';
+export { default as Hidden } from './Hidden';

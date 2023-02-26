@@ -1,5 +1,5 @@
-import { style, styleVariants } from '@vanilla-extract/css';
 import { vars, spacing } from '@seed-ui/styles';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
   border: '1px solid transparent',

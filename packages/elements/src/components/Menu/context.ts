@@ -14,12 +14,10 @@ export type MenuContextType = {
   variant: MenuVariant;
 };
 
-const MenuContext = React.createContext<MenuContextType>({
+export const MenuContext = React.createContext<MenuContextType>({
   collapsed: false,
   indent: 0,
   size: 'md',
   type: 'vertical',
   variant: 'secondary',
 });
-
-export default MenuContext;

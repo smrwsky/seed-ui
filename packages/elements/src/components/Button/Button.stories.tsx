@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Flex } from '@seed-ui/flexbox';
 
 import Button, { ButtonProps, ButtonSize, ButtonVariant } from './Button';
@@ -55,7 +54,7 @@ export function Base(args: ButtonProps): JSX.Element {
 
 export function Variants(args: ButtonProps): JSX.Element {
   return (
-    <Flex flexWrap="wrap" mt={-4} mx={-2}>
+    <Flex flexWrap="wrap" mt="-4" mx="-2">
       {variants.map((variant, i) => (
         <Box key={i} mt={4} px={2} width="auto">
           <Button {...args} variant={variant}>
@@ -69,7 +68,7 @@ export function Variants(args: ButtonProps): JSX.Element {
 
 export function Sizes(args: ButtonProps): JSX.Element {
   return (
-    <Flex alignItems="center" flexWrap="wrap" mt={-4} mx={-2}>
+    <Flex alignItems="center" flexWrap="wrap" mt="-4" mx="-2">
       {sizes.map((size, i) => (
         <Box key={i} mt={4} px={2}>
           <Button {...args} size={size}>
@@ -87,7 +86,7 @@ export function Rounded(args: ButtonProps): JSX.Element {
 
 export function WithIcon(args: ButtonProps): JSX.Element {
   return (
-    <Flex flexWrap="wrap" mt={-4} mx={-2}>
+    <Flex flexWrap="wrap" mt="-4" mx="-2">
       <Box mt={4} px={2}>
         <Button {...args} startIcon="like" startIconType="solid">
           Start icon

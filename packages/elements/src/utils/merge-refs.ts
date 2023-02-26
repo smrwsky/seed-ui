@@ -1,6 +1,6 @@
 import React from 'react';
 
-function mergeRefs<T>(
+export function mergeRefs<T>(
   ...refs: Array<React.Ref<T> | React.MutableRefObject<T>>
 ) {
   return (node: T): void => {
@@ -14,5 +14,3 @@ function mergeRefs<T>(
     }
   };
 }
-
-export default mergeRefs;

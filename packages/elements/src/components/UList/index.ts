@@ -1,2 +1,2 @@
 export * from './UList';
-export { default } from './UList';
+export { default as UList } from './UList';

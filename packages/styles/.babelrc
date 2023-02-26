@@ -1,5 +1,10 @@
 {
-  "presets": ["@babel/preset-react","@babel/preset-typescript"],
+  "presets": ["@babel/preset-typescript", [
+    "@babel/preset-react",
+    {
+      "runtime": "automatic"
+    }
+  ]],
   "plugins": [
     "lodash",
     "@babel/plugin-transform-runtime",

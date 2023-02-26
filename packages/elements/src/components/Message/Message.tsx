@@ -1,12 +1,12 @@
-import React from 'react';
-import cn from 'classnames';
 import { Icon } from '@seed-ui/icons';
+import cn from 'classnames';
+import { FC, HTMLAttributes } from 'react';
 
-import Text from '../Text';
+import { Text } from '../Text';
 
 import * as S from './Message.css';
 
-export interface MessageProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MessageProps extends HTMLAttributes<HTMLDivElement> {
   variant?: 'danger' | 'warning' | 'info' | 'success' | 'light';
 }
 
@@ -41,7 +41,7 @@ const getIconByVariant = (variant: MessageProps['variant']) =>
   )) ||
   null;
 
-const Message: React.FC<MessageProps> = ({
+const Message: FC<MessageProps> = ({
   className,
   children,
   role = 'alert',

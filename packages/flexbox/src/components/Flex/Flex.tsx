@@ -1,8 +1,14 @@
-import React, { ElementType } from 'react';
-import cn from 'classnames';
 import { Atoms, atoms } from '@seed-ui/styles';
+import cn from 'classnames';
+import {
+  ElementType,
+  FC,
+  forwardRef,
+  HTMLAttributes,
+  RefAttributes,
+} from 'react';
 
-import Box, { BoxProps } from '../Box';
+import { Box, BoxProps } from '../Box';
 
 export interface FlexProps
   extends Partial<
@@ -12,12 +18,12 @@ export interface FlexProps
       >
     >,
     BoxProps,
-    React.HTMLAttributes<HTMLElement>,
-    React.RefAttributes<HTMLElement> {
+    HTMLAttributes<HTMLElement>,
+    RefAttributes<HTMLElement> {
   as?: ElementType;
 }
 
-const Flex: React.FC<FlexProps> = React.forwardRef(
+const Flex: FC<FlexProps> = forwardRef(
   (
     {
       display = 'flex',

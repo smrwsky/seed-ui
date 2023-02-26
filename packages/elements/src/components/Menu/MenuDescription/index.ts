@@ -1,2 +1,2 @@
 export * from './MenuDescription';
-export { default } from './MenuDescription';
+export { default as MenuDescription } from './MenuDescription';

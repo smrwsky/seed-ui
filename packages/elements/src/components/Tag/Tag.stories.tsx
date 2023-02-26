@@ -1,6 +1,5 @@
-import React from 'react';
-import { capitalize } from 'lodash';
 import { Box, Flex } from '@seed-ui/flexbox';
+import { capitalize } from 'lodash';
 
 import Tag, { TagProps, TagSize, TagVariant } from './Tag';
 import docs from './Tag.docs.mdx';
@@ -45,7 +44,7 @@ export function Base(args: TagProps): JSX.Element {
 
 export function Sizes(args: TagProps): JSX.Element {
   return (
-    <Flex alignItems="center" flexWrap="wrap" mt={-2} mx={-1}>
+    <Flex alignItems="center" flexWrap="wrap" mt="-2" mx="-1">
       {sizes.map((size, i) => (
         <Box key={i} mt={2} px={1}>
           <Tag {...args} size={size}>
@@ -59,7 +58,7 @@ export function Sizes(args: TagProps): JSX.Element {
 
 export function Variants(args: TagProps): JSX.Element {
   return (
-    <Flex alignItems="center" flexWrap="wrap" mt={-2} mx={-1}>
+    <Flex alignItems="center" flexWrap="wrap" mt="-2" mx="-1">
       {variants.map((variant, i) => (
         <Box key={i} lineHeight={0} mt={2} px={1} width="auto">
           <Tag {...args} variant={variant}>

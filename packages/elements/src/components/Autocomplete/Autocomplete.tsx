@@ -1,8 +1,25 @@
-import React from 'react';
-import { Icon, IconType } from '@seed-ui/icons';
 import { useDebounceCallback } from '@react-hook/debounce';
+import { Icon, IconType } from '@seed-ui/icons';
+import {
+  ChangeEvent,
+  ComponentType,
+  FC,
+  FocusEvent,
+  FocusEventHandler,
+  forwardRef,
+  KeyboardEvent,
+  MouseEvent,
+  ReactElement,
+  Ref,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
-import Tag from '../Tag';
+import { slug } from '../../utils/slug';
+import { IconButton } from '../IconButton';
 import {
   InputAction,
   InputBox,
@@ -10,10 +27,9 @@ import {
   InputTags,
   TextBox,
 } from '../InputGroup';
-import slug from '../../utils/slug';
-import IconButton from '../IconButton';
-import Popover from '../Popover';
-import Option, { OptionProps } from '../Option';
+import { Option, OptionProps } from '../Option';
+import { Popover } from '../Popover';
+import { Tag } from '../Tag';
 
 export type AutocompleteSize = 'sm' | 'md' | 'lg';
 
@@ -114,7 +130,7 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
    * A component to render each option in the dropdown list.
    */
-  OptionComponent?: React.ComponentType<OptionComponentProps<Option>>;
+  OptionComponent?: ComponentType<OptionComponentProps<Option>>;
 
   /**
    * Array of options to display in the dropdown list.
@@ -134,7 +150,7 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
    * Ref passed to the input element.
    */
-  ref?: React.Ref<HTMLInputElement>;
+  ref?: Ref<HTMLInputElement>;
 
   /**
    * If `true`, input box has rounded corners.
@@ -159,7 +175,7 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
    * Callback function fired when the input element loses focus.
    */
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
 
   /**
    * Callback function fired when the value of Autocomplete component changes.
@@ -169,7 +185,7 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
    * Callback function fired when the input element receives focus.
    */
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
 
   /**
    * Callback function fired when the search query changes.
@@ -191,11 +207,11 @@ const defaultGetLabel = (option: unknown): string => option as string;
 export interface AutocompleteFn {
   <Option = unknown, Value = Option>(
     props: AutocompleteProps<Option, Value>,
-  ): React.ReactElement;
+  ): ReactElement;
   displayName: 'Autocomplete';
 }
 
-const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
+const Autocomplete: FC<AutocompleteProps> = forwardRef(
   (
     {
       allowEmptyQuery = false,
@@ -228,21 +244,21 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
     },
     ref,
   ) => {
-    const [valueState, setValueState] = React.useState(defaultValue);
-    const [openListbox, setOpenListbox] = React.useState(false);
-    const [focused, setFocused] = React.useState(false);
-    const [activeIndex, setActiveOption] = React.useState<number>(-1);
-    const [displayText, setDisplayText] = React.useState('');
-    const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
-    const listboxRef = React.useRef<HTMLUListElement>(null);
+    const [valueState, setValueState] = useState(defaultValue);
+    const [openListbox, setOpenListbox] = useState(false);
+    const [focused, setFocused] = useState(false);
+    const [activeIndex, setActiveOption] = useState<number>(-1);
+    const [displayText, setDisplayText] = useState('');
+    const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+    const listboxRef = useRef<HTMLUListElement>(null);
     const hasDisplayText = Boolean(displayText);
 
-    const optList = React.useMemo(
+    const optList = useMemo(
       (): unknown[] => (Array.isArray(options) ? options : []),
       [options],
     );
 
-    const valuesList = React.useMemo(
+    const valuesList = useMemo(
       (): unknown[] =>
         ((Array.isArray(valueState) && valueState) ||
           (valueState && [valueState]) ||
@@ -250,7 +266,7 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [valueState],
     );
 
-    const changeValue = React.useCallback(
+    const changeValue = useCallback(
       (nextValue: unknown): void => {
         if (typeof value === 'undefined' && !onChange) {
           setValueState(nextValue as never);
@@ -261,7 +277,7 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [onChange, value],
     );
 
-    const selectOption = React.useCallback(
+    const selectOption = useCallback(
       (index: number): void => {
         const option = optList[index];
 
@@ -275,11 +291,11 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [changeValue, multiple, optList, valuesList],
     );
 
-    const handleChangeOpenListbox = React.useCallback((visible: boolean) => {
+    const handleChangeOpenListbox = useCallback((visible: boolean) => {
       setOpenListbox(visible);
     }, []);
 
-    const invokeSearch = React.useCallback(
+    const invokeSearch = useCallback(
       (val: string) => onSearch?.(val),
       [onSearch],
     );
@@ -290,8 +306,8 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       false,
     );
 
-    const handleBlur = React.useCallback(
-      (e: React.FocusEvent<HTMLInputElement>) => {
+    const handleBlur = useCallback(
+      (e: FocusEvent<HTMLInputElement>) => {
         e.persist();
         setFocused(false);
         setOpenListbox(false);
@@ -300,8 +316,8 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [onBlur],
     );
 
-    const handleChange = React.useCallback(
-      (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
         setOpenListbox(true);
 
         if (allowInputValue) {
@@ -313,8 +329,8 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [allowInputValue, changeValue],
     );
 
-    const handleFocus = React.useCallback(
-      (e: React.FocusEvent<HTMLInputElement>) => {
+    const handleFocus = useCallback(
+      (e: FocusEvent<HTMLInputElement>) => {
         setFocused(true);
 
         if (onFocus) {
@@ -325,14 +341,14 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [onFocus],
     );
 
-    const handleClick = React.useCallback(() => {
+    const handleClick = useCallback(() => {
       if (!disabled && !readOnly) {
         setOpenListbox((prevState) => hasDisplayText || !prevState);
       }
     }, [disabled, hasDisplayText, readOnly]);
 
-    const handleKeyDown = React.useCallback(
-      (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = useCallback(
+      (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowDown' && openListbox) {
           e.preventDefault();
 
@@ -374,8 +390,8 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [activeIndex, openListbox, optList.length, selectOption],
     );
 
-    const handleClear = React.useCallback(
-      (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClear = useCallback(
+      (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         e.stopPropagation();
         changeValue(null);
@@ -386,8 +402,8 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [changeValue],
     );
 
-    const handleOptionMouseDown = React.useCallback(
-      (e: React.MouseEvent<HTMLLIElement>) => {
+    const handleOptionMouseDown = useCallback(
+      (e: MouseEvent<HTMLLIElement>) => {
         e.preventDefault();
         selectOption(Number(e.currentTarget.dataset.index));
         setOpenListbox(false);
@@ -396,8 +412,8 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [selectOption],
     );
 
-    const handleOptionMouseEnter = React.useCallback(
-      (e: React.MouseEvent<HTMLLIElement>) => {
+    const handleOptionMouseEnter = useCallback(
+      (e: MouseEvent<HTMLLIElement>) => {
         const idx = Number(e.currentTarget.dataset.index);
 
         if (Number.isNaN(idx)) {
@@ -409,12 +425,12 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [],
     );
 
-    const handleOptionMouseLeave = React.useCallback(() => {
+    const handleOptionMouseLeave = useCallback(() => {
       setActiveOption(-1);
     }, []);
 
-    const handleRemove = React.useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleRemove = useCallback(
+      (e: MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
 
@@ -429,13 +445,13 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       [changeValue, valuesList],
     );
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (typeof value !== 'undefined') {
         setValueState(value);
       }
     }, [value]);
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (!openListbox) {
         const text =
           !valueState || Array.isArray(valueState)
@@ -448,7 +464,7 @@ const Autocomplete: React.FC<AutocompleteProps> = React.forwardRef(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [openListbox, valueState]);
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (
         displayText &&
         (multiple ||

@@ -1,5 +1,5 @@
-import React from 'react';
 import cn from 'classnames';
+import { FC, forwardRef, HTMLAttributes, RefAttributes } from 'react';
 
 import * as S from './OList.css';
 
@@ -20,15 +20,15 @@ export type OListVariant =
   | 'default';
 
 export interface OListProps
-  extends React.HTMLAttributes<HTMLOListElement>,
-    React.RefAttributes<HTMLOListElement> {
+  extends HTMLAttributes<HTMLOListElement>,
+    RefAttributes<HTMLOListElement> {
   fontFamily?: OListFontFamily;
   size?: OListSize;
   bold?: boolean;
   variant?: OListVariant;
 }
 
-const OList: React.FC<OListProps> = React.forwardRef(
+const OList: FC<OListProps> = forwardRef(
   (
     {
       fontFamily = 'secondary',

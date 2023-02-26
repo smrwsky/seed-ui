@@ -1,4 +1,3 @@
-import React from 'react';
 import { color, GlobalStyle, ThemeProvider } from '@seed-ui/styles';
 import {
   atoms,

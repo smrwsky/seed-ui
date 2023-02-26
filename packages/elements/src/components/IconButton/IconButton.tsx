@@ -1,4 +1,6 @@
-import React, {
+import { Icon, IconType } from '@seed-ui/icons';
+import cn from 'classnames';
+import {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
   ElementType,
@@ -7,8 +9,6 @@ import React, {
   ReactElement,
   RefAttributes,
 } from 'react';
-import cn from 'classnames';
-import { Icon, IconType } from '@seed-ui/icons';
 
 import * as S from './IconButton.css';
 

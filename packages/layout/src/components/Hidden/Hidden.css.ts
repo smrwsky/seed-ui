@@ -1,5 +1,5 @@
-import { style } from '@vanilla-extract/css';
 import { bpDown, bpOnly, bpUp } from '@seed-ui/styles';
+import { style } from '@vanilla-extract/css';
 
 export const root = style({
   display: 'contents',
