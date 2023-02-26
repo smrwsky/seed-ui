@@ -1,11 +1,10 @@
-import React from 'react';
 import cn from 'classnames';
+import { HTMLAttributes, ReactNode } from 'react';
 
 import * as S from './InputAction.css';
 
-export interface InputActionProps
-  extends React.HTMLAttributes<HTMLSpanElement> {
-  children?: React.ReactNode;
+export interface InputActionProps extends HTMLAttributes<HTMLSpanElement> {
+  children?: ReactNode;
 }
 
 const InputAction = ({

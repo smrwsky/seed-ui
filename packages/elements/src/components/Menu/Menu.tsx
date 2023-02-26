@@ -1,7 +1,13 @@
-import React, {
+import {
   Children,
+  cloneElement,
   FC,
+  FocusEvent,
+  forwardRef,
+  HTMLAttributes,
+  isValidElement,
   KeyboardEvent,
+  MouseEvent as ReactMouseEvent,
   RefAttributes,
   useCallback,
   useEffect,
@@ -10,20 +16,21 @@ import React, {
   useState,
 } from 'react';
 
-import mergeRefs from '../../utils/merge-refs';
+import { mergeRefs } from '../../utils/merge-refs';
 
-import MenuContext, {
+import { MenuList } from './MenuList';
+import {
+  MenuContext,
   MenuContextType,
   MenuSize,
   MenuType,
   MenuVariant,
 } from './context';
-import MenuList from './MenuList';
 
 export type MenuAutoFocus = 'on' | 'reversed' | 'off';
 
 export interface MenuProps
-  extends React.HTMLAttributes<HTMLUListElement>,
+  extends HTMLAttributes<HTMLUListElement>,
     RefAttributes<HTMLUListElement> {
   activeIndex?: number;
   anchorElement?: HTMLElement | null;
@@ -38,14 +45,14 @@ export interface MenuProps
   onAutoFocusChange?: (autoFocus: MenuAutoFocus) => void;
 }
 
-const Menu: FC<MenuProps> = React.forwardRef(
+const Menu: FC<MenuProps> = forwardRef(
   (
     {
       activeIndex,
       anchorElement,
       autoFocus,
       collapsed = false,
-      defaultActiveIndex,
+      defaultActiveIndex = -1,
       indent = 0,
       type = 'vertical',
       size = 'md',
@@ -57,7 +64,8 @@ const Menu: FC<MenuProps> = React.forwardRef(
     },
     ref,
   ) => {
-    const [activeIndexState, setActiveIndexState] = useState(-1);
+    const [activeIndexState, setActiveIndexState] =
+      useState(defaultActiveIndex);
 
     const [autoFocusState, setAutoFocusState] = useState<MenuAutoFocus>('off');
 
@@ -106,7 +114,7 @@ const Menu: FC<MenuProps> = React.forwardRef(
     }, [changeActiveIndex]);
 
     const handleMenuItemFocus = useCallback(
-      (e: React.FocusEvent<HTMLUListElement>) => {
+      (e: FocusEvent<HTMLUListElement>) => {
         const idx = Number(e.currentTarget.dataset.index);
         if (!Number.isNaN(idx)) {
           changeActiveIndex(idx);
@@ -264,7 +272,7 @@ const Menu: FC<MenuProps> = React.forwardRef(
           const submenu =
             e.currentTarget.parentElement?.querySelector('[role="menu"]');
 
-          nextItem = submenu?.querySelector(`[data-index="0"]`);
+          nextItem = submenu?.querySelector('[data-index="0"]');
         } else if (index >= numberOfItems - 1) {
           let menuEl: HTMLElement | null | undefined = menuListRef.current;
           let numOfItems = numberOfItems;
@@ -278,7 +286,7 @@ const Menu: FC<MenuProps> = React.forwardRef(
           ) {
             const currEl =
               menuEl.parentElement?.querySelector<HTMLAnchorElement>(
-                `[role="menuitem"]`,
+                '[role="menuitem"]',
               );
 
             menuEl = menuEl.parentElement.parentElement;
@@ -460,7 +468,7 @@ const Menu: FC<MenuProps> = React.forwardRef(
     );
 
     const handleMenuItemMouseEnter = useCallback(
-      (e: React.MouseEvent<HTMLAnchorElement>) => {
+      (e: ReactMouseEvent<HTMLAnchorElement>) => {
         const idx = Number(e.currentTarget.dataset.index);
 
         if (Number.isNaN(idx)) {
@@ -523,11 +531,11 @@ const Menu: FC<MenuProps> = React.forwardRef(
     return (
       <MenuContext.Provider value={context}>
         <MenuList ref={mergedRef} {...props}>
-          {React.Children.map(
+          {Children.map(
             children,
             (node, idx) =>
-              React.isValidElement(node) &&
-              React.cloneElement(node, {
+              isValidElement(node) &&
+              cloneElement(node, {
                 'active': idx === activeIndexState,
                 'data-index': idx,
                 'indent': indent,

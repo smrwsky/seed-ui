@@ -1,11 +1,11 @@
-import React from 'react';
-import cn from 'classnames';
 import {
   Atoms,
   textBreakStyle,
   textTruncateStyle,
   atoms,
 } from '@seed-ui/styles';
+import cn from 'classnames';
+import { ElementType, forwardRef, LabelHTMLAttributes } from 'react';
 
 import * as S from './Label.css';
 
@@ -23,9 +23,8 @@ export type LabelVariant =
   | 'dark'
   | 'default';
 
-export interface LabelProps
-  extends React.LabelHTMLAttributes<HTMLLabelElement> {
-  as?: React.ElementType;
+export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+  as?: ElementType;
   breakWord?: boolean;
   size?: LabelSize;
   textAlign?: Atoms['textAlign'];
@@ -35,7 +34,7 @@ export interface LabelProps
   whiteSpace?: Atoms['whiteSpace'];
 }
 
-const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
+const Label = forwardRef<HTMLLabelElement, LabelProps>(
   (
     {
       as: As = 'label',

@@ -1,4 +1,5 @@
-import React, {
+import cn from 'classnames';
+import {
   cloneElement,
   ElementType,
   Fragment,
@@ -10,7 +11,6 @@ import Transition, {
   TransitionProps,
   TransitionStatus,
 } from 'react-transition-group/Transition';
-import cn from 'classnames';
 
 import * as S from './Animation.css';
 

@@ -1,11 +1,11 @@
-import React from 'react';
 import { Box, Flex } from '@seed-ui/flexbox';
+import { FC } from 'react';
 
-import docs from './Autocomplete.docs.mdx';
 import Autocomplete, {
   AutocompleteProps,
   AutocompleteSize,
 } from './Autocomplete';
+import docs from './Autocomplete.docs.mdx';
 
 const SIZE_OPTIONS: AutocompleteSize[] = ['sm', 'md', 'lg'];
 
@@ -24,13 +24,13 @@ export default {
   },
 };
 
-export const Basic: React.FC<AutocompleteProps> = (args) => (
+export const Basic: FC<AutocompleteProps> = (args) => (
   <Box minHeight={64}>
     <Autocomplete {...args} id="autocomplete-base" options={SELECT_OPTIONS} />
   </Box>
 );
 
-export const Multiple: React.FC<AutocompleteProps> = (args) => (
+export const Multiple: FC<AutocompleteProps> = (args) => (
   <Box minHeight={64}>
     <Autocomplete
       {...args}
@@ -42,7 +42,7 @@ export const Multiple: React.FC<AutocompleteProps> = (args) => (
   </Box>
 );
 
-export const Invalid: React.FC<AutocompleteProps> = (args) => (
+export const Invalid: FC<AutocompleteProps> = (args) => (
   <Box minHeight={64}>
     <Autocomplete
       {...args}
@@ -53,7 +53,7 @@ export const Invalid: React.FC<AutocompleteProps> = (args) => (
   </Box>
 );
 
-export const Sizes: React.FC<AutocompleteProps> = (args) => (
+export const Sizes: FC<AutocompleteProps> = (args) => (
   <Flex flexDirection="column" minHeight={96}>
     {SIZE_OPTIONS.map((size, i) => (
       <Box key={i} mt={i && 4}>
@@ -68,11 +68,11 @@ export const Sizes: React.FC<AutocompleteProps> = (args) => (
   </Flex>
 );
 
-export const Rounded: React.FC<AutocompleteProps> = (args) => (
+export const Rounded: FC<AutocompleteProps> = (args) => (
   <Box minHeight={64}>
     <Autocomplete
       {...args}
-      id={`autocomplete-rounded`}
+      id="autocomplete-rounded"
       options={SELECT_OPTIONS}
       rounded
     />

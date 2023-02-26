@@ -1,9 +1,8 @@
-import React from 'react';
-import { atoms } from '@seed-ui/styles';
 import { Box, Flex } from '@seed-ui/flexbox';
+import { atoms } from '@seed-ui/styles';
 
-import docs from './TextInput.docs.mdx';
 import TextInput, { TextInputProps, TextInputSize } from './TextInput';
+import docs from './TextInput.docs.mdx';
 
 const sizes: TextInputSize[] = ['sm', 'md', 'lg'];
 

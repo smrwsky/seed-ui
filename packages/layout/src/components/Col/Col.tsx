@@ -1,6 +1,6 @@
-import React from 'react';
-import cn from 'classnames';
 import { atoms, Atoms, ResponsiveValue } from '@seed-ui/styles';
+import cn from 'classnames';
+import { FC, forwardRef, HTMLAttributes, RefAttributes } from 'react';
 
 import * as S from './Col.css';
 
@@ -33,7 +33,7 @@ export type ColWidthValue =
 
 export type ColWidth = ResponsiveValue<ColWidthValue>;
 
-export interface ColProps extends React.HTMLAttributes<HTMLElement> {
+export interface ColProps extends HTMLAttributes<HTMLElement> {
   alignSelf?: Atoms['alignSelf'];
   display?: Atoms['display'];
   flex?: Atoms['flex'];
@@ -41,40 +41,39 @@ export interface ColProps extends React.HTMLAttributes<HTMLElement> {
   width?: ColWidth;
 }
 
-const Col: React.FC<ColProps & React.RefAttributes<HTMLDivElement>> =
-  React.forwardRef(
-    (
-      {
-        alignSelf,
-        display,
-        flex = 'none',
-        order,
-        width,
+const Col: FC<ColProps & RefAttributes<HTMLDivElement>> = forwardRef(
+  (
+    {
+      alignSelf,
+      display,
+      flex = 'none',
+      order,
+      width,
+      className,
+      children,
+      ...elemProps
+    },
+    ref,
+  ) => (
+    <div
+      className={cn(
+        S.root,
+        atoms({
+          alignSelf,
+          display,
+          flex,
+          order,
+          width,
+        }),
         className,
-        children,
-        ...elemProps
-      },
-      ref,
-    ) => (
-      <div
-        className={cn(
-          S.root,
-          atoms({
-            alignSelf,
-            display,
-            flex,
-            order,
-            width,
-          }),
-          className,
-        )}
-        ref={ref}
-        {...elemProps}
-      >
-        {children}
-      </div>
-    ),
-  );
+      )}
+      ref={ref}
+      {...elemProps}
+    >
+      {children}
+    </div>
+  ),
+);
 
 Col.displayName = 'Col';
 

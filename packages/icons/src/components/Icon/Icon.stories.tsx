@@ -1,8 +1,6 @@
-import React from 'react';
 import { Caption, Text, Space, Col, Row } from '@seed-ui/elements';
 import { capitalize } from 'lodash';
 
-import docs from './Icon.docs.mdx';
 import Icon, {
   IconAnimation,
   IconFlip,
@@ -11,6 +9,7 @@ import Icon, {
   IconSize,
   IconVariant,
 } from './Icon';
+import docs from './Icon.docs.mdx';
 
 const VARIANT_OPTIONS: IconVariant[] = [
   'primary',

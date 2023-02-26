@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import React, {
+import cn from 'classnames';
+import {
   CSSProperties,
   forwardRef,
   useCallback,
@@ -7,13 +8,14 @@ import React, {
   useState,
 } from 'react';
 
-import Popover, {
+import { mergeRefs } from '../../../utils/merge-refs';
+import {
+  Popover,
   PopoverPlacement,
   PopoverStrategy,
   PopoverTrigger,
 } from '../../Popover';
 import Menu, { MenuAutoFocus, MenuProps } from '../Menu';
-import mergeRefs from '../../../utils/merge-refs';
 
 import * as S from './PopupMenu.css';
 
@@ -137,7 +139,7 @@ const PopupMenu = forwardRef<HTMLUListElement, PopupMenuProps>(
         <Menu
           anchorElement={anchorElement}
           autoFocus={autoFocus}
-          className={S.menu}
+          className={cn(S.menu, className)}
           ref={mergedRefs}
           size="sm"
           type="vertical"

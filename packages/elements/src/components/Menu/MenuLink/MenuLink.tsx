@@ -1,4 +1,7 @@
-import React, {
+import { IconType } from '@seed-ui/icons';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
+import cx from 'classnames';
+import {
   AnchorHTMLAttributes,
   ComponentType,
   FC,
@@ -7,15 +10,12 @@ import React, {
   RefAttributes,
   useContext,
 } from 'react';
-import cx from 'classnames';
-import { assignInlineVars } from '@vanilla-extract/dynamic';
-import { IconType } from '@seed-ui/icons';
 
-import MenuContext from '../context';
-import MenuLabel from '../MenuLabel';
-import MenuIcon from '../MenuIcon';
-import MenuDescription from '../MenuDescription';
-import MenuAction from '../MenuAction';
+import { MenuAction } from '../MenuAction';
+import { MenuDescription } from '../MenuDescription';
+import { MenuIcon } from '../MenuIcon';
+import { MenuLabel } from '../MenuLabel';
+import { MenuContext } from '../context';
 
 import * as S from './MenuLink.css';
 
@@ -29,7 +29,6 @@ export interface MenuLinkProps
   icon?: string;
   iconType?: IconType;
   indent?: number;
-  invalid?: boolean;
   selected?: boolean;
 }
 
@@ -46,7 +45,6 @@ const MenuLink: FC<MenuLinkProps> = forwardRef(
       icon,
       iconType,
       indent = 0,
-      invalid,
       selected,
       style,
       children,

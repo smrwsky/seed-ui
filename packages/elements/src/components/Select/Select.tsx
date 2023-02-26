@@ -1,15 +1,21 @@
-import React, {
+import { Icon, IconType } from '@seed-ui/icons';
+import cn from 'classnames';
+import {
+  ChangeEvent,
+  FC,
+  FocusEvent,
+  FocusEventHandler,
   forwardRef,
   memo,
   ReactElement,
   ReactNode,
   RefAttributes,
+  useEffect,
+  useState,
 } from 'react';
-import cn from 'classnames';
-import { Icon, IconType } from '@seed-ui/icons';
 
-import { InputAction, InputBox } from '../InputGroup';
 import { textboxStyle } from '../../styles';
+import { InputAction, InputBox } from '../InputGroup';
 
 import * as S from './Select.css';
 
@@ -18,7 +24,7 @@ export type SelectSize = 'sm' | 'md' | 'lg';
 export type SelectValue = string | string[];
 
 export interface SelectProps<TValue extends SelectValue = SelectValue>
-  extends React.RefAttributes<HTMLSelectElement> {
+  extends RefAttributes<HTMLSelectElement> {
   autoFocus?: boolean;
   defaultValue?: TValue;
   disabled?: boolean;
@@ -29,12 +35,11 @@ export interface SelectProps<TValue extends SelectValue = SelectValue>
   maxRows?: number;
   multiple?: boolean;
   name?: string;
-  onBlur?: React.FocusEventHandler<HTMLSelectElement>;
+  onBlur?: FocusEventHandler<HTMLSelectElement>;
   onChange?: (value: TValue) => void;
-  onFocus?: React.FocusEventHandler<HTMLSelectElement>;
+  onFocus?: FocusEventHandler<HTMLSelectElement>;
   rounded?: boolean;
   size?: SelectSize;
-  success?: boolean;
   value?: TValue;
   children?: ReactNode;
 }
@@ -45,7 +50,7 @@ export interface SelectFn {
   ): ReactElement | null;
 }
 
-const Select: React.FC<SelectProps> = forwardRef(
+const Select: FC<SelectProps> = forwardRef(
   (
     {
       defaultValue,
@@ -57,7 +62,6 @@ const Select: React.FC<SelectProps> = forwardRef(
       multiple,
       rounded,
       size = 'md',
-      success,
       id = 'select',
       value,
       onChange,
@@ -68,19 +72,19 @@ const Select: React.FC<SelectProps> = forwardRef(
     },
     ref,
   ) => {
-    const [valueState, setValueState] = React.useState<
+    const [valueState, setValueState] = useState<
       string | number | readonly string[] | undefined
     >(defaultValue);
 
-    const [focused, setFocused] = React.useState(false);
+    const [focused, setFocused] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (typeof value !== 'undefined') {
         setValueState(value);
       }
     }, [value]);
 
-    function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    function handleChange(e: ChangeEvent<HTMLSelectElement>) {
       const nextValue = multiple
         ? Array.from(e.target.selectedOptions, (v) => v.value)
         : e.target.value;
@@ -92,7 +96,7 @@ const Select: React.FC<SelectProps> = forwardRef(
       }
     }
 
-    function handleFocus(e: React.FocusEvent<HTMLSelectElement>): void {
+    function handleFocus(e: FocusEvent<HTMLSelectElement>): void {
       e.persist();
       setFocused(true);
 
@@ -101,7 +105,7 @@ const Select: React.FC<SelectProps> = forwardRef(
       }
     }
 
-    function handleBlur(e: React.FocusEvent<HTMLSelectElement>): void {
+    function handleBlur(e: FocusEvent<HTMLSelectElement>): void {
       e.persist();
       setFocused(false);
 

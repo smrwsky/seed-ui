@@ -1,11 +1,17 @@
-import React from 'react';
-import cn from 'classnames';
 import {
   atoms,
   Atoms,
   textBreakStyle,
   textTruncateStyle,
 } from '@seed-ui/styles';
+import cn from 'classnames';
+import {
+  ElementType,
+  FC,
+  forwardRef,
+  HTMLAttributes,
+  RefAttributes,
+} from 'react';
 
 import * as S from './Text.css';
 
@@ -25,8 +31,8 @@ export type TextVariant =
   | 'dark'
   | 'default';
 
-export interface TextProps extends React.HTMLAttributes<HTMLElement> {
-  as?: React.ElementType;
+export interface TextProps extends HTMLAttributes<HTMLElement> {
+  as?: ElementType;
   bold?: boolean;
   breakWord?: boolean;
   fontFamily?: TextFontFamily;
@@ -38,45 +44,44 @@ export interface TextProps extends React.HTMLAttributes<HTMLElement> {
   whiteSpace?: Atoms['whiteSpace'];
 }
 
-const Text: React.FC<TextProps & React.RefAttributes<HTMLElement>> =
-  React.forwardRef(
-    (
-      {
-        as: As = 'p',
-        bold,
-        breakWord,
+const Text: FC<TextProps & RefAttributes<HTMLElement>> = forwardRef(
+  (
+    {
+      as: As = 'p',
+      bold,
+      breakWord,
+      className,
+      fontFamily = 'secondary',
+      size = 'md',
+      textAlign,
+      textOverflow,
+      truncate,
+      variant = 'default',
+      whiteSpace,
+      children,
+      ...elemProps
+    },
+    ref,
+  ) => (
+    <As
+      className={cn(
+        S.root({ bold, fontFamily, size, variant }),
+        breakWord && textBreakStyle,
+        truncate && textTruncateStyle,
+        atoms({
+          textAlign,
+          textOverflow,
+          whiteSpace,
+        }),
         className,
-        fontFamily = 'secondary',
-        size = 'md',
-        textAlign,
-        textOverflow,
-        truncate,
-        variant = 'default',
-        whiteSpace,
-        children,
-        ...elemProps
-      },
-      ref,
-    ) => (
-      <As
-        className={cn(
-          S.root({ bold, fontFamily, size, variant }),
-          breakWord && textBreakStyle,
-          truncate && textTruncateStyle,
-          atoms({
-            textAlign,
-            textOverflow,
-            whiteSpace,
-          }),
-          className,
-        )}
-        ref={ref}
-        {...elemProps}
-      >
-        {children}
-      </As>
-    ),
-  );
+      )}
+      ref={ref}
+      {...elemProps}
+    >
+      {children}
+    </As>
+  ),
+);
 
 Text.displayName = 'Text';
 

@@ -1,12 +1,12 @@
-import React from 'react';
 import cn from 'classnames';
+import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 
 import * as S from './InputBox.css';
 
 export type InputBoxSize = 'sm' | 'md' | 'lg';
 
-export interface InputBoxProps extends React.HTMLAttributes<HTMLDivElement> {
-  children?: React.ReactNode;
+export interface InputBoxProps extends HTMLAttributes<HTMLDivElement> {
+  children?: ReactNode;
   disabled?: boolean;
   focused?: boolean;
   invalid?: boolean;
@@ -15,7 +15,7 @@ export interface InputBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: InputBoxSize;
 }
 
-const InputBox = React.forwardRef<HTMLDivElement, InputBoxProps>(
+const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
   (
     {
       rounded,

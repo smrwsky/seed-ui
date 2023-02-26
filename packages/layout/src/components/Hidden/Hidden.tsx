@@ -1,10 +1,10 @@
-import React from 'react';
 import cn from 'classnames';
+import { FC, ReactNode } from 'react';
 
 import * as S from './Hidden.css';
 
 export type HiddenProps = {
-  children?: React.ReactNode;
+  children?: ReactNode;
   desktop?: boolean;
   desktopDown?: boolean;
   desktopUp?: boolean;
@@ -21,7 +21,7 @@ export type HiddenProps = {
   tabletUp?: boolean;
 };
 
-const Hidden: React.FC<HiddenProps> = ({
+const Hidden: FC<HiddenProps> = ({
   desktop,
   desktopDown,
   desktopUp,

@@ -1,13 +1,13 @@
-import React from 'react';
-import cn from 'classnames';
 import { Icon } from '@seed-ui/icons';
+import cn from 'classnames';
+import { FC, HTMLAttributes, ReactNode } from 'react';
 
-import Text from '../Text';
+import { Text } from '../Text';
 
 import * as S from './Alert.css';
 
-export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
-  children?: React.ReactNode;
+export type AlertProps = HTMLAttributes<HTMLDivElement> & {
+  children?: ReactNode;
   title?: string;
   variant?: 'danger' | 'warning' | 'info' | 'success';
 };
@@ -43,7 +43,7 @@ const getIconByVariant = (variant: AlertProps['variant']) =>
   )) ||
   null;
 
-const Alert: React.FC<AlertProps> = ({
+const Alert: FC<AlertProps> = ({
   title,
   variant = 'danger',
   children,

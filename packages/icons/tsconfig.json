@@ -1,22 +1,14 @@
 {
+  "extends": "../../node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
-    "declaration": true,
     "declarationDir": "dist/types",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
+    "lib": ["dom", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
+    "outDir": "dist",
+    "rootDir": "src",
     "target": "esnext"
   },
   "include": ["src/**/*"],
@@ -27,9 +19,5 @@
     "**/*.docs.mdx",
     "**/test-utils.tsx"
   ],
-  "typeRoots": [
-    "../../node_modules/@types",
-    "./node_modules/@types",
-    "./src/types"
-  ]
+  "typeRoots": ["../../global.d.ts", "./src/types"]
 }

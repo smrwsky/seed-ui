@@ -1,6 +1,6 @@
-import React from 'react';
-import cn from 'classnames';
 import { textBreakStyle, textTruncateStyle } from '@seed-ui/styles';
+import cn from 'classnames';
+import { forwardRef, LiHTMLAttributes, Ref } from 'react';
 
 import * as S from './ListItem.css';
 
@@ -16,7 +16,7 @@ export type ListItemVariant =
   | 'dark'
   | 'default';
 
-export interface ListItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
+export interface ListItemProps extends LiHTMLAttributes<HTMLLIElement> {
   bold?: boolean;
   breakWord?: boolean;
   truncate?: boolean;
@@ -33,7 +33,7 @@ function ListItem(
     children,
     ...elemProps
   }: ListItemProps,
-  ref: React.Ref<HTMLLIElement>,
+  ref: Ref<HTMLLIElement>,
 ): JSX.Element {
   return (
     <li
@@ -54,4 +54,4 @@ function ListItem(
   );
 }
 
-export default React.forwardRef(ListItem);
+export default forwardRef(ListItem);

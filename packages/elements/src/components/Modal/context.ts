@@ -6,8 +6,6 @@ export type ModalContextType = {
   size: ModalSize;
 };
 
-const ModalContext = React.createContext<ModalContextType>({
+export const ModalContext = React.createContext<ModalContextType>({
   size: 'md',
 });
-
-export default ModalContext;

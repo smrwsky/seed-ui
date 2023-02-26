@@ -1,6 +1,6 @@
-import { recipe } from '@vanilla-extract/recipes';
 import { vars } from '@seed-ui/styles';
 import { CSSProperties } from '@vanilla-extract/css';
+import { recipe } from '@vanilla-extract/recipes';
 
 export const root = recipe({
   variants: {

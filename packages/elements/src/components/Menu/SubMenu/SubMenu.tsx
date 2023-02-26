@@ -1,7 +1,10 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import React, {
+import { Icon, IconType } from '@seed-ui/icons';
+import cn from 'classnames';
+import {
   FC,
   KeyboardEvent,
+  MouseEvent as ReactMouseEvent,
   ReactNode,
   useCallback,
   useContext,
@@ -9,18 +12,16 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Icon, IconType } from '@seed-ui/icons';
-import cn from 'classnames';
 
-import MenuContext from '../context';
-import PopupMenu from '../PopupMenu';
-import MenuListItem from '../MenuListItem';
-import MenuLink, { MenuLinkProps } from '../MenuLink';
-import MenuAction from '../MenuAction';
-import MenuLabel from '../MenuLabel';
-import MenuIcon from '../MenuIcon';
+import { Animation } from '../../Animation';
 import Menu, { MenuAutoFocus } from '../Menu';
-import Animation from '../../Animation';
+import { MenuAction } from '../MenuAction';
+import { MenuIcon } from '../MenuIcon';
+import { MenuLabel } from '../MenuLabel';
+import { MenuLink, MenuLinkProps } from '../MenuLink';
+import { MenuListItem } from '../MenuListItem';
+import { PopupMenu } from '../PopupMenu';
+import { MenuContext } from '../context';
 
 import * as S from './SubMenu.css';
 
@@ -61,7 +62,7 @@ const SubMenu: FC<SubMenuProps> = ({
   }, []);
 
   const handleMenuItemClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>) => {
+    (e: ReactMouseEvent<HTMLAnchorElement>) => {
       setSubmenuOpened((prevState) => !prevState);
       onClick?.(e);
     },

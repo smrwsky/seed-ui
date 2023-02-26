@@ -1,14 +1,14 @@
-import React, {
+import { Icon, IconType } from '@seed-ui/icons';
+import {
   ChangeEventHandler,
   FC,
+  FocusEvent,
   FocusEventHandler,
   forwardRef,
   memo,
-  ReactNode,
   RefAttributes,
   useState,
 } from 'react';
-import { Icon, IconType } from '@seed-ui/icons';
 
 import { InputAction, InputBox, TextBox } from '../InputGroup';
 
@@ -16,7 +16,6 @@ export type DateInputSize = 'sm' | 'md' | 'lg';
 
 export interface DateInputProps {
   autoFocus?: boolean;
-  children?: ReactNode;
   className?: string;
   disabled?: boolean;
   icon?: string;
@@ -30,7 +29,6 @@ export interface DateInputProps {
   readOnly?: boolean;
   rounded?: boolean;
   size?: DateInputSize;
-  success?: boolean;
   value?: string;
 }
 
@@ -45,19 +43,17 @@ const DateInput: FC<DateInputProps & RefAttributes<HTMLInputElement>> =
         readOnly,
         rounded,
         size = 'md',
-        success,
         className,
         id,
         onFocus,
         onBlur,
-        children,
         ...inputProps
       },
       ref,
     ) => {
       const [focused, setFocused] = useState(false);
 
-      function handleFocus(e: React.FocusEvent<HTMLInputElement>): void {
+      function handleFocus(e: FocusEvent<HTMLInputElement>): void {
         e.persist();
         setFocused(true);
 
@@ -66,7 +62,7 @@ const DateInput: FC<DateInputProps & RefAttributes<HTMLInputElement>> =
         }
       }
 
-      function handleBlur(e: React.FocusEvent<HTMLInputElement>): void {
+      function handleBlur(e: FocusEvent<HTMLInputElement>): void {
         e.persist();
         setFocused(false);
 

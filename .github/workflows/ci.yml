@@ -6,10 +6,10 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Node.js v14
+      - name: Setup Node.js v18
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 18.x
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -41,7 +41,7 @@ jobs:
         run: yarn build
 
       - name: Lint code
-        run: yarn lint:ci
+        run: yarn lint
 
       - name: Run unit tests
         run: yarn test:ci

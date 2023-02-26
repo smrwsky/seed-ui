@@ -1,11 +1,17 @@
-import React from 'react';
-import cn from 'classnames';
 import {
   Atoms,
   atoms,
   textBreakStyle,
   textTruncateStyle,
 } from '@seed-ui/styles';
+import cn from 'classnames';
+import {
+  ElementType,
+  FC,
+  forwardRef,
+  HTMLAttributes,
+  RefAttributes,
+} from 'react';
 
 import * as S from './Title.css';
 
@@ -25,8 +31,8 @@ export type TitleVariant =
   | 'dark'
   | 'default';
 
-export interface TitleProps extends React.HTMLAttributes<HTMLElement> {
-  as?: React.ElementType;
+export interface TitleProps extends HTMLAttributes<HTMLElement> {
+  as?: ElementType;
   breakWord?: boolean;
   fontFamily?: TitleFontFamily;
   size?: TitleSize;
@@ -37,48 +43,47 @@ export interface TitleProps extends React.HTMLAttributes<HTMLElement> {
   whiteSpace?: Atoms['whiteSpace'];
 }
 
-const Title: React.FC<TitleProps & React.RefAttributes<HTMLElement>> =
-  React.forwardRef(
-    (
-      {
-        as: As = 'h6',
-        breakWord,
+const Title: FC<TitleProps & RefAttributes<HTMLElement>> = forwardRef(
+  (
+    {
+      as: As = 'h6',
+      breakWord,
+      className,
+      fontFamily = 'secondary',
+      size = 'md',
+      textAlign,
+      textOverflow,
+      truncate,
+      variant = 'default',
+      whiteSpace,
+      children,
+      ...elemProps
+    },
+    ref,
+  ) => (
+    <As
+      className={cn(
+        S.root({
+          fontFamily,
+          size,
+          variant,
+        }),
+        breakWord && textBreakStyle,
+        truncate && textTruncateStyle,
+        atoms({
+          textAlign,
+          textOverflow,
+          whiteSpace,
+        }),
         className,
-        fontFamily = 'secondary',
-        size = 'md',
-        textAlign,
-        textOverflow,
-        truncate,
-        variant = 'default',
-        whiteSpace,
-        children,
-        ...elemProps
-      },
-      ref,
-    ) => (
-      <As
-        className={cn(
-          S.root({
-            fontFamily,
-            size,
-            variant,
-          }),
-          breakWord && textBreakStyle,
-          truncate && textTruncateStyle,
-          atoms({
-            textAlign,
-            textOverflow,
-            whiteSpace,
-          }),
-          className,
-        )}
-        ref={ref}
-        {...elemProps}
-      >
-        {children}
-      </As>
-    ),
-  );
+      )}
+      ref={ref}
+      {...elemProps}
+    >
+      {children}
+    </As>
+  ),
+);
 
 Title.displayName = 'Title';
 

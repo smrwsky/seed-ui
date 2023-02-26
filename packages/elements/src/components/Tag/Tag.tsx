@@ -1,6 +1,13 @@
-import React, { FC, forwardRef, RefAttributes } from 'react';
-import cn from 'classnames';
 import { Icon } from '@seed-ui/icons';
+import cn from 'classnames';
+import {
+  FC,
+  forwardRef,
+  HTMLAttributes,
+  KeyboardEvent,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 
 import * as S from './Tag.css';
 
@@ -24,13 +31,13 @@ export type TagVariant =
 
 export type TagSize = 'sm' | 'md';
 
-export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
   deletable?: boolean;
   disabled?: boolean;
   rounded?: boolean;
   size?: TagSize;
   variant?: TagVariant;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const Tag: FC<TagProps & RefAttributes<HTMLDivElement>> = forwardRef<
@@ -53,7 +60,7 @@ const Tag: FC<TagProps & RefAttributes<HTMLDivElement>> = forwardRef<
     },
     ref,
   ): JSX.Element => {
-    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+    function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
       if (deletable && e.code === 'Delete') {
         e.currentTarget.click();
       }

@@ -1,24 +1,30 @@
-import React from 'react';
 import cn from 'classnames';
+import {
+  ComponentPropsWithRef,
+  FC,
+  ReactElement,
+  ReactNode,
+  useMemo,
+} from 'react';
 import ReactModal, { Aria, OnAfterOpenCallback } from 'react-modal';
-import { TransitionStatus } from 'react-transition-group/Transition';
 import { Transition } from 'react-transition-group';
+import { TransitionStatus } from 'react-transition-group/Transition';
 
-import ModalContext, { ModalSize } from './context';
-import { ModalHeader } from './ModalHeader';
-import ModalBody from './ModalBody';
-import ModalFooter from './ModalFooter';
 import * as S from './Modal.css';
+import { ModalBody } from './ModalBody';
+import { ModalFooter } from './ModalFooter';
+import { ModalHeader } from './ModalHeader';
+import { ModalContext, ModalSize } from './context';
 
 export type ModalProps = {
   appElement?: HTMLElement | HTMLElement[] | HTMLCollection | NodeList;
   aria?: Aria;
   ariaHideApp?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
   contentElement?: (
-    props: React.ComponentPropsWithRef<'div'>,
-    children: React.ReactNode,
-  ) => React.ReactElement;
+    props: ComponentPropsWithRef<'div'>,
+    children: ReactNode,
+  ) => ReactElement;
   contentLabel?: string;
   contentRef?: (instance: HTMLDivElement) => void;
   data?: Record<string, string>;
@@ -28,9 +34,9 @@ export type ModalProps = {
   onClose: () => void;
   open: boolean;
   overlayElement?: (
-    props: React.ComponentPropsWithRef<'div'>,
-    contentEl: React.ReactElement,
-  ) => React.ReactElement;
+    props: ComponentPropsWithRef<'div'>,
+    contentEl: ReactElement,
+  ) => ReactElement;
   overlayRef?: (instance: HTMLDivElement) => void;
   parentSelector?(): HTMLElement;
   preventScroll?: boolean;
@@ -43,14 +49,14 @@ export type ModalProps = {
   testId?: string;
 };
 
-const Modal: React.FC<ModalProps> = ({
+const Modal: FC<ModalProps> = ({
   open,
   size = 'md',
   children,
   onClose,
   ...modalProps
 }) => {
-  const context = React.useMemo(() => ({ size }), [size]);
+  const context = useMemo(() => ({ size }), [size]);
 
   return (
     <ModalContext.Provider value={context}>

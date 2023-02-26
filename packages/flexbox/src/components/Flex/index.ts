@@ -1,2 +1,2 @@
 export * from './Flex';
-export { default } from './Flex';
+export { default as Flex } from './Flex';

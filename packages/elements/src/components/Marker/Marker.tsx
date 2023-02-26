@@ -1,5 +1,5 @@
-import React, { FC, forwardRef, HTMLAttributes, RefAttributes } from 'react';
 import cn from 'classnames';
+import { FC, forwardRef, HTMLAttributes, RefAttributes } from 'react';
 
 import * as S from './Marker.css';
 

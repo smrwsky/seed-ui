@@ -1,10 +1,9 @@
-import React from 'react';
 import { Box, Flex } from '@seed-ui/flexbox';
 
-import docs from './DateInput.docs.mdx';
 import DateInput, { DateInputProps, DateInputSize } from './DateInput';
+import docs from './DateInput.docs.mdx';
 
-const SIZE_OPTIONS: DateInputSize[] = ['xs', 'sm', 'md', 'lg'];
+const SIZE_OPTIONS: DateInputSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Inputs/DateInput',

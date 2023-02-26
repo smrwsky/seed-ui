@@ -1,5 +1,5 @@
-import { style } from '@vanilla-extract/css';
 import { vars } from '@seed-ui/styles';
+import { style } from '@vanilla-extract/css';
 
 export const popover = style({
   margin: 0,

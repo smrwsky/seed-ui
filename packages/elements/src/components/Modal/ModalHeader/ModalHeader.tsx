@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
 import cn from 'classnames';
+import { ReactNode, useContext } from 'react';
 
-import ModalContext from '../context';
+import { ModalContext } from '../context';
 
 import * as S from './ModalHeader.css';
 
 export type ModalHeaderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 function ModalHeader({ children }: ModalHeaderProps): JSX.Element {

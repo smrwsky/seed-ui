@@ -1,2 +1,2 @@
 export * from './Animation';
-export { default } from './Animation';
+export { default as Animation } from './Animation';

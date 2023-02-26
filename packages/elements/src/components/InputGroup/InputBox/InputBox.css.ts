@@ -1,5 +1,5 @@
-import { style, styleVariants } from '@vanilla-extract/css';
 import { spacing, vars } from '@seed-ui/styles';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
   gridArea: 'input',

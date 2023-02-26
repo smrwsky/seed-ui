@@ -1,8 +1,7 @@
-import React from 'react';
 import { Box, Flex } from '@seed-ui/flexbox';
 
-import docs from './Textarea.docs.mdx';
 import Textarea, { TextareaProps, TextareaSize } from './Textarea';
+import docs from './Textarea.docs.mdx';
 
 const sizes: TextareaSize[] = ['sm', 'md', 'lg'];
 

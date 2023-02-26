@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Overline, { OverlineProps, OverlineVariant } from './Overline';
 import docs from './Overline.docs.mdx';
 

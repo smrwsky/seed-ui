@@ -15,7 +15,7 @@ module.exports = {
   },
   framework: '@storybook/react',
   staticDirs: ['./public'],
-  stories: ['../packages/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+  stories: ['../packages/**/*.stories.tsx'],
   webpack: (config) => {
     config.plugins.push(new VanillaExtractPlugin());
     return config;

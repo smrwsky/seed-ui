@@ -1,4 +1,5 @@
-import React, {
+import cx from 'classnames';
+import {
   FC,
   forwardRef,
   LiHTMLAttributes,
@@ -6,9 +7,8 @@ import React, {
   RefAttributes,
   useContext,
 } from 'react';
-import cx from 'classnames';
 
-import MenuListContext from '../context';
+import { MenuContext } from '../context';
 
 import * as S from './MenuListItem.css';
 
@@ -18,7 +18,7 @@ export type MenuListItemProps = LiHTMLAttributes<HTMLLIElement> & {
 
 const MenuListItem: FC<MenuListItemProps & RefAttributes<HTMLLIElement>> =
   forwardRef(({ children, className, role = 'none', ...props }, ref) => {
-    const { collapsed } = useContext(MenuListContext);
+    const { collapsed } = useContext(MenuContext);
 
     return (
       <li

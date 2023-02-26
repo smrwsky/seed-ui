@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Quote, { QuoteProps } from './Quote';
 import docs from './Quote.docs.mdx';
 

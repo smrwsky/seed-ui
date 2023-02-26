@@ -1,2 +1,2 @@
 export * from './OptionIcon';
-export { default } from './OptionIcon';
+export { default as OptionIcon } from './OptionIcon';

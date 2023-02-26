@@ -1,5 +1,5 @@
-import { styleVariants } from '@vanilla-extract/css';
 import { bpUp, spacing } from '@seed-ui/styles';
+import { styleVariants } from '@vanilla-extract/css';
 
 export const rootSize = styleVariants({
   sm: {

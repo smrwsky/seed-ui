@@ -1,5 +1,5 @@
-import React from 'react';
 import cn from 'classnames';
+import { FC } from 'react';
 
 import * as S from './Divider.css';
 
@@ -9,7 +9,7 @@ export type DividerProps = {
   direction?: DividerDirection;
 };
 
-const Divider: React.FC<DividerProps> = ({ direction = 'horizontal' }) => (
+const Divider: FC<DividerProps> = ({ direction = 'horizontal' }) => (
   <div className={cn(S.root, S.rootDirection[direction])} />
 );
 
