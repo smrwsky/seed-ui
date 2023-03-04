@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.9.0
+
+### Minor Changes
+
+- 2f18a2d: Migrated to React 18.
+
 ## 0.8.2
 
 ### Patch Changes

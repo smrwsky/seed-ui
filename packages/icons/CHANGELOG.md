@@ -1,10 +1,21 @@
 # @seed-ui/icons
 
+## 0.6.0
+
+### Minor Changes
+
+- 2f18a2d: Migrated to React 18.
+
+### Patch Changes
+
+- Updated dependencies [2f18a2d]
+  - @seed-ui/styles@0.9.0
+
 ## 0.5.5
 
 ### Patch Changes
 
-- ad6dd9f: 
+- ad6dd9f:
   - Made label tag default in the Label component.
   - Updated Icon, IconButton, and Avatar components.
 
