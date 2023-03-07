@@ -10,7 +10,7 @@ export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export interface AvatarProps {
   backgroundColor?: Atoms['backgroundColor'];
-  children?: ReactElement;
+  children?: ReactElement<Record<string, unknown>>;
   className?: string;
   icon?: string;
   iconType?: IconType;
@@ -53,7 +53,7 @@ const Avatar: FC<AvatarProps> = ({
 
     {children &&
       cloneElement(children, {
-        className: cn(S.image, children.props.className),
+        className: cn(S.image, children.props.className as string),
       })}
   </div>
 );

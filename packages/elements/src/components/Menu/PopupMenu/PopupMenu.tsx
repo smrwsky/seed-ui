@@ -129,12 +129,12 @@ const PopupMenu = forwardRef<HTMLUListElement, PopupMenuProps>(
       <Popover
         anchorElement={anchorElement}
         className={popoverClassName}
-        onOpenChange={handleOpenChange}
         open={openState}
         placement={placement}
         strategy={strategy}
         style={popoverStyle}
         trigger={trigger}
+        onOpenChange={handleOpenChange}
       >
         <Menu
           anchorElement={anchorElement}

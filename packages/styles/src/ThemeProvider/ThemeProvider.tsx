@@ -2,10 +2,10 @@ import { FC, ReactNode, useLayoutEffect } from 'react';
 
 import { defaultThemeStyle } from '../themes';
 
-export type ThemeProviderProps = {
+export interface ThemeProviderProps {
   children?: ReactNode;
   theme?: string;
-};
+}
 
 const ThemeProvider: FC<ThemeProviderProps> = ({
   theme = defaultThemeStyle,

@@ -1,5 +1,4 @@
 export * from '@seed-ui/icons';
-export * from '@seed-ui/layout';
 export * from '@seed-ui/flexbox';
 export * from '@seed-ui/styles';
 

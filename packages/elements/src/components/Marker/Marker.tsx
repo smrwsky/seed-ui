@@ -1,11 +1,11 @@
 import cn from 'classnames';
-import { FC, forwardRef, HTMLAttributes, RefAttributes } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './Marker.css';
 
 export type MarkerProps = HTMLAttributes<HTMLSpanElement>;
 
-const Marker: FC<MarkerProps & RefAttributes<HTMLSpanElement>> = forwardRef(
+const Marker = forwardRef<HTMLSpanElement, MarkerProps>(
   ({ className, children, ...props }, ref) => (
     <span className={cn(S.root, className)} ref={ref} {...props}>
       {children}

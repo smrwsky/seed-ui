@@ -4,10 +4,8 @@ import {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
   ElementType,
-  FC,
   forwardRef,
   ReactElement,
-  RefAttributes,
 } from 'react';
 
 import * as S from './IconButton.css';
@@ -47,7 +45,7 @@ export interface IconButtonProps
   variant?: IconButtonVariant;
 }
 
-const IconButton: FC<IconButtonProps & RefAttributes<HTMLElement>> = forwardRef(
+const IconButton = forwardRef<HTMLElement, IconButtonProps>(
   (
     {
       as: As = 'button',
@@ -60,7 +58,7 @@ const IconButton: FC<IconButtonProps & RefAttributes<HTMLElement>> = forwardRef(
       className,
       children,
       ...elemProps
-    }: IconButtonProps,
+    },
     ref,
   ) => (
     <As

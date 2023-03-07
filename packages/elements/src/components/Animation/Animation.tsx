@@ -1,14 +1,15 @@
 import cn from 'classnames';
 import {
   cloneElement,
+  CSSProperties,
   ElementType,
   Fragment,
+  HTMLAttributes,
   isValidElement,
   ReactNode,
+  useMemo,
 } from 'react';
 import Transition, {
-  EndHandler,
-  TransitionProps,
   TransitionStatus,
 } from 'react-transition-group/Transition';
 
@@ -16,44 +17,40 @@ import * as S from './Animation.css';
 
 export type AnimationType = 'fade' | 'slide';
 
-export type AnimationProps = Omit<TransitionProps, 'addEndListener'> & {
-  as?: ElementType;
-  addEndListener?: EndHandler<HTMLElement>;
-  type: AnimationType;
+export interface AnimationProps {
+  as?: ElementType<HTMLAttributes<HTMLElement>>;
   className?: string;
   children: ReactNode;
   duration?: number;
-};
+  in?: boolean | undefined;
+  style?: CSSProperties;
+  type: AnimationType;
+}
 
 function Animation({
   as: Element = Fragment,
   in: inProp,
-  addEndListener,
   duration = 200,
   type,
   style,
   className,
   children,
-  ...transitionProps
 }: AnimationProps): JSX.Element {
-  function handleAddEndListener(done: () => void) {
-    addEndListener?.(done);
-  }
+  const transitionTimeout = useMemo(
+    () => ({
+      appear: 0,
+      enter: 0,
+      exit: duration,
+    }),
+    [duration],
+  );
 
   return (
-    <Transition
-      addEndListener={handleAddEndListener}
-      in={inProp}
-      timeout={{
-        appear: 0,
-        enter: 0,
-        exit: duration,
-      }}
-      {...transitionProps}
-    >
+    <Transition in={inProp} timeout={transitionTimeout}>
       {(status: TransitionStatus) =>
-        Element === Fragment && isValidElement(children) ? (
-          cloneElement(children, {
+        Element === Fragment &&
+        isValidElement<HTMLAttributes<HTMLElement>>(children) ? (
+          cloneElement<HTMLAttributes<HTMLElement>>(children, {
             className: cn(
               S.rootType[type],
               status === 'entered' && S.rootEntered[type],

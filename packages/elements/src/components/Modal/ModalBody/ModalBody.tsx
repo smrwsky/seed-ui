@@ -4,9 +4,9 @@ import { ModalContext } from '../context';
 
 import * as S from './ModalBody.css';
 
-export type ModalBodyProps = {
+export interface ModalBodyProps {
   children: ReactNode;
-};
+}
 
 function ModalBody({ children }: ModalBodyProps): JSX.Element {
   const { size } = useContext(ModalContext);

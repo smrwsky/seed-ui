@@ -5,9 +5,9 @@ import { ModalContext } from '../context';
 
 import * as S from './ModalHeader.css';
 
-export type ModalHeaderProps = {
+export interface ModalHeaderProps {
   children: ReactNode;
-};
+}
 
 function ModalHeader({ children }: ModalHeaderProps): JSX.Element {
   const { size } = useContext(ModalContext);

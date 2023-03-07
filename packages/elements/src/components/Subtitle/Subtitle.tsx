@@ -5,13 +5,7 @@ import {
   textTruncateStyle,
 } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
-  ElementType,
-  FC,
-  forwardRef,
-  HTMLAttributes,
-  RefAttributes,
-} from 'react';
+import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './Subtitle.css';
 
@@ -43,7 +37,7 @@ export interface SubtitleProps extends HTMLAttributes<HTMLElement> {
   whiteSpace?: Atoms['whiteSpace'];
 }
 
-const Subtitle: FC<SubtitleProps & RefAttributes<HTMLElement>> = forwardRef(
+const Subtitle = forwardRef<HTMLElement, SubtitleProps>(
   (
     {
       as: As = 'h6',

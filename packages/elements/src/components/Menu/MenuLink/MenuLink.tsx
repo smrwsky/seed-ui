@@ -4,10 +4,8 @@ import cx from 'classnames';
 import {
   AnchorHTMLAttributes,
   ComponentType,
-  FC,
   forwardRef,
   memo,
-  RefAttributes,
   useContext,
 } from 'react';
 
@@ -19,9 +17,7 @@ import { MenuContext } from '../context';
 
 import * as S from './MenuLink.css';
 
-export interface MenuLinkProps
-  extends AnchorHTMLAttributes<HTMLAnchorElement>,
-    RefAttributes<HTMLAnchorElement> {
+export interface MenuLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   ActionComponent?: ComponentType;
   active?: boolean;
   description?: string;
@@ -34,7 +30,7 @@ export interface MenuLinkProps
 
 const INDENT_BASE = 1.75;
 
-const MenuLink: FC<MenuLinkProps> = forwardRef(
+const MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
   (
     {
       ActionComponent,

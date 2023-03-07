@@ -1,11 +1,11 @@
 import cn from 'classnames';
-import { FC, forwardRef, HTMLAttributes, RefAttributes } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './Quote.css';
 
 export type QuoteProps = HTMLAttributes<HTMLQuoteElement>;
 
-const Quote: FC<QuoteProps & RefAttributes<HTMLQuoteElement>> = forwardRef(
+const Quote = forwardRef<HTMLQuoteElement, QuoteProps>(
   ({ className, children, ...props }, res) => (
     <blockquote {...props} className={cn(S.root, className)} ref={res}>
       {children}

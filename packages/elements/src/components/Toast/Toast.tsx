@@ -72,11 +72,11 @@ const Toast: FC<ToastProps> = ({
       <IconButton
         className={S.close}
         icon="x"
-        onClick={onClose}
         rounded
         size="xs"
         tabIndex={0}
         variant="tertiary"
+        onClick={onClose}
       />
     </div>
   );

@@ -5,13 +5,7 @@ import {
   textTruncateStyle,
 } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
-  ElementType,
-  FC,
-  forwardRef,
-  HTMLAttributes,
-  RefAttributes,
-} from 'react';
+import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './Text.css';
 
@@ -44,7 +38,7 @@ export interface TextProps extends HTMLAttributes<HTMLElement> {
   whiteSpace?: Atoms['whiteSpace'];
 }
 
-const Text: FC<TextProps & RefAttributes<HTMLElement>> = forwardRef(
+const Text = forwardRef<HTMLElement, TextProps>(
   (
     {
       as: As = 'p',

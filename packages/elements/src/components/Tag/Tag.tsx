@@ -1,13 +1,6 @@
 import { Icon } from '@seed-ui/icons';
 import cn from 'classnames';
-import {
-  FC,
-  forwardRef,
-  HTMLAttributes,
-  KeyboardEvent,
-  ReactNode,
-  RefAttributes,
-} from 'react';
+import { forwardRef, HTMLAttributes, KeyboardEvent, ReactNode } from 'react';
 
 import * as S from './Tag.css';
 
@@ -40,10 +33,7 @@ export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
   children?: ReactNode;
 }
 
-const Tag: FC<TagProps & RefAttributes<HTMLDivElement>> = forwardRef<
-  HTMLDivElement,
-  TagProps
->(
+const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
     {
       disabled,
@@ -78,11 +68,11 @@ const Tag: FC<TagProps & RefAttributes<HTMLDivElement>> = forwardRef<
           rounded && S.rootRounded,
         )}
         data-deletable={deletable}
-        onClick={onClick}
-        onKeyDown={handleKeyDown}
         ref={ref}
         role={onClick && !role ? 'button' : role}
         tabIndex={onClick && typeof tabIndex === 'undefined' ? 0 : tabIndex}
+        onClick={onClick}
+        onKeyDown={handleKeyDown}
         {...props}
       >
         <span className={S.text}>{children}</span>

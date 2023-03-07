@@ -16,7 +16,7 @@ import { ModalFooter } from './ModalFooter';
 import { ModalHeader } from './ModalHeader';
 import { ModalContext, ModalSize } from './context';
 
-export type ModalProps = {
+export interface ModalProps {
   appElement?: HTMLElement | HTMLElement[] | HTMLCollection | NodeList;
   aria?: Aria;
   ariaHideApp?: boolean;
@@ -47,6 +47,12 @@ export type ModalProps = {
   shouldReturnFocusAfterClose?: boolean;
   size?: ModalSize;
   testId?: string;
+}
+
+const TRANSITION_TIMEOUT = {
+  appear: 0,
+  enter: 0,
+  exit: 200,
 };
 
 const Modal: FC<ModalProps> = ({
@@ -60,14 +66,7 @@ const Modal: FC<ModalProps> = ({
 
   return (
     <ModalContext.Provider value={context}>
-      <Transition
-        in={open}
-        timeout={{
-          appear: 0,
-          enter: 0,
-          exit: 200,
-        }}
-      >
+      <Transition in={open} timeout={TRANSITION_TIMEOUT}>
         {(status: TransitionStatus, ...childProps) => (
           <ReactModal
             {...modalProps}
@@ -79,12 +78,12 @@ const Modal: FC<ModalProps> = ({
             )}
             closeTimeoutMS={200}
             isOpen={status !== 'exited'}
-            onRequestClose={onClose}
             overlayClassName={cn(
               S.overlay,
               S.overlaySize[size],
               status === 'entered' && S.overlayEntered,
             )}
+            onRequestClose={onClose}
           >
             {children}
           </ReactModal>
