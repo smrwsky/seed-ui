@@ -1,12 +1,5 @@
 import cn from 'classnames';
-import {
-  FC,
-  forwardRef,
-  HTMLAttributes,
-  memo,
-  RefAttributes,
-  useContext,
-} from 'react';
+import { FC, HTMLAttributes, memo, useContext } from 'react';
 
 import { MenuContext } from '../context';
 
@@ -14,21 +7,21 @@ import * as S from './MenuDescription.css';
 
 export type MenuDescriptionProps = HTMLAttributes<HTMLSpanElement>;
 
-const MenuDescription: FC<
-  MenuDescriptionProps & RefAttributes<HTMLSpanElement>
-> = forwardRef(({ children, className, ...props }, ref) => {
+const MenuDescription: FC<MenuDescriptionProps> = ({
+  children,
+  className,
+  ...props
+}) => {
   const { collapsed, variant } = useContext(MenuContext);
 
-  return !collapsed ? (
-    <span
-      className={cn(S.root, S.rootVariant[variant], className)}
-      ref={ref}
-      {...props}
-    >
+  if (collapsed) return null;
+
+  return (
+    <span className={cn(S.root, S.rootVariant[variant], className)} {...props}>
       {children}
     </span>
-  ) : null;
-});
+  );
+};
 
 MenuDescription.displayName = 'MenuDescription';
 

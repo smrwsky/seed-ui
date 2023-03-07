@@ -5,13 +5,7 @@ import {
   textTruncateStyle,
 } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
-  ElementType,
-  FC,
-  forwardRef,
-  HTMLAttributes,
-  RefAttributes,
-} from 'react';
+import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './Title.css';
 
@@ -43,7 +37,7 @@ export interface TitleProps extends HTMLAttributes<HTMLElement> {
   whiteSpace?: Atoms['whiteSpace'];
 }
 
-const Title: FC<TitleProps & RefAttributes<HTMLElement>> = forwardRef(
+const Title = forwardRef<HTMLElement, TitleProps>(
   (
     {
       as: As = 'h6',

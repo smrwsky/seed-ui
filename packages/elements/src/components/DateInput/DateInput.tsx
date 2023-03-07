@@ -1,12 +1,10 @@
 import { Icon, IconType } from '@seed-ui/icons';
 import {
   ChangeEventHandler,
-  FC,
   FocusEvent,
   FocusEventHandler,
   forwardRef,
   memo,
-  RefAttributes,
   useState,
 } from 'react';
 
@@ -32,75 +30,74 @@ export interface DateInputProps {
   value?: string;
 }
 
-const DateInput: FC<DateInputProps & RefAttributes<HTMLInputElement>> =
-  forwardRef<HTMLInputElement, DateInputProps>(
-    (
-      {
-        disabled,
-        icon,
-        iconType,
-        invalid,
-        readOnly,
-        rounded,
-        size = 'md',
-        className,
-        id,
-        onFocus,
-        onBlur,
-        ...inputProps
-      },
-      ref,
-    ) => {
-      const [focused, setFocused] = useState(false);
-
-      function handleFocus(e: FocusEvent<HTMLInputElement>): void {
-        e.persist();
-        setFocused(true);
-
-        if (onFocus) {
-          onFocus(e);
-        }
-      }
-
-      function handleBlur(e: FocusEvent<HTMLInputElement>): void {
-        e.persist();
-        setFocused(false);
-
-        if (onBlur) {
-          onBlur(e);
-        }
-      }
-
-      return (
-        <InputBox
-          className={className}
-          disabled={disabled}
-          focused={focused}
-          invalid={invalid}
-          readOnly={readOnly}
-          rounded={rounded}
-          size={size}
-        >
-          {icon && (
-            <InputAction>
-              <Icon name={icon} size="sm" type={iconType} variant="secondary" />
-            </InputAction>
-          )}
-
-          <TextBox
-            {...inputProps}
-            disabled={disabled}
-            id={id}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-            readOnly={readOnly}
-            ref={ref}
-            type="date"
-          />
-        </InputBox>
-      );
+const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
+  (
+    {
+      disabled,
+      icon,
+      iconType,
+      invalid,
+      readOnly,
+      rounded,
+      size = 'md',
+      className,
+      id,
+      onFocus,
+      onBlur,
+      ...inputProps
     },
-  );
+    ref,
+  ) => {
+    const [focused, setFocused] = useState(false);
+
+    function handleFocus(e: FocusEvent<HTMLInputElement>): void {
+      e.persist();
+      setFocused(true);
+
+      if (onFocus) {
+        onFocus(e);
+      }
+    }
+
+    function handleBlur(e: FocusEvent<HTMLInputElement>): void {
+      e.persist();
+      setFocused(false);
+
+      if (onBlur) {
+        onBlur(e);
+      }
+    }
+
+    return (
+      <InputBox
+        className={className}
+        disabled={disabled}
+        focused={focused}
+        invalid={invalid}
+        readOnly={readOnly}
+        rounded={rounded}
+        size={size}
+      >
+        {icon && (
+          <InputAction>
+            <Icon name={icon} size="sm" type={iconType} variant="secondary" />
+          </InputAction>
+        )}
+
+        <TextBox
+          {...inputProps}
+          disabled={disabled}
+          id={id}
+          readOnly={readOnly}
+          ref={ref}
+          type="date"
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+        />
+      </InputBox>
+    );
+  },
+);
 
 DateInput.displayName = 'DateInput';
 

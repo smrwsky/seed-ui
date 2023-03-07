@@ -3,11 +3,8 @@ import {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
   ElementType,
-  FC,
   forwardRef,
   memo,
-  Ref,
-  RefAttributes,
 } from 'react';
 
 import * as S from './Link.css';
@@ -32,7 +29,7 @@ export interface LinkProps
   variant?: LinkVariant;
 }
 
-const Link: FC<LinkProps & RefAttributes<HTMLElement>> = forwardRef(
+const Link = forwardRef<HTMLElement, LinkProps>(
   (
     {
       as: As = 'a',
@@ -41,8 +38,8 @@ const Link: FC<LinkProps & RefAttributes<HTMLElement>> = forwardRef(
       className,
       children,
       ...elemProps
-    }: LinkProps,
-    ref: Ref<HTMLElement>,
+    },
+    ref,
   ) => (
     <As
       className={cn(S.root({ bold, variant }), className)}

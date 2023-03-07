@@ -2,7 +2,6 @@ import { Icon, IconType } from '@seed-ui/icons';
 import cn from 'classnames';
 import {
   ChangeEvent,
-  FC,
   FocusEvent,
   FocusEventHandler,
   forwardRef,
@@ -23,8 +22,7 @@ export type SelectSize = 'sm' | 'md' | 'lg';
 
 export type SelectValue = string | string[];
 
-export interface SelectProps<TValue extends SelectValue = SelectValue>
-  extends RefAttributes<HTMLSelectElement> {
+export interface SelectProps<TValue extends SelectValue = SelectValue> {
   autoFocus?: boolean;
   defaultValue?: TValue;
   disabled?: boolean;
@@ -47,10 +45,10 @@ export interface SelectProps<TValue extends SelectValue = SelectValue>
 export interface SelectFn {
   <TValue extends SelectValue = SelectValue>(
     props: SelectProps<TValue> & RefAttributes<HTMLSelectElement>,
-  ): ReactElement | null;
+  ): ReactElement;
 }
 
-const Select: FC<SelectProps> = forwardRef(
+const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
       defaultValue,
@@ -135,12 +133,12 @@ const Select: FC<SelectProps> = forwardRef(
           disabled={disabled}
           id={id}
           multiple={multiple}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          onFocus={handleFocus}
           ref={ref}
           size={maxRows}
           value={valueState}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          onFocus={handleFocus}
         >
           {children}
         </select>

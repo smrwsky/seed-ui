@@ -1,14 +1,12 @@
 import {
   Children,
   cloneElement,
-  FC,
   FocusEvent,
   forwardRef,
   HTMLAttributes,
   isValidElement,
   KeyboardEvent,
   MouseEvent as ReactMouseEvent,
-  RefAttributes,
   useCallback,
   useEffect,
   useMemo,
@@ -29,9 +27,7 @@ import {
 
 export type MenuAutoFocus = 'on' | 'reversed' | 'off';
 
-export interface MenuProps
-  extends HTMLAttributes<HTMLUListElement>,
-    RefAttributes<HTMLUListElement> {
+export interface MenuProps extends HTMLAttributes<HTMLUListElement> {
   activeIndex?: number;
   anchorElement?: HTMLElement | null;
   autoFocus?: MenuAutoFocus;
@@ -45,7 +41,7 @@ export interface MenuProps
   onAutoFocusChange?: (autoFocus: MenuAutoFocus) => void;
 }
 
-const Menu: FC<MenuProps> = forwardRef(
+const Menu = forwardRef<HTMLUListElement, MenuProps>(
   (
     {
       activeIndex,
@@ -68,7 +64,6 @@ const Menu: FC<MenuProps> = forwardRef(
       useState(defaultActiveIndex);
 
     const [autoFocusState, setAutoFocusState] = useState<MenuAutoFocus>('off');
-
     const [focused, setFocused] = useState(false);
     const [numberOfItems] = useState(() => Children.count(children));
 

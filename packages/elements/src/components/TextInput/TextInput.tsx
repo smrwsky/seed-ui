@@ -1,11 +1,9 @@
 import { Icon, IconType } from '@seed-ui/icons';
 import {
-  FC,
   FocusEvent,
   forwardRef,
   InputHTMLAttributes,
   memo,
-  RefAttributes,
   useCallback,
   useState,
 } from 'react';
@@ -27,79 +25,78 @@ export interface TextInputProps
   value?: string;
 }
 
-const TextInput: FC<TextInputProps & RefAttributes<HTMLInputElement>> =
-  forwardRef<HTMLInputElement, TextInputProps>(
-    (
-      {
-        rounded,
-        size,
-        disabled,
-        icon,
-        iconType,
-        inputSize,
-        invalid,
-        readOnly,
-        onFocus,
-        onBlur,
-        ...inputProps
-      },
-      ref,
-    ) => {
-      const [focused, setFocused] = useState(false);
-
-      const handleFocus = useCallback(
-        (e: FocusEvent<HTMLInputElement>) => {
-          e.persist();
-          setFocused(true);
-
-          if (onFocus) {
-            onFocus(e);
-          }
-        },
-        [onFocus],
-      );
-
-      const handleBlur = useCallback(
-        (e: FocusEvent<HTMLInputElement>) => {
-          e.persist();
-          setFocused(false);
-
-          if (onBlur) {
-            onBlur(e);
-          }
-        },
-        [onBlur],
-      );
-
-      return (
-        <InputBox
-          disabled={disabled}
-          focused={focused}
-          invalid={invalid}
-          readOnly={readOnly}
-          rounded={rounded}
-          size={size}
-        >
-          {icon && (
-            <InputAction>
-              <Icon name={icon} size="sm" type={iconType} variant="secondary" />
-            </InputAction>
-          )}
-
-          <TextBox
-            {...inputProps}
-            disabled={disabled}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-            readOnly={readOnly}
-            ref={ref}
-            size={inputSize}
-            type="text"
-          />
-        </InputBox>
-      );
+const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
+  (
+    {
+      rounded,
+      size,
+      disabled,
+      icon,
+      iconType,
+      inputSize,
+      invalid,
+      readOnly,
+      onFocus,
+      onBlur,
+      ...inputProps
     },
-  );
+    ref,
+  ) => {
+    const [focused, setFocused] = useState(false);
+
+    const handleFocus = useCallback(
+      (e: FocusEvent<HTMLInputElement>) => {
+        e.persist();
+        setFocused(true);
+
+        if (onFocus) {
+          onFocus(e);
+        }
+      },
+      [onFocus],
+    );
+
+    const handleBlur = useCallback(
+      (e: FocusEvent<HTMLInputElement>) => {
+        e.persist();
+        setFocused(false);
+
+        if (onBlur) {
+          onBlur(e);
+        }
+      },
+      [onBlur],
+    );
+
+    return (
+      <InputBox
+        disabled={disabled}
+        focused={focused}
+        invalid={invalid}
+        readOnly={readOnly}
+        rounded={rounded}
+        size={size}
+      >
+        {icon && (
+          <InputAction>
+            <Icon name={icon} size="sm" type={iconType} variant="secondary" />
+          </InputAction>
+        )}
+
+        <TextBox
+          {...inputProps}
+          disabled={disabled}
+          readOnly={readOnly}
+          ref={ref}
+          size={inputSize}
+          type="text"
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+        />
+      </InputBox>
+    );
+  },
+);
 
 TextInput.displayName = 'TextInput';
 

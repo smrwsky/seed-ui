@@ -5,9 +5,9 @@ import { ModalContext } from '../context';
 
 import * as S from './ModalFooter.css';
 
-export type ModalFooterProps = {
+export interface ModalFooterProps {
   children: ReactNode;
-};
+}
 
 function ModalFooter({ children }: ModalFooterProps): JSX.Element {
   const { size } = useContext(ModalContext);

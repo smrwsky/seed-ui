@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { FC, forwardRef, HTMLAttributes, RefAttributes } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './Strong.css';
 
@@ -20,7 +20,7 @@ export interface StrongProps extends HTMLAttributes<HTMLElement> {
   variant?: StrongVariant;
 }
 
-const Strong: FC<StrongProps & RefAttributes<HTMLElement>> = forwardRef(
+const Strong = forwardRef<HTMLElement, StrongProps>(
   (
     { bold = true, variant = 'default', className, children, ...elemProps },
     ref,

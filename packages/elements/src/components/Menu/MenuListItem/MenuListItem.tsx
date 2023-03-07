@@ -1,23 +1,14 @@
 import cx from 'classnames';
-import {
-  FC,
-  forwardRef,
-  LiHTMLAttributes,
-  ReactNode,
-  RefAttributes,
-  useContext,
-} from 'react';
+import { forwardRef, LiHTMLAttributes, useContext } from 'react';
 
 import { MenuContext } from '../context';
 
 import * as S from './MenuListItem.css';
 
-export type MenuListItemProps = LiHTMLAttributes<HTMLLIElement> & {
-  children: ReactNode;
-};
+export type MenuListItemProps = LiHTMLAttributes<HTMLLIElement>;
 
-const MenuListItem: FC<MenuListItemProps & RefAttributes<HTMLLIElement>> =
-  forwardRef(({ children, className, role = 'none', ...props }, ref) => {
+const MenuListItem = forwardRef<HTMLLIElement, MenuListItemProps>(
+  ({ children, className, role = 'none', ...props }, ref) => {
     const { collapsed } = useContext(MenuContext);
 
     return (
@@ -30,7 +21,8 @@ const MenuListItem: FC<MenuListItemProps & RefAttributes<HTMLLIElement>> =
         {children}
       </li>
     );
-  });
+  },
+);
 
 MenuListItem.displayName = 'MenuListItem';
 

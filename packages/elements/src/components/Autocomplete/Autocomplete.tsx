@@ -3,7 +3,6 @@ import { Icon, IconType } from '@seed-ui/icons';
 import {
   ChangeEvent,
   ComponentType,
-  FC,
   FocusEvent,
   FocusEventHandler,
   forwardRef,
@@ -211,7 +210,7 @@ export interface AutocompleteFn {
   displayName: 'Autocomplete';
 }
 
-const Autocomplete: FC<AutocompleteProps> = forwardRef(
+const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
   (
     {
       allowEmptyQuery = false,
@@ -264,6 +263,15 @@ const Autocomplete: FC<AutocompleteProps> = forwardRef(
           (valueState && [valueState]) ||
           []) as unknown[],
       [valueState],
+    );
+
+    const popoverStyle = useMemo(
+      () => ({
+        width: anchorEl ? `${anchorEl.offsetWidth}px` : undefined,
+        maxWidth: '100%',
+        margin: 0,
+      }),
+      [anchorEl],
     );
 
     const changeValue = useCallback(
@@ -504,10 +512,10 @@ const Autocomplete: FC<AutocompleteProps> = forwardRef(
                   <Tag
                     data-index={idx}
                     deletable
-                    onMouseDown={handleRemove}
                     role="button"
                     tabIndex={-1}
                     variant="outline-tertiary"
+                    onMouseDown={handleRemove}
                   >
                     {getLabel(item as never)}
                   </Tag>
@@ -527,16 +535,16 @@ const Autocomplete: FC<AutocompleteProps> = forwardRef(
               autoComplete="off"
               disabled={disabled}
               id={id}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              onClick={handleClick}
-              onFocus={handleFocus}
-              onKeyDown={handleKeyDown}
               readOnly={readOnly}
               ref={ref}
               role="combobox"
               type="text"
               value={displayText}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              onClick={handleClick}
+              onFocus={handleFocus}
+              onKeyDown={handleKeyDown}
               {...inputProps}
             />
           </InputTags>
@@ -548,11 +556,11 @@ const Autocomplete: FC<AutocompleteProps> = forwardRef(
                 <IconButton
                   aria-label={clearLabel}
                   icon="x"
-                  onMouseDown={handleClear}
                   rounded
                   size="xs"
                   tabIndex={-1}
                   variant="tertiary"
+                  onMouseDown={handleClear}
                 />
               </InputAction>
             )}
@@ -560,17 +568,13 @@ const Autocomplete: FC<AutocompleteProps> = forwardRef(
 
         <Popover
           anchorElement={anchorEl}
-          onOpenChange={handleChangeOpenListbox}
           open={openListbox}
           placement="bottom-start"
           role="presentation"
           strategy="absolute"
-          style={{
-            width: anchorEl ? `${anchorEl.offsetWidth}px` : undefined,
-            maxWidth: '100%',
-            margin: 0,
-          }}
+          style={popoverStyle}
           trigger="manual"
+          onOpenChange={handleChangeOpenListbox}
         >
           <ul id={slug(id, LISTBOX_ID)} ref={listboxRef} role="listbox">
             {optList.map((item, idx) =>
@@ -580,11 +584,11 @@ const Autocomplete: FC<AutocompleteProps> = forwardRef(
                   data-index={idx}
                   id={slug(id, OPTION_ID, idx)}
                   key={idx}
+                  option={item as never}
+                  selected={valuesList.includes(item)}
                   onMouseDown={handleOptionMouseDown}
                   onMouseEnter={handleOptionMouseEnter}
                   onMouseLeave={handleOptionMouseLeave}
-                  option={item as never}
-                  selected={valuesList.includes(item)}
                 />
               ) : (
                 <Option
@@ -592,10 +596,10 @@ const Autocomplete: FC<AutocompleteProps> = forwardRef(
                   data-index={idx}
                   id={slug(id, OPTION_ID, idx)}
                   key={idx}
+                  selected={valuesList.includes(item)}
                   onMouseDown={handleOptionMouseDown}
                   onMouseEnter={handleOptionMouseEnter}
                   onMouseLeave={handleOptionMouseLeave}
-                  selected={valuesList.includes(item)}
                 >
                   {getLabel(item as never)}
                 </Option>

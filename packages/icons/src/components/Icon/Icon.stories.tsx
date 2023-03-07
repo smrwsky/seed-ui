@@ -1,4 +1,5 @@
-import { Caption, Text, Space, Col, Row } from '@seed-ui/elements';
+import { atoms, Caption, Text } from '@seed-ui/elements';
+import { Box, Flex } from '@seed-ui/flexbox';
 import { capitalize } from 'lodash';
 
 import Icon, {
@@ -103,67 +104,67 @@ export function Base(args: IconProps): JSX.Element {
 
 export function Variants(args: IconProps): JSX.Element {
   return (
-    <Row alignItems="center" gutter={2}>
+    <Flex alignItems="center" mt="-2" mx="-1">
       {VARIANT_OPTIONS.map((variant, i) => (
-        <Col key={i}>
-          <Space alignItems="center" direction="column" gutter={1}>
+        <Box key={i} lineHeight={0} mt={2} px={1}>
+          <Flex alignItems="center" flexDirection="column">
             <Icon {...args} name="like" type="solid" variant={variant} />
-            <Caption variant="tertiary">
+            <Caption className={atoms({ mt: 1 })} variant="tertiary">
               {capitalize(variant ?? undefined)}
             </Caption>
-          </Space>
-        </Col>
+          </Flex>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }
 
 export function Sizes(args: IconProps): JSX.Element {
   return (
-    <Row alignItems="end" gutter={2}>
+    <Flex alignItems="center" mt="-2" mx="-1">
       {SIZE_OPTIONS.map((size, i) => (
-        <Col key={i}>
-          <Space alignItems="center" direction="column" gutter={1}>
+        <Box key={i} lineHeight={0} mt={2} px={1}>
+          <Flex alignItems="center" flexDirection="column">
             <Icon {...args} name="like" size={size} type="solid" />
             <Caption variant="tertiary">
               {capitalize(size ?? undefined)}
             </Caption>
-          </Space>
-        </Col>
+          </Flex>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }
 
 export function Rotate(args: IconProps): JSX.Element {
   return (
-    <Row alignItems="center" gutter={2}>
+    <Flex alignItems="center" mt="-2" mx="-1">
       {ROTATE_OPTIONS.map((rotate, i) => (
-        <Col key={i}>
-          <Space alignItems="center" direction="column" gutter={1}>
+        <Box key={i} lineHeight={0} mt={2} px={1}>
+          <Flex alignItems="center" flexDirection="column">
             <Icon {...args} rotate={rotate} />
             <Caption variant="tertiary">{rotate ?? undefined}</Caption>
-          </Space>
-        </Col>
+          </Flex>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }
 
 export function Flip(args: IconProps): JSX.Element {
   return (
-    <Row alignItems="center" gutter={2}>
+    <Flex alignItems="center" mt="-2" mx="-1">
       {FLIP_OPTIONS.map((flip, i) => (
-        <Col key={i}>
-          <Space alignItems="center" direction="column" gutter={1}>
+        <Box key={i} lineHeight={0} mt={2} px={1}>
+          <Flex alignItems="center" flexDirection="column">
             <Icon {...args} flip={flip} />
             <Caption variant="tertiary">
               {capitalize(flip ?? undefined)}
             </Caption>
-          </Space>
-        </Col>
+          </Flex>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }
 
@@ -188,10 +189,10 @@ export function Pull(args: IconProps): JSX.Element {
 
 export function Animation(args: IconProps): JSX.Element {
   return (
-    <Row alignItems="center" gutter={2}>
+    <Flex alignItems="center" mt="-2" mx="-1">
       {ANIMATION_OPTIONS.map((animation, i) => (
-        <Col key={i}>
-          <Space alignItems="center" direction="column" gutter={1}>
+        <Box key={i} lineHeight={0} mt={2} px={1}>
+          <Flex alignItems="center" flexDirection="column">
             <Icon
               {...args}
               {...ANIMATION_SAMPLES_MAP[animation]}
@@ -200,9 +201,9 @@ export function Animation(args: IconProps): JSX.Element {
             <Caption variant="tertiary">
               {capitalize(animation ?? undefined)}
             </Caption>
-          </Space>
-        </Col>
+          </Flex>
+        </Box>
       ))}
-    </Row>
+    </Flex>
   );
 }

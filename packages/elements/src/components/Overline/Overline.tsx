@@ -5,13 +5,7 @@ import {
   textTruncateStyle,
 } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
-  ElementType,
-  FC,
-  forwardRef,
-  HTMLAttributes,
-  RefAttributes,
-} from 'react';
+import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './Overline.css';
 
@@ -37,7 +31,7 @@ export interface OverlineProps extends HTMLAttributes<HTMLElement> {
   whiteSpace?: Atoms['whiteSpace'];
 }
 
-const Overline: FC<OverlineProps & RefAttributes<HTMLElement>> = forwardRef(
+const Overline = forwardRef<HTMLElement, OverlineProps>(
   (
     {
       as: As = 'div',

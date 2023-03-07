@@ -1,29 +1,15 @@
 import { Atoms, atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
-  ElementType,
-  FC,
-  forwardRef,
-  HTMLAttributes,
-  RefAttributes,
-} from 'react';
+import { forwardRef } from 'react';
 
 import { Box, BoxProps } from '../Box';
 
-export interface FlexProps
-  extends Partial<
-      Pick<
-        Atoms,
-        'alignItems' | 'justifyContent' | 'flexDirection' | 'flexWrap'
-      >
-    >,
-    BoxProps,
-    HTMLAttributes<HTMLElement>,
-    RefAttributes<HTMLElement> {
-  as?: ElementType;
-}
+export type FlexProps = Partial<
+  Pick<Atoms, 'alignItems' | 'justifyContent' | 'flexDirection' | 'flexWrap'>
+> &
+  BoxProps;
 
-const Flex: FC<FlexProps> = forwardRef(
+const Flex = forwardRef<HTMLElement, FlexProps>(
   (
     {
       display = 'flex',

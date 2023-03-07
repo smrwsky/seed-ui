@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { FC, forwardRef, HTMLAttributes, RefAttributes } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './ToastContainer.css';
 
@@ -16,18 +16,17 @@ export interface ToastContainerProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-const ToastContainer: FC<ToastContainerProps & RefAttributes<HTMLDivElement>> =
-  forwardRef(
-    ({ children, className, placement = 'top-right', ...props }, ref) => (
-      <div
-        className={cn(S.root, S.rootPlacement[placement], className)}
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </div>
-    ),
-  );
+const ToastContainer = forwardRef<HTMLDivElement, ToastContainerProps>(
+  ({ children, className, placement = 'top-right', ...props }, ref) => (
+    <div
+      className={cn(S.root, S.rootPlacement[placement], className)}
+      ref={ref}
+      {...props}
+    >
+      {children}
+    </div>
+  ),
+);
 
 ToastContainer.displayName = 'ToastContainer';
 

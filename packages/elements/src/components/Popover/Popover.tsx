@@ -26,7 +26,7 @@ export type PopoverStrategy = 'absolute' | 'fixed';
 
 export type PopoverTrigger = 'click' | 'hover' | 'focus' | 'manual';
 
-export type PopoverProps = {
+export interface PopoverProps {
   anchorElement: HTMLElement | null;
   arrow?: boolean;
   className?: string;
@@ -41,7 +41,7 @@ export type PopoverProps = {
   trigger?: PopoverTrigger | PopoverTrigger[];
   onOpenChange?: (visible: boolean) => void;
   children: ReactNode;
-};
+}
 
 const Popover: FC<PopoverProps> = ({
   anchorElement,

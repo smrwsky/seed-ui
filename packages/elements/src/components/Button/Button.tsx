@@ -4,9 +4,7 @@ import {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
   ElementType,
-  FC,
   forwardRef,
-  RefAttributes,
 } from 'react';
 
 import * as S from './Button.css';
@@ -44,8 +42,7 @@ export type ButtonVariant =
 
 export interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLElement>, 'type'>,
-    AnchorHTMLAttributes<HTMLElement>,
-    RefAttributes<HTMLElement> {
+    AnchorHTMLAttributes<HTMLElement> {
   as?: ElementType;
   loading?: boolean;
   rounded?: boolean;
@@ -57,7 +54,7 @@ export interface ButtonProps
   variant?: ButtonVariant;
 }
 
-const Button: FC<ButtonProps & RefAttributes<HTMLElement>> = forwardRef(
+const Button = forwardRef<HTMLElement, ButtonProps>(
   (
     {
       as: As = 'button',

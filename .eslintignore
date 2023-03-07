@@ -1,7 +1,7 @@
 __reports__/
-node_modules/
 coverage/
 dist/
+node_modules/
 *.config.js
 *rc.js
 jest.*.js

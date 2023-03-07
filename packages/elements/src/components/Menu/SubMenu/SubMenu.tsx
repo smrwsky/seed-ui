@@ -183,9 +183,9 @@ const SubMenu: FC<SubMenuProps> = ({
         aria-expanded={submenuOpened}
         aria-haspopup
         disabled={disabled}
+        ref={setAnchorElement}
         onClick={handleMenuItemClick}
         onKeyDown={handleMenuItemKeyDown}
-        ref={setAnchorElement}
         {...props}
       >
         {icon && <MenuIcon name={icon} type={iconType} />}
@@ -214,11 +214,11 @@ const SubMenu: FC<SubMenuProps> = ({
             autoFocus={autoFocus}
             className={cn(S.menu, S.menuVariant[variant])}
             indent={indent + 1}
-            onAutoFocusChange={handleAutoFocusChange}
             ref={menuRef}
             size={size}
             type="inline"
             variant={variant === 'dark' ? 'dark' : 'secondary'}
+            onAutoFocusChange={handleAutoFocusChange}
           >
             {children}
           </Menu>
@@ -228,13 +228,13 @@ const SubMenu: FC<SubMenuProps> = ({
           activeIndex={activeIndex}
           anchorElement={anchorElement}
           autoFocus={autoFocus}
-          onActiveIndexChange={handleActiveIndexChange}
-          onAutoFocusChange={handleAutoFocusChange}
-          onOpenChange={handleOpenChange}
           open={submenuOpened}
           placement={type === 'vertical' ? 'right-start' : 'bottom-start'}
           ref={menuRef}
           trigger="manual"
+          onActiveIndexChange={handleActiveIndexChange}
+          onAutoFocusChange={handleAutoFocusChange}
+          onOpenChange={handleOpenChange}
         >
           {children}
         </PopupMenu>

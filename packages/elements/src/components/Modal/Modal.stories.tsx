@@ -23,7 +23,7 @@ export function Base(args: ModalProps): JSX.Element {
     <>
       <Button onClick={() => setOpen(true)}>Open modal</Button>
 
-      <Modal {...args} onClose={() => setOpen(false)} open={open}>
+      <Modal {...args} open={open} onClose={() => setOpen(false)}>
         <Modal.Header>
           <Subtitle>Basic modal</Subtitle>
         </Modal.Header>
@@ -33,7 +33,7 @@ export function Base(args: ModalProps): JSX.Element {
         <Modal.Footer>
           <Flex justifyContent="end">
             <Box mr={3}>
-              <Button onClick={() => setOpen(false)} variant="overlay-tertiary">
+              <Button variant="overlay-tertiary" onClick={() => setOpen(false)}>
                 Cancel
               </Button>
             </Box>
@@ -75,19 +75,19 @@ export function Sizes(args: ModalProps): JSX.Element {
     <>
       <Flex>
         <Box mr={4}>
-          <Button onClick={handleOpenSmallModal} variant="outline-secondary">
+          <Button variant="outline-secondary" onClick={handleOpenSmallModal}>
             Open small modal
           </Button>
         </Box>
 
         <Box mr={4}>
-          <Button onClick={handleOpenMediumModal} variant="outline-secondary">
+          <Button variant="outline-secondary" onClick={handleOpenMediumModal}>
             Open medium modal
           </Button>
         </Box>
 
         <Box>
-          <Button onClick={handleOpenLargeModal} variant="outline-secondary">
+          <Button variant="outline-secondary" onClick={handleOpenLargeModal}>
             Open large modal
           </Button>
         </Box>
@@ -95,9 +95,9 @@ export function Sizes(args: ModalProps): JSX.Element {
 
       <Modal
         {...args}
-        onClose={handleClose}
         open={open && modalSize === 'sm'}
         size="sm"
+        onClose={handleClose}
       >
         <Modal.Header>
           <Subtitle>Small modal</Subtitle>
@@ -107,7 +107,7 @@ export function Sizes(args: ModalProps): JSX.Element {
         </Modal.Body>
         <Modal.Footer>
           <Flex justifyContent="center">
-            <Button onClick={() => setOpen(false)} variant="primary">
+            <Button variant="primary" onClick={() => setOpen(false)}>
               OK
             </Button>
           </Flex>
@@ -116,9 +116,9 @@ export function Sizes(args: ModalProps): JSX.Element {
 
       <Modal
         {...args}
-        onClose={handleClose}
         open={open && modalSize === 'md'}
         size="md"
+        onClose={handleClose}
       >
         <Modal.Header>
           <Subtitle>Medium modal</Subtitle>
@@ -129,13 +129,13 @@ export function Sizes(args: ModalProps): JSX.Element {
         <Modal.Footer>
           <Flex justifyContent="end">
             <Box mr={3}>
-              <Button onClick={handleClose} variant="overlay-tertiary">
+              <Button variant="overlay-tertiary" onClick={handleClose}>
                 Cancel
               </Button>
             </Box>
 
             <Box>
-              <Button onClick={() => setOpen(false)} variant="primary">
+              <Button variant="primary" onClick={() => setOpen(false)}>
                 OK
               </Button>
             </Box>
@@ -145,9 +145,9 @@ export function Sizes(args: ModalProps): JSX.Element {
 
       <Modal
         {...args}
-        onClose={handleClose}
         open={open && modalSize === 'lg'}
         size="lg"
+        onClose={handleClose}
       >
         <Modal.Header>
           {' '}
@@ -160,12 +160,12 @@ export function Sizes(args: ModalProps): JSX.Element {
         <Modal.Footer>
           <Flex justifyContent="end">
             <Box mr={3}>
-              <Button onClick={handleClose} variant="overlay-tertiary">
+              <Button variant="overlay-tertiary" onClick={handleClose}>
                 Cancel
               </Button>
             </Box>
             <Box>
-              <Button onClick={() => setOpen(false)} variant="primary">
+              <Button variant="primary" onClick={() => setOpen(false)}>
                 OK
               </Button>
             </Box>

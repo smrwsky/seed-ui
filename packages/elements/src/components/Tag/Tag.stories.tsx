@@ -80,7 +80,6 @@ export function Rounded(args: TagProps): JSX.Element {
 
 export function Clickable(args: TagProps): JSX.Element {
   return (
-    // eslint-disable-next-line no-console
     <Tag {...args} onClick={() => console.log('Tag clicked')}>
       Clickable tag
     </Tag>
@@ -89,7 +88,6 @@ export function Clickable(args: TagProps): JSX.Element {
 
 export function Removable(args: TagProps): JSX.Element {
   return (
-    // eslint-disable-next-line no-console
     <Tag {...args} deletable onClick={() => console.log('Tag clicked')}>
       Removable tag
     </Tag>

@@ -4,8 +4,8 @@ import {
   FocusEvent,
   forwardRef,
   memo,
-  RefAttributes,
   TextareaHTMLAttributes,
+  useCallback,
   useState,
 } from 'react';
 
@@ -27,65 +27,66 @@ export interface TextareaProps
   value?: string;
 }
 
-const Textarea: FC<TextareaProps & RefAttributes<HTMLTextAreaElement>> =
-  forwardRef<HTMLTextAreaElement, TextareaProps>(
-    (
-      {
-        rounded,
-        size,
-        disabled,
-        invalid,
-        readOnly,
-        id,
-        onFocus,
-        onBlur,
-        ...inputProps
-      },
-      ref,
-    ) => {
-      const [focused, setFocused] = useState(false);
+const Textarea: FC<TextareaProps> = forwardRef<
+  HTMLTextAreaElement,
+  TextareaProps
+>(
+  (
+    {
+      rounded,
+      size,
+      disabled,
+      invalid,
+      readOnly,
+      id,
+      onFocus,
+      onBlur,
+      ...inputProps
+    },
+    ref,
+  ) => {
+    const [focused, setFocused] = useState(false);
 
-      const handleFocus = (e: FocusEvent<HTMLTextAreaElement>): void => {
+    const handleFocus = useCallback(
+      (e: FocusEvent<HTMLTextAreaElement>): void => {
         setFocused(true);
 
-        if (onFocus) {
-          e.persist();
-          onFocus(e);
-        }
-      };
+        onFocus?.(e);
+      },
+      [onFocus],
+    );
 
-      const handleBlur = (e: FocusEvent<HTMLTextAreaElement>): void => {
+    const handleBlur = useCallback(
+      (e: FocusEvent<HTMLTextAreaElement>): void => {
         setFocused(false);
+        onBlur?.(e);
+      },
+      [onBlur],
+    );
 
-        if (onBlur) {
-          e.persist();
-          onBlur(e);
-        }
-      };
-
-      return (
-        <InputBox
+    return (
+      <InputBox
+        disabled={disabled}
+        focused={focused}
+        invalid={invalid}
+        readOnly={readOnly}
+        rounded={rounded}
+        size={size}
+      >
+        <textarea
+          className={cn(textboxStyle, S.textarea)}
           disabled={disabled}
-          focused={focused}
-          invalid={invalid}
+          id={id}
           readOnly={readOnly}
-          rounded={rounded}
-          size={size}
-        >
-          <textarea
-            className={cn(textboxStyle, S.textarea)}
-            disabled={disabled}
-            id={id}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-            readOnly={readOnly}
-            ref={ref}
-            {...inputProps}
-          />
-        </InputBox>
-      );
-    },
-  );
+          ref={ref}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          {...inputProps}
+        />
+      </InputBox>
+    );
+  },
+);
 
 Textarea.displayName = 'Textarea';
 

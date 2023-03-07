@@ -5,9 +5,9 @@ import * as S from './Divider.css';
 
 export type DividerDirection = 'horizontal' | 'vertical';
 
-export type DividerProps = {
+export interface DividerProps {
   direction?: DividerDirection;
-};
+}
 
 const Divider: FC<DividerProps> = ({ direction = 'horizontal' }) => (
   <div className={cn(S.root, S.rootDirection[direction])} />

@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { FC, forwardRef, HTMLAttributes, RefAttributes } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './UList.css';
 
@@ -29,7 +29,7 @@ export interface UListProps extends HTMLAttributes<HTMLUListElement> {
   variant?: UListVariant;
 }
 
-const UList: FC<UListProps & RefAttributes<HTMLUListElement>> = forwardRef(
+const UList = forwardRef<HTMLUListElement, UListProps>(
   (
     {
       bold,

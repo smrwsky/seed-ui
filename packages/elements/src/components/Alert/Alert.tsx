@@ -6,11 +6,11 @@ import { Text } from '../Text';
 
 import * as S from './Alert.css';
 
-export type AlertProps = HTMLAttributes<HTMLDivElement> & {
+export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   title?: string;
   variant?: 'danger' | 'warning' | 'info' | 'success';
-};
+}
 
 const getIconByVariant = (variant: AlertProps['variant']) =>
   (variant === 'warning' && (

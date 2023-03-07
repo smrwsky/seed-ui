@@ -5,13 +5,7 @@ import {
   textTruncateStyle,
 } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
-  ElementType,
-  FC,
-  forwardRef,
-  HTMLAttributes,
-  RefAttributes,
-} from 'react';
+import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './Caption.css';
 
@@ -37,7 +31,7 @@ export interface CaptionProps extends HTMLAttributes<HTMLElement> {
   whiteSpace?: Atoms['whiteSpace'];
 }
 
-const Caption: FC<CaptionProps & RefAttributes<HTMLElement>> = forwardRef(
+const Caption = forwardRef<HTMLElement, CaptionProps>(
   (
     {
       as: As = 'div',

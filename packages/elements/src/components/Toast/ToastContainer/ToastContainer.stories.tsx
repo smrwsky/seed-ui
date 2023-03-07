@@ -57,9 +57,9 @@ export function Placement(args: ToastContainerProps): JSX.Element {
         {placements.map((p, i) => (
           <Box key={p} ml={i && 2}>
             <Button
-              onClick={handleChangePosition}
               value={p}
               variant={p === placement ? 'secondary' : 'outline-secondary'}
+              onClick={handleChangePosition}
             >
               {capitalize(p)}
             </Button>
