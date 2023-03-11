@@ -3,6 +3,7 @@ coverage/
 dist/
 node_modules/
 *.config.js
+*.config.mjs
 *rc.js
 jest.*.js
 tsconfig.json

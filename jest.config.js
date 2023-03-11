@@ -7,7 +7,9 @@ module.exports = {
   coverageDirectory: '<rootDir>/coverage',
   collectCoverageFrom: [
     '<rootDir>/packages/**/*.{ts,tsx,js}',
-    '!/node_modules/**/*.{ts,tsx,js}',
-    '!/dist/**/*.{ts,tsx,js}',
+    '!<rootDir>/packages/**/node_modules/**/*.{ts,tsx,js,jsx}',
+    '!<rootDir>/packages/**/dist/**/*.{ts,tsx,js,jsx}',
+    '!<rootDir>/packages/**/index.{ts,tsx,js,jsx}',
+    '!<rootDir>/packages/**/*.stories.{ts,tsx,js,jsx}',
   ],
 };

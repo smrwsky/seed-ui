@@ -1,6 +1,14 @@
 {
   "presets": [
-    ["@babel/preset-env", { "loose": true }],
+    "@babel/preset-typescript",
+    [
+      "@babel/preset-env",
+      {
+        "bugfixes": true,
+        "modules": false,
+        "targets": ">0.25%"
+      }
+    ],
     [
       "@babel/preset-react",
       {
@@ -8,15 +16,10 @@
       }
     ]
   ],
-  "plugins": [
-    ["@babel/plugin-proposal-class-properties", { "loose": true }],
-    "@vanilla-extract/babel-plugin",
-    "lodash"
-  ],
+  "plugins": ["@babel/plugin-transform-runtime", "lodash"],
   "env": {
     "test": {
       "presets": [
-        "@babel/preset-typescript",
         [
           "@babel/preset-env",
           {
@@ -25,7 +28,8 @@
             }
           }
         ]
-      ]
+      ],
+      "plugins": ["@vanilla-extract/babel-plugin"]
     }
   }
 }

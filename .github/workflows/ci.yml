@@ -6,7 +6,7 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Node.js v18
+      - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 18.x
