@@ -16,7 +16,11 @@
       }
     ]
   ],
-  "plugins": ["@babel/plugin-transform-runtime", "lodash"],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@vanilla-extract/babel-plugin",
+    "lodash"
+  ],
   "env": {
     "test": {
       "presets": [
@@ -28,8 +32,7 @@
             }
           }
         ]
-      ],
-      "plugins": ["@vanilla-extract/babel-plugin"]
+      ]
     }
   }
 }

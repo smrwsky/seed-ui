@@ -50,7 +50,7 @@
     "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^6.5.16",
     "@storybook/theming": "^6.5.16",
-    "@vanilla-extract/babel-plugin": "^1.1.1",
+    "@vanilla-extract/babel-plugin": "^1.2.0",
     "@vanilla-extract/css": "^1.10.0",
     "@vanilla-extract/webpack-plugin": "^2.1.0",
     "babel-jest": "^26.6.3",
