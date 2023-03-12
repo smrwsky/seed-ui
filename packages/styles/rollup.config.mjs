@@ -1,9 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
-import postcss from 'rollup-plugin-postcss';
-import postcssImport from 'postcss-import';
-import postcssEnv from 'postcss-preset-env';
 
 import packageJson from './package.json' assert { type: "json" };
 
@@ -45,11 +42,6 @@ export default {
       extensions,
       include: ['src/**/*'],
       exclude: ['node_modules/**', '**/*.css'],
-    }),
-    postcss({
-      plugins: [postcssImport(), postcssEnv()],
-      namedExports: true,
-      extract: true,
     }),
   ],
   external: (id) => external.some(ext => id.startsWith(ext)) || /@babel\/runtime/.test(id),
