@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.9.2
+
+### Patch Changes
+
+- 0365530: Included @vanila-extract/babel-plugin to the build.
+
 ## 0.9.1
 
 ### Patch Changes

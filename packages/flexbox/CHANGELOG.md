@@ -1,5 +1,11 @@
 # @seed-ui/flexbox
 
+## 0.2.2
+
+### Patch Changes
+
+- 0365530: Included @vanila-extract/babel-plugin to the build.
+
 ## 0.2.1
 
 ### Patch Changes

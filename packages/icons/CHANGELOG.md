@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.6.2
+
+### Patch Changes
+
+- 0365530: Included @vanila-extract/babel-plugin to the build.
+
 ## 0.6.1
 
 ### Patch Changes
