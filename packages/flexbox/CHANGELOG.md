@@ -1,5 +1,11 @@
 # @seed-ui/flexbox
 
+## 0.2.1
+
+### Patch Changes
+
+- 123d65a: Updated @vanilla-extract/css to 1.10.0
+
 ## 0.2.0
 
 ### Minor Changes

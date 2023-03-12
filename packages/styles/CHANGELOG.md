@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.9.1
+
+### Patch Changes
+
+- 123d65a: Updated @vanilla-extract/css to 1.10.0
+
 ## 0.9.0
 
 ### Minor Changes
