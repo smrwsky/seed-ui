@@ -7,8 +7,7 @@ import {
   useMemo,
 } from 'react';
 import ReactModal, { Aria, OnAfterOpenCallback } from 'react-modal';
-import { Transition } from 'react-transition-group';
-import { TransitionStatus } from 'react-transition-group/Transition';
+import { Transition, TransitionStatus } from 'react-transition-group';
 
 import * as S from './Modal.css';
 import { ModalBody } from './ModalBody';

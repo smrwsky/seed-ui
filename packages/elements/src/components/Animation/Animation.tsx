@@ -9,9 +9,7 @@ import {
   ReactNode,
   useMemo,
 } from 'react';
-import Transition, {
-  TransitionStatus,
-} from 'react-transition-group/Transition';
+import { Transition, TransitionStatus } from 'react-transition-group';
 
 import * as S from './Animation.css';
 

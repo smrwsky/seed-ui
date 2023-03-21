@@ -1,12 +1,8 @@
+export * from './components/ThemeProvider';
+
 export * from './const';
-export * from './mixins';
+export * from './styles/mixins';
 
-// Preserve correct order of styles
-export * from './vars.css';
-export * from './themes';
-
-export * from './ThemeProvider';
-export * from './GlobalStyle';
-
-export * from './atoms.css';
-export * from './typography.css';
+// Preserve order of exported styles
+export * from './styles/reboot.css';
+export * from './styles/utilities';

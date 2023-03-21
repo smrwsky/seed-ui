@@ -1,21 +1,16 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import babel from '@rollup/plugin-babel';
+import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
 
-import packageJson from './package.json' assert { type: "json" };
+import externals from 'rollup-plugin-node-externals';
+import typescript from '@rollup/plugin-typescript';
 
-const external = [
-  ...Object.keys(packageJson.dependencies),
-  ...Object.keys(packageJson.peerDependencies),
-]
-
-const extensions = ['.js', '.ts', '.tsx'];
-
-const outputConfig = {
+const outputOptions = {
+  dir: 'dist',
   preserveModules: true,
   preserveModulesRoot: 'src',
-  generatedCode: {
-    constBindings: true,
+  sourcemap: true,
+  generatedCode: 'es2015',
+  assetFileNames({ name }) {
+    return name.replace(/^src\//, 'assets/');
   },
 };
 
@@ -23,26 +18,27 @@ export default {
   input: 'src/index.ts',
   output: [
     {
-      ...outputConfig,
-      dir: 'dist/cjs',
-      format: 'cjs',
+      ...outputOptions,
+      format: 'es',
+      entryFileNames: ({ name }) => `es/${name.replace('.css', '.css.vanilla')}.js`
     },
     {
-      ...outputConfig,
-      dir: 'dist/es',
-      format: 'esm',
+      ...outputOptions,
+      format: 'commonjs',
+      entryFileNames: ({ name }) => `cjs/${name.replace('.css', '.css.vanilla')}.js`
     },
   ],
   plugins: [
-    resolve({ extensions }),
-    commonjs({ include: '**/node_modules/**' }),
-    babel({
-      babelHelpers: 'runtime',
-      configFile: true,
-      extensions,
-      include: ['src/**/*'],
-      exclude: ['node_modules/**', '**/*.css'],
+    externals(),
+    typescript(),
+    vanillaExtractPlugin({
+      identifiers: 'short',
+      esbuildOptions: { loader: { '.css': 'empty' } },
     }),
   ],
-  external: (id) => external.some(ext => id.startsWith(ext)) || /@babel\/runtime/.test(id),
+  treeshake: {
+    moduleSideEffects: (id) => {
+      return /\.css$/.test(id);
+    },
+  },
 };

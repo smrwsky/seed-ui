@@ -1,2 +1,2 @@
 export * from './atoms';
-export * from './default-theme';
+export * from './themes';

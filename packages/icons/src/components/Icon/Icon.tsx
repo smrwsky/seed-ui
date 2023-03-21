@@ -1,6 +1,8 @@
 import cn from 'classnames';
 import { HTMLAttributes } from 'react';
 
+import 'boxicons/css/boxicons.min.css';
+
 import * as S from './Icon.css';
 
 export type IconType = 'regular' | 'solid' | 'logo';

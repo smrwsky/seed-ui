@@ -2,7 +2,7 @@ import hexToRgba from 'hex-to-rgba';
 
 import { color } from './atoms';
 
-export const defaultTheme = {
+export const DEFAULT_THEME = {
   width: {
     containerMobile: '540px',
     containerMobileLg: '720px',
