@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "./node_modules/@justoss/code-style/eslint-config-typescript",
+    "./node_modules/@justoss/code-style/eslint-config-react"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/*.ts",
+        "**/*.tsx"
+      ],
+      "parserOptions": {
+        "tsconfigRootDir": ".",
+        "project": [
+          "./tsconfig.json"
+        ]
+      }
+    },
+    {
+      "files": [
+        "**/*.stories.tsx"
+      ],
+      "rules": {
+        "react-perf/jsx-no-jsx-as-prop": "off",
+        "react-perf/jsx-no-new-array-as-prop": "off",
+        "react-perf/jsx-no-new-function-as-prop": "off",
+        "react-perf/jsx-no-new-object-as-prop": "off"
+      }
+    }
+  ]
+}

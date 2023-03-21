@@ -27,8 +27,8 @@ import {
   textOverflow,
   whiteSpace,
   width,
-} from './const';
-import { vars } from './vars.css';
+} from '../../const';
+import { vars } from '../reboot.css';
 
 export type ResponsiveValue<Value extends string | number> = ConditionalValue<
   typeof responsiveProperties,
@@ -37,8 +37,8 @@ export type ResponsiveValue<Value extends string | number> = ConditionalValue<
 
 export const baseProperties = defineProperties({
   properties: {
-    textOverflow,
-    whiteSpace,
+    textOverflow: textOverflow,
+    whiteSpace: whiteSpace,
   },
 });
 
@@ -64,28 +64,28 @@ export const responsiveProperties = defineProperties({
   defaultCondition: 'mobile',
 
   properties: {
-    position,
+    position: position,
 
     bottom: offset,
     left: offset,
     right: offset,
     top: offset,
 
-    display,
+    display: display,
 
-    flex,
-    flexWrap,
-    flexDirection,
-    alignItems,
-    alignSelf,
-    justifyContent,
-    order,
+    flex: flex,
+    flexWrap: flexWrap,
+    flexDirection: flexDirection,
+    alignItems: alignItems,
+    alignSelf: alignSelf,
+    justifyContent: justifyContent,
+    order: order,
 
     width: widthProperties,
     maxWidth: widthProperties,
     minWidth: widthProperties,
 
-    height,
+    height: height,
     maxHeight: height,
     minHeight: height,
 
@@ -95,8 +95,8 @@ export const responsiveProperties = defineProperties({
     borderTop: vars.border,
     borderRadius: vars.borderRadius,
 
-    lineHeight,
-    textAlign,
+    lineHeight: lineHeight,
+    textAlign: textAlign,
 
     marginBottom: margin,
     marginLeft: margin,

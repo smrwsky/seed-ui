@@ -1,4 +1,5 @@
-import { Description, DocsStory, ArgsTable } from '@storybook/addon-docs';
+import { Canvas, ArgsTable } from '@storybook/addon-docs';
+import * as AutocompleteStories from './Autocomplete.stories';
 
 # Autocomplete
 
@@ -27,14 +28,14 @@ of options can simplify the process for the user.
 
 ### Basic
 
-<DocsStory id="inputs-autocomplete--basic" />
+<Canvas of={AutocompleteStories.Basic} />
 
 ### Multiple
 
 Set `multiple` to `true` to allow multiple values. User will see tags
 with values that were selected.
 
-<DocsStory id="inputs-autocomplete--multiple" />
+<Canvas of={AutocompleteStories.Multiple} />
 
 ### Invalid
 
@@ -42,20 +43,20 @@ Set `invalid` to `true` to indicate an error or an issue with the
 input value. If value is `thue`, then a clear error feedback should be provided
 using ErrorMessage component.
 
-<DocsStory id="inputs-autocomplete--invalid" />
+<Canvas of={AutocompleteStories.Invalid} />
 
 ### Sizes
 
 Use `size` property to specify the size of input box. Available values: `sm`,
 `md`, `lg`.
 
-<DocsStory id="inputs-autocomplete--sizes" />
+<Canvas of={AutocompleteStories.Sizes} />
 
 ### Rounded
 
 Set `rounded` to `true` to use input box with rounded corners.
 
-<DocsStory id="inputs-autocomplete--rounded" />
+<Canvas of={AutocompleteStories.Rounded} />
 
 ## Guidelines
 

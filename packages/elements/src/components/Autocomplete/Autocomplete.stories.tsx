@@ -17,10 +17,8 @@ export default {
   parameters: {
     docs: { page: docs },
   },
-  argTypes: {
-    placeholder: {
-      defaultValue: 'Type to search',
-    },
+  args: {
+    placeholder: 'Type to search',
   },
 };
 

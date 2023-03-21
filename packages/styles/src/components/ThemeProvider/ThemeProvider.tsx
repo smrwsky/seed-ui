@@ -1,6 +1,8 @@
 import { FC, ReactNode, useLayoutEffect } from 'react';
 
-import { defaultThemeStyle } from '../themes';
+import 'minireset.css';
+
+import { defaultTheme } from '../../styles/reboot.css';
 
 export interface ThemeProviderProps {
   children?: ReactNode;
@@ -8,7 +10,7 @@ export interface ThemeProviderProps {
 }
 
 const ThemeProvider: FC<ThemeProviderProps> = ({
-  theme = defaultThemeStyle,
+  theme = defaultTheme,
   children,
 }): JSX.Element => {
   useLayoutEffect(() => {
