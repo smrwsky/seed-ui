@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.6.3
+
+### Patch Changes
+
+- ca02f98: Fixed rollup config.
+
 ## 0.6.2
 
 ### Patch Changes
