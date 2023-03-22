@@ -1,5 +1,11 @@
 # @seed-ui/flexbox
 
+## 0.2.3
+
+### Patch Changes
+
+- ca02f98: Fixed rollup config.
+
 ## 0.2.2
 
 ### Patch Changes

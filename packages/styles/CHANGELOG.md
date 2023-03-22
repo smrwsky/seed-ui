@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.9.3
+
+### Patch Changes
+
+- ca02f98: Fixed rollup config.
+
 ## 0.9.2
 
 ### Patch Changes
