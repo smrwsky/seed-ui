@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.6.4
+
+### Patch Changes
+
+- 7ffe5d6: Added processed styles to packages.
+
 ## 0.6.3
 
 ### Patch Changes

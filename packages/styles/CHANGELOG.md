@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.9.4
+
+### Patch Changes
+
+- 7ffe5d6: Added processed styles to packages.
+
 ## 0.9.3
 
 ### Patch Changes

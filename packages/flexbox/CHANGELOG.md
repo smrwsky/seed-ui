@@ -1,5 +1,11 @@
 # @seed-ui/flexbox
 
+## 0.2.4
+
+### Patch Changes
+
+- 7ffe5d6: Added processed styles to packages.
+
 ## 0.2.3
 
 ### Patch Changes
