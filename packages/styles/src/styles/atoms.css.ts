@@ -7,48 +7,62 @@ import {
 import { mapValues } from 'lodash';
 
 import {
-  alignItems,
-  alignSelf,
-  breakpoint,
-  display,
-  flex,
-  flexDirection,
-  flexWrap,
-  height,
-  justifyContent,
-  lineHeight,
-  margin,
-  offset,
-  order,
-  overflow,
-  position,
-  spacing,
-  textAlign,
-  textOverflow,
-  whiteSpace,
-  width,
-} from '../../const';
-import { vars } from '../reboot.css';
+  ALIGN_ITEMS,
+  ALIGN_SELF,
+  BREAKPOINT,
+  DISPLAY,
+  FLEX,
+  FLEX_DIRECTION,
+  FLEX_WRAP,
+  HEIGHT,
+  JUSTIFY_CONTENT,
+  LINE_HEIGHT,
+  MARGIN,
+  OFFSET,
+  ORDER,
+  OVERFLOW,
+  POSITION,
+  SPACING,
+  TEXT_ALIGN,
+  TEXT_OVERFLOW,
+  WHITE_SPACE,
+  WIDTH,
+} from '../const';
+
+import { vars } from './global.css';
+
+const baseProperties = defineProperties({
+  properties: {
+    textOverflow: TEXT_OVERFLOW,
+    whiteSpace: WHITE_SPACE,
+  },
+});
+
+const colorProperties = defineProperties({
+  properties: {
+    borderColor: vars.color,
+    color: vars.color,
+    backgroundColor: vars.color,
+    boxShadow: vars.boxShadow,
+  },
+  shorthands: {
+    bg: ['backgroundColor'],
+    shadow: ['boxShadow'],
+  },
+});
+
+const widthProperties = {
+  ...WIDTH,
+  ...vars.width,
+};
 
 export type ResponsiveValue<Value extends string | number> = ConditionalValue<
   typeof responsiveProperties,
   Value
 >;
 
-export const baseProperties = defineProperties({
-  properties: {
-    textOverflow: textOverflow,
-    whiteSpace: whiteSpace,
-  },
-});
-
-const widthProperties = {
-  ...width,
-  ...vars.width,
-};
-
-export const responsiveProperties = defineProperties({
-  conditions: mapValues(breakpoint, (bp) =>
+const responsiveProperties = defineProperties({
+  conditions: mapValues(BREAKPOINT, (bp) =>
     bp === 0 ? {} : { '@media': `screen and (min-width: ${bp}px)` },
   ),
 
@@ -64,30 +78,30 @@ export const responsiveProperties = defineProperties({
   defaultCondition: 'mobile',
 
   properties: {
-    position: position,
+    position: POSITION,
 
-    bottom: offset,
-    left: offset,
-    right: offset,
-    top: offset,
+    bottom: OFFSET,
+    left: OFFSET,
+    right: OFFSET,
+    top: OFFSET,
 
-    display: display,
+    display: DISPLAY,
 
-    flex: flex,
-    flexWrap: flexWrap,
-    flexDirection: flexDirection,
-    alignItems: alignItems,
-    alignSelf: alignSelf,
-    justifyContent: justifyContent,
-    order: order,
+    flex: FLEX,
+    flexWrap: FLEX_WRAP,
+    flexDirection: FLEX_DIRECTION,
+    alignItems: ALIGN_ITEMS,
+    alignSelf: ALIGN_SELF,
+    justifyContent: JUSTIFY_CONTENT,
+    order: ORDER,
 
     width: widthProperties,
     maxWidth: widthProperties,
     minWidth: widthProperties,
 
-    height: height,
-    maxHeight: height,
-    minHeight: height,
+    height: HEIGHT,
+    maxHeight: HEIGHT,
+    minHeight: HEIGHT,
 
     borderBottom: vars.border,
     borderLeft: vars.border,
@@ -95,21 +109,21 @@ export const responsiveProperties = defineProperties({
     borderTop: vars.border,
     borderRadius: vars.borderRadius,
 
-    lineHeight: lineHeight,
-    textAlign: textAlign,
+    lineHeight: LINE_HEIGHT,
+    textAlign: TEXT_ALIGN,
 
-    marginBottom: margin,
-    marginLeft: margin,
-    marginRight: margin,
-    marginTop: margin,
+    marginBottom: MARGIN,
+    marginLeft: MARGIN,
+    marginRight: MARGIN,
+    marginTop: MARGIN,
 
-    paddingBottom: spacing,
-    paddingLeft: spacing,
-    paddingRight: spacing,
-    paddingTop: spacing,
+    paddingBottom: SPACING,
+    paddingLeft: SPACING,
+    paddingRight: SPACING,
+    paddingTop: SPACING,
 
-    overflowX: overflow,
-    overflowY: overflow,
+    overflowX: OVERFLOW,
+    overflowY: OVERFLOW,
 
     zIndex: vars.zIndex,
   },
@@ -134,19 +148,6 @@ export const responsiveProperties = defineProperties({
     px: ['paddingLeft', 'paddingRight'],
     py: ['paddingBottom', 'paddingTop'],
     overflow: ['overflowX', 'overflowY'],
-  },
-});
-
-export const colorProperties = defineProperties({
-  properties: {
-    borderColor: vars.color,
-    color: vars.color,
-    backgroundColor: vars.color,
-    boxShadow: vars.boxShadow,
-  },
-  shorthands: {
-    bg: ['backgroundColor'],
-    shadow: ['boxShadow'],
   },
 });
 

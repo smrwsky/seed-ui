@@ -1,9 +1,4 @@
-import {
-  Atoms,
-  atoms,
-  textBreakStyle,
-  textTruncateStyle,
-} from '@seed-ui/styles';
+import { Atoms, textBreakStyle, textTruncateStyle } from '@seed-ui/styles';
 import cn from 'classnames';
 import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
@@ -45,11 +40,8 @@ const Subtitle = forwardRef<HTMLElement, SubtitleProps>(
       className,
       fontFamily = 'secondary',
       size = 'md',
-      textAlign,
-      textOverflow,
       truncate,
       variant = 'default',
-      whiteSpace,
       children,
       ...elemProps
     },
@@ -57,18 +49,12 @@ const Subtitle = forwardRef<HTMLElement, SubtitleProps>(
   ) => (
     <As
       className={cn(
-        S.root({
-          fontFamily,
-          size,
-          variant,
-        }),
+        fontFamily === 'primary'
+          ? S.rootPrimarySize[size]
+          : S.rootSecondarySize[size],
+        S.rootVariant[variant],
         breakWord && textBreakStyle,
         truncate && textTruncateStyle,
-        atoms({
-          textAlign,
-          textOverflow,
-          whiteSpace,
-        }),
         className,
       )}
       ref={ref}

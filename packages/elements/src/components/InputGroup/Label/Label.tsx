@@ -1,9 +1,4 @@
-import {
-  Atoms,
-  textBreakStyle,
-  textTruncateStyle,
-  atoms,
-} from '@seed-ui/styles';
+import { textBreakStyle, textTruncateStyle } from '@seed-ui/styles';
 import cn from 'classnames';
 import { ElementType, forwardRef, LabelHTMLAttributes } from 'react';
 
@@ -27,11 +22,8 @@ export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   as?: ElementType;
   breakWord?: boolean;
   size?: LabelSize;
-  textAlign?: Atoms['textAlign'];
-  textOverflow?: Atoms['textOverflow'];
   truncate?: boolean;
   variant?: LabelVariant;
-  whiteSpace?: Atoms['whiteSpace'];
 }
 
 const Label = forwardRef<HTMLLabelElement, LabelProps>(
@@ -41,11 +33,8 @@ const Label = forwardRef<HTMLLabelElement, LabelProps>(
       breakWord,
       className,
       size = 'md',
-      textAlign,
-      textOverflow,
       truncate,
       variant = 'default',
-      whiteSpace,
       children,
       ...elemProps
     },
@@ -53,14 +42,11 @@ const Label = forwardRef<HTMLLabelElement, LabelProps>(
   ) => (
     <As
       className={cn(
-        S.root({ size, variant }),
+        S.root,
+        S.rootSize[size],
+        S.rootVariant[variant],
         breakWord && textBreakStyle,
         truncate && textTruncateStyle,
-        atoms({
-          textAlign,
-          textOverflow,
-          whiteSpace,
-        }),
         className,
       )}
       ref={ref}

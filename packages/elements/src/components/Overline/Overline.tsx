@@ -1,9 +1,4 @@
-import {
-  atoms,
-  Atoms,
-  textBreakStyle,
-  textTruncateStyle,
-} from '@seed-ui/styles';
+import { textBreakStyle, textTruncateStyle } from '@seed-ui/styles';
 import cn from 'classnames';
 import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
@@ -24,11 +19,8 @@ export type OverlineVariant =
 export interface OverlineProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
   breakWord?: boolean;
-  textAlign?: Atoms['textAlign'];
-  textOverflow?: Atoms['textOverflow'];
   truncate?: boolean;
   variant?: OverlineVariant;
-  whiteSpace?: Atoms['whiteSpace'];
 }
 
 const Overline = forwardRef<HTMLElement, OverlineProps>(
@@ -37,11 +29,8 @@ const Overline = forwardRef<HTMLElement, OverlineProps>(
       as: As = 'div',
       breakWord,
       className,
-      textAlign,
-      textOverflow,
       truncate,
       variant = 'default',
-      whiteSpace,
       children,
       ...elemProps
     },
@@ -49,10 +38,10 @@ const Overline = forwardRef<HTMLElement, OverlineProps>(
   ) => (
     <As
       className={cn(
-        S.root({ variant }),
+        S.root,
+        S.rootVariant[variant],
         breakWord && textBreakStyle,
         truncate && textTruncateStyle,
-        atoms({ textAlign, textOverflow, whiteSpace }),
         className,
       )}
       ref={ref}

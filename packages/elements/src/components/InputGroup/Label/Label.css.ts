@@ -1,62 +1,58 @@
 import { vars } from '@seed-ui/styles';
-import { recipe } from '@vanilla-extract/recipes';
+import { style, styleVariants } from '@vanilla-extract/css';
 
-export const root = recipe({
-  base: {
-    gridArea: 'label',
-    fontFamily: vars.fontFamily.secondary,
+export const root = style({
+  gridArea: 'label',
+  fontFamily: vars.fontFamily.secondary,
+});
+
+export const rootSize = styleVariants({
+  sm: {
+    ...vars.typography.labelSm,
+  },
+  md: {
+    ...vars.typography.labelMd,
+  },
+});
+
+export const rootVariant = styleVariants({
+  primary: {
+    color: vars.color.primary500,
   },
 
-  variants: {
-    size: {
-      sm: {
-        ...vars.typography.labelSm,
-      },
-      md: {
-        ...vars.typography.labelMd,
-      },
-    },
+  secondary: {
+    color: vars.color.secondary500,
+  },
 
-    variant: {
-      primary: {
-        color: vars.color.primary500,
-      },
+  tertiary: {
+    color: vars.color.neutral500,
+  },
 
-      secondary: {
-        color: vars.color.secondary500,
-      },
+  info: {
+    color: vars.color.info500,
+  },
 
-      tertiary: {
-        color: vars.color.neutral500,
-      },
+  success: {
+    color: vars.color.success500,
+  },
 
-      info: {
-        color: vars.color.info500,
-      },
+  warning: {
+    color: vars.color.warning500,
+  },
 
-      success: {
-        color: vars.color.success500,
-      },
+  danger: {
+    color: vars.color.danger500,
+  },
 
-      warning: {
-        color: vars.color.warning500,
-      },
+  light: {
+    color: vars.color.white,
+  },
 
-      danger: {
-        color: vars.color.danger500,
-      },
+  dark: {
+    color: vars.color.neutral900,
+  },
 
-      light: {
-        color: vars.color.white,
-      },
-
-      dark: {
-        color: vars.color.neutral900,
-      },
-
-      default: {
-        color: 'inherit',
-      },
-    },
+  default: {
+    color: 'inherit',
   },
 });

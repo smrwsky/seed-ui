@@ -1,4 +1,4 @@
-import { vars, spacing } from '@seed-ui/styles';
+import { vars, SPACING } from '@seed-ui/styles';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
@@ -10,7 +10,7 @@ export const root = style({
   minWidth: '160px',
   borderRadius: vars.borderRadius.lg,
   boxShadow: vars.boxShadow.md,
-  padding: `${spacing[1.5]} ${spacing[3]}`,
+  padding: `${SPACING[1.5]} ${SPACING[3]}`,
   pointerEvents: 'auto',
 });
 
@@ -39,7 +39,7 @@ export const rootVariant = styleVariants({
 });
 
 export const icon = style({
-  marginRight: spacing[2],
+  marginRight: SPACING[2],
   fontSize: '1rem',
 });
 
@@ -63,5 +63,5 @@ export const iconVariant = styleVariants({
 
 export const content = style({
   color: 'inherit',
-  paddingTop: spacing[0.5],
+  paddingTop: SPACING[0.5],
 });

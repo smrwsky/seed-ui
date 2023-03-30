@@ -1,283 +1,210 @@
-import { spacing, vars } from '@seed-ui/styles';
-import { createVar, globalStyle } from '@vanilla-extract/css';
-import { recipe } from '@vanilla-extract/recipes';
-
-/**
- *  Root style
- */
+import { SPACING, vars } from '@seed-ui/styles';
+import {
+  createVar,
+  globalStyle,
+  style,
+  styleVariants,
+} from '@vanilla-extract/css';
 
 export const rootIndentVar = createVar('menu-title-indent');
 
-export const root = recipe({
-  base: {
-    position: 'relative',
-    flex: 1,
-    display: 'grid',
-    gridTemplateAreas: `
+export const root = style({
+  position: 'relative',
+  flex: 1,
+  display: 'grid',
+  gridTemplateAreas: `
       "icon label action"
       "icon description action"
     `,
-    gridTemplateRows: 'max-content max-content',
-    alignItems: 'center',
-    alignContent: 'center',
-    fontFamily: vars.fontFamily.secondary,
-    ...vars.typography.textMd.secondary,
-    textDecoration: 'none',
-    outline: 0,
-    transition: vars.transition.base,
-    cursor: 'pointer',
+  gridTemplateRows: 'max-content max-content',
+  alignItems: 'center',
+  alignContent: 'center',
+  fontFamily: vars.fontFamily.secondary,
+  ...vars.typography.textMd.secondary,
+  textDecoration: 'none',
+  outline: 0,
+  transition: vars.transition.base,
+  cursor: 'pointer',
+
+  selectors: {
+    '&:before': {
+      content: '',
+      height: '100%',
+      width: rootIndentVar,
+      lineHeight: 0,
+    },
+
+    '&[aria-disabled="true"]': {
+      color: vars.color.neutral200,
+      pointerEvents: 'none',
+    },
+  },
+});
+
+export const rootType = styleVariants({
+  horizontal: {
+    gridTemplateColumns: 'max-content max-content max-content',
+    justifyContent: 'center',
+    minWidth: 'auto !important',
+    paddingLeft: '1rem',
+    paddingRight: '1rem',
 
     selectors: {
-      '&:before': {
+      '&:after': {
         content: '',
-        height: '100%',
-        width: rootIndentVar,
-        lineHeight: 0,
-      },
-
-      '&[aria-disabled="true"]': {
-        color: vars.color.neutral200,
-        pointerEvents: 'none',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        height: SPACING[0.5],
+        width: '100%',
+        borderRadius: vars.borderRadius.full,
+        background: 'transparent',
+        transition: vars.transition.base,
       },
     },
   },
 
-  variants: {
-    type: {
-      horizontal: {
-        gridTemplateColumns: 'max-content max-content max-content',
-        justifyContent: 'center',
-        minWidth: 'auto !important',
-        paddingLeft: '1rem',
-        paddingRight: '1rem',
+  vertical: {
+    gridTemplateColumns: 'max-content 1fr max-content',
 
-        selectors: {
-          '&:after': {
-            content: '',
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            height: spacing[0.5],
-            width: '100%',
-            borderRadius: vars.borderRadius.full,
-            background: 'transparent',
-            transition: vars.transition.base,
-          },
-        },
-      },
-
-      vertical: {
-        gridTemplateColumns: 'max-content 1fr max-content',
-
-        selectors: {
-          '&:after': {
-            content: '',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: spacing[0.5],
-            borderRadius: vars.borderRadius.full,
-            background: 'transparent',
-            transition: vars.transition.base,
-          },
-        },
-      },
-
-      inline: {
-        gridTemplateColumns: 'max-content 1fr max-content',
-
-        selectors: {
-          '&:after': {
-            content: '',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: spacing[0.5],
-            borderRadius: vars.borderRadius.full,
-            background: 'transparent',
-            transition: vars.transition.base,
-          },
-        },
+    selectors: {
+      '&:after': {
+        content: '',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        height: '100%',
+        width: SPACING[0.5],
+        borderRadius: vars.borderRadius.full,
+        background: 'transparent',
+        transition: vars.transition.base,
       },
     },
+  },
 
-    size: {
-      sm: {
-        minWidth: '7rem',
-        minHeight: '2.25rem',
-        padding: `${spacing[0.5]} ${spacing[1.5]}`,
-      },
+  inline: {
+    gridTemplateColumns: 'max-content 1fr max-content',
 
-      md: {
-        minWidth: '8rem',
-        minHeight: '2.625rem',
-        padding: `${spacing[1]} ${spacing[2]}`,
-      },
-
-      lg: {
-        minWidth: '9rem',
-        minHeight: '3rem',
-        padding: `${spacing[1]} ${spacing[2.5]}`,
+    selectors: {
+      '&:after': {
+        content: '',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        height: '100%',
+        width: SPACING[0.5],
+        borderRadius: vars.borderRadius.full,
+        background: 'transparent',
+        transition: vars.transition.base,
       },
     },
+  },
+});
 
-    variant: {
-      primary: {
-        color: vars.color.neutral900,
-      },
+export const rootSize = styleVariants({
+  sm: {
+    minWidth: '7rem',
+    minHeight: '2.25rem',
+    padding: `${SPACING[0.5]} ${SPACING[1.5]}`,
+  },
 
-      secondary: {
-        color: vars.color.neutral900,
-      },
+  md: {
+    minWidth: '8rem',
+    minHeight: '2.625rem',
+    padding: `${SPACING[1]} ${SPACING[2]}`,
+  },
 
-      dark: {
-        color: vars.color.white,
-      },
-    },
+  lg: {
+    minWidth: '9rem',
+    minHeight: '3rem',
+    padding: `${SPACING[1]} ${SPACING[2.5]}`,
+  },
+});
 
-    collapsed: {
-      true: {
-        gridTemplateAreas: `
+export const rootVariant = styleVariants({
+  primary: {
+    color: vars.color.neutral900,
+  },
+
+  secondary: {
+    color: vars.color.neutral900,
+  },
+
+  dark: {
+    color: vars.color.white,
+  },
+});
+
+export const rootCollapsed = style({
+  gridTemplateAreas: `
            "icon"
            "label"
         `,
-        gridTemplateColumns: 'auto',
-        minWidth: 0,
-        minHeight: '3rem',
-        justifyItems: 'center',
-        ...vars.typography.caption,
-        padding: `${spacing[1]} ${spacing[2]}`,
+  gridTemplateColumns: 'auto',
+  minWidth: 0,
+  minHeight: '3rem',
+  justifyItems: 'center',
+  ...vars.typography.caption,
+  padding: `${SPACING[1]} ${SPACING[2]}`,
 
-        selectors: {
-          '&:after': {
-            color: 'transparent',
-          },
-        },
-      },
-    },
-
-    active: {
-      true: {},
-    },
-
-    selected: {
-      true: {
-        ...vars.typography.bold,
-      },
+  selectors: {
+    '&:after': {
+      color: 'transparent',
     },
   },
+});
 
-  compoundVariants: [
-    {
-      variants: {
-        variant: 'primary',
-        selected: true,
-      },
-      style: {
-        selectors: {
-          '&:after': {
-            background: vars.color.secondary500,
-          },
-        },
-      },
-    },
+export const rootSelected = style({
+  ...vars.typography.bold,
+});
 
-    {
-      variants: {
-        variant: 'secondary',
-        selected: true,
-      },
+export const rootActive = style({});
 
-      style: {
-        background: vars.color.dark50,
-      },
-    },
+globalStyle(`.${root}.${rootVariant.primary}.${rootSelected}:after`, {
+  background: vars.color.secondary500,
+});
 
-    {
-      variants: {
-        variant: 'dark',
-        selected: true,
-      },
-      style: {
-        background: vars.color.secondary600,
-      },
-    },
+globalStyle(`${root}.${rootVariant.secondary}.${rootSelected}`, {
+  background: vars.color.dark50,
+});
 
-    {
-      variants: {
-        variant: 'primary',
-        active: true,
-      },
-      style: {
-        background: vars.color.dark100,
-      },
-    },
+globalStyle(`${root}.${rootVariant.dark}.${rootSelected}`, {
+  background: vars.color.secondary600,
+});
 
-    {
-      variants: {
-        variant: 'secondary',
-        active: true,
-      },
-      style: {
-        background: vars.color.dark100,
-      },
-    },
+globalStyle(`${root}.${rootVariant.secondary}.${rootActive}`, {
+  background: vars.color.dark100,
+});
 
-    {
-      variants: {
-        variant: 'dark',
-        active: true,
-      },
-      style: {
-        background: vars.color.secondary500,
-      },
-    },
+globalStyle(`${root}.${rootVariant.dark}.${rootActive}`, {
+  background: vars.color.secondary500,
+});
 
-    {
-      variants: {
-        variant: 'primary',
-        collapsed: true,
-      },
-      style: {
-        color: vars.color.neutral500,
-      },
-    },
+globalStyle(`${root}.${rootVariant.primary}.${rootCollapsed}`, {
+  color: vars.color.neutral500,
+});
 
-    {
-      variants: {
-        variant: 'secondary',
-        collapsed: true,
-      },
-      style: {
-        color: vars.color.neutral500,
-      },
-    },
+globalStyle(`${root}.${rootVariant.secondary}.${rootCollapsed}`, {
+  color: vars.color.neutral500,
+});
 
-    {
-      variants: {
-        variant: 'primary',
-        collapsed: true,
-        selected: true,
-      },
-      style: {
-        color: vars.color.secondary500,
-
-        selectors: {
-          '&:after': {
-            background: 'transparent',
-          },
-        },
-      },
-    },
-  ],
+globalStyle(`${root}.${rootVariant.primary}.${rootCollapsed}.${rootSelected}`, {
+  color: vars.color.secondary500,
 });
 
 globalStyle(
-  `.${
-    root({ collapsed: true }).split(' ')[1]
-  } > i, .${root()}[aria-disabled="true"] > i`,
+  `${root}.${rootVariant.primary}.${rootCollapsed}.${rootSelected}:after`,
+  {
+    background: 'transparent',
+  },
+);
+
+globalStyle(`${root}.${rootVariant.primary}.${rootCollapsed}.${rootSelected}`, {
+  color: vars.color.secondary500,
+});
+
+globalStyle(
+  `.${root}.${rootCollapsed} > i, .${root}[aria-disabled="true"] > i`,
   {
     color: 'currentColor',
   },

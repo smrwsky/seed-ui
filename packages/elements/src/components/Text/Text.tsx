@@ -1,9 +1,4 @@
-import {
-  atoms,
-  Atoms,
-  textBreakStyle,
-  textTruncateStyle,
-} from '@seed-ui/styles';
+import { textBreakStyle, textTruncateStyle } from '@seed-ui/styles';
 import cn from 'classnames';
 import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
@@ -31,11 +26,8 @@ export interface TextProps extends HTMLAttributes<HTMLElement> {
   breakWord?: boolean;
   fontFamily?: TextFontFamily;
   size?: TextSize;
-  textAlign?: Atoms['textAlign'];
-  textOverflow?: Atoms['textOverflow'];
   truncate?: boolean;
   variant?: TextVariant;
-  whiteSpace?: Atoms['whiteSpace'];
 }
 
 const Text = forwardRef<HTMLElement, TextProps>(
@@ -47,11 +39,8 @@ const Text = forwardRef<HTMLElement, TextProps>(
       className,
       fontFamily = 'secondary',
       size = 'md',
-      textAlign,
-      textOverflow,
       truncate,
       variant = 'default',
-      whiteSpace,
       children,
       ...elemProps
     },
@@ -59,14 +48,13 @@ const Text = forwardRef<HTMLElement, TextProps>(
   ) => (
     <As
       className={cn(
-        S.root({ bold, fontFamily, size, variant }),
+        fontFamily === 'primary'
+          ? S.rootPrimarySize[size]
+          : S.rootSecondarySize[size],
+        S.rootVariant[variant],
+        bold && S.rootBold,
         breakWord && textBreakStyle,
         truncate && textTruncateStyle,
-        atoms({
-          textAlign,
-          textOverflow,
-          whiteSpace,
-        }),
         className,
       )}
       ref={ref}

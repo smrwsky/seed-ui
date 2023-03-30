@@ -1,4 +1,4 @@
-export const display = [
+export const DISPLAY = [
   'block',
   'inline',
   'inline-block',
@@ -7,21 +7,21 @@ export const display = [
   'none',
 ] as const;
 
-export const flex = {
+export const FLEX = {
   1: '1 0 0',
   none: 'none',
 };
 
-export const flexWrap = ['wrap', 'nowrap'] as const;
+export const FLEX_WRAP = ['wrap', 'nowrap'] as const;
 
-export const flexDirection = [
+export const FLEX_DIRECTION = [
   'column',
   'column-reverse',
   'row',
   'row-reverse',
 ] as const;
 
-export const alignItems = [
+export const ALIGN_ITEMS = [
   'baseline',
   'center',
   'end',
@@ -31,16 +31,16 @@ export const alignItems = [
   'stretch',
 ] as const;
 
-export const alignSelf = [...alignItems, 'self-end', 'self-start'] as const;
+export const ALIGN_SELF = [...ALIGN_ITEMS, 'self-end', 'self-start'] as const;
 
-export const justifyContent = [
-  ...alignItems,
+export const JUSTIFY_CONTENT = [
+  ...ALIGN_ITEMS,
   'space-around',
   'space-between',
   'space-evenly',
 ] as const;
 
-export const order = {
+export const ORDER = {
   0: 0,
   1: 1,
   2: 2,
@@ -58,111 +58,7 @@ export const order = {
   last: 9999,
 };
 
-export const color = {
-  black: '#000000',
-  white: '#FFFFFF',
-
-  turquose900: '#002125',
-  turquose800: '#01424A',
-  turquose700: '#01646F',
-  turquose600: '#028594',
-  turquose500: '#02A6B9',
-  turquose400: '#35B8C7',
-  turquose300: '#67CAD5',
-  turquose200: '#9ADBE3',
-  turquose100: '#CCEDF1',
-  turquose50: '#E6F6F8',
-
-  fuchsia900: '#320C0E',
-  fuchsia800: '#65191D',
-  fuchsia700: '#97252B',
-  fuchsia600: '#CA323A',
-  fuchsia500: '#FA2057',
-  fuchsia400: '#FD656D',
-  fuchsia300: '#FD8B91',
-  fuchsia200: '#F4A7A9',
-  fuchsia100: '#FED8DA',
-  fuchsia50: '#FFECED',
-
-  cian900: '#011E23',
-  cian800: '#023B46',
-  cian700: '#03596A',
-  cian600: '#04768D',
-  cian500: '#0594B0',
-  cian400: '#37A9C0',
-  cian300: '#69BFD0',
-  cian200: '#9BD4DF',
-  cian100: '#CDEAEF',
-  cian50: '#E6F4F7',
-
-  green900: '#02200E',
-  green800: '#03401C',
-  green700: '#056029',
-  green600: '#068037',
-  green500: '#08A045',
-  green400: '#39B36A',
-  green300: '#6BC68F',
-  green200: '#9CD9B5',
-  green100: '#CEECDA',
-  green50: '#E6F6EC',
-
-  orange900: '#321606',
-  orange800: '#642D0C',
-  orange700: '#974311',
-  orange600: '#C95A17',
-  orange500: '#FB701D',
-  orange400: '#FC8D4A',
-  orange300: '#FDA977',
-  orange200: '#FDC6A5',
-  orange100: '#FEE2D2',
-  orange50: '#FFF1E8',
-
-  red900: '#30070C',
-  red800: '#600E18',
-  red700: '#8F1524',
-  red600: '#BF1C30',
-  red500: '#EF233C',
-  red400: '#F24F63',
-  red300: '#F57B8A',
-  red200: '#F9A7B1',
-  red100: '#FCD3D8',
-  red50: '#FDE9EC',
-
-  grey900: '#141416',
-  grey800: '#28282C',
-  grey700: '#3D3D43',
-  grey600: '#515159',
-  grey500: '#65656F',
-  grey400: '#84848C',
-  grey300: '#A3A3A9',
-  grey200: '#C1C1C5',
-  grey100: '#E0E0E2',
-  grey50: '#F0F0F1',
-
-  light900: 'rgba(255, 255, 255, 0.9)',
-  light800: 'rgba(255, 255, 255, 0.8)',
-  light700: 'rgba(255, 255, 255, 0.7)',
-  light600: 'rgba(255, 255, 255, 0.6)',
-  light500: 'rgba(255, 255, 255, 0.5)',
-  light400: 'rgba(255, 255, 255, 0.4)',
-  light300: 'rgba(255, 255, 255, 0.3)',
-  light200: 'rgba(255, 255, 255, 0.2)',
-  light100: 'rgba(255, 255, 255, 0.1)',
-  light50: 'rgba(255, 255, 255, 0.05)',
-
-  dark900: 'rgba(0,0,0, 0.54)',
-  dark800: 'rgba(0,0,0, 0.48)',
-  dark700: 'rgba(0,0,0, 0.42)',
-  dark600: 'rgba(0,0,0, 0.36)',
-  dark500: 'rgba(0,0,0, 0.3)',
-  dark400: 'rgba(0,0,0, 0.24)',
-  dark300: 'rgba(0,0,0, 0.18)',
-  dark200: 'rgba(0,0,0, 0.12)',
-  dark100: 'rgba(0,0,0, 0.06)',
-  dark50: 'rgba(0,0,0, 0.03)',
-};
-
-export const breakpoint = {
+export const BREAKPOINT = {
   mobile: 0,
   mobileLg: 576,
   tablet: 768,
@@ -171,7 +67,7 @@ export const breakpoint = {
   desktopXl: 1400,
 };
 
-export const position = [
+export const POSITION = [
   'absolute',
   'fixed',
   'relative',
@@ -179,7 +75,7 @@ export const position = [
   'sticky',
 ] as const;
 
-export const spacing = {
+export const SPACING = {
   0: '0',
   0.5: '0.125rem', // 2px
   1: '0.25rem', // 4px
@@ -216,8 +112,8 @@ export const spacing = {
   96: '24rem', // 336px
 };
 
-export const margin = {
-  ...spacing,
+export const MARGIN = {
+  ...SPACING,
   '-0.5': '-0.125rem', // -2px
   '-1': '-0.25rem', // -4px
   '-1.5': '-0.375rem', // -6px
@@ -256,13 +152,13 @@ export const margin = {
   'auto': 'auto',
 };
 
-export const offset = {
-  ...spacing,
+export const OFFSET = {
+  ...SPACING,
   auto: 'auto',
 };
 
-export const width = {
-  ...spacing,
+export const WIDTH = {
+  ...SPACING,
   '1/2': '50%',
   '1/3': '33.333333%',
   '2/3': '66.666667%',
@@ -294,8 +190,8 @@ export const width = {
   'auto': 'auto',
 };
 
-export const height = {
-  ...spacing,
+export const HEIGHT = {
+  ...SPACING,
   '1/2': '50%',
   '1/3': '33.333333%',
   '2/3': '66.666667%',
@@ -319,7 +215,7 @@ export const height = {
   'auto': 'auto',
 };
 
-export const textAlign = [
+export const TEXT_ALIGN = [
   'left',
   'right',
   'center',
@@ -328,13 +224,13 @@ export const textAlign = [
   'end',
 ] as const;
 
-export const textOverflow = ['ellipsis', 'clip'] as const;
+export const TEXT_OVERFLOW = ['ellipsis', 'clip'] as const;
 
-export const lineHeight = {
+export const LINE_HEIGHT = {
   0: 0,
   none: '1',
 };
 
-export const whiteSpace = ['normal', 'nowrap'] as const;
+export const WHITE_SPACE = ['normal', 'nowrap'] as const;
 
-export const overflow = ['visible', 'hidden', 'scroll', 'auto'] as const;
+export const OVERFLOW = ['visible', 'hidden', 'scroll', 'auto'] as const;

@@ -38,10 +38,9 @@ function ListItem(
   return (
     <li
       className={cn(
-        S.root({
-          bold,
-          variant,
-        }),
+        S.root,
+        bold && S.rootVariant[variant],
+        bold && S.rootBold,
         breakWord && textBreakStyle,
         truncate && textTruncateStyle,
         className,

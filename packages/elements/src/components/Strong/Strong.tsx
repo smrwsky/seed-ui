@@ -26,7 +26,12 @@ const Strong = forwardRef<HTMLElement, StrongProps>(
     ref,
   ) => (
     <strong
-      className={cn(S.root({ bold, variant }), className)}
+      className={cn(
+        S.root,
+        S.rootVariant[variant],
+        bold && S.rootBold,
+        className,
+      )}
       ref={ref}
       {...elemProps}
     >

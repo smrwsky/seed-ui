@@ -1,4 +1,4 @@
-import { bpUp, spacing, vars } from '@seed-ui/styles';
+import { bpUp, SPACING, vars } from '@seed-ui/styles';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 export const overlay = style({
@@ -17,19 +17,19 @@ export const overlaySize = styleVariants({
   sm: {
     justifyContent: 'center',
     overflow: 'auto',
-    padding: `${spacing[4]} ${spacing[2]}`,
+    padding: `${SPACING[4]} ${SPACING[2]}`,
   },
   md: {
     justifyContent: 'center',
-    padding: `${spacing[4]} ${spacing[2]}`,
+    padding: `${SPACING[4]} ${SPACING[2]}`,
     overflow: 'auto',
   },
   lg: {
     justifyContent: 'flex-start',
     overflow: 'hidden',
 
-    ...bpUp('tablet')({
-      padding: `${spacing[4]} ${spacing[2]}`,
+    ...bpUp('tablet', {
+      padding: `${SPACING[4]} ${SPACING[2]}`,
       overflow: 'auto',
     }),
   },
@@ -65,10 +65,10 @@ export const contentSize = styleVariants({
     inset: 0,
     maxWidth: '100%',
     height: '100%',
-    padding: `${spacing[7]} 0`,
+    padding: `${SPACING[7]} 0`,
     overflow: 'auto',
 
-    ...bpUp('tablet')({
+    ...bpUp('tablet', {
       height: 'auto',
       position: 'static',
       borderRadius: vars.borderRadius.lg,

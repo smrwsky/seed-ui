@@ -1,4 +1,4 @@
-import { margin } from '@seed-ui/styles';
+import { MARGIN } from '@seed-ui/styles';
 import { globalStyle, style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
@@ -8,7 +8,7 @@ export const root = style({
 export const grid = style({
   display: 'grid',
   alignItems: 'center',
-  margin: `${margin[-1]} ${margin[-0.5]} 0`,
+  margin: `${MARGIN[-1]} ${MARGIN[-0.5]} 0`,
 });
 
 export const gridDirection = styleVariants({
@@ -30,5 +30,5 @@ export const gridDirection = styleVariants({
 });
 
 globalStyle(`.${grid} > *`, {
-  margin: `${margin[1]} ${margin[0.5]} 0`,
+  margin: `${MARGIN[1]} ${MARGIN[0.5]} 0`,
 });

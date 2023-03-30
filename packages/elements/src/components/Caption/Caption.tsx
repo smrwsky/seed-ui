@@ -1,9 +1,4 @@
-import {
-  Atoms,
-  atoms,
-  textBreakStyle,
-  textTruncateStyle,
-} from '@seed-ui/styles';
+import { textBreakStyle, textTruncateStyle } from '@seed-ui/styles';
 import cn from 'classnames';
 import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
@@ -24,11 +19,8 @@ export type CaptionVariant =
 export interface CaptionProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
   breakWord?: boolean;
-  textAlign?: Atoms['textAlign'];
-  textOverflow?: Atoms['textOverflow'];
   truncate?: boolean;
   variant?: CaptionVariant;
-  whiteSpace?: Atoms['whiteSpace'];
 }
 
 const Caption = forwardRef<HTMLElement, CaptionProps>(
@@ -37,11 +29,8 @@ const Caption = forwardRef<HTMLElement, CaptionProps>(
       as: As = 'div',
       breakWord,
       className,
-      textAlign,
-      textOverflow,
       truncate,
       variant = 'default',
-      whiteSpace,
       children,
       ...elemProps
     },
@@ -49,16 +38,10 @@ const Caption = forwardRef<HTMLElement, CaptionProps>(
   ) => (
     <As
       className={cn(
-        S.root({
-          variant,
-        }),
+        S.root,
+        S.rootVariant[variant],
         breakWord && textBreakStyle,
         truncate && textTruncateStyle,
-        atoms({
-          textAlign,
-          textOverflow,
-          whiteSpace,
-        }),
         className,
       )}
       ref={ref}

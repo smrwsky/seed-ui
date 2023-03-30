@@ -1,116 +1,74 @@
 import { vars } from '@seed-ui/styles';
-import { CSSProperties } from '@vanilla-extract/css';
-import { recipe } from '@vanilla-extract/recipes';
+import { style, styleVariants } from '@vanilla-extract/css';
 
-export const root = recipe({
-  base: {
-    paddingInlineStart: '1.5em',
+export const root = style({
+  paddingInlineStart: '1.5em',
+});
+
+export const rootPrimarySize = styleVariants({
+  sm: {
+    fontFamily: vars.fontFamily.primary,
+    ...vars.typography.textSm.primary,
+  },
+  md: {
+    fontFamily: vars.fontFamily.primary,
+    ...vars.typography.textMd.primary,
+  },
+});
+
+export const rootSecondarySize = styleVariants({
+  sm: {
+    fontFamily: vars.fontFamily.secondary,
+    ...vars.typography.textSm.secondary,
+  },
+  md: {
+    fontFamily: vars.fontFamily.secondary,
+    ...vars.typography.textMd.secondary,
+  },
+});
+
+export const rootVariant = styleVariants({
+  primary: {
+    color: vars.color.primary500,
   },
 
-  variants: {
-    fontFamily: {
-      primary: {
-        fontFamily: vars.fontFamily.primary,
-      },
-      secondary: {
-        fontFamily: vars.fontFamily.secondary,
-      },
-    },
-
-    size: {
-      sm: {},
-      md: {},
-    },
-
-    variant: {
-      primary: {
-        color: vars.color.primary500,
-      },
-
-      secondary: {
-        color: vars.color.secondary500,
-      },
-
-      tertiary: {
-        color: vars.color.neutral500,
-      },
-
-      info: {
-        color: vars.color.info500,
-      },
-
-      success: {
-        color: vars.color.success500,
-      },
-
-      warning: {
-        color: vars.color.warning500,
-      },
-
-      danger: {
-        color: vars.color.danger500,
-      },
-
-      light: {
-        color: vars.color.white,
-      },
-
-      dark: {
-        color: vars.color.neutral900,
-      },
-
-      default: {
-        color: 'inherit',
-      },
-    },
-
-    bold: {
-      true: {
-        fontWeight:
-          `${vars.typography.bold.fontWeight} !important` as CSSProperties['fontWeight'],
-      },
-    },
+  secondary: {
+    color: vars.color.secondary500,
   },
 
-  compoundVariants: [
-    {
-      variants: {
-        fontFamily: 'primary',
-        size: 'md',
-      },
-      style: {
-        ...vars.typography.textMd.primary,
-      },
-    },
+  tertiary: {
+    color: vars.color.neutral500,
+  },
 
-    {
-      variants: {
-        fontFamily: 'primary',
-        size: 'sm',
-      },
-      style: {
-        ...vars.typography.textSm.primary,
-      },
-    },
+  info: {
+    color: vars.color.info500,
+  },
 
-    {
-      variants: {
-        fontFamily: 'secondary',
-        size: 'md',
-      },
-      style: {
-        ...vars.typography.textMd.secondary,
-      },
-    },
+  success: {
+    color: vars.color.success500,
+  },
 
-    {
-      variants: {
-        fontFamily: 'secondary',
-        size: 'sm',
-      },
-      style: {
-        ...vars.typography.textSm.secondary,
-      },
-    },
-  ],
+  warning: {
+    color: vars.color.warning500,
+  },
+
+  danger: {
+    color: vars.color.danger500,
+  },
+
+  light: {
+    color: vars.color.white,
+  },
+
+  dark: {
+    color: vars.color.neutral900,
+  },
+
+  default: {
+    color: 'inherit',
+  },
+});
+
+export const rootBold = style({
+  fontWeight: `${vars.typography.bold.fontWeight} !important`,
 });

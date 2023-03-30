@@ -42,7 +42,12 @@ const Link = forwardRef<HTMLElement, LinkProps>(
     ref,
   ) => (
     <As
-      className={cn(S.root({ bold, variant }), className)}
+      className={cn(
+        S.root,
+        S.rootVariant[variant],
+        bold && S.rootBold,
+        className,
+      )}
       ref={ref}
       {...elemProps}
     >

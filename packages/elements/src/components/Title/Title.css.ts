@@ -1,167 +1,90 @@
 import { vars } from '@seed-ui/styles';
-import { recipe } from '@vanilla-extract/recipes';
+import { styleVariants } from '@vanilla-extract/css';
 
-export const root = recipe({
-  variants: {
-    fontFamily: {
-      primary: {
-        fontFamily: vars.fontFamily.primary,
-      },
-      secondary: {
-        fontFamily: vars.fontFamily.secondary,
-      },
-    },
+export const rootPrimarySize = styleVariants({
+  xs: {
+    fontFamily: vars.fontFamily.primary,
+    ...vars.typography.titleXs.primary,
+  },
+  sm: {
+    fontFamily: vars.fontFamily.primary,
+    ...vars.typography.titleSm.primary,
+  },
+  md: {
+    fontFamily: vars.fontFamily.primary,
+    ...vars.typography.titleMd.primary,
+  },
+  lg: {
+    fontFamily: vars.fontFamily.primary,
+    ...vars.typography.titleLg.primary,
+  },
+  xl: {
+    fontFamily: vars.fontFamily.primary,
+    ...vars.typography.titleXl.primary,
+  },
+});
 
-    size: {
-      xs: {},
-      sm: {},
-      md: {},
-      lg: {},
-      xl: {},
-    },
+export const rootSecondarySize = styleVariants({
+  xs: {
+    fontFamily: vars.fontFamily.secondary,
+    ...vars.typography.titleXs.secondary,
+  },
+  sm: {
+    fontFamily: vars.fontFamily.secondary,
+    ...vars.typography.titleSm.secondary,
+  },
+  md: {
+    fontFamily: vars.fontFamily.secondary,
+    ...vars.typography.titleMd.secondary,
+  },
+  lg: {
+    fontFamily: vars.fontFamily.secondary,
+    ...vars.typography.titleLg.secondary,
+  },
+  xl: {
+    fontFamily: vars.fontFamily.secondary,
+    ...vars.typography.titleXl.secondary,
+  },
+});
 
-    variant: {
-      primary: {
-        color: vars.color.primary600,
-      },
-
-      secondary: {
-        color: vars.color.secondary600,
-      },
-
-      tertiary: {
-        color: vars.color.neutral600,
-      },
-
-      info: {
-        color: vars.color.info600,
-      },
-
-      success: {
-        color: vars.color.success600,
-      },
-
-      warning: {
-        color: vars.color.warning600,
-      },
-
-      danger: {
-        color: vars.color.danger600,
-      },
-
-      light: {
-        color: vars.color.white,
-      },
-
-      dark: {
-        color: vars.color.neutral900,
-      },
-
-      default: {
-        color: 'inherit',
-      },
-    },
+export const rootVariant = styleVariants({
+  primary: {
+    color: vars.color.primary600,
   },
 
-  compoundVariants: [
-    {
-      variants: {
-        fontFamily: 'primary',
-        size: 'xl',
-      },
-      style: {
-        ...vars.typography.titleXl.primary,
-      },
-    },
+  secondary: {
+    color: vars.color.secondary600,
+  },
 
-    {
-      variants: {
-        fontFamily: 'primary',
-        size: 'lg',
-      },
-      style: {
-        ...vars.typography.titleLg.primary,
-      },
-    },
+  tertiary: {
+    color: vars.color.neutral600,
+  },
 
-    {
-      variants: {
-        fontFamily: 'primary',
-        size: 'md',
-      },
-      style: {
-        ...vars.typography.titleMd.primary,
-      },
-    },
+  info: {
+    color: vars.color.info600,
+  },
 
-    {
-      variants: {
-        fontFamily: 'primary',
-        size: 'sm',
-      },
-      style: {
-        ...vars.typography.titleSm.primary,
-      },
-    },
+  success: {
+    color: vars.color.success600,
+  },
 
-    {
-      variants: {
-        fontFamily: 'primary',
-        size: 'xs',
-      },
-      style: {
-        ...vars.typography.titleXs.primary,
-      },
-    },
+  warning: {
+    color: vars.color.warning600,
+  },
 
-    {
-      variants: {
-        fontFamily: 'secondary',
-        size: 'xl',
-      },
-      style: {
-        ...vars.typography.titleXl.secondary,
-      },
-    },
+  danger: {
+    color: vars.color.danger600,
+  },
 
-    {
-      variants: {
-        fontFamily: 'secondary',
-        size: 'lg',
-      },
-      style: {
-        ...vars.typography.titleLg.secondary,
-      },
-    },
+  light: {
+    color: vars.color.white,
+  },
 
-    {
-      variants: {
-        fontFamily: 'secondary',
-        size: 'md',
-      },
-      style: {
-        ...vars.typography.titleMd.secondary,
-      },
-    },
+  dark: {
+    color: vars.color.neutral900,
+  },
 
-    {
-      variants: {
-        fontFamily: 'secondary',
-        size: 'sm',
-      },
-      style: {
-        ...vars.typography.titleSm.secondary,
-      },
-    },
-
-    {
-      variants: {
-        fontFamily: 'secondary',
-        size: 'xs',
-      },
-      style: {
-        ...vars.typography.titleXs.secondary,
-      },
-    },
-  ],
+  default: {
+    color: 'inherit',
+  },
 });

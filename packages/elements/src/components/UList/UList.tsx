@@ -45,13 +45,13 @@ const UList = forwardRef<HTMLUListElement, UListProps>(
   ) => (
     <ul
       className={cn(
-        S.root({
-          type,
-          fontFamily,
-          size,
-          variant,
-          bold,
-        }),
+        S.root,
+        S.rootType[type],
+        fontFamily === 'primary'
+          ? S.rootPrimarySize[size]
+          : S.rootSecondarySize[size],
+        S.rootVariant[variant],
+        bold && S.rootBold,
         className,
       )}
       ref={ref}

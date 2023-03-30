@@ -21,13 +21,7 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     return mergeConfig(config, {
       plugins: [
-        vanillaExtractPlugin({
-          esbuildOptions: {
-            loader: {
-              '.css': 'empty',
-            },
-          },
-        }),
+        vanillaExtractPlugin(),
       ],
     });
   },
@@ -35,4 +29,5 @@ const config: StorybookConfig = {
     autodocs: true,
   },
 };
+
 export default config;
