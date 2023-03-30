@@ -1,25 +1,33 @@
 import { FC, ReactNode, useLayoutEffect } from 'react';
 
-import 'minireset.css';
-
-import { defaultTheme } from '../../styles/reboot.css';
+import { vars } from '../../styles/global.css';
+import { Theme } from '../../types';
+import {
+  setCssProperties,
+  removeCssProperties,
+} from '../../utils/css-properties';
 
 export interface ThemeProviderProps {
   children?: ReactNode;
-  theme?: string;
+  theme?: Theme;
 }
 
 const ThemeProvider: FC<ThemeProviderProps> = ({
-  theme = defaultTheme,
+  theme,
   children,
 }): JSX.Element => {
   useLayoutEffect(() => {
-    document.body.classList.add(theme);
+    if (!theme) {
+      return;
+    }
+
+    setCssProperties(vars, theme);
 
     return () => {
-      document.body.classList.remove(theme);
+      removeCssProperties(vars);
     };
   }, [theme]);
+
   return <>{children}</>;
 };
 

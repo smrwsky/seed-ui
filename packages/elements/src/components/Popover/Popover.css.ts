@@ -1,4 +1,4 @@
-import { spacing, vars } from '@seed-ui/styles';
+import { SPACING, vars } from '@seed-ui/styles';
 import { style } from '@vanilla-extract/css';
 
 export const root = style({
@@ -18,6 +18,6 @@ export const content = style({
 export const arrow = style({
   position: 'absolute',
   backgroundColor: vars.color.white,
-  width: spacing[1],
-  height: spacing[1],
+  width: SPACING[1],
+  height: SPACING[1],
 });

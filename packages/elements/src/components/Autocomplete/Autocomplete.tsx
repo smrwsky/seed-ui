@@ -10,6 +10,7 @@ import {
   MouseEvent,
   ReactElement,
   Ref,
+  RefAttributes,
   useCallback,
   useEffect,
   useMemo,
@@ -205,7 +206,7 @@ const defaultGetLabel = (option: unknown): string => option as string;
 
 export interface AutocompleteFn {
   <Option = unknown, Value = Option>(
-    props: AutocompleteProps<Option, Value>,
+    props: AutocompleteProps<Option, Value> & RefAttributes<HTMLInputElement>,
   ): ReactElement;
   displayName: 'Autocomplete';
 }

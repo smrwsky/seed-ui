@@ -1,4 +1,4 @@
-import { spacing, textTruncate, vars } from '@seed-ui/styles';
+import { SPACING, textTruncate, vars } from '@seed-ui/styles';
 import { globalStyle, style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
@@ -50,40 +50,40 @@ export const rootSize = styleVariants({
   xs: {
     minWidth: '6rem',
     height: '1.875rem',
-    paddingLeft: spacing[2.5],
-    paddingRight: spacing[2.5],
+    paddingLeft: SPACING[2.5],
+    paddingRight: SPACING[2.5],
   },
   sm: {
     minWidth: '7rem',
     height: '2.25rem',
-    paddingLeft: spacing[3],
-    paddingRight: spacing[3],
+    paddingLeft: SPACING[3],
+    paddingRight: SPACING[3],
   },
   md: {
     minWidth: '8rem',
     height: '2.625rem',
-    paddingLeft: spacing[3.5],
-    paddingRight: spacing[3.5],
+    paddingLeft: SPACING[3.5],
+    paddingRight: SPACING[3.5],
   },
   lg: {
     minWidth: '9rem',
     height: '3rem',
-    paddingLeft: spacing[4],
-    paddingRight: spacing[4],
+    paddingLeft: SPACING[4],
+    paddingRight: SPACING[4],
   },
 });
 
 globalStyle(
   `.${rootSize.xs} > *:not(:last-child), .${rootSize.sm} > *:not(:last-child)`,
   {
-    marginRight: spacing[1],
+    marginRight: SPACING[1],
   },
 );
 
 globalStyle(
   `.${rootSize.md} > *:not(:last-child), .${rootSize.lg} > *:not(:last-child)`,
   {
-    marginRight: spacing[1.5],
+    marginRight: SPACING[1.5],
   },
 );
 
@@ -657,7 +657,7 @@ export const rootVariant = styleVariants({
 export const label = style({
   display: 'inline-block',
   maxWidth: '100%',
-  paddingTop: spacing[0.5],
+  paddingTop: SPACING[0.5],
   ...textTruncate(),
 });
 

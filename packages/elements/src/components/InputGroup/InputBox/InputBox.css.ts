@@ -1,4 +1,4 @@
-import { spacing, vars } from '@seed-ui/styles';
+import { SPACING, vars } from '@seed-ui/styles';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
@@ -44,15 +44,15 @@ export const rootReadOnly = style({
 export const rootSize = styleVariants({
   sm: {
     minHeight: '2.25rem',
-    padding: `${spacing[0.5]} ${spacing[1]}`,
+    padding: `${SPACING[0.5]} ${SPACING[1]}`,
   },
   md: {
     minHeight: '2.625rem',
-    padding: `${spacing[1]} ${spacing[2]}`,
+    padding: `${SPACING[1]} ${SPACING[2]}`,
   },
   lg: {
     minHeight: '3rem',
-    padding: `${spacing[1.5]} ${spacing[3]}`,
+    padding: `${SPACING[1.5]} ${SPACING[3]}`,
   },
 });
 

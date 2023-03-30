@@ -1,4 +1,4 @@
-import { spacing, vars } from '@seed-ui/styles';
+import { SPACING, vars } from '@seed-ui/styles';
 import { globalStyle, style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
@@ -39,5 +39,5 @@ export const rootPlacement = styleVariants({
 });
 
 globalStyle(`.${root} > *:not(:last-of-type)`, {
-  marginBottom: spacing['2'],
+  marginBottom: SPACING['2'],
 });

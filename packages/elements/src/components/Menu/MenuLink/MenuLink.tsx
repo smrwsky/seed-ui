@@ -54,14 +54,13 @@ const MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
       <a
         aria-disabled={disabled}
         className={cx(
-          S.root({
-            type,
-            size,
-            variant,
-            collapsed,
-            active,
-            selected,
-          }),
+          S.root,
+          S.rootType[type],
+          S.rootSize[size],
+          S.rootVariant[variant],
+          collapsed && S.rootCollapsed,
+          selected && S.rootSelected,
+          active && S.rootActive,
         )}
         href={href}
         ref={ref}

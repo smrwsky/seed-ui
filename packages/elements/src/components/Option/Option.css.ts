@@ -1,4 +1,4 @@
-import { spacing, vars } from '@seed-ui/styles';
+import { SPACING, vars } from '@seed-ui/styles';
 import { style } from '@vanilla-extract/css';
 
 /**
@@ -22,7 +22,7 @@ export const root = style({
   background: vars.color.white,
   textDecoration: 'none',
   transition: vars.transition.base,
-  padding: `${spacing[0.5]} ${spacing[1.5]}`,
+  padding: `${SPACING[0.5]} ${SPACING[1.5]}`,
   cursor: 'pointer',
 
   selectors: {

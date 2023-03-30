@@ -1,8 +1,13 @@
-export * from './components/ThemeProvider';
+// Import external css at the top of the root file
+import 'minireset.css';
 
 export * from './const';
-export * from './styles/mixins';
+export * from './types';
 
-// Preserve order of exported styles
-export * from './styles/reboot.css';
-export * from './styles/utilities';
+export * from './components/ThemeProvider';
+
+// Order of exported styles should be resolved
+export * from './styles/mixins';
+export * from './styles/global.css';
+export * from './styles/atoms.css';
+export * from './styles/typography.css';

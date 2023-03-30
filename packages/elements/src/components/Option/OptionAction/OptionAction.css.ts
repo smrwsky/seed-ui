@@ -1,9 +1,9 @@
-import { spacing } from '@seed-ui/styles';
+import { SPACING } from '@seed-ui/styles';
 import { style } from '@vanilla-extract/css';
 
 export const root = style({
   gridArea: 'action',
   lineHeight: 1,
   overflow: 'hidden',
-  margin: `0 ${spacing[1.5]}`,
+  margin: `0 ${SPACING[1.5]}`,
 });

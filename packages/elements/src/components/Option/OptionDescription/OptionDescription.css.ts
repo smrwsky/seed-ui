@@ -1,4 +1,4 @@
-import { spacing, vars } from '@seed-ui/styles';
+import { SPACING, vars } from '@seed-ui/styles';
 import { style } from '@vanilla-extract/css';
 
 export const root = style({
@@ -7,5 +7,5 @@ export const root = style({
   fontFamily: vars.fontFamily.secondary,
   ...vars.typography.caption,
   textOverflow: 'ellipsis',
-  margin: `0 ${spacing[1.5]}`,
+  margin: `0 ${SPACING[1.5]}`,
 });

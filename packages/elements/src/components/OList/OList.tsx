@@ -41,12 +41,12 @@ const OList = forwardRef<HTMLOListElement, OListProps>(
   ) => (
     <ol
       className={cn(
-        S.root({
-          fontFamily,
-          size,
-          variant,
-          bold,
-        }),
+        S.root,
+        fontFamily === 'primary'
+          ? S.rootPrimarySize[size]
+          : S.rootSecondarySize[size],
+        S.rootVariant[variant],
+        bold && S.rootBold,
         className,
       )}
       ref={ref}

@@ -1,4 +1,4 @@
-import { margin, spacing, vars } from '@seed-ui/styles';
+import { MARGIN, SPACING, vars } from '@seed-ui/styles';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
@@ -10,13 +10,13 @@ export const root = style({
   border: `1px solid ${vars.color.neutral100}`,
   background: vars.color.white,
   boxShadow: vars.boxShadow.md,
-  padding: `${spacing[2]} ${spacing[11]} ${spacing[2]} ${spacing[3]}`,
+  padding: `${SPACING[2]} ${SPACING[11]} ${SPACING[2]} ${SPACING[3]}`,
   pointerEvents: 'auto',
 });
 
 export const icon = style({
   fontSize: '1.5rem',
-  marginRight: spacing[2],
+  marginRight: SPACING[2],
 });
 
 export const iconVariant = styleVariants({
@@ -43,17 +43,17 @@ export const content = style({
   justifyContent: 'center',
   minHeight: '1.5rem',
   color: vars.color.neutral900,
-  marginTop: margin[0.5],
+  marginTop: MARGIN[0.5],
   ...vars.typography.textSm.secondary,
 });
 
 export const title = style({
-  marginTop: margin[-0.5],
-  marginBottom: margin[1],
+  marginTop: MARGIN[-0.5],
+  marginBottom: MARGIN[1],
 });
 
 export const close = style({
   position: 'absolute',
-  top: spacing[2],
-  right: spacing[2],
+  top: SPACING[2],
+  right: SPACING[2],
 });

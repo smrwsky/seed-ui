@@ -1,4 +1,4 @@
-import { bpUp, spacing, vars } from '@seed-ui/styles';
+import { bpUp, SPACING, vars } from '@seed-ui/styles';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
@@ -7,11 +7,11 @@ export const root = style({
 
 export const rootSize = styleVariants({
   sm: {
-    padding: `${spacing[4]} ${spacing[5]}`,
+    padding: `${SPACING[4]} ${SPACING[5]}`,
   },
 
   md: {
-    padding: `${spacing[4]} ${spacing[5]}`,
+    padding: `${SPACING[4]} ${SPACING[5]}`,
   },
 
   lg: {
@@ -20,13 +20,13 @@ export const rootSize = styleVariants({
     left: 0,
     width: '100%',
     borderBottom: `1px solid ${vars.color.neutral100}`,
-    padding: `${spacing[1.5]} ${spacing[1]}`,
+    padding: `${SPACING[1.5]} ${SPACING[1]}`,
     zIndex: vars.zIndex.fixed,
 
-    ...bpUp('tablet')({
+    ...bpUp('tablet', {
       position: 'static',
       borderBottom: 'none',
-      padding: `${spacing[4]} ${spacing[5]}`,
+      padding: `${SPACING[4]} ${SPACING[5]}`,
     }),
   },
 });

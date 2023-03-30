@@ -1,44 +1,93 @@
-import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
-
-import externals from 'rollup-plugin-node-externals';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
+import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+import copy from 'rollup-plugin-copy';
+import externals from 'rollup-plugin-node-externals';
+import postcss from 'rollup-plugin-postcss';
 
-const outputOptions = {
-  dir: 'dist',
+const outputSharedOptions = {
+  dir: '.',
+  exports: 'named',
+  generatedCode: {
+    constBindings: true,
+    preset: 'es2015',
+  },
   preserveModules: true,
-  preserveModulesRoot: 'src',
   sourcemap: true,
-  generatedCode: 'es2015',
-  assetFileNames({ name }) {
-    return name.replace(/^src\//, 'assets/');
-  },
 };
 
-export default {
-  input: 'src/index.ts',
-  output: [
-    {
-      ...outputOptions,
-      format: 'es',
-      entryFileNames: ({ name }) => `es/${name.replace('.css', '.css.vanilla')}.js`
-    },
-    {
-      ...outputOptions,
-      format: 'commonjs',
-      entryFileNames: ({ name }) => `cjs/${name.replace('.css', '.css.vanilla')}.js`
-    },
-  ],
-  plugins: [
-    externals(),
-    typescript(),
-    vanillaExtractPlugin({
-      identifiers: 'short',
-      esbuildOptions: { loader: { '.css': 'empty' } },
-    }),
-  ],
-  treeshake: {
-    moduleSideEffects: (id) => {
-      return /\.css$/.test(id);
+export default [
+  {
+    input: 'src/index.ts',
+    output: [
+      {
+        ...outputSharedOptions,
+        assetFileNames({ name }) {
+          return name.replace(/^src\//, 'dist/es/');
+        },
+        entryFileNames({ name }) {
+          return `dist/es/${name.replace(/\.css$/, '.css.vanilla')}.js`;
+        },
+        format: 'es',
+        preserveModulesRoot: 'src',
+      },
+    ],
+    plugins: [
+      nodeResolve(),
+      externals(),
+      typescript({
+        noForceEmit: true,
+      }),
+      vanillaExtractPlugin({
+        identifiers: 'short',
+      }),
+    ],
+    treeshake: {
+      moduleSideEffects(id) {
+        return /\.css$/.test(id);
+      },
     },
   },
-};
+  {
+    input: 'dist/es/index.js',
+    output: [
+      {
+        ...outputSharedOptions,
+        format: 'es',
+        preserveModulesRoot: 'dist/es',
+        assetFileNames({ name }) {
+          return name;
+        },
+        entryFileNames({ name }) {
+          return `dist/es/${name}.js`;
+        },
+      },
+      {
+        ...outputSharedOptions,
+        format: 'commonjs',
+        preserveModulesRoot: 'dist/es',
+        assetFileNames({ name }) {
+          return name;
+        },
+        entryFileNames({ name }) {
+          return `dist/cjs/${name}.js`;
+        },
+      },
+    ],
+    plugins: [
+      nodeResolve(),
+      externals({
+        exclude: [/boxicons/],
+      }),
+      postcss({
+        extract: 'css/icons.css',
+      }),
+      copy({
+        targets: [
+          { src: 'src/assets/*', dest: 'css' },
+          { src: '../../node_modules/boxicons/fonts/*', dest: 'fonts' },
+        ],
+      }),
+    ],
+  },
+];

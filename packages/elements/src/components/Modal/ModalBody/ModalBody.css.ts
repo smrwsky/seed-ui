@@ -1,19 +1,19 @@
-import { bpUp, spacing } from '@seed-ui/styles';
+import { bpUp, SPACING } from '@seed-ui/styles';
 import { styleVariants } from '@vanilla-extract/css';
 
 export const rootSize = styleVariants({
   sm: {
-    padding: `0 ${spacing[5]}`,
+    padding: `0 ${SPACING[5]}`,
   },
   md: {
-    padding: `0 ${spacing[5]}`,
+    padding: `0 ${SPACING[5]}`,
   },
 
   lg: {
-    padding: spacing[2],
+    padding: SPACING[2],
 
-    ...bpUp('tablet')({
-      padding: `0 ${spacing[5]}`,
+    ...bpUp('tablet', {
+      padding: `0 ${SPACING[5]}`,
     }),
   },
 });

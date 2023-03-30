@@ -1,4 +1,4 @@
-import { spacing, textTruncate, vars } from '@seed-ui/styles';
+import { SPACING, textTruncate, vars } from '@seed-ui/styles';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
@@ -27,11 +27,11 @@ export const root = style({
 export const rootSize = styleVariants({
   md: {
     height: '1.625rem', // 26px
-    padding: `0 ${spacing[1.5]}`,
+    padding: `0 ${SPACING[1.5]}`,
   },
   sm: {
     height: '1.125rem', // 18px
-    padding: `0 ${spacing[1]}`,
+    padding: `0 ${SPACING[1]}`,
   },
 });
 
@@ -382,12 +382,12 @@ export const text = style({
   fontFamily: vars.fontFamily.secondary,
   ...vars.typography.textSm.secondary,
   ...textTruncate(),
-  margin: `0 ${spacing[0.5]}`,
+  margin: `0 ${SPACING[0.5]}`,
 });
 
 export const icon = style({
   transition: vars.transition.base,
-  margin: `0 ${spacing[0.5]}`,
+  margin: `0 ${SPACING[0.5]}`,
   cursor: 'pointer',
   pointerEvents: 'auto',
 

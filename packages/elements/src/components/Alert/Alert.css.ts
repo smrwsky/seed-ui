@@ -1,10 +1,10 @@
-import { margin, spacing, vars } from '@seed-ui/styles';
+import { MARGIN, SPACING, vars } from '@seed-ui/styles';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
   display: 'flex',
   borderRadius: vars.borderRadius.lg,
-  padding: spacing[3],
+  padding: SPACING[3],
 });
 
 export const rootVariant = styleVariants({
@@ -32,7 +32,7 @@ export const rootVariant = styleVariants({
 
 export const icon = style({
   fontSize: '1.5rem',
-  marginRight: spacing[3],
+  marginRight: SPACING[3],
 });
 
 export const iconVariant = styleVariants({
@@ -52,8 +52,8 @@ export const iconVariant = styleVariants({
 
 export const title = style({
   color: 'inherit!important',
-  marginTop: margin[-0.5],
-  marginBottom: margin[1],
+  marginTop: MARGIN[-0.5],
+  marginBottom: MARGIN[1],
 });
 
 export const content = style({
@@ -62,5 +62,5 @@ export const content = style({
   justifyContent: 'center',
   minHeight: '1.5rem',
   color: 'inherit',
-  marginTop: margin[0.5],
+  marginTop: MARGIN[0.5],
 });

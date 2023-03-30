@@ -1,7 +1,10 @@
-import { color, ThemeProvider } from '@seed-ui/styles';
-import { Link } from '@seed-ui/elements';
+import {  colors, ThemeProvider ,Link } from '@seed-ui/elements';
 import { theme } from './theme';
 import { FC } from 'react';
+
+import '@seed-ui/elements/css/styles.css';
+import '@seed-ui/elements/css/icons.css';
+import '@seed-ui/elements/css/elements.css';
 
 const components = {
   a: Link,
@@ -15,19 +18,19 @@ export const parameters = {
     values: [
       {
         name: 'Secondary',
-        value: color.turquose500,
+        value: colors.turquose500,
       },
       {
         name: 'Tertiary',
-        value: color.grey50,
+        value: colors.grey50,
       },
       {
         name: 'White',
-        value: color.white,
+        value: colors.white,
       },
       {
         name: 'Black',
-        value: color.black,
+        value: colors.black,
       },
     ],
   },

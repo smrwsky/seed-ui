@@ -1,9 +1,4 @@
-import {
-  Atoms,
-  atoms,
-  textBreakStyle,
-  textTruncateStyle,
-} from '@seed-ui/styles';
+import { textBreakStyle, textTruncateStyle } from '@seed-ui/styles';
 import cn from 'classnames';
 import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
@@ -30,11 +25,8 @@ export interface TitleProps extends HTMLAttributes<HTMLElement> {
   breakWord?: boolean;
   fontFamily?: TitleFontFamily;
   size?: TitleSize;
-  textAlign?: Atoms['textAlign'];
-  textOverflow?: Atoms['textOverflow'];
   truncate?: boolean;
   variant?: TitleVariant;
-  whiteSpace?: Atoms['whiteSpace'];
 }
 
 const Title = forwardRef<HTMLElement, TitleProps>(
@@ -45,11 +37,8 @@ const Title = forwardRef<HTMLElement, TitleProps>(
       className,
       fontFamily = 'secondary',
       size = 'md',
-      textAlign,
-      textOverflow,
       truncate,
       variant = 'default',
-      whiteSpace,
       children,
       ...elemProps
     },
@@ -57,18 +46,12 @@ const Title = forwardRef<HTMLElement, TitleProps>(
   ) => (
     <As
       className={cn(
-        S.root({
-          fontFamily,
-          size,
-          variant,
-        }),
+        fontFamily === 'primary'
+          ? S.rootPrimarySize[size]
+          : S.rootSecondarySize[size],
+        S.rootVariant[variant],
         breakWord && textBreakStyle,
         truncate && textTruncateStyle,
-        atoms({
-          textAlign,
-          textOverflow,
-          whiteSpace,
-        }),
         className,
       )}
       ref={ref}

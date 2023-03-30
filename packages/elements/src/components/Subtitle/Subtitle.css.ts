@@ -1,104 +1,66 @@
 import { vars } from '@seed-ui/styles';
-import { recipe } from '@vanilla-extract/recipes';
+import { styleVariants } from '@vanilla-extract/css';
 
-export const root = recipe({
-  variants: {
-    fontFamily: {
-      primary: {
-        fontFamily: vars.fontFamily.primary,
-      },
-      secondary: {
-        fontFamily: vars.fontFamily.secondary,
-      },
-    },
+export const rootPrimarySize = styleVariants({
+  sm: {
+    fontFamily: vars.fontFamily.primary,
+    ...vars.typography.subtitleSm.primary,
+  },
+  md: {
+    fontFamily: vars.fontFamily.primary,
+    ...vars.typography.subtitleMd.primary,
+  },
+});
 
-    size: {
-      sm: {},
-      md: {},
-    },
+export const rootSecondarySize = styleVariants({
+  sm: {
+    fontFamily: vars.fontFamily.secondary,
+    ...vars.typography.subtitleSm.secondary,
+  },
+  md: {
+    fontFamily: vars.fontFamily.secondary,
+    ...vars.typography.subtitleMd.secondary,
+  },
+});
 
-    variant: {
-      primary: {
-        color: vars.color.primary600,
-      },
-
-      secondary: {
-        color: vars.color.secondary600,
-      },
-
-      tertiary: {
-        color: vars.color.neutral600,
-      },
-
-      info: {
-        color: vars.color.info600,
-      },
-
-      success: {
-        color: vars.color.success600,
-      },
-
-      warning: {
-        color: vars.color.warning600,
-      },
-
-      danger: {
-        color: vars.color.danger600,
-      },
-
-      light: {
-        color: vars.color.white,
-      },
-
-      dark: {
-        color: vars.color.neutral900,
-      },
-
-      default: {
-        color: 'inherit',
-      },
-    },
+export const rootVariant = styleVariants({
+  primary: {
+    color: vars.color.primary600,
   },
 
-  compoundVariants: [
-    {
-      variants: {
-        fontFamily: 'primary',
-        size: 'md',
-      },
-      style: {
-        ...vars.typography.subtitleMd.primary,
-      },
-    },
+  secondary: {
+    color: vars.color.secondary600,
+  },
 
-    {
-      variants: {
-        fontFamily: 'primary',
-        size: 'sm',
-      },
-      style: {
-        ...vars.typography.subtitleSm.primary,
-      },
-    },
+  tertiary: {
+    color: vars.color.neutral600,
+  },
 
-    {
-      variants: {
-        fontFamily: 'secondary',
-        size: 'md',
-      },
-      style: {
-        ...vars.typography.subtitleMd.secondary,
-      },
-    },
+  info: {
+    color: vars.color.info600,
+  },
 
-    {
-      variants: {
-        fontFamily: 'secondary',
-        size: 'sm',
-      },
-      style: {
-        ...vars.typography.subtitleSm.secondary,
-      },
-    },
-  ],
+  success: {
+    color: vars.color.success600,
+  },
+
+  warning: {
+    color: vars.color.warning600,
+  },
+
+  danger: {
+    color: vars.color.danger600,
+  },
+
+  light: {
+    color: vars.color.white,
+  },
+
+  dark: {
+    color: vars.color.neutral900,
+  },
+
+  default: {
+    color: 'inherit',
+  },
 });
