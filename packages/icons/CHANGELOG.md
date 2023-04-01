@@ -1,5 +1,11 @@
 # @seed-ui/icons
 
+## 0.6.5
+
+### Patch Changes
+
+- 23222ee: Added minified styled to packages.
+
 ## 0.6.4
 
 ### Patch Changes
