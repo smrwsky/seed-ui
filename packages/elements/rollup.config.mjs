@@ -1,9 +1,11 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
-import copy from 'rollup-plugin-copy';
+import glob from 'glob';
+import del from 'rollup-plugin-delete';
 import externals from 'rollup-plugin-node-externals';
 import postcss from 'rollup-plugin-postcss';
+import { processCssFiles } from '../../scripts/process-css-files.mjs';
 
 const outputSharedOptions = {
   dir: '.',
@@ -16,22 +18,23 @@ const outputSharedOptions = {
   sourcemap: true,
 };
 
+const cssFiles = glob.sync('./src/assets/*.css');
+
 export default [
   {
     input: 'src/index.ts',
-    output: [
-      {
-        ...outputSharedOptions,
-        assetFileNames({ name }) {
-          return name.replace(/^src\//, 'dist/es/');
-        },
-        entryFileNames({ name }) {
-          return `dist/es/${name.replace(/\.css$/, '.css.vanilla')}.js`;
-        },
-        format: 'es',
-        preserveModulesRoot: 'src',
+    output: {
+      ...outputSharedOptions,
+      assetFileNames({ name }) {
+        return name.replace(/^src\//, 'dist/es/');
       },
-    ],
+      entryFileNames({ name }) {
+        return `dist/es/${name.replace(/\.css$/, '.css.vanilla')}.js`;
+      },
+      format: 'es',
+      preserveModulesRoot: 'src',
+    },
+
     plugins: [
       nodeResolve(),
       externals(),
@@ -79,12 +82,31 @@ export default [
       externals(),
       postcss({
         extract: 'css/elements.css',
+        sourceMap: true,
       }),
-      copy({
-        targets: [
-          { src: 'src/assets/*', dest: 'css' },
-        ],
+      del({
+        targets: ['dist/es/**/*.css'],
+        hook: 'buildEnd',
       }),
     ],
   },
+  {
+    input: 'css/elements.css',
+    output: {
+      file: 'css/elements.min.css',
+    },
+    plugins: [
+      postcss({
+        extract: true,
+        minimize: true,
+        modules: false,
+        sourceMap: true,
+      }),
+    ],
+    onwarn(warning, warn) {
+      if (warning.code === 'FILE_NAME_CONFLICT') return;
+      warn(warning);
+    },
+  },
+  ...processCssFiles(cssFiles),
 ];

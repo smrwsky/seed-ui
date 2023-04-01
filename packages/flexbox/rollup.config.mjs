@@ -1,7 +1,8 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
-import copy from 'rollup-plugin-copy';
+import glob from 'glob';
 import externals from 'rollup-plugin-node-externals';
+import { processCssFiles } from '../../scripts/process-css-files.mjs';
 
 const outputSharedOptions = {
   dir: '.',
@@ -14,22 +15,22 @@ const outputSharedOptions = {
   sourcemap: true,
 };
 
+const cssFiles = glob.sync('./src/assets/*.css');
+
 export default [
   {
     input: 'src/index.ts',
-    output: [
-      {
-        ...outputSharedOptions,
-        assetFileNames({ name }) {
-          return name.replace(/^src\//, 'dist/es/');
-        },
-        entryFileNames({ name }) {
-          return `dist/es/${name}.js`;
-        },
-        format: 'es',
-        preserveModulesRoot: 'src',
+    output: {
+      ...outputSharedOptions,
+      assetFileNames({ name }) {
+        return name.replace(/^src\//, 'dist/es/');
       },
-    ],
+      entryFileNames({ name }) {
+        return `dist/es/${name}.js`;
+      },
+      format: 'es',
+      preserveModulesRoot: 'src',
+    },
     plugins: [
       nodeResolve(),
       externals(),
@@ -64,14 +65,7 @@ export default [
         },
       },
     ],
-    plugins: [
-      nodeResolve(),
-      externals(),
-      copy({
-        targets: [
-          { src: 'src/assets/*', dest: 'css' },
-        ],
-      }),
-    ],
+    plugins: [nodeResolve(), externals()],
   },
+  ...processCssFiles(cssFiles),
 ];

@@ -1,6 +1,7 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
+import del from 'rollup-plugin-delete'
 import externals from 'rollup-plugin-node-externals';
 import postcss from 'rollup-plugin-postcss';
 
@@ -18,7 +19,7 @@ const outputSharedOptions = {
 export default [
   {
     input: 'src/index.ts',
-    output: [
+    output:
       {
         ...outputSharedOptions,
         assetFileNames({ name }) {
@@ -30,7 +31,7 @@ export default [
         format: 'es',
         preserveModulesRoot: 'src',
       },
-    ],
+
     plugins: [
       nodeResolve(),
       externals(),
@@ -80,7 +81,32 @@ export default [
       }),
       postcss({
         extract: 'css/styles.css',
+        sourceMap: true,
+      }),
+      del({
+        targets: ['dist/es/**/*.css'],
+        hook: 'buildEnd',
+      })
+    ],
+  },
+  {
+    input: 'css/styles.css',
+    output: [
+      {
+        file: 'css/styles.min.css'
+      },
+    ],
+    plugins: [
+      postcss({
+        extract: true,
+        minimize: true,
+        modules: false,
+        sourceMap: true,
       }),
     ],
+    onwarn(warning, warn) {
+      if (warning.code === 'FILE_NAME_CONFLICT') return
+      warn(warning)
+    }
   },
 ];
