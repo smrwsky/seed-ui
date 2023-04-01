@@ -1,5 +1,11 @@
 # @seed-ui/flexbox
 
+## 0.2.5
+
+### Patch Changes
+
+- 23222ee: Added minified styled to packages.
+
 ## 0.2.4
 
 ### Patch Changes

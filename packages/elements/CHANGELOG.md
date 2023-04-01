@@ -1,5 +1,11 @@
 # @seed-ui/elements
 
+## 0.9.5
+
+### Patch Changes
+
+- 23222ee: Added minified styled to packages.
+
 ## 0.9.4
 
 ### Patch Changes
