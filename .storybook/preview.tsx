@@ -2,9 +2,9 @@ import {  colors, ThemeProvider ,Link } from '@seed-ui/elements';
 import { theme } from './theme';
 import { FC } from 'react';
 
-import '@seed-ui/elements/css/styles.css';
-import '@seed-ui/elements/css/icons.css';
-import '@seed-ui/elements/css/elements.css';
+import '@seed-ui/elements/css/styles.min.css';
+import '@seed-ui/elements/css/icons.min.css';
+import '@seed-ui/elements/css/elements.min.css';
 
 const components = {
   a: Link,
