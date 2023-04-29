@@ -1,5 +1,7 @@
-import { Canvas, ArgsTable } from '@storybook/addon-docs';
-import * as AutocompleteStories from './Autocomplete.stories';
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+import Autocomplete, { Basic, Rounded, Sizes, Invalid, Multiple } from './Autocomplete.stories';
+
+<Meta of={Autocomplete} />
 
 # Autocomplete
 
@@ -28,14 +30,14 @@ of options can simplify the process for the user.
 
 ### Basic
 
-<Canvas of={AutocompleteStories.Basic} />
+<Canvas of={Basic} />
 
 ### Multiple
 
 Set `multiple` to `true` to allow multiple values. User will see tags
 with values that were selected.
 
-<Canvas of={AutocompleteStories.Multiple} />
+<Canvas of={Multiple} />
 
 ### Invalid
 
@@ -43,20 +45,20 @@ Set `invalid` to `true` to indicate an error or an issue with the
 input value. If value is `thue`, then a clear error feedback should be provided
 using ErrorMessage component.
 
-<Canvas of={AutocompleteStories.Invalid} />
+<Canvas of={Invalid} />
 
 ### Sizes
 
 Use `size` property to specify the size of input box. Available values: `sm`,
 `md`, `lg`.
 
-<Canvas of={AutocompleteStories.Sizes} />
+<Canvas of={Sizes} />
 
 ### Rounded
 
 Set `rounded` to `true` to use input box with rounded corners.
 
-<Canvas of={AutocompleteStories.Rounded} />
+<Canvas of={Rounded} />
 
 ## Guidelines
 
@@ -88,6 +90,6 @@ defined in WAI ARIA Practices.
 
 ## Component API
 
-<ArgsTable />
+<ArgTypes />
 
 

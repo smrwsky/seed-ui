@@ -1,7 +1,6 @@
 import { Box, Flex } from '@seed-ui/flexbox';
 
 import Message, { MessageProps } from './Message';
-import docs from './Message.docs.mdx';
 
 const variants: MessageProps['variant'][] = [
   'info',
@@ -14,13 +13,8 @@ const variants: MessageProps['variant'][] = [
 export default {
   title: 'Feedback/Message',
   component: Message,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    children: {
-      defaultValue: 'This is message',
-    },
+  args: {
+    children: 'This is message',
   },
 };
 

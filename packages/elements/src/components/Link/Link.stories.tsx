@@ -1,7 +1,6 @@
 import { Text } from '../Text';
 
 import Link, { LinkProps, LinkVariant } from './Link';
-import docs from './Link.docs.mdx';
 
 const variants: LinkVariant[] = [
   'primary',
@@ -18,13 +17,9 @@ const variants: LinkVariant[] = [
 export default {
   title: 'Typography/Link',
   component: Link,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    children: {
-      defaultValue: 'This is a link',
-    },
+
+  args: {
+    children: 'This is a link',
   },
 };
 

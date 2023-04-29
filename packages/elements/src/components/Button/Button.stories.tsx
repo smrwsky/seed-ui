@@ -1,7 +1,6 @@
 import { Box, Flex } from '@seed-ui/flexbox';
 
 import Button, { ButtonProps, ButtonSize, ButtonVariant } from './Button';
-import docs from './Button.docs.mdx';
 
 const variants: ButtonVariant[] = [
   'primary',
@@ -38,13 +37,9 @@ const sizes: ButtonSize[] = ['xs', 'sm', 'md', 'lg'];
 export default {
   title: 'Inputs/Button',
   component: Button,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    children: {
-      defaultValue: 'Click me',
-    },
+
+  args: {
+    children: 'Click me',
   },
 };
 

@@ -5,7 +5,6 @@ import Autocomplete, {
   AutocompleteProps,
   AutocompleteSize,
 } from './Autocomplete';
-import docs from './Autocomplete.docs.mdx';
 
 const SIZE_OPTIONS: AutocompleteSize[] = ['sm', 'md', 'lg'];
 
@@ -14,9 +13,6 @@ const SELECT_OPTIONS = ['Peter', 'Louis', 'Mag', 'Chris', 'Stewie', 'Bryan'];
 export default {
   title: 'Inputs/Autocomplete',
   component: Autocomplete,
-  parameters: {
-    docs: { page: docs },
-  },
   args: {
     placeholder: 'Type to search',
   },

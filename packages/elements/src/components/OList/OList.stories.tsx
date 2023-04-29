@@ -11,7 +11,6 @@ import OList, {
   OListSize,
   OListVariant,
 } from './OList';
-import docs from './OList.docs.mdx';
 
 const fontFamilies: OListFontFamily[] = ['primary', 'secondary'];
 
@@ -44,9 +43,6 @@ const listItems = [
 export default {
   title: 'Typography/OList',
   component: OList,
-  parameters: {
-    docs: { page: docs },
-  },
 };
 
 export function Base(args: OListProps): JSX.Element {

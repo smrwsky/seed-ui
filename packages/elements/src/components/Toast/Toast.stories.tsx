@@ -3,7 +3,6 @@ import { atoms } from '@seed-ui/styles';
 import { Link } from '../Link';
 
 import Toast, { ToastProps } from './Toast';
-import docs from './Toast.docs.mdx';
 
 const variants: ToastProps['variant'][] = [
   'info',
@@ -16,17 +15,12 @@ const variants: ToastProps['variant'][] = [
 export default {
   title: 'Feedback/Toast',
   component: Toast,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    children: {
-      defaultValue: (
-        <>
-          This is toast message - <Link href="#">Check this out</Link>
-        </>
-      ),
-    },
+  args: {
+    children: (
+      <>
+        This is a toast message - <Link href="#">Check this out</Link>
+      </>
+    ),
   },
 };
 
@@ -43,7 +37,8 @@ export function Variants(args: ToastProps): JSX.Element {
     <>
       {variants.map((variant, i) => (
         <Toast {...args} className={atoms({ mb: 2 })} key={i} variant={variant}>
-          This is {variant} message - <Link href="#">Check this out</Link>
+          This is {variant === 'info' ? 'an' : 'a'} message -{' '}
+          <Link href="#">Check this out</Link>
         </Toast>
       ))}
     </>

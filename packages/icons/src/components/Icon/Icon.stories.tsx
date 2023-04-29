@@ -10,7 +10,6 @@ import Icon, {
   IconSize,
   IconVariant,
 } from './Icon';
-import docs from './Icon.docs.mdx';
 
 const VARIANT_OPTIONS: IconVariant[] = [
   'primary',
@@ -85,16 +84,10 @@ const ANIMATION_SAMPLES_MAP: Record<
 export default {
   title: 'Typography/Icon',
   component: Icon,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    name: {
-      defaultValue: 'like',
-    },
-    type: {
-      defaultValue: 'solid',
-    },
+
+  args: {
+    name: 'like',
+    type: 'solid',
   },
 };
 

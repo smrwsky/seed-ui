@@ -3,7 +3,6 @@ import { atoms } from '@seed-ui/styles';
 import { Text } from '../Text';
 
 import Strong, { StrongProps, StrongVariant } from './Strong';
-import docs from './Strong.docs.mdx';
 
 const variants: StrongVariant[] = [
   'primary',
@@ -20,13 +19,9 @@ const variants: StrongVariant[] = [
 export default {
   title: 'Typography/Strong',
   component: Strong,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    children: {
-      defaultValue: 'This is strong element',
-    },
+
+  args: {
+    children: 'This is strong element',
   },
 };
 

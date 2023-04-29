@@ -1,7 +1,6 @@
 import { Box, Flex } from '@seed-ui/flexbox';
 
 import Select, { SelectProps, SelectSize } from './Select';
-import docs from './Select.docs.mdx';
 
 const SIZE_OPTIONS: SelectSize[] = ['sm', 'md', 'lg'];
 
@@ -18,13 +17,8 @@ const SELECT_OPTIONS = [
 export default {
   title: 'Inputs/Select',
   component: Select,
-  parameters: {
-    docs: { page: docs },
-    argTypes: {
-      defaultValue: {
-        defaultValue: 0,
-      },
-    },
+  args: {
+    defaultValue: 0,
   },
 };
 

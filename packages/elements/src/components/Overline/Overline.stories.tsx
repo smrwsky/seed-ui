@@ -1,5 +1,4 @@
 import Overline, { OverlineProps, OverlineVariant } from './Overline';
-import docs from './Overline.docs.mdx';
 
 const variants: OverlineVariant[] = [
   'primary',
@@ -16,13 +15,9 @@ const variants: OverlineVariant[] = [
 export default {
   title: 'Typography/Overline',
   component: Overline,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    children: {
-      defaultValue: 'This is an overline',
-    },
+
+  args: {
+    children: 'This is an overline',
   },
 };
 

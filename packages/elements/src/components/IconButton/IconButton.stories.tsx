@@ -7,7 +7,6 @@ import IconButton, {
   IconButtonSize,
   IconButtonVariant,
 } from './IconButton';
-import docs from './IconButton.docs.mdx';
 
 const variants: IconButtonVariant[] = [
   'primary',
@@ -35,16 +34,10 @@ const sizes: IconButtonSize[] = ['xs', 'sm', 'md', 'lg'];
 export default {
   title: 'Inputs/IconButton',
   component: IconButton,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    icon: {
-      defaultValue: 'like',
-    },
-    iconType: {
-      defaultValue: 'solid',
-    },
+
+  args: {
+    icon: 'like',
+    iconType: 'solid',
   },
 };
 
