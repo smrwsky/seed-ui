@@ -6,7 +6,6 @@ import Subtitle, {
   SubtitleSize,
   SubtitleVariant,
 } from './Subtitle';
-import docs from './Subtitle.docs.mdx';
 
 const fontFamilies: SubtitleFontFamily[] = ['primary', 'secondary'];
 
@@ -27,13 +26,9 @@ const variants: SubtitleVariant[] = [
 export default {
   title: 'Typography/Subtitle',
   component: Subtitle,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    children: {
-      defaultValue: 'This is a title',
-    },
+
+  args: {
+    children: 'This is a subtitle',
   },
 };
 

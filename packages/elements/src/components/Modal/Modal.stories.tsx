@@ -5,15 +5,11 @@ import { Button } from '../Button';
 import { Subtitle } from '../Subtitle';
 
 import Modal, { ModalProps } from './Modal';
-import docs from './Modal.docs.mdx';
 import { ModalSize } from './context';
 
 export default {
   title: 'Feedback/Modal',
   component: Modal,
-  parameters: {
-    docs: { page: docs },
-  },
 };
 
 export function Base(args: ModalProps): JSX.Element {

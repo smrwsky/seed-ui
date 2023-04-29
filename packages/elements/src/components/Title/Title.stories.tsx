@@ -6,7 +6,6 @@ import Title, {
   TitleSize,
   TitleVariant,
 } from './Title';
-import docs from './Title.docs.mdx';
 
 const fontFamilies: TitleFontFamily[] = ['primary', 'secondary'];
 
@@ -27,13 +26,9 @@ const variants: TitleVariant[] = [
 export default {
   title: 'Typography/Title',
   component: Title,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    children: {
-      defaultValue: 'This is a title',
-    },
+
+  args: {
+    children: 'This is a title',
   },
 };
 

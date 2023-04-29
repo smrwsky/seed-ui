@@ -1,20 +1,15 @@
 import { Box, Flex } from '@seed-ui/flexbox';
 
 import Avatar, { AvatarProps, AvatarSize } from './Avatar';
-import docs from './Avatar.docs.mdx';
 
 const sizes: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
 export default {
   title: 'Data Display/Avatar',
   component: Avatar,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    placeholder: {
-      defaultValue: 'Peter Griffin',
-    },
+
+  args: {
+    placeholder: 'Peter Griffin',
   },
 };
 

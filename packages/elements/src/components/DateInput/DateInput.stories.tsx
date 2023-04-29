@@ -1,23 +1,16 @@
 import { Box, Flex } from '@seed-ui/flexbox';
 
 import DateInput, { DateInputProps, DateInputSize } from './DateInput';
-import docs from './DateInput.docs.mdx';
 
 const SIZE_OPTIONS: DateInputSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Inputs/DateInput',
   component: DateInput,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    defaultValue: {
-      defaultValue: '1991-12-26',
-    },
-    placeholder: {
-      defaultValue: 'DD.MM.YYYY',
-    },
+
+  args: {
+    defaultValue: '1991-12-26',
+    placeholder: 'DD.MM.YYYY',
   },
 };
 

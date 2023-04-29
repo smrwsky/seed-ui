@@ -2,7 +2,6 @@ import { Box, Flex } from '@seed-ui/flexbox';
 import { capitalize } from 'lodash';
 
 import Tag, { TagProps, TagSize, TagVariant } from './Tag';
-import docs from './Tag.docs.mdx';
 
 const variants: TagVariant[] = [
   'primary',
@@ -28,13 +27,9 @@ const sizes: TagSize[] = ['sm', 'md'];
 export default {
   title: 'Data Display/Tag',
   component: Tag,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    children: {
-      defaultValue: 'Tag title',
-    },
+
+  args: {
+    children: 'Tag title',
   },
 };
 

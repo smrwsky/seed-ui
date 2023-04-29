@@ -8,7 +8,6 @@ import { Link } from '../../Link';
 import { Toast } from '../index';
 
 import ToastContainer, { ToastContainerProps } from './ToastContainer';
-import docs from './ToastContainer.docs.mdx';
 
 const placements = [
   'top-left',
@@ -22,9 +21,6 @@ const placements = [
 export default {
   title: 'Feedback/ToastContainer',
   component: ToastContainer,
-  parameters: {
-    docs: { page: docs },
-  },
 };
 
 export function Base(args: ToastContainerProps): JSX.Element {

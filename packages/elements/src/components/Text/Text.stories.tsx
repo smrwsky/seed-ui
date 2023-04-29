@@ -3,7 +3,6 @@ import { capitalize } from 'lodash';
 import { StrongProps } from '../Strong';
 
 import Text, { TextFontFamily, TextProps, TextSize, TextVariant } from './Text';
-import docs from './Text.docs.mdx';
 
 const fontFamilies: TextFontFamily[] = ['primary', 'secondary'];
 
@@ -24,13 +23,9 @@ const variants: TextVariant[] = [
 export default {
   title: 'Typography/Text',
   component: Text,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    children: {
-      defaultValue: 'This is a text',
-    },
+
+  args: {
+    children: 'This is a text',
   },
 };
 

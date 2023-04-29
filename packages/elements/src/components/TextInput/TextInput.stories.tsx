@@ -2,23 +2,16 @@ import { Box, Flex } from '@seed-ui/flexbox';
 import { atoms } from '@seed-ui/styles';
 
 import TextInput, { TextInputProps, TextInputSize } from './TextInput';
-import docs from './TextInput.docs.mdx';
 
 const sizes: TextInputSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Inputs/TextInput',
   component: TextInput,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    defaultValue: {
-      defaultValue: 'Bob',
-    },
-    placeholder: {
-      defaultValue: 'First Name',
-    },
+
+  args: {
+    defaultValue: 'Bob',
+    placeholder: 'First Name',
   },
 };
 

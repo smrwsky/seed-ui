@@ -7,7 +7,6 @@ import { IconButton } from '../IconButton';
 import { Title } from '../Title';
 
 import Menu, { MenuProps } from './Menu';
-import docs from './Menu.docs.mdx';
 import { MenuItem } from './MenuItem';
 import { PopupMenu } from './PopupMenu';
 import { SubMenu } from './SubMenu';
@@ -21,9 +20,6 @@ const sizes: MenuProps['size'][] = ['sm', 'md', 'lg'];
 export default {
   title: 'Navigation/Menu',
   component: Menu,
-  parameters: {
-    docs: { page: docs },
-  },
 };
 
 export function Base(args: MenuProps): JSX.Element {

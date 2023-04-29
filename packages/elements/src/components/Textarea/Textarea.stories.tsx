@@ -1,23 +1,16 @@
 import { Box, Flex } from '@seed-ui/flexbox';
 
 import Textarea, { TextareaProps, TextareaSize } from './Textarea';
-import docs from './Textarea.docs.mdx';
 
 const sizes: TextareaSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Inputs/Textarea',
   component: Textarea,
-  parameters: {
-    docs: { page: docs },
-  },
-  argTypes: {
-    defaultValue: {
-      defaultValue: 'Front-end developer at OSS',
-    },
-    placeholder: {
-      defaultValue: 'Tell about yourself',
-    },
+
+  args: {
+    defaultValue: 'Front-end developer at OSS',
+    placeholder: 'Tell about yourself',
   },
 };
 

@@ -14,7 +14,6 @@ import UList, {
   UListType,
   UListVariant,
 } from './UList';
-import docs from './UList.docs.mdx';
 
 const types: UListType[] = ['disc', 'dash', 'none'];
 
@@ -49,9 +48,6 @@ const listItems = [
 export default {
   title: 'Typography/UList',
   component: UList,
-  parameters: {
-    docs: { page: docs },
-  },
 };
 
 export function Base(args: UListProps): JSX.Element {
