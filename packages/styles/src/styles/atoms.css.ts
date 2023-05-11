@@ -38,19 +38,6 @@ const baseProperties = defineProperties({
   },
 });
 
-const colorProperties = defineProperties({
-  properties: {
-    borderColor: vars.color,
-    color: vars.color,
-    backgroundColor: vars.color,
-    boxShadow: vars.boxShadow,
-  },
-  shorthands: {
-    bg: ['backgroundColor'],
-    shadow: ['boxShadow'],
-  },
-});
-
 const widthProperties = {
   ...WIDTH,
   ...vars.width,
@@ -152,6 +139,19 @@ const responsiveProperties = defineProperties({
 });
 
 export const mapResponsiveValue = createMapValueFn(responsiveProperties);
+
+const colorProperties = defineProperties({
+  properties: {
+    borderColor: vars.color,
+    color: vars.color,
+    backgroundColor: vars.color,
+    boxShadow: vars.boxShadow,
+  },
+  shorthands: {
+    bg: ['backgroundColor'],
+    shadow: ['boxShadow'],
+  },
+});
 
 export type Atoms = Parameters<typeof atoms>[0];
 
