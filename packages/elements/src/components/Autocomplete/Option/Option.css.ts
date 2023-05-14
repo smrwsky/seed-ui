@@ -21,7 +21,6 @@ export const root = style({
   ...vars.typography.textMd.secondary,
   background: vars.color.white,
   textDecoration: 'none',
-  transition: vars.transition.base,
   padding: `${SPACING[0.5]} ${SPACING[1.5]}`,
   cursor: 'pointer',
 
@@ -30,19 +29,19 @@ export const root = style({
       color: vars.color.neutral200,
       pointerEvents: 'none',
     },
+
+    '&[aria-selected="true"]': {
+      ...vars.typography.bold,
+      background: vars.color.dark50,
+    },
+
+    '&.highlighted': {
+      background: vars.color.dark100,
+    },
+
+    '&.invalid': {
+      ...vars.typography.textMd.secondary,
+      color: vars.color.danger500,
+    },
   },
-});
-
-export const rootSelected = style({
-  ...vars.typography.bold,
-  background: vars.color.dark50,
-});
-
-export const rootActive = style({
-  background: vars.color.dark100,
-});
-
-export const rootInvalid = style({
-  ...vars.typography.textMd.secondary,
-  color: vars.color.danger500,
 });

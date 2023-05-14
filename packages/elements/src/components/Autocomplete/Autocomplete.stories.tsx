@@ -1,14 +1,11 @@
 import { Box, Flex } from '@seed-ui/flexbox';
-import { FC } from 'react';
+import { StoryFn } from '@storybook/react';
 
-import Autocomplete, {
-  AutocompleteProps,
-  AutocompleteSize,
-} from './Autocomplete';
+import Autocomplete, { AutocompleteSize } from './Autocomplete';
 
 const SIZE_OPTIONS: AutocompleteSize[] = ['sm', 'md', 'lg'];
 
-const SELECT_OPTIONS = ['Peter', 'Louis', 'Mag', 'Chris', 'Stewie', 'Bryan'];
+const OPTIONS_LIST = ['Peter', 'Louis', 'Mag', 'Chris', 'Stewie', 'Bryan'];
 
 export default {
   title: 'Inputs/Autocomplete',
@@ -18,43 +15,43 @@ export default {
   },
 };
 
-export const Basic: FC<AutocompleteProps> = (args) => (
-  <Box minHeight={64}>
-    <Autocomplete {...args} id="autocomplete-base" options={SELECT_OPTIONS} />
+export const Basic: StoryFn = (args) => (
+  <Box minHeight={64} width={80}>
+    <Autocomplete {...args} id="autocomplete-base" options={OPTIONS_LIST} />
   </Box>
 );
 
-export const Multiple: FC<AutocompleteProps> = (args) => (
-  <Box minHeight={64}>
+export const Multiple: StoryFn = (args) => (
+  <Box minHeight={64} width={80}>
     <Autocomplete
       {...args}
       defaultValue={['Peter', 'Chris', 'Stewie']}
       id="autocomplete-multiple"
       multiple
-      options={SELECT_OPTIONS}
+      options={OPTIONS_LIST}
     />
   </Box>
 );
 
-export const Invalid: FC<AutocompleteProps> = (args) => (
-  <Box minHeight={64}>
+export const Invalid: StoryFn = (args) => (
+  <Box minHeight={64} width={80}>
     <Autocomplete
       {...args}
       id="autocomplete-invalid"
       invalid
-      options={SELECT_OPTIONS}
+      options={OPTIONS_LIST}
     />
   </Box>
 );
 
-export const Sizes: FC<AutocompleteProps> = (args) => (
-  <Flex flexDirection="column" minHeight={96}>
+export const Sizes: StoryFn = (args) => (
+  <Flex flexDirection="column" minHeight={96} width={80}>
     {SIZE_OPTIONS.map((size, i) => (
       <Box key={i} mt={i && 4}>
         <Autocomplete
           {...args}
           id={`autocomplete-sizes-${size}`}
-          options={SELECT_OPTIONS}
+          options={OPTIONS_LIST}
           size={size}
         />
       </Box>
@@ -62,13 +59,46 @@ export const Sizes: FC<AutocompleteProps> = (args) => (
   </Flex>
 );
 
-export const Rounded: FC<AutocompleteProps> = (args) => (
-  <Box minHeight={64}>
+export const Rounded: StoryFn = (args) => (
+  <Box minHeight={64} width={80}>
     <Autocomplete
       {...args}
       id="autocomplete-rounded"
-      options={SELECT_OPTIONS}
+      options={OPTIONS_LIST}
       rounded
+    />
+  </Box>
+);
+
+export const AllowInputValue: StoryFn = (args) => (
+  <Box minHeight={64} width={80}>
+    <Autocomplete
+      {...args}
+      allowInputValue
+      id="autocomplete-allow-input-value"
+      options={OPTIONS_LIST}
+    />
+  </Box>
+);
+
+export const AutoHighlight: StoryFn = (args) => (
+  <Box minHeight={64} width={80}>
+    <Autocomplete
+      {...args}
+      autoHighlight
+      id="autocomplete-auto-highlight"
+      options={OPTIONS_LIST}
+    />
+  </Box>
+);
+
+export const InlineAutoComplete: StoryFn = (args) => (
+  <Box minHeight={64} width={80}>
+    <Autocomplete
+      {...args}
+      id="autocomplete-inline-auto-complete"
+      inlineAutoComplete
+      options={OPTIONS_LIST}
     />
   </Box>
 );

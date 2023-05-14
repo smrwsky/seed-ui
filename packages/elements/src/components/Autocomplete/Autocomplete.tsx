@@ -13,11 +13,13 @@ import {
   RefAttributes,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
 } from 'react';
 
+import { mergeRefs } from '../../utils/merge-refs';
 import { slug } from '../../utils/slug';
 import { IconButton } from '../IconButton';
 import {
@@ -27,9 +29,10 @@ import {
   InputTags,
   TextBox,
 } from '../InputGroup';
-import { Option, OptionProps } from '../Option';
 import { Popover } from '../Popover';
 import { Tag } from '../Tag';
+
+import { Option, OptionProps } from './Option';
 
 export type AutocompleteSize = 'sm' | 'md' | 'lg';
 
@@ -39,12 +42,6 @@ export interface OptionComponentProps<Option> extends OptionProps {
 
 export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
-   * Triggers `onSearch` when input is empty if true. Ignores empty
-   * queries otherwise.
-   */
-  allowEmptyQuery?: boolean;
-
-  /**
    * If `true`, allows using input value as primary value and fires `onChange`
    * callback with this value, when it changes. Implements
    * Editable Combobox With List Autocomplete pattern.
@@ -52,7 +49,12 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   allowInputValue?: boolean;
 
   /**
-   * If `true`, the input element will be focused when the component is mounted.
+   * If `true`, automatically highlights the first option in the dropdown list.
+   */
+  autoHighlight?: boolean;
+
+  /**
+   * If `true`, the input element will be isFocused when the component is mounted.
    */
   autoFocus?: boolean;
 
@@ -70,6 +72,11 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
    * If `true`, the input element is disabled and can't be interacted with.
    */
   disabled?: boolean;
+
+  /**
+   * If `true`, search functionality is disabled.
+   */
+  disableSearch?: boolean;
 
   /**
    * A function that takes an `Option` and returns a string to use as the label
@@ -91,6 +98,11 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
    * ID attribute for the input element.
    */
   id?: string;
+
+  /**
+   * If `true`, enables inline auto-complete behavior in the input element.
+   */
+  inlineAutoComplete?: boolean;
 
   /**
    * If `true`, the input element will have a validation error style.
@@ -138,11 +150,6 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   options?: Option[];
 
   /**
-   * Placeholder text to display in the input element when it has no value.
-   */
-  placeholder?: string;
-
-  /**
    * If `true`, the input element is read-only and can't be interacted with.
    */
   readOnly?: boolean;
@@ -158,7 +165,8 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   rounded?: boolean;
 
   /**
-   * The amount of time to wait after the user stops typing before triggering a search.
+   * The amount of time to wait after the user stops typing before triggering
+   * a search.
    */
   searchTimeout?: number;
 
@@ -193,17 +201,6 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   onSearch?: (query: string) => void | Promise<void>;
 }
 
-export const LISTBOX_ID = 'listbox';
-
-export const OPTION_ID = 'option';
-
-const toggleOption = (value: unknown, items: unknown[]): unknown[] =>
-  items.includes(value)
-    ? items.filter((item) => item !== value)
-    : [...items, value];
-
-const defaultGetLabel = (option: unknown): string => option as string;
-
 export interface AutocompleteFn {
   <Option = unknown, Value = Option>(
     props: AutocompleteProps<Option, Value> & RefAttributes<HTMLInputElement>,
@@ -211,29 +208,60 @@ export interface AutocompleteFn {
   displayName: 'Autocomplete';
 }
 
+export const LISTBOX_ID = 'listbox';
+
+export const OPTION_ID = 'option';
+
+function getInitialInputValue(
+  defaultValue: unknown,
+  getLabel: (value: unknown) => string,
+) {
+  return !defaultValue || Array.isArray(defaultValue)
+    ? ''
+    : getLabel(defaultValue);
+}
+
+function mapToSelectedOptions(value: unknown, isMultiple: boolean) {
+  return ((isMultiple && Array.isArray(value) && value) ||
+    (value && [value]) ||
+    []) as unknown[];
+}
+
+function mapToValue(options: unknown[], isMultiple: boolean) {
+  return isMultiple ? options : options[0] ?? null;
+}
+
+function toggleOption(value: unknown, items: unknown[]): unknown[] {
+  return items.includes(value)
+    ? items.filter((item) => item !== value)
+    : [...items, value];
+}
+
 const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
   (
     {
-      allowEmptyQuery = false,
+      autoHighlight = false,
       allowInputValue = false,
       clearLabel = 'Clear',
       defaultValue,
       searchTimeout = 500,
       disabled = false,
-      getLabel = defaultGetLabel,
+      getLabel = String,
       icon,
       iconType,
       id,
+      inlineAutoComplete = false,
       invalid = false,
       loading = false,
       loadingError,
       loadingLabel = 'Searching...',
       multiple = false,
       noResultLabel = 'No result',
-      OptionComponent,
+      OptionComponent = Option,
       options,
       readOnly = false,
       rounded = false,
+      disableSearch = false,
       size = 'md',
       value,
       onBlur,
@@ -244,259 +272,366 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     },
     ref,
   ) => {
-    const [valueState, setValueState] = useState(defaultValue);
-    const [openListbox, setOpenListbox] = useState(false);
-    const [focused, setFocused] = useState(false);
-    const [activeIndex, setActiveOption] = useState<number>(-1);
-    const [displayText, setDisplayText] = useState('');
-    const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
+    const [anchorElement, setAnchorElement] = useState<HTMLDivElement | null>(
+      null,
+    );
+
+    const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
+    const [isBackspacePressed, setIsBackspacePressed] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+    const [isMenuOpened, setIsMenuOpened] = useState(false);
+
+    const [inputValue, setInputValue] = useState(() =>
+      getInitialInputValue(defaultValue, getLabel),
+    );
+
+    const [optionsState, setOptionsState] = useState<unknown[]>(
+      () => options ?? [],
+    );
+
+    const [selectedOptions, setSelectedOptions] = useState(
+      mapToSelectedOptions(value ?? defaultValue, multiple),
+    );
+
+    const [searchQuery, setSearchQuery] = useState(() =>
+      getInitialInputValue(defaultValue, getLabel),
+    );
+
+    const inputRef = useRef<HTMLInputElement>(null);
     const listboxRef = useRef<HTMLUListElement>(null);
-    const hasDisplayText = Boolean(displayText);
+    const mergedRefs = mergeRefs(inputRef, ref);
 
-    const optList = useMemo(
-      (): unknown[] => (Array.isArray(options) ? options : []),
-      [options],
-    );
-
-    const valuesList = useMemo(
-      (): unknown[] =>
-        ((Array.isArray(valueState) && valueState) ||
-          (valueState && [valueState]) ||
-          []) as unknown[],
-      [valueState],
-    );
+    const isUncontrolled = typeof value === 'undefined';
 
     const popoverStyle = useMemo(
       () => ({
-        width: anchorEl ? `${anchorEl.offsetWidth}px` : undefined,
+        width: anchorElement ? `${anchorElement.offsetWidth}px` : undefined,
         maxWidth: '100%',
         margin: 0,
       }),
-      [anchorEl],
+      [anchorElement],
     );
 
     const changeValue = useCallback(
-      (nextValue: unknown): void => {
-        if (typeof value === 'undefined' && !onChange) {
-          setValueState(nextValue as never);
+      (options: unknown[]): void => {
+        if (!isUncontrolled && onChange) {
+          const nextOptions = mapToValue(options, multiple);
+          onChange(nextOptions);
         } else {
-          onChange?.(nextValue as never);
+          setSelectedOptions(options);
         }
       },
-      [onChange, value],
+      [isUncontrolled, multiple, onChange],
     );
+
+    const resetInputValue = useCallback(() => {
+      if (allowInputValue) return;
+
+      const nextValue =
+        !multiple && selectedOptions[0] ? getLabel(selectedOptions[0]) : '';
+
+      setInputValue(nextValue);
+      setSearchQuery(nextValue);
+    }, [allowInputValue, getLabel, multiple, selectedOptions]);
 
     const selectOption = useCallback(
       (index: number): void => {
-        const option = optList[index];
+        const option = optionsState[index];
 
-        if (typeof option !== 'undefined') {
-          const nextValue = multiple
-            ? toggleOption(option, valuesList)
-            : option;
-          changeValue(nextValue);
-        }
+        if (!option) return;
+
+        const nextOptions = multiple
+          ? toggleOption(option, selectedOptions)
+          : [option];
+
+        changeValue(nextOptions);
+        setIsMenuOpened(false);
+        setIsBackspacePressed(false);
       },
-      [changeValue, multiple, optList, valuesList],
+      [changeValue, multiple, optionsState, selectedOptions],
     );
 
-    const handleChangeOpenListbox = useCallback((visible: boolean) => {
-      setOpenListbox(visible);
-    }, []);
+    const filterOptions = useCallback(
+      (query: string) => {
+        if (!options) return;
 
-    const invokeSearch = useCallback(
-      (val: string) => onSearch?.(val),
-      [onSearch],
+        const filtered = query
+          ? options.filter((item) =>
+              getLabel(item).toLowerCase().includes(query.toLowerCase()),
+            )
+          : options;
+
+        setOptionsState(filtered);
+      },
+      [getLabel, options],
     );
 
-    const debouncedSearch = useDebounceCallback(
-      invokeSearch,
-      searchTimeout,
-      false,
-    );
+    const updateOptions = useDebounceCallback((query: string) => {
+      if (disableSearch) return;
+      if (onSearch) return onSearch(query);
+      filterOptions(query);
+    }, searchTimeout);
 
-    const handleBlur = useCallback(
+    const handleInputFocus = useCallback(
       (e: FocusEvent<HTMLInputElement>) => {
-        e.persist();
-        setFocused(false);
-        setOpenListbox(false);
-        onBlur?.(e);
-      },
-      [onBlur],
-    );
-
-    const handleChange = useCallback(
-      (e: ChangeEvent<HTMLInputElement>) => {
-        setOpenListbox(true);
-
-        if (allowInputValue) {
-          changeValue(e.target.value);
-        } else {
-          setDisplayText(e.target.value);
-        }
-      },
-      [allowInputValue, changeValue],
-    );
-
-    const handleFocus = useCallback(
-      (e: FocusEvent<HTMLInputElement>) => {
-        setFocused(true);
-
-        if (onFocus) {
-          e.persist();
-          onFocus(e);
-        }
+        setIsFocused(true);
+        onFocus?.(e);
       },
       [onFocus],
     );
 
-    const handleClick = useCallback(() => {
-      if (!disabled && !readOnly) {
-        setOpenListbox((prevState) => hasDisplayText || !prevState);
-      }
-    }, [disabled, hasDisplayText, readOnly]);
+    const handleInputClick = useCallback(
+      (e: MouseEvent<HTMLInputElement>) => {
+        e.currentTarget.select();
 
-    const handleKeyDown = useCallback(
+        if (disabled || readOnly) return;
+
+        if (isMenuOpened && !inputValue) {
+          setIsMenuOpened(false);
+          setIsBackspacePressed(false);
+        }
+
+        if (!isMenuOpened) {
+          setIsMenuOpened(true);
+        }
+      },
+      [disabled, inputValue, isMenuOpened, readOnly],
+    );
+
+    const handleInputChange = useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
+        const nextValue = e.target.value;
+        setInputValue(nextValue);
+        setSearchQuery(nextValue);
+        setIsMenuOpened(true);
+
+        if (!allowInputValue && !multiple && !nextValue) {
+          changeValue([]);
+        }
+      },
+      [allowInputValue, changeValue, multiple],
+    );
+
+    const handleInputKeyDown = useCallback(
       (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'ArrowDown' && openListbox) {
+        if (!e.altKey && e.key === 'ArrowDown') {
           e.preventDefault();
+          setIsMenuOpened(true);
 
-          const nextOption =
-            activeIndex >= optList.length - 1 ? 0 : activeIndex + 1;
-
-          listboxRef.current
-            ?.querySelector(`[data-index="${nextOption}"]`)
-            ?.scrollIntoView({ block: 'nearest' });
-
-          setActiveOption(nextOption);
+          setHighlightedIndex((prevState) =>
+            prevState >= optionsState.length - 1 ? 0 : prevState + 1,
+          );
         }
 
-        if (e.key === 'ArrowUp' && openListbox) {
+        if (e.altKey && e.key === 'ArrowDown') {
           e.preventDefault();
-
-          const nextOption =
-            activeIndex <= 0 ? optList.length - 1 : activeIndex - 1;
-
-          listboxRef.current
-            ?.querySelector(`[data-index="${nextOption}"]`)
-            ?.scrollIntoView({ block: 'nearest' });
-
-          setActiveOption(nextOption);
+          setIsMenuOpened(true);
         }
 
-        if (e.key === 'Enter') {
+        if (e.key === 'ArrowUp') {
           e.preventDefault();
-          selectOption(activeIndex);
-          setActiveOption(-1);
-          setOpenListbox((prevState) => !prevState);
+          setIsMenuOpened(true);
+
+          setHighlightedIndex((prevState) =>
+            prevState <= 0 ? optionsState.length - 1 : prevState - 1,
+          );
+        }
+
+        if (e.key === 'Enter' && isMenuOpened) {
+          e.preventDefault();
+          selectOption(highlightedIndex);
         }
 
         if (e.key === 'Escape') {
-          setActiveOption(-1);
-          setOpenListbox(false);
+          setIsMenuOpened(false);
         }
+
+        setIsBackspacePressed(e.key === 'Backspace');
       },
-      [activeIndex, openListbox, optList.length, selectOption],
+      [highlightedIndex, isMenuOpened, optionsState.length, selectOption],
     );
 
-    const handleClear = useCallback(
-      (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        e.stopPropagation();
-        changeValue(null);
-        setDisplayText('');
-        setActiveOption(-1);
-        setOpenListbox(false);
+    const handleInputBlur = useCallback(
+      (e: FocusEvent<HTMLInputElement>) => {
+        resetInputValue();
+        setIsFocused(false);
+        setIsMenuOpened(false);
+        setIsBackspacePressed(false);
+        onBlur?.(e);
       },
-      [changeValue],
+      [onBlur, resetInputValue],
+    );
+
+    const handleOptionMouseEnter = useCallback(
+      (e: MouseEvent<HTMLLIElement>) => {
+        const index = Number(e.currentTarget.dataset.index);
+
+        if (Number.isNaN(index)) return;
+
+        setHighlightedIndex(index);
+      },
+      [],
     );
 
     const handleOptionMouseDown = useCallback(
       (e: MouseEvent<HTMLLIElement>) => {
         e.preventDefault();
-        selectOption(Number(e.currentTarget.dataset.index));
-        setOpenListbox(false);
-        setActiveOption(-1);
+
+        const index = Number(e.currentTarget.dataset.index);
+
+        if (Number.isNaN(index)) return;
+
+        selectOption(index);
       },
       [selectOption],
     );
 
-    const handleOptionMouseEnter = useCallback(
-      (e: MouseEvent<HTMLLIElement>) => {
-        const idx = Number(e.currentTarget.dataset.index);
-
-        if (Number.isNaN(idx)) {
-          return;
-        }
-
-        setActiveOption(idx);
+    const handleClearMouseDown = useCallback(
+      (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        changeValue([]);
+        setIsMenuOpened(false);
+        setIsBackspacePressed(false);
       },
-      [],
+      [changeValue],
     );
 
-    const handleOptionMouseLeave = useCallback(() => {
-      setActiveOption(-1);
-    }, []);
-
-    const handleRemove = useCallback(
+    const handleRemoveMouseDown = useCallback(
       (e: MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
 
         const index = Number(e.currentTarget.dataset.index);
 
-        if (!Number.isNaN(index)) {
-          const nextVal = [...valuesList];
-          nextVal.splice(index, 1);
-          changeValue(nextVal);
-        }
+        if (Number.isNaN(index)) return;
+
+        const nextVal = [...selectedOptions];
+        nextVal.splice(index, 1);
+        changeValue(nextVal);
       },
-      [changeValue, valuesList],
+      [changeValue, selectedOptions],
     );
 
-    useEffect(() => {
-      if (typeof value !== 'undefined') {
-        setValueState(value);
+    useLayoutEffect(() => {
+      if (inlineAutoComplete) return;
+
+      const initialIndex = autoHighlight && !inlineAutoComplete ? 0 : -1;
+
+      if (!isMenuOpened) {
+        let nextIndex = initialIndex;
+
+        if (!isMenuOpened && !multiple && selectedOptions[0]) {
+          const selectedIndex = optionsState?.findIndex(
+            (item) => getLabel(item) === getLabel(selectedOptions[0]),
+          );
+
+          nextIndex = Math.max(nextIndex, selectedIndex);
+        }
+
+        setHighlightedIndex(nextIndex);
+      } else {
+        setHighlightedIndex((prevState) =>
+          prevState < initialIndex || prevState > optionsState.length - 1
+            ? initialIndex
+            : prevState,
+        );
       }
-    }, [value]);
+    }, [
+      autoHighlight,
+      getLabel,
+      inlineAutoComplete,
+      isMenuOpened,
+      multiple,
+      optionsState,
+      selectedOptions,
+    ]);
 
-    useEffect(() => {
-      if (!openListbox) {
-        const text =
-          !valueState || Array.isArray(valueState)
-            ? ''
-            : getLabel(valueState as never);
-
-        setDisplayText(text);
-        setActiveOption(-1);
+    useLayoutEffect(() => {
+      if (!isMenuOpened || !inlineAutoComplete) {
+        return;
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [openListbox, valueState]);
 
-    useEffect(() => {
+      const option = optionsState[0];
+      const label = option ? getLabel(option) : '';
+
       if (
-        displayText &&
-        (multiple ||
-          !valueState ||
-          displayText !== getLabel(valueState as never))
+        searchQuery &&
+        label.toLowerCase().startsWith(searchQuery.toLowerCase())
       ) {
-        setOpenListbox(true);
+        setHighlightedIndex(0);
+      } else {
+        setHighlightedIndex(-1);
+      }
+    }, [getLabel, inlineAutoComplete, isMenuOpened, optionsState, searchQuery]);
+
+    useLayoutEffect(() => {
+      if (
+        !isMenuOpened ||
+        !inlineAutoComplete ||
+        isBackspacePressed ||
+        highlightedIndex === -1
+      ) {
+        return;
       }
 
-      if (displayText || allowEmptyQuery) {
-        debouncedSearch(displayText);
+      const option = optionsState[highlightedIndex];
+      const label = option ? getLabel(option) : '';
+
+      if (!label) return;
+
+      setInputValue(label);
+
+      if (!label.toLowerCase().startsWith(searchQuery.toLowerCase())) {
+        setSearchQuery(label);
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [displayText]);
+    }, [
+      getLabel,
+      highlightedIndex,
+      inlineAutoComplete,
+      isBackspacePressed,
+      isMenuOpened,
+      optionsState,
+      searchQuery,
+    ]);
+
+    useLayoutEffect(() => {
+      if (
+        isMenuOpened &&
+        searchQuery &&
+        searchQuery !== inputValue &&
+        inputValue.toLowerCase().startsWith(searchQuery.toLowerCase())
+      ) {
+        inputRef.current?.setSelectionRange(
+          searchQuery.length,
+          inputValue.length,
+        );
+      }
+    }, [inputValue, isMenuOpened, searchQuery]);
+
+    useLayoutEffect(() => {
+      if (!isUncontrolled) {
+        const nextOptions = mapToSelectedOptions(value, multiple);
+        setSelectedOptions(nextOptions);
+      }
+    }, [allowInputValue, isUncontrolled, multiple, value]);
+
+    useEffect(() => {
+      resetInputValue();
+    }, [resetInputValue]);
+
+    useEffect(() => {
+      updateOptions(searchQuery);
+    }, [searchQuery, updateOptions]);
 
     return (
       <>
         <InputBox
           disabled={disabled}
-          focused={focused}
+          focused={isFocused}
           invalid={invalid}
           readOnly={readOnly}
-          ref={setAnchorEl}
+          ref={setAnchorElement}
           rounded={rounded}
           size={size}
         >
@@ -508,7 +643,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
 
           <InputTags>
             {multiple &&
-              valuesList.map((item, idx) => (
+              selectedOptions.map((item, idx) => (
                 <InputTag key={idx}>
                   <Tag
                     data-index={idx}
@@ -516,43 +651,45 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                     role="button"
                     tabIndex={-1}
                     variant="outline-tertiary"
-                    onMouseDown={handleRemove}
+                    onMouseDown={handleRemoveMouseDown}
                   >
-                    {getLabel(item as never)}
+                    {getLabel(item)}
                   </Tag>
                 </InputTag>
               ))}
 
             <TextBox
               aria-activedescendant={
-                activeIndex !== -1 ? slug(id, OPTION_ID, activeIndex) : ''
+                highlightedIndex !== -1
+                  ? slug(id, OPTION_ID, highlightedIndex)
+                  : ''
               }
               aria-autocomplete="list"
-              aria-controls={openListbox ? slug(id, LISTBOX_ID) : ''}
-              aria-expanded={openListbox}
+              aria-controls={isMenuOpened ? slug(id, LISTBOX_ID) : ''}
+              aria-expanded={isMenuOpened}
               aria-haspopup="listbox"
               aria-invalid={invalid}
-              aria-owns={openListbox ? slug(id, LISTBOX_ID) : ''}
+              aria-owns={isMenuOpened ? slug(id, LISTBOX_ID) : ''}
               autoComplete="off"
               disabled={disabled}
               id={id}
               readOnly={readOnly}
-              ref={ref}
+              ref={mergedRefs}
               role="combobox"
               type="text"
-              value={displayText}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              onClick={handleClick}
-              onFocus={handleFocus}
-              onKeyDown={handleKeyDown}
+              value={inputValue}
+              onBlur={handleInputBlur}
+              onChange={handleInputChange}
+              onClick={handleInputClick}
+              onFocus={handleInputFocus}
+              onKeyDown={handleInputKeyDown}
               {...inputProps}
             />
           </InputTags>
 
           {!readOnly &&
             !disabled &&
-            (displayText.length > 0 || valuesList.length > 0) && (
+            (inputValue.length > 0 || selectedOptions.length > 0) && (
               <InputAction>
                 <IconButton
                   aria-label={clearLabel}
@@ -561,51 +698,35 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                   size="xs"
                   tabIndex={-1}
                   variant="tertiary"
-                  onMouseDown={handleClear}
+                  onMouseDown={handleClearMouseDown}
                 />
               </InputAction>
             )}
         </InputBox>
 
         <Popover
-          anchorElement={anchorEl}
-          open={openListbox}
+          anchorElement={anchorElement}
+          open={isMenuOpened}
           placement="bottom-start"
-          role="presentation"
           strategy="absolute"
           style={popoverStyle}
           trigger="manual"
-          onOpenChange={handleChangeOpenListbox}
         >
           <ul id={slug(id, LISTBOX_ID)} ref={listboxRef} role="listbox">
-            {optList.map((item, idx) =>
-              OptionComponent ? (
-                <OptionComponent
-                  active={idx === activeIndex}
-                  data-index={idx}
-                  id={slug(id, OPTION_ID, idx)}
-                  key={idx}
-                  option={item as never}
-                  selected={valuesList.includes(item)}
-                  onMouseDown={handleOptionMouseDown}
-                  onMouseEnter={handleOptionMouseEnter}
-                  onMouseLeave={handleOptionMouseLeave}
-                />
-              ) : (
-                <Option
-                  active={idx === activeIndex}
-                  data-index={idx}
-                  id={slug(id, OPTION_ID, idx)}
-                  key={idx}
-                  selected={valuesList.includes(item)}
-                  onMouseDown={handleOptionMouseDown}
-                  onMouseEnter={handleOptionMouseEnter}
-                  onMouseLeave={handleOptionMouseLeave}
-                >
-                  {getLabel(item as never)}
-                </Option>
-              ),
-            )}
+            {optionsState.map((item, idx) => (
+              <OptionComponent
+                data-index={idx}
+                highlighted={idx === highlightedIndex}
+                id={slug(id, OPTION_ID, idx)}
+                key={idx}
+                option={item}
+                selected={selectedOptions.includes(item)}
+                onMouseDown={handleOptionMouseDown}
+                onMouseEnter={handleOptionMouseEnter}
+              >
+                {getLabel(item)}
+              </OptionComponent>
+            ))}
 
             {loading && (
               <Option disabled role="presentation">
@@ -619,7 +740,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
               </Option>
             )}
 
-            {!loading && !loadingError && optList.length === 0 && (
+            {!loading && !loadingError && optionsState.length === 0 && (
               <Option disabled role="presentation">
                 {noResultLabel}
               </Option>
