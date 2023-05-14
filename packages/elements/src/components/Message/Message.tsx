@@ -1,64 +1,95 @@
-import { Icon } from '@seed-ui/icons';
+import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import { FC, HTMLAttributes } from 'react';
+import { FC, HTMLAttributes, useEffect } from 'react';
 
+import { useTimeout } from '../../utils/use-timeout';
 import { Text } from '../Text';
 
 import * as S from './Message.css';
+import { MessageIcon } from './MessageIcon';
 
 export interface MessageProps extends HTMLAttributes<HTMLDivElement> {
+  /**
+   * The duration in milliseconds for which the message will be automatically
+   * closed.
+   */
+  autoCloseTimeout?: number;
+
+  /**
+   * The variant or type of the message.
+   */
   variant?: 'danger' | 'warning' | 'info' | 'success' | 'light';
+
+  /**
+   * Determines whether the message is visible or not.
+   */
+  visible?: boolean;
+
+  /**
+   * Callback function to be executed when the message is being hidden.
+   */
+  onHide?: () => void;
+
+  /**
+   * Callback function to be executed after the message has been hidden.
+   */
+  onAfterHide?: () => void;
 }
 
-const getIconByVariant = (variant: MessageProps['variant']) =>
-  (variant === 'danger' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      name="error-circle"
-      size="md"
-    />
-  )) ||
-  (variant === 'warning' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      name="error"
-      size="md"
-    />
-  )) ||
-  (variant === 'success' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      name="check-circle"
-      size="md"
-    />
-  )) ||
-  (variant === 'info' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      name="info-circle"
-      size="md"
-    />
-  )) ||
-  null;
-
 const Message: FC<MessageProps> = ({
+  autoCloseTimeout,
   className,
   children,
   role = 'alert',
   variant = 'light',
+  visible = true,
+  onHide,
+  onAfterHide,
   ...props
 }) => {
-  const icon = getIconByVariant(variant);
+  const { setTimeout } = useTimeout();
+
+  useEffect(() => {
+    if (autoCloseTimeout && onHide) {
+      setTimeout(() => {
+        onHide();
+      }, autoCloseTimeout);
+    }
+  }, [autoCloseTimeout, onHide, setTimeout]);
+
+  useEffect(() => {
+    if (!visible && onAfterHide) {
+      setTimeout(() => {
+        onAfterHide();
+      }, 200);
+    }
+  }, [onAfterHide, setTimeout, visible]);
 
   return (
     <div
-      className={cn(S.root, S.rootVariant[variant], className)}
+      className={cn(
+        S.root,
+        visible && S.rootVisible,
+        S.rootVariant[variant],
+        atoms({
+          display: 'inline-flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          maxWidth: 60,
+          minWidth: 40,
+          borderRadius: 'lg',
+          boxShadow: 'md',
+          px: 3,
+          py: 1.5,
+        }),
+        className,
+      )}
       role={role}
       {...props}
     >
-      {icon}
+      <MessageIcon variant={variant} />
 
-      <Text className={S.content} size="sm" truncate>
+      <Text className={cn(S.content, atoms({ pt: 0.5 }))} size="sm" truncate>
         {children}
       </Text>
     </div>

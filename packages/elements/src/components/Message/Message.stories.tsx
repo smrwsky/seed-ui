@@ -1,4 +1,6 @@
-import { Box, Flex } from '@seed-ui/flexbox';
+import { Flex } from '@seed-ui/flexbox';
+import { atoms } from '@seed-ui/styles';
+import { StoryFn } from '@storybook/react';
 
 import Message, { MessageProps } from './Message';
 
@@ -14,24 +16,22 @@ export default {
   title: 'Feedback/Message',
   component: Message,
   args: {
-    children: 'This is message',
+    children: 'This is a message',
   },
 };
 
-export function Base(args: MessageProps): JSX.Element {
-  return <Message {...args} />;
-}
+export const Basic: StoryFn<MessageProps> = (args) => <Message {...args} />;
 
-export function Variants(args: MessageProps): JSX.Element {
-  return (
-    <Flex flexWrap="wrap" mt="-4">
-      {variants.map((variant, i) => (
-        <Box key={i} mt={4} width="full">
-          <Message {...args} variant={variant}>
-            This is {variant} message.
-          </Message>
-        </Box>
-      ))}
-    </Flex>
-  );
-}
+export const WithTitle: StoryFn<MessageProps> = (args) => (
+  <Message {...args} title="Title" />
+);
+
+export const Variants: StoryFn<MessageProps> = (args) => (
+  <Flex alignItems="center" flexDirection="column">
+    {variants.map((variant, i) => (
+      <Message {...args} className={atoms({ mb: 2 })} key={i} variant={variant}>
+        This is {variant === 'info' ? 'an' : 'a'} {variant} message.
+      </Message>
+    ))}
+  </Flex>
+);

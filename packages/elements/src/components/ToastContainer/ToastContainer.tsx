@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { forwardRef, HTMLAttributes } from 'react';
+import React, { ForwardedRef } from 'react';
 
 import * as S from './ToastContainer.css';
 
@@ -11,13 +11,23 @@ export type ToastContainerPlacement =
   | 'bottom-center'
   | 'bottom-right';
 
-export interface ToastContainerProps extends HTMLAttributes<HTMLDivElement> {
+export interface ToastContainerProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   placement?: ToastContainerPlacement;
   className?: string;
+  children?: React.ReactNode;
 }
 
-const ToastContainer = forwardRef<HTMLDivElement, ToastContainerProps>(
-  ({ children, className, placement = 'top-right', ...props }, ref) => (
+const ToastContainer = React.forwardRef(
+  (
+    {
+      children,
+      className,
+      placement = 'top-right',
+      ...props
+    }: ToastContainerProps,
+    ref: ForwardedRef<HTMLDivElement>,
+  ) => (
     <div
       className={cn(S.root, S.rootPlacement[placement], className)}
       ref={ref}

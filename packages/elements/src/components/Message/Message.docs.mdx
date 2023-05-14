@@ -1,0 +1,78 @@
+import { ArgsTable, Canvas, Meta } from '@storybook/addon-docs';
+import Message, { Basic, Variants, WithTitle } from './Message.stories';
+
+<Meta of={Message} />
+
+# Message
+
+A compact and non-intrusive user interface element used to display brief messages or notifications to the user. This
+type of toast component is designed to provide concise updates, alerts, or information to the user without requiring any
+action or interaction.
+
+## When to use
+
+- Quick Feedback: Providing immediate feedback to user actions or interactions, such as confirming the successful
+completion of a drag-and-drop operation or notifying the user when a file upload is complete.
+
+- Real-time Updates: Showing real-time updates or events, such as displaying a small toast message to inform the user
+when new chat messages arrive or when a user joins or leaves a live discussion.
+
+- Progress or Loading Indicators: Using a small toast message to indicate the progress of a long-running operation,
+such as a file download or data processing, without obstructing the user's view or taking up too much screen space.
+
+- Status Updates: Showing status updates or changes in the application state, such as notifying the user when
+a background task is complete or when a process has finished syncing.
+
+- Quick Tips or Reminders: Providing quick tips, reminders, or helpful hints to guide the user through the application
+or highlight important features. For instance, displaying small toast messages to offer keyboard shortcuts or suggest
+best practices.
+
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+
+### With Title
+
+Set `title` to represent the title or main content of the toast component.
+
+<Canvas of={WithTitle} />
+
+### Variants
+
+Possible values: 'danger', 'warning', 'info', 'success', 'light'.
+
+<Canvas of={Variants} />
+
+## Guidelines
+
+- Keep it Concise: Limit the content of the toast message to be short and to the point. Use clear and concise language
+to convey the message or notification effectively.
+
+- Important and Time-sensitive Information: Reserve the use of small toast messages for conveying important and
+time-sensitive information that users need to be aware of. Avoid using them for trivial or non-essential updates.
+
+- Appropriate Duration: Set an appropriate duration for the toast message to stay visible on the screen. Ensure it is
+long enough for users to read and understand the content, but not so long that it becomes a distraction or annoyance.
+
+- Avoid Overuse: Use small toast messages judiciously and avoid overloading the user with frequent or excessive
+notifications. Only display relevant and significant information that adds value to the user experience.
+
+- User Feedback and Iteration: Gather user feedback on the usage of message components and iterate based on user
+responses. Continuously evaluate their effectiveness in conveying information and refine the implementation as needed.
+
+## Accessibility
+
+- By default, Message component is rendered with 'alert' role. It means that the information inside the toast is
+important and time-sensitive. The 'status' role also can be used for non-critical updates that don't require immediate
+attention.
+
+## API
+
+<ArgsTable />
+
+
+

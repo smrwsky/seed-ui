@@ -1,0 +1,84 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+
+import Toast, { Basic, Title, Variants } from './Toast.stories';
+
+<Meta of={Toast} />
+
+# Toast
+
+A small, non-intrusive notification in a user interface that includes a close button for the user to dismiss or hide
+the notification.
+
+## When to use
+
+The Toast component is suitable for situations where you want to deliver concise information or notifications that users
+can easily dismiss when they have read or acknowledged the message. It offers a non-disruptive way to provide updates
+and feedback while allowing users to continue their tasks without significant interruption.
+
+Here are some examples of situations where a toast component with a close button can be useful:
+
+- Confirmation and Feedback: Use a toast component with a close button to provide confirmation or feedback to the user
+  after completing an action or process.
+
+- Error or Warning Messages: Display error or warning messages in a toast component with a close button to communicate
+  issues or alerts to the user, allowing them to acknowledge and dismiss the notification.
+
+- Information or Updates: When there is important information or updates that users need to be aware of, such as system
+  maintenance or new features, use a toast component with a close button to briefly display the notification and allow
+  users to close it after reading.
+
+- Privacy or Consent Messages: Utilize a toast component with a close button to present privacy or cookie consent
+  messages in compliance with regulations. Users can choose to close the toast if they don't wish to provide consent.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### With Title
+
+Set `title` to represent the title or main content of the toast component.
+
+<Canvas of={Title} />
+
+### Variants
+
+Possible values: 'danger', 'warning', 'info', 'success', 'light'.
+
+<Canvas of={Variants} />
+
+## Guidelines
+
+- Keep it concise: Toast notifications should provide brief and concise information to the user. Avoid overwhelming
+  them with excessive text or unnecessary details. Stick to the essential message that needs to be conveyed.
+
+- Use appropriate variants: Choose the appropriate variant for the toast based on the nature of the message.
+  For example, use "danger" for critical errors, "warning" for alerts, "success" for confirmations, "info" for general
+  information, and "light" for neutral messages.
+
+- Set a reasonable auto-close timeout: If you choose to include an auto-close feature, ensure that the timeout duration
+  is reasonable. It should be long enough for users to read the notification but short enough to avoid causing frustration
+  or blocking important content.
+
+- Avoid stacking or overlapping: Ensure that toast notifications do not stack or overlap on the screen. If a new toast
+  notification appears while one is already visible, it should replace or dismiss the existing one, preventing visual
+  clutter.
+
+- Test and iterate: Regularly test the toast component in different scenarios and gather feedback from users. Iterate
+  and refine the design based on user feedback and observed behavior to improve its effectiveness and usability.
+
+- Focus Management: Ensure that keyboard focus is managed appropriately when the toast is displayed. Set the focus to the toast when it
+  appears and return the focus to the appropriate element once the toast is dismissed. This ensures keyboard users can
+  perceive and interact with the toast notification.
+
+## Accessibility
+
+- By default, Toast component is rendered with 'alert' role. It means that the information inside the toast is important
+  and time-sensitive. The 'status' role also can be used for non-critical updates that don't require immediate attention.
+
+- The toast can be dismissed by pressing the "Esc" key.
+
+## Component API
+
+<ArgTypes />

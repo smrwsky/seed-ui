@@ -1,33 +1,34 @@
-import { vars, SPACING } from '@seed-ui/styles';
+import { vars } from '@seed-ui/styles';
 import { style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
-  border: '1px solid transparent',
-  display: 'inline-flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  maxWidth: '240px',
-  minWidth: '160px',
-  borderRadius: vars.borderRadius.lg,
-  boxShadow: vars.boxShadow.md,
-  padding: `${SPACING[1.5]} ${SPACING[3]}`,
+  opacity: 0,
+  transition: vars.transition.fade,
   pointerEvents: 'auto',
+});
+
+export const rootVisible = style({
+  opacity: 1,
 });
 
 export const rootVariant = styleVariants({
   danger: {
+    border: '1px solid transparent',
     color: vars.color.white,
     background: vars.color.danger500,
   },
   warning: {
+    border: '1px solid transparent',
     color: vars.color.white,
     background: vars.color.warning500,
   },
   info: {
+    border: '1px solid transparent',
     color: vars.color.white,
     background: vars.color.info500,
   },
   success: {
+    border: '1px solid transparent',
     color: vars.color.white,
     background: vars.color.success500,
   },
@@ -38,30 +39,6 @@ export const rootVariant = styleVariants({
   },
 });
 
-export const icon = style({
-  marginRight: SPACING[2],
-  fontSize: '1rem',
-});
-
-export const iconVariant = styleVariants({
-  light: {
-    color: vars.color.primary400,
-  },
-  danger: {
-    color: vars.color.white,
-  },
-  warning: {
-    color: vars.color.white,
-  },
-  info: {
-    color: vars.color.white,
-  },
-  success: {
-    color: vars.color.white,
-  },
-});
-
 export const content = style({
   color: 'inherit',
-  paddingTop: SPACING[0.5],
 });

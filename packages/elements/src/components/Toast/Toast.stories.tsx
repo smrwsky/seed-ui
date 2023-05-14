@@ -1,4 +1,5 @@
 import { atoms } from '@seed-ui/styles';
+import { StoryFn } from '@storybook/react';
 
 import { Link } from '../Link';
 
@@ -15,6 +16,7 @@ const variants: ToastProps['variant'][] = [
 export default {
   title: 'Feedback/Toast',
   component: Toast,
+
   args: {
     children: (
       <>
@@ -24,23 +26,19 @@ export default {
   },
 };
 
-export function Base(args: ToastProps): JSX.Element {
-  return <Toast {...args} />;
-}
+export const Basic: StoryFn<ToastProps> = (args) => <Toast {...args} />;
 
-export function Title(args: ToastProps): JSX.Element {
-  return <Toast {...args} title="Title" />;
-}
+export const Title: StoryFn<ToastProps> = (args) => (
+  <Toast {...args} title="Title" />
+);
 
-export function Variants(args: ToastProps): JSX.Element {
-  return (
-    <>
-      {variants.map((variant, i) => (
-        <Toast {...args} className={atoms({ mb: 2 })} key={i} variant={variant}>
-          This is {variant === 'info' ? 'an' : 'a'} message -{' '}
-          <Link href="#">Check this out</Link>
-        </Toast>
-      ))}
-    </>
-  );
-}
+export const Variants: StoryFn<ToastProps> = (args) => (
+  <>
+    {variants.map((variant, i) => (
+      <Toast {...args} className={atoms({ mb: 2 })} key={i} variant={variant}>
+        This is {variant === 'info' ? 'an' : 'a'} message -{' '}
+        <Link href="#">Check this out</Link>
+      </Toast>
+    ))}
+  </>
+);
