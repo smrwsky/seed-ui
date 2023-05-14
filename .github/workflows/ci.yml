@@ -47,9 +47,7 @@ jobs:
         run: yarn test:ci
 
       - name: Upload results to Codecov
-        uses: codecov/codecov-action@v1.0.3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+        uses: codecov/codecov-action@v3
 
       - name: Create release PR or publish to npm
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/next'
