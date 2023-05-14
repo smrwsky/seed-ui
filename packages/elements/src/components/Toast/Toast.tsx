@@ -1,85 +1,176 @@
-import { Icon } from '@seed-ui/icons';
+import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import { FC, HTMLAttributes } from 'react';
+import React, {
+  forwardRef,
+  HTMLAttributes,
+  KeyboardEventHandler,
+  useCallback,
+  useEffect,
+} from 'react';
 
+import { useTimeout } from '../../utils/use-timeout';
 import { IconButton } from '../IconButton';
 import { Text } from '../Text';
 
 import * as S from './Toast.css';
+import { ToastIcon } from './ToastIcon';
 
 export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
-  onClose?: () => void;
+  /**
+   * Specifies the duration (in milliseconds) after which the toast automatically closes if set.
+   */
+  autoCloseTimeout?: number;
+
+  /**
+   * Aria label for close button.
+   */
+  closeLabel?: string;
+
+  /**
+   * Represents the title or main content of the toast component.
+   */
   title?: string;
+
+  /**
+   * Determines the visual style or variant of the toast component.
+   */
   variant?: 'danger' | 'warning' | 'info' | 'success' | 'light';
+
+  /**
+   * Indicates whether the toast component is currently visible or not.
+   */
+  visible?: boolean;
+
+  /**
+   * A callback function triggered when the toast is hidden or dismissed.
+   */
+  onHide?: () => void;
+
+  /**
+   * A callback function triggered after the toast has been hidden or dismissed.
+   */
+  onAfterHide?: () => void;
 }
 
-const getIconByVariant = (variant: ToastProps['variant']) =>
-  (variant === 'danger' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      name="error-circle"
-      size="md"
-    />
-  )) ||
-  (variant === 'warning' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      name="error"
-      size="md"
-    />
-  )) ||
-  (variant === 'success' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      name="check-circle"
-      size="md"
-    />
-  )) ||
-  (variant === 'info' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      name="info-circle"
-      size="md"
-    />
-  )) ||
-  null;
+const Toast = forwardRef<HTMLDivElement, ToastProps>(
+  (
+    {
+      autoCloseTimeout,
+      className,
+      closeLabel = 'Close',
+      children,
+      role = 'alert',
+      title,
+      visible = true,
+      variant = 'light',
+      tabIndex = 0,
+      onHide,
+      onAfterHide,
+      onKeyDown,
+      ...props
+    },
+    ref,
+  ) => {
+    const { setTimeout } = useTimeout();
 
-const Toast: FC<ToastProps> = ({
-  className,
-  children,
-  role = 'alert',
-  title,
-  variant = 'light',
-  onClose,
-  ...props
-}) => {
-  const icon = getIconByVariant(variant);
+    const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
+      (e) => {
+        if (e.key === 'Esc') {
+          onHide?.();
+        }
 
-  return (
-    <div className={cn(S.root, className)} role={role} {...props}>
-      {icon}
+        onKeyDown?.(e);
+      },
+      [onHide, onKeyDown],
+    );
 
-      <div className={S.content}>
-        {title && (
-          <Text as="div" bold className={S.title}>
-            {title}
-          </Text>
+    useEffect(() => {
+      if (autoCloseTimeout && onHide) {
+        setTimeout(() => {
+          onHide();
+        }, autoCloseTimeout);
+      }
+    }, [autoCloseTimeout, onHide, setTimeout]);
+
+    useEffect(() => {
+      if (!visible && onAfterHide) {
+        setTimeout(() => {
+          onAfterHide();
+        }, 200);
+      }
+    }, [onAfterHide, setTimeout, visible]);
+
+    return (
+      <div
+        className={cn(
+          S.root,
+          visible && S.rootVisible,
+          atoms({
+            position: 'relative',
+            display: 'flex',
+            width: 'full',
+            maxWidth: 96,
+            borderRadius: 'lg',
+            border: 'thin',
+            borderColor: 'neutral100',
+            backgroundColor: 'white',
+            boxShadow: 'md',
+            py: 2,
+            pr: 11,
+            pl: 3,
+          }),
+          className,
         )}
+        ref={ref}
+        role={role}
+        tabIndex={tabIndex}
+        onKeyDown={handleKeyDown}
+        {...props}
+      >
+        <ToastIcon className={atoms({ mr: 2 })} variant={variant} />
 
-        {children}
+        <Text
+          as="div"
+          className={atoms({
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            minHeight: 6,
+            mt: 0.5,
+          })}
+          size="sm"
+        >
+          {title && (
+            <Text as="div" bold className={atoms({ mt: '-0.5', mb: 1 })}>
+              {title}
+            </Text>
+          )}
+
+          {children}
+        </Text>
+
+        <IconButton
+          aria-label={closeLabel}
+          className={cn(
+            S.close,
+            atoms({
+              top: 1,
+              right: 1,
+            }),
+          )}
+          icon="x"
+          rounded
+          size="xs"
+          tabIndex={0}
+          title=""
+          variant="tertiary"
+          onClick={onHide}
+        />
       </div>
+    );
+  },
+);
 
-      <IconButton
-        className={S.close}
-        icon="x"
-        rounded
-        size="xs"
-        tabIndex={0}
-        variant="tertiary"
-        onClick={onClose}
-      />
-    </div>
-  );
-};
+Toast.displayName = 'Toast';
 
 export default Toast;

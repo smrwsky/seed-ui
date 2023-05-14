@@ -14,7 +14,7 @@ export default {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   transform: {
-    '\\.css\\.ts$': '@vanilla-extract/jest-transform',
+    '\\.css\\.(js|ts)$': '@vanilla-extract/jest-transform',
     '\\.(js|ts|tsx)$': [
       '@swc/jest',
       {
