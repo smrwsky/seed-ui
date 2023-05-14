@@ -1,5 +1,13 @@
 import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
-import Autocomplete, { Basic, Rounded, Sizes, Invalid, Multiple } from './Autocomplete.stories';
+import Autocomplete, {
+  Basic,
+  Rounded,
+  Sizes,
+  Invalid,
+  Multiple,
+  AutoHighlight,
+  InlineAutoComplete, AllowInputValue,
+} from './Autocomplete.stories';
 
 <Meta of={Autocomplete} />
 
@@ -34,31 +42,48 @@ of options can simplify the process for the user.
 
 ### Multiple
 
-Set `multiple` to `true` to allow multiple values. User will see tags
-with values that were selected.
+The `multiple` property allows multiple values to be selected. Users will see tags displaying the selected values.
 
 <Canvas of={Multiple} />
 
 ### Invalid
 
-Set `invalid` to `true` to indicate an error or an issue with the
-input value. If value is `thue`, then a clear error feedback should be provided
-using ErrorMessage component.
+Setting the `invalid` property to `true` indicates an error or issue with the input value. When the value is set
+to `true`, clear error feedback should be provided using the ErrorMessage component.
 
 <Canvas of={Invalid} />
 
 ### Sizes
 
-Use `size` property to specify the size of input box. Available values: `sm`,
-`md`, `lg`.
+The `size` property can be used to specify the size of the input box. Available values are `sm`, `md`, and `lg`.
 
 <Canvas of={Sizes} />
 
 ### Rounded
 
-Set `rounded` to `true` to use input box with rounded corners.
+The `rounded` property can be set to `true` to use an input box with rounded corners.
 
 <Canvas of={Rounded} />
+
+### Allow Input Value
+
+The `allowInputValue` property allows using the input value as the primary value and triggers the `onChange` callback
+when the input value changes.
+
+<Canvas of={AllowInputValue} />
+
+### Auto Highlight
+
+The `autoHighlight` property automatically highlights the first option in the dropdown list.
+
+<Canvas of={AutoHighlight} />
+
+### Inline Auto Complete
+
+The `inlineAutoComplete` property enables inline auto-completion, where the matched portion of the option is highlighted
+in the input as the user types.
+
+<Canvas of={InlineAutoComplete} />
 
 ## Guidelines
 

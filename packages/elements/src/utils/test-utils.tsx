@@ -1,11 +1,14 @@
 import { ThemeProvider } from '@seed-ui/styles';
 import {
   act,
+  cleanup,
   fireEvent,
-  render as renderTest,
   RenderOptions,
   RenderResult,
+  render as renderTest,
+  screen,
   waitFor,
+  waitForElementToBeRemoved,
 } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import userEvent from '@testing-library/user-event';
@@ -35,4 +38,13 @@ export const axe = configureAxe({
   },
 });
 
-export { act, fireEvent, renderHook, userEvent, waitFor };
+export {
+  act,
+  cleanup,
+  fireEvent,
+  renderHook,
+  screen,
+  userEvent,
+  waitFor,
+  waitForElementToBeRemoved,
+};

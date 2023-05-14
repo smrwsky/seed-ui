@@ -9,6 +9,9 @@
         "**/*.ts",
         "**/*.tsx"
       ],
+      "rules": {
+        "@typescript-eslint/quotes": "off"
+      },
       "parserOptions": {
         "tsconfigRootDir": ".",
         "project": [

@@ -2,15 +2,17 @@ import { IconType } from '@seed-ui/icons';
 import cx from 'classnames';
 import { ComponentType, forwardRef, LiHTMLAttributes, memo } from 'react';
 
-import * as S from './Option.css';
-import { OptionAction } from './OptionAction';
-import { OptionDescription } from './OptionDescription';
-import { OptionIcon } from './OptionIcon';
-import { OptionLabel } from './OptionLabel';
+import { OptionAction } from '../OptionAction';
+import { OptionDescription } from '../OptionDescription';
+import { OptionIcon } from '../OptionIcon';
+import { OptionLabel } from '../OptionLabel';
 
-export interface OptionProps extends LiHTMLAttributes<HTMLLIElement> {
+import * as S from './Option.css';
+
+export interface OptionProps
+  extends Omit<LiHTMLAttributes<HTMLLIElement>, 'value'> {
   ActionComponent?: ComponentType;
-  active?: boolean;
+  highlighted?: boolean;
   description?: string;
   disabled?: boolean;
   icon?: string;
@@ -23,7 +25,7 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
   (
     {
       ActionComponent,
-      active,
+      highlighted,
       disabled,
       description,
       icon,
@@ -31,22 +33,17 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
       invalid,
       selected,
       children,
-      ...elementProps
+      ...props
     },
     ref,
   ) => (
     <li
       aria-disabled={disabled}
       aria-selected={selected}
-      className={cx(
-        S.root,
-        selected && S.rootSelected,
-        active && S.rootActive,
-        invalid && S.rootInvalid,
-      )}
+      className={cx(S.root, { highlighted, invalid })}
       ref={ref}
       role="option"
-      {...elementProps}
+      {...props}
     >
       {icon && <OptionIcon name={icon} type={iconType} />}
 
