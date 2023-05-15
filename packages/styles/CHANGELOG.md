@@ -4,7 +4,8 @@
 
 ### Patch Changes
 
-- 91a5de5: - Fixed Toast styles
+- 91a5de5: 
+  - Fixed Toast styles
   - Autocomplete improvements
 
 ## 0.9.5
