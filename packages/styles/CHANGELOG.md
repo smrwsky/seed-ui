@@ -1,10 +1,16 @@
 # @seed-ui/styles
 
+## 0.9.7
+
+### Patch Changes
+
+- e3d8646: Fixed ThemeProvider.
+
 ## 0.9.6
 
 ### Patch Changes
 
-- 91a5de5: 
+- 91a5de5:
   - Fixed Toast styles
   - Autocomplete improvements
 
