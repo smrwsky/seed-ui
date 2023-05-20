@@ -1,30 +1,21 @@
 import { FC, ReactNode, useLayoutEffect } from 'react';
 
-import { vars } from '../../styles/global.css';
-import { Theme } from '../../types';
-import {
-  setCssProperties,
-  removeCssProperties,
-} from '../../utils/css-properties';
+import { defaultTheme } from '../../styles/global.css';
 
 export interface ThemeProviderProps {
   children?: ReactNode;
-  theme?: Theme;
+  theme?: string;
 }
 
 const ThemeProvider: FC<ThemeProviderProps> = ({
-  theme,
+  theme = defaultTheme,
   children,
 }): JSX.Element => {
   useLayoutEffect(() => {
-    if (!theme) {
-      return;
-    }
-
-    setCssProperties(vars, theme);
+    document.body.classList.add(theme);
 
     return () => {
-      removeCssProperties(vars);
+      document.body.classList.remove(theme);
     };
   }, [theme]);
 
