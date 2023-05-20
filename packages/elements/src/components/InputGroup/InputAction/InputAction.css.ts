@@ -5,5 +5,5 @@ export const root = style({
   alignItems: 'center',
   justifyContent: 'center',
   minWidth: '1.5rem',
-  lineHeight: '100%',
+  lineHeight: 0,
 });

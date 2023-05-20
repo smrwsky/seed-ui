@@ -35,4 +35,5 @@ export * from './components/Textarea';
 export * from './components/TextInput';
 export * from './components/Title';
 export * from './components/Toast';
+export * from './components/ToastContainer';
 export * from './components/UList';
