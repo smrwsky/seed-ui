@@ -9,7 +9,7 @@ export const root = style({
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: vars.borderRadius.md,
-  lineHeight: 0,
+  lineHeight: 1,
   transition: vars.transition.base,
   width: '1em',
   height: '1em',
