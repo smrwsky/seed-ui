@@ -1,10 +1,16 @@
 # @seed-ui/elements
 
+## 0.9.7
+
+### Patch Changes
+
+- ceb96ce: Added missed export of ToastContainer to index.ts.
+
 ## 0.9.6
 
 ### Patch Changes
 
-- 91a5de5: 
+- 91a5de5:
   - Fixed Toast styles
   - Autocomplete improvements
 
