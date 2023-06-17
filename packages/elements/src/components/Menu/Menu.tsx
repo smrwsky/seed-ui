@@ -52,7 +52,7 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
       indent = 0,
       type = 'vertical',
       size = 'md',
-      variant = 'secondary',
+      variant = 'primary',
       onActiveIndexChange,
       onAutoFocusChange,
       children,

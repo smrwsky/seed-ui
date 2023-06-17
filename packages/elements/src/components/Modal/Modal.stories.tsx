@@ -71,19 +71,19 @@ export function Sizes(args: ModalProps): JSX.Element {
     <>
       <Flex>
         <Box mr={4}>
-          <Button variant="outline-secondary" onClick={handleOpenSmallModal}>
+          <Button variant="outline-primary" onClick={handleOpenSmallModal}>
             Open small modal
           </Button>
         </Box>
 
         <Box mr={4}>
-          <Button variant="outline-secondary" onClick={handleOpenMediumModal}>
+          <Button variant="outline-primary" onClick={handleOpenMediumModal}>
             Open medium modal
           </Button>
         </Box>
 
         <Box>
-          <Button variant="outline-secondary" onClick={handleOpenLargeModal}>
+          <Button variant="outline-primary" onClick={handleOpenLargeModal}>
             Open large modal
           </Button>
         </Box>

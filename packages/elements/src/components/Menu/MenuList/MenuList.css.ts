@@ -21,12 +21,12 @@ export const rootType = styleVariants({
 
 export const rootVariant = styleVariants({
   primary: {
-    backgroundColor: vars.color.white,
+    background: vars.color.white,
   },
   secondary: {
-    backgroundColor: vars.color.white,
+    background: vars.color.white,
   },
   dark: {
-    backgroundColor: vars.color.secondary700,
+    background: vars.color.primary700,
   },
 });

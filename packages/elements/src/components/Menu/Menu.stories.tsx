@@ -24,8 +24,15 @@ export default {
 
 export function Base(args: MenuProps): JSX.Element {
   const renderAction = useCallback(
-    () => <Icon name="crown" size="sm" type="solid" variant="primary" />,
-    [],
+    () => (
+      <Icon
+        name="crown"
+        size="sm"
+        type="solid"
+        variant={args.variant === 'dark' ? 'light' : 'secondary'}
+      />
+    ),
+    [args.variant],
   );
 
   return (
@@ -126,7 +133,7 @@ export function StandalonePopupMenu(): JSX.Element {
   const [buttonElement, setButtonElement] = useState<HTMLElement | null>(null);
 
   const renderAction = useCallback(
-    () => <Icon name="crown" size="sm" type="solid" variant="primary" />,
+    () => <Icon name="crown" size="sm" type="solid" variant="secondary" />,
     [],
   );
 

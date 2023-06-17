@@ -37,7 +37,7 @@ const Text = forwardRef<HTMLElement, TextProps>(
       bold,
       breakWord,
       className,
-      fontFamily = 'secondary',
+      fontFamily = 'primary',
       size = 'md',
       truncate,
       variant = 'default',

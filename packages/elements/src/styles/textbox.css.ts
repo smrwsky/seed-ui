@@ -6,12 +6,12 @@ export const textboxStyle = style({
   border: 0,
   borderRadius: 0,
   flex: 1,
-  fontFamily: vars.fontFamily.secondary,
+  fontFamily: vars.fontFamily.primary,
   maxWidth: '100%',
   padding: '0 0.25rem',
   width: '100%',
   outline: 'none',
-  ...vars.typography.textMd.secondary,
+  ...vars.typography.textMd.primary,
 
   selectors: {
     '&:focus': {

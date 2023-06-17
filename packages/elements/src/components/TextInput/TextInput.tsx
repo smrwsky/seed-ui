@@ -79,7 +79,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       >
         {icon && (
           <InputAction>
-            <Icon name={icon} size="sm" type={iconType} variant="secondary" />
+            <Icon name={icon} size="sm" type={iconType} variant="primary" />
           </InputAction>
         )}
 

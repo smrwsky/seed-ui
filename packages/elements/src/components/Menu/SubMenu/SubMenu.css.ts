@@ -19,21 +19,21 @@ export const menuVariant = styleVariants({
   primary: {
     selectors: {
       '&:before': {
-        background: vars.color.dark50,
+        background: vars.color.neutral50,
       },
     },
   },
   secondary: {
     selectors: {
       '&:before': {
-        background: vars.color.dark50,
+        background: vars.color.neutral50,
       },
     },
   },
   dark: {
     selectors: {
       '&:before': {
-        background: vars.color.dark300,
+        background: vars.color.primary800,
       },
     },
   },

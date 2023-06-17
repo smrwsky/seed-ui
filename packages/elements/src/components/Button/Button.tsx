@@ -64,7 +64,7 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
       startIconType,
       endIcon,
       endIconType,
-      variant = 'secondary',
+      variant = 'primary',
       loading,
       className,
       children,

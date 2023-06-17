@@ -34,7 +34,7 @@ const Link = forwardRef<HTMLElement, LinkProps>(
     {
       as: As = 'a',
       bold,
-      variant = 'secondary',
+      variant = 'primary',
       className,
       children,
       ...elemProps

@@ -235,7 +235,7 @@ export const rootVariant = styleVariants({
 
   'light': {
     background: vars.color.white,
-    color: vars.color.secondary500,
+    color: vars.color.primary500,
     boxShadow: vars.boxShadow.light,
 
     selectors: {

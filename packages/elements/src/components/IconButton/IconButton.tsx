@@ -54,7 +54,7 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>(
       rounded,
       size = 'md',
       type,
-      variant = 'secondary',
+      variant = 'primary',
       className,
       children,
       ...elemProps

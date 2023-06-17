@@ -379,8 +379,8 @@ export const rootVariant = styleVariants({
 
 export const text = style({
   display: 'inline-block',
-  fontFamily: vars.fontFamily.secondary,
-  ...vars.typography.textSm.secondary,
+  fontFamily: vars.fontFamily.primary,
+  ...vars.typography.textSm.primary,
   ...textTruncate(),
   margin: `0 ${SPACING[0.5]}`,
 });

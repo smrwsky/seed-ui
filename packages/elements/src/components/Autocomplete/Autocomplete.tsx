@@ -637,7 +637,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         >
           {icon && (
             <InputAction>
-              <Icon name={icon} size="sm" type={iconType} variant="secondary" />
+              <Icon name={icon} size="sm" type={iconType} variant="primary" />
             </InputAction>
           )}
 

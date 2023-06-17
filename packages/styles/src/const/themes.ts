@@ -35,14 +35,14 @@ export const DEFAULT_THEME: Theme = {
     lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.06)',
 
     primary: `0 1px 3px 0 ${hexToRgba(
-      colors.fuchsia500,
+      colors.blue500,
       0.2,
-    )}, 0 1px 2px 0 ${hexToRgba(colors.fuchsia500, 0.1)}`,
+    )}, 0 1px 2px 0 ${hexToRgba(colors.blue500, 0.1)}`,
 
     secondary: `0 1px 3px 0 ${hexToRgba(
-      colors.turquose500,
+      colors.purple500,
       0.2,
-    )}, 0 1px 2px 0 ${hexToRgba(colors.turquose500, 0.1)}`,
+    )}, 0 1px 2px 0 ${hexToRgba(colors.purple500, 0.1)}`,
 
     info: `0 1px 3px 0 ${hexToRgba(
       colors.cian500,
@@ -67,8 +67,8 @@ export const DEFAULT_THEME: Theme = {
     light:
       '0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06)',
 
-    focus: `0 0 0 3px ${hexToRgba(colors.turquose500, 0.5)}`,
-    focusDanger: `0 0 0 3px ${hexToRgba(colors.red500, 0.5)}`,
+    focus: `0 0 0 3px ${hexToRgba(colors.blue400, 0.5)}`,
+    focusDanger: `0 0 0 3px ${hexToRgba(colors.red400, 0.5)}`,
     inset: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
     none: 'none',
   },
@@ -77,27 +77,27 @@ export const DEFAULT_THEME: Theme = {
     black: colors.black,
     white: colors.white,
 
-    primary900: colors.fuchsia900,
-    primary800: colors.fuchsia800,
-    primary700: colors.fuchsia700,
-    primary600: colors.fuchsia600,
-    primary500: colors.fuchsia500,
-    primary400: colors.fuchsia400,
-    primary300: colors.fuchsia300,
-    primary200: colors.fuchsia200,
-    primary100: colors.fuchsia100,
-    primary50: colors.fuchsia50,
+    primary900: colors.blue900,
+    primary800: colors.blue800,
+    primary700: colors.blue700,
+    primary600: colors.blue600,
+    primary500: colors.blue500,
+    primary400: colors.blue400,
+    primary300: colors.blue300,
+    primary200: colors.blue200,
+    primary100: colors.blue100,
+    primary50: colors.blue50,
 
-    secondary900: colors.turquose900,
-    secondary800: colors.turquose800,
-    secondary700: colors.turquose700,
-    secondary600: colors.turquose600,
-    secondary500: colors.turquose500,
-    secondary400: colors.turquose400,
-    secondary300: colors.turquose300,
-    secondary200: colors.turquose200,
-    secondary100: colors.turquose100,
-    secondary50: colors.turquose50,
+    secondary900: colors.purple900,
+    secondary800: colors.purple800,
+    secondary700: colors.purple700,
+    secondary600: colors.purple600,
+    secondary500: colors.purple500,
+    secondary400: colors.purple400,
+    secondary300: colors.purple300,
+    secondary200: colors.purple200,
+    secondary100: colors.purple100,
+    secondary50: colors.purple50,
 
     info900: colors.cian900,
     info800: colors.cian800,
@@ -178,8 +178,8 @@ export const DEFAULT_THEME: Theme = {
   },
 
   fontFamily: {
-    primary: 'Vollkorn,Georgia,Cambria,"Times New Roman",Times,serif',
-    secondary: '"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif',
+    primary: '"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif',
+    secondary: 'Vollkorn,Georgia,Cambria,"Times New Roman",Times,serif',
   },
 
   /**
@@ -191,15 +191,15 @@ export const DEFAULT_THEME: Theme = {
     titleXl: {
       primary: {
         fontSize: '2.986rem', // 47.776px
-        fontWeight: '900',
-        letterSpacing: '0.75px',
+        fontWeight: '500',
+        letterSpacing: '0.25px',
         lineHeight: '1.112',
       },
 
       secondary: {
         fontSize: '2.986rem', // 47.776px
-        fontWeight: '500',
-        letterSpacing: '0.25px',
+        fontWeight: '900',
+        letterSpacing: '0.75px',
         lineHeight: '1.112',
       },
     },
@@ -207,14 +207,14 @@ export const DEFAULT_THEME: Theme = {
     titleLg: {
       primary: {
         fontSize: '2.488rem', // 39.813px
-        fontWeight: '700',
-        letterSpacing: '0.5px',
+        fontWeight: '600',
+        letterSpacing: '0.13px',
         lineHeight: '1.112',
       },
       secondary: {
         fontSize: '2.488rem', // 39.813px
-        fontWeight: '600',
-        letterSpacing: '0.13px',
+        fontWeight: '700',
+        letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
     },
@@ -222,14 +222,14 @@ export const DEFAULT_THEME: Theme = {
     titleMd: {
       primary: {
         fontSize: '2.074rem', // 33.178px
-        fontWeight: '700',
-        letterSpacing: '0.5px',
+        fontWeight: '600',
+        letterSpacing: '0.13px',
         lineHeight: '1.112',
       },
       secondary: {
         fontSize: '2.074rem', // 33.178px
-        fontWeight: '600',
-        letterSpacing: '0.13px',
+        fontWeight: '700',
+        letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
     },
@@ -237,14 +237,14 @@ export const DEFAULT_THEME: Theme = {
     titleSm: {
       primary: {
         fontSize: '1.728rem', // 27.648px
-        fontWeight: '700',
-        letterSpacing: '0.5px',
+        fontWeight: '600',
+        letterSpacing: '0.13px',
         lineHeight: '1.112',
       },
       secondary: {
         fontSize: '1.728rem', // 27.648px
-        fontWeight: '600',
-        letterSpacing: '0.13px',
+        fontWeight: '700',
+        letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
     },
@@ -252,14 +252,14 @@ export const DEFAULT_THEME: Theme = {
     titleXs: {
       primary: {
         fontSize: '1.44rem', // 23.04px
-        fontWeight: '700',
-        letterSpacing: '0.5px',
+        fontWeight: '600',
+        letterSpacing: '0.13px',
         lineHeight: '1.112',
       },
       secondary: {
         fontSize: '1.44rem', // 23.04px
-        fontWeight: '600',
-        letterSpacing: '0.13px',
+        fontWeight: '700',
+        letterSpacing: '0.5px',
         lineHeight: '1.112',
       },
     },
@@ -267,14 +267,14 @@ export const DEFAULT_THEME: Theme = {
     subtitleMd: {
       primary: {
         fontSize: '1.2rem', // 19.2px
-        fontWeight: '600',
-        letterSpacing: '0.25px',
+        fontWeight: '700',
+        letterSpacing: '0.13px',
         lineHeight: '1.112',
       },
       secondary: {
         fontSize: '1.2rem', // 19.2px
-        fontWeight: '700',
-        letterSpacing: '0.13px',
+        fontWeight: '600',
+        letterSpacing: '0.25px',
         lineHeight: '1.112',
       },
     },
@@ -282,14 +282,14 @@ export const DEFAULT_THEME: Theme = {
     subtitleSm: {
       primary: {
         fontSize: '1rem', // 16px
-        fontWeight: '600',
-        letterSpacing: '0.25px',
+        fontWeight: '700',
+        letterSpacing: '0.13px',
         lineHeight: '1.112',
       },
       secondary: {
         fontSize: '1rem', // 16px
-        fontWeight: '700',
-        letterSpacing: '0.13px',
+        fontWeight: '600',
+        letterSpacing: '0.25px',
         lineHeight: '1.112',
       },
     },
@@ -298,13 +298,13 @@ export const DEFAULT_THEME: Theme = {
       primary: {
         fontSize: '1rem', // 16px
         fontWeight: '400',
-        letterSpacing: '0.25px',
+        letterSpacing: '0.13px',
         lineHeight: '1.5',
       },
       secondary: {
         fontSize: '1rem', // 16px
         fontWeight: '400',
-        letterSpacing: '0.13px',
+        letterSpacing: '0.25px',
         lineHeight: '1.5',
       },
     },
@@ -313,13 +313,13 @@ export const DEFAULT_THEME: Theme = {
       primary: {
         fontSize: '0.833rem', // 13.333px
         fontWeight: '400',
-        letterSpacing: '0.25px',
+        letterSpacing: '0.13px',
         lineHeight: '1.5',
       },
       secondary: {
         fontSize: '0.833rem', // 13.333px
         fontWeight: '400',
-        letterSpacing: '0.13px',
+        letterSpacing: '0.25px',
         lineHeight: '1.5',
       },
     },

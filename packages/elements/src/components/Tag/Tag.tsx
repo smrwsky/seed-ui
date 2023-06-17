@@ -40,7 +40,7 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
       deletable,
       rounded,
       size = 'md',
-      variant = 'secondary',
+      variant = 'primary',
       role,
       tabIndex,
       onClick,

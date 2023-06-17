@@ -70,7 +70,6 @@ const Message: FC<MessageProps> = ({
       className={cn(
         S.root,
         visible && S.rootVisible,
-        S.rootVariant[variant],
         atoms({
           display: 'inline-flex',
           justifyContent: 'center',

@@ -3,7 +3,7 @@ import { style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
   gridArea: 'label',
-  fontFamily: vars.fontFamily.secondary,
+  fontFamily: vars.fontFamily.primary,
 });
 
 export const rootSize = styleVariants({
