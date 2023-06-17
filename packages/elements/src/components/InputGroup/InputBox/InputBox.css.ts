@@ -13,7 +13,7 @@ export const root = style({
 });
 
 export const rootFocused = style({
-  borderColor: vars.color.secondary400,
+  borderColor: vars.color.primary400,
   boxShadow: vars.boxShadow.focus,
 });
 

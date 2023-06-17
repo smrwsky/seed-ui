@@ -34,7 +34,7 @@ const UList = forwardRef<HTMLUListElement, UListProps>(
     {
       bold,
       className,
-      fontFamily = 'secondary',
+      fontFamily = 'primary',
       size = 'md',
       type = 'disc',
       variant = 'default',

@@ -27,7 +27,7 @@ const formatText = (str: string): string =>
     .join('');
 
 const Avatar: FC<AvatarProps> = ({
-  backgroundColor = 'secondary500',
+  backgroundColor = 'primary400',
   icon,
   iconType,
   placeholder,

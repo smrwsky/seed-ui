@@ -159,7 +159,7 @@ export function CustomMarker(args: UListProps): JSX.Element {
       {listItems.map((val, idx) => (
         <ListItem key={idx}>
           <Marker>
-            <Icon name="user" type="solid" variant="secondary" />
+            <Icon name="user" type="solid" variant="primary" />
           </Marker>
           {val}
         </ListItem>

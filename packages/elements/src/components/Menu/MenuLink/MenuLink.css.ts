@@ -19,8 +19,8 @@ export const root = style({
   gridTemplateRows: 'max-content max-content',
   alignItems: 'center',
   alignContent: 'center',
-  fontFamily: vars.fontFamily.secondary,
-  ...vars.typography.textMd.secondary,
+  fontFamily: vars.fontFamily.primary,
+  ...vars.typography.textMd.primary,
   textDecoration: 'none',
   outline: 0,
   transition: vars.transition.base,
@@ -161,7 +161,7 @@ export const rootSelected = style({
 export const rootActive = style({});
 
 globalStyle(`.${root}.${rootVariant.primary}.${rootSelected}:after`, {
-  background: vars.color.secondary500,
+  background: vars.color.primary500,
 });
 
 globalStyle(`${root}.${rootVariant.secondary}.${rootSelected}`, {
@@ -169,7 +169,11 @@ globalStyle(`${root}.${rootVariant.secondary}.${rootSelected}`, {
 });
 
 globalStyle(`${root}.${rootVariant.dark}.${rootSelected}`, {
-  background: vars.color.secondary600,
+  background: vars.color.light200,
+});
+
+globalStyle(`${root}.${rootVariant.primary}.${rootActive}`, {
+  background: vars.color.dark100,
 });
 
 globalStyle(`${root}.${rootVariant.secondary}.${rootActive}`, {
@@ -177,7 +181,7 @@ globalStyle(`${root}.${rootVariant.secondary}.${rootActive}`, {
 });
 
 globalStyle(`${root}.${rootVariant.dark}.${rootActive}`, {
-  background: vars.color.secondary500,
+  background: vars.color.light300,
 });
 
 globalStyle(`${root}.${rootVariant.primary}.${rootCollapsed}`, {
@@ -189,7 +193,7 @@ globalStyle(`${root}.${rootVariant.secondary}.${rootCollapsed}`, {
 });
 
 globalStyle(`${root}.${rootVariant.primary}.${rootCollapsed}.${rootSelected}`, {
-  color: vars.color.secondary500,
+  color: vars.color.primary500,
 });
 
 globalStyle(
@@ -200,7 +204,7 @@ globalStyle(
 );
 
 globalStyle(`${root}.${rootVariant.primary}.${rootCollapsed}.${rootSelected}`, {
-  color: vars.color.secondary500,
+  color: vars.color.primary500,
 });
 
 globalStyle(

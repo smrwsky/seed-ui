@@ -17,8 +17,8 @@ export const root = style({
   minWidth: '7rem',
   minHeight: '2.25rem',
   color: vars.color.neutral900,
-  fontFamily: vars.fontFamily.secondary,
-  ...vars.typography.textMd.secondary,
+  fontFamily: vars.fontFamily.primary,
+  ...vars.typography.textMd.primary,
   background: vars.color.white,
   textDecoration: 'none',
   padding: `${SPACING[0.5]} ${SPACING[1.5]}`,
@@ -40,7 +40,6 @@ export const root = style({
     },
 
     '&.invalid': {
-      ...vars.typography.textMd.secondary,
       color: vars.color.danger500,
     },
   },

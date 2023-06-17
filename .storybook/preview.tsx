@@ -1,4 +1,4 @@
-import {  colors, ThemeProvider ,Link } from '@seed-ui/elements';
+import {colors, Link, defaultTheme, ThemeProvider } from '@seed-ui/elements';
 import { theme } from './theme';
 import { FC } from 'react';
 
@@ -17,8 +17,8 @@ export const parameters = {
     default: 'White',
     values: [
       {
-        name: 'Secondary',
-        value: colors.turquose500,
+        name: 'Primary',
+        value: colors.blue500,
       },
       {
         name: 'Tertiary',
@@ -42,7 +42,7 @@ export const parameters = {
 
 export const decorators = [
   (Story: FC) => (
-    <ThemeProvider>
+    <ThemeProvider theme={defaultTheme}>
       <Story />
     </ThemeProvider>
   ),

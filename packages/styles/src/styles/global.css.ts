@@ -12,8 +12,8 @@ export const defaultTheme = createTheme(vars, DEFAULT_THEME);
 
 globalStyle('body', {
   color: vars.color.neutral900,
-  fontFamily: vars.fontFamily.secondary,
-  ...vars.typography.textMd.secondary,
+  fontFamily: vars.fontFamily.primary,
+  ...vars.typography.textMd.primary,
 
   fontSmooth: 'antialiased',
   textRendering: 'optimizeLegibility',

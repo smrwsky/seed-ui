@@ -5,6 +5,6 @@ export const theme = create({
   base: 'light',
   brandTitle: 'Seed UI',
   brandImage: '/images/logo.png',
-  colorPrimary: colors.fuchsia500,
-  colorSecondary: colors.turquose500,
+  colorPrimary: colors.purple500,
+  colorSecondary: colors.blue500,
 });

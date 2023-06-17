@@ -35,7 +35,7 @@ const Title = forwardRef<HTMLElement, TitleProps>(
       as: As = 'h6',
       breakWord,
       className,
-      fontFamily = 'secondary',
+      fontFamily = 'primary',
       size = 'md',
       truncate,
       variant = 'default',

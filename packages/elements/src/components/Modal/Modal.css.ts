@@ -9,7 +9,7 @@ export const overlay = style({
   alignItems: 'center',
   opacity: 0,
   transition: vars.transition.fade,
-  backgroundColor: vars.color.dark900,
+  backgroundColor: vars.color.dark500,
   zIndex: vars.zIndex.modalBackdrop,
 });
 

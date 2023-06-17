@@ -10,7 +10,7 @@ export interface InputMessageProps {
 }
 
 const InputMessage: FC<InputMessageProps> = ({
-  variant = 'secondary',
+  variant = 'tertiary',
   children,
 }) => (
   <Text as="div" className={S.root} size="sm" variant={variant}>

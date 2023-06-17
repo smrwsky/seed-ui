@@ -22,7 +22,7 @@ export function Base(args: AvatarProps): JSX.Element {
         </Avatar>
       </Box>
       <Box mr={2}>
-        <Avatar {...args} backgroundColor="primary500" />
+        <Avatar {...args} backgroundColor="secondary400" />
       </Box>
       <Box>
         <Avatar {...args} icon="user" />

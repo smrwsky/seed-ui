@@ -10,15 +10,15 @@ export const rootVariant = styleVariants({
     color: vars.color.primary400,
   },
   danger: {
-    color: vars.color.white,
+    color: vars.color.danger400,
   },
   warning: {
-    color: vars.color.white,
+    color: vars.color.warning400,
   },
   info: {
-    color: vars.color.white,
+    color: vars.color.info400,
   },
   success: {
-    color: vars.color.white,
+    color: vars.color.success400,
   },
 });

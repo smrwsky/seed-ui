@@ -29,7 +29,7 @@ export interface OListProps extends HTMLAttributes<HTMLOListElement> {
 const OList = forwardRef<HTMLOListElement, OListProps>(
   (
     {
-      fontFamily = 'secondary',
+      fontFamily = 'primary',
       size = 'md',
       bold,
       variant = 'default',
