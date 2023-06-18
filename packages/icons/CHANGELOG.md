@@ -1,10 +1,18 @@
 # @seed-ui/icons
 
+## 0.6.7
+
+### Patch Changes
+
+- Updated dependencies [c9e6344]
+- Updated dependencies [6130817]
+  - @seed-ui/styles@0.10.0
+
 ## 0.6.6
 
 ### Patch Changes
 
-- 91a5de5: 
+- 91a5de5:
   - Fixed Toast styles
   - Autocomplete improvements
 

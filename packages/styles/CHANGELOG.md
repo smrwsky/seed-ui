@@ -1,5 +1,12 @@
 # @seed-ui/styles
 
+## 0.10.0
+
+### Minor Changes
+
+- c9e6344: Improved color palette.
+- 6130817: Improved color palette.
+
 ## 0.9.7
 
 ### Patch Changes
