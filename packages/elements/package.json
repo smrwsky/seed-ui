@@ -53,7 +53,6 @@
   "dependencies": {
     "@floating-ui/react-dom": "^1.0.1",
     "@react-hook/debounce": "^4.0.0",
-    "@seed-ui/flexbox": "^0.2.0",
     "@seed-ui/icons": "^0.6.0",
     "@seed-ui/styles": "^0.9.0",
     "@vanilla-extract/dynamic": "^2.0.2",
