@@ -1,5 +1,15 @@
 # @seed-ui/flexbox
 
+## 0.2.6
+
+### Patch Changes
+
+- c9e6344: Improved color palette.
+- 6130817: Improved color palette.
+- Updated dependencies [c9e6344]
+- Updated dependencies [6130817]
+  - @seed-ui/styles@0.10.0
+
 ## 0.2.5
 
 ### Patch Changes

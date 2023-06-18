@@ -1,6 +1,6 @@
 {
   "name": "@seed-ui/flexbox",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "",
   "files": [
     "css",
@@ -47,7 +47,7 @@
     "typescript": "4.7.4"
   },
   "dependencies": {
-    "@seed-ui/styles": "^0.9.0",
+    "@seed-ui/styles": "^0.10.0",
     "classnames": "^2.3.1",
     "lodash": "^4.17.21"
   }
