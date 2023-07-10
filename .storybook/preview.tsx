@@ -1,11 +1,10 @@
-import { Link} from '@seed-ui/elements';
-import { colors, defaultTheme, ThemeProvider } from '@seed-ui/styles';
+import { Link, ThemeProvider } from '@seed-ui/elements';
+import { colors, defaultTheme } from '@seed-ui/styles';
 import { theme } from './theme';
 import { FC } from 'react';
 
-import '@seed-ui/elements/css/styles.min.css';
+import '@seed-ui/styles/css/styles.min.css';
 import '@seed-ui/elements/css/elements.min.css';
-import 'boxicons/css/boxicons.min.css';
 
 const components = {
   a: Link,

@@ -3,7 +3,7 @@ import {
   createSprinkles,
   defineProperties,
 } from '@vanilla-extract/sprinkles';
-import { mapValues } from 'lodash';
+import mapValues from 'lodash/mapValues';
 
 import {
   ALIGN_ITEMS,

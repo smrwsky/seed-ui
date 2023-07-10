@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@seed-ui/styles';
+import { ThemeProvider } from '@seed-ui/elements';
 import {
   act,
   cleanup,

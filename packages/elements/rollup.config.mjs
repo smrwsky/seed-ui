@@ -1,11 +1,9 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import { vanillaExtractPlugin } from '@vanilla-extract/rollup-plugin';
-import glob from 'glob';
 import del from 'rollup-plugin-delete';
 import externals from 'rollup-plugin-node-externals';
 import postcss from 'rollup-plugin-postcss';
-import { processCssFiles } from '../../scripts/process-css-files.mjs';
 
 const outputSharedOptions = {
   dir: '.',
@@ -17,8 +15,6 @@ const outputSharedOptions = {
   preserveModules: true,
   sourcemap: true,
 };
-
-const cssFiles = glob.sync('./src/assets/*.css');
 
 export default [
   {
@@ -108,5 +104,4 @@ export default [
       warn(warning);
     },
   },
-  ...processCssFiles(cssFiles),
 ];

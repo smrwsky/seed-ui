@@ -1,4 +1,4 @@
-import { Box, Flex } from '@seed-ui/flexbox';
+import { Box, Flex } from '@seed-ui/elements';
 import { StoryFn } from '@storybook/react';
 
 import Autocomplete, { AutocompleteSize } from './Autocomplete';
