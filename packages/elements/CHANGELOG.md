@@ -1,5 +1,17 @@
 # @seed-ui/elements
 
+## 1.0.0
+
+### Minor Changes
+
+- 4b22c7b: - Menu redesign
+  - Moved all react components into a single package
+
+### Patch Changes
+
+- Updated dependencies [4b22c7b]
+  - @seed-ui/styles@0.11.0
+
 ## 0.10.0
 
 ### Minor Changes
