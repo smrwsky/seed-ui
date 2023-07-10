@@ -5,6 +5,7 @@
   "files": [
     "css",
     "dist",
+    "fonts",
     "package.json",
     "CHANGELOG.md"
   ],
@@ -33,21 +34,16 @@
   "author": "Sergey Murawsky",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@vanilla-extract/css": "^1.10.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.10",
     "@vanilla-extract/css": "^1.10.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "typescript": "4.7.4"
   },
   "dependencies": {
     "@vanilla-extract/sprinkles": "^1.3.0",
-    "classnames": "^2.3.2",
+    "boxicons": "^2.1.4",
     "hex-to-rgba": "^2.0.1",
     "lodash": "^4.17.21",
     "minireset.css": "^0.0.7"

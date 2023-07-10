@@ -1,6 +1,5 @@
+import { defaultTheme } from '@seed-ui/styles';
 import { FC, ReactNode, useLayoutEffect } from 'react';
-
-import { defaultTheme } from '../../styles/global.css';
 
 export interface ThemeProviderProps {
   children?: ReactNode;

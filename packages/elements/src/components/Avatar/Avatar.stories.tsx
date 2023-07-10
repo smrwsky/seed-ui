@@ -1,4 +1,4 @@
-import { Box, Flex } from '@seed-ui/flexbox';
+import { Box, Flex } from '@seed-ui/elements';
 
 import Avatar, { AvatarProps, AvatarSize } from './Avatar';
 

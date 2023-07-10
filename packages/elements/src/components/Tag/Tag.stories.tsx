@@ -1,4 +1,4 @@
-import { Box, Flex } from '@seed-ui/flexbox';
+import { Box, Flex } from '@seed-ui/elements';
 import { capitalize } from 'lodash';
 
 import Tag, { TagProps, TagSize, TagVariant } from './Tag';

@@ -1,4 +1,4 @@
-import { Box, Flex } from '@seed-ui/flexbox';
+import { Box, Flex } from '@seed-ui/elements';
 import { atoms } from '@seed-ui/styles';
 
 import TextInput, { TextInputProps, TextInputSize } from './TextInput';

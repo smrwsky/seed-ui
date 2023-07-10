@@ -1,4 +1,4 @@
-import { Flex } from '@seed-ui/flexbox';
+import { Flex } from '@seed-ui/elements';
 import { atoms } from '@seed-ui/styles';
 import { StoryFn } from '@storybook/react';
 

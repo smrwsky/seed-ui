@@ -1,4 +1,4 @@
-import { Box, Flex } from '@seed-ui/flexbox';
+import { Box, Flex } from '@seed-ui/elements';
 import { useState } from 'react';
 
 import { Button } from '../Button';
