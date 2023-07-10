@@ -10,18 +10,3 @@ export function marker(): StyleRule {
     marginInlineStart: '-1.5em',
   };
 }
-
-export function textTruncate(): StyleRule {
-  return {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  };
-}
-
-export function textBreak(): StyleRule {
-  return {
-    wordWrap: 'break-word',
-    wordBreak: 'break-word',
-  };
-}

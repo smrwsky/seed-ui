@@ -1,16 +1,18 @@
-import { Icon, IconType } from '@seed-ui/icons';
 import cx from 'classnames';
 import { FC, HTMLAttributes, memo } from 'react';
 
+import { Icon, IconType } from '../../Icon';
+
 import * as S from './OptionIcon.css';
 
-export interface OptionIconProps extends HTMLAttributes<HTMLSpanElement> {
+export interface OptionIconProps
+  extends Omit<HTMLAttributes<HTMLSpanElement>, 'color'> {
   name: string;
   type?: IconType;
 }
 
 const OptionIcon: FC<OptionIconProps> = ({ className, ...props }) => (
-  <Icon className={cx(S.root, className)} size="sm" {...props} />
+  <Icon className={cx(S.root, className)} fontSize="lg" {...props} />
 );
 
 OptionIcon.displayName = 'OptionIcon';

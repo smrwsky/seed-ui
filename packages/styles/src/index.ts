@@ -11,3 +11,4 @@ export * from './styles/mixins';
 export * from './styles/global.css';
 export * from './styles/atoms.css';
 export * from './styles/typography.css';
+export * from './styles/hide-scrollbar.css';

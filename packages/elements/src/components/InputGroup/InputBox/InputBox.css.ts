@@ -43,16 +43,16 @@ export const rootReadOnly = style({
 
 export const rootSize = styleVariants({
   sm: {
-    minHeight: '2.25rem',
+    minHeight: '1.75rem', // 28px
     padding: `${SPACING[0.5]} ${SPACING[1]}`,
   },
   md: {
-    minHeight: '2.625rem',
-    padding: `${SPACING[1]} ${SPACING[2]}`,
+    minHeight: '2.25rem', // 36px
+    padding: `${SPACING[0.5]} ${SPACING[1]}`,
   },
   lg: {
-    minHeight: '3rem',
-    padding: `${SPACING[1.5]} ${SPACING[3]}`,
+    minHeight: '2.75rem', // 44px
+    padding: `${SPACING[1]} ${SPACING[2]}`,
   },
 });
 

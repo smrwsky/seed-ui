@@ -86,7 +86,7 @@ export type Theme = {
       lineHeight: string;
       fontWeight: string;
     };
-    button: {
+    textButton: {
       letterSpacing: string;
       fontSize: string;
       lineHeight: string;
@@ -278,12 +278,32 @@ export type Theme = {
     neutral50: string;
     light600: string;
   };
-  width: {
-    containerDesktopLg: string;
-    containerMobile: string;
-    containerMobileLg: string;
-    containerDesktop: string;
-    containerTablet: string;
+  letterSpacing: {
+    normal: string;
+    wider: string;
+    widest: string;
+    wide: string;
+    tighter: string;
+    tight: string;
+  };
+  fontSize: {
+    '2xl': string;
+    '3xl': string;
+    '4xl': string;
+    '5xl': string;
+    '6xl': string;
+    'xl': string;
+    'md': string;
+    'sm': string;
+    'xs': string;
+    'lg': string;
+  };
+  lineHeight: {
+    relaxed: string;
+    normal: string;
+    snug: string;
+    loose: string;
+    tight: string;
   };
   transition: { fade: string; collapse: string; base: string };
   zIndex: {

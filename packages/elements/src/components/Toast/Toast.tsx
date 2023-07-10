@@ -109,7 +109,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
             position: 'relative',
             display: 'flex',
             width: 'full',
-            maxWidth: 96,
+            maxWidth: 'sm',
             borderRadius: 'lg',
             border: 'thin',
             borderColor: 'neutral100',
@@ -135,7 +135,6 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            minHeight: 6,
             mt: 0.5,
           })}
           size="sm"
@@ -160,7 +159,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
           )}
           icon="x"
           rounded
-          size="xs"
+          size="sm"
           tabIndex={0}
           title=""
           variant="tertiary"

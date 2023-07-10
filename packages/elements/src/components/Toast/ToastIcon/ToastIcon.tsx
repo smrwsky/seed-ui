@@ -1,6 +1,7 @@
-import { Icon } from '@seed-ui/icons';
 import cn from 'classnames';
 import React from 'react';
+
+import { Icon } from '../../Icon';
 
 import * as S from './ToastIcon.css';
 
@@ -17,16 +18,16 @@ const ToastIcon: React.FC<ToastIconProps> = ({
 
   return (
     (variant === 'danger' && (
-      <Icon className={iconClassName} name="error-circle" size="lg" />
+      <Icon className={iconClassName} name="error-circle" />
     )) ||
     (variant === 'warning' && (
-      <Icon className={iconClassName} name="error" size="lg" />
+      <Icon className={iconClassName} name="error" />
     )) ||
     (variant === 'success' && (
-      <Icon className={iconClassName} name="check-circle" size="lg" />
+      <Icon className={iconClassName} name="check-circle" />
     )) ||
     (variant === 'info' && (
-      <Icon className={iconClassName} name="info-circle" size="lg" />
+      <Icon className={iconClassName} name="info-circle" />
     )) ||
     null
   );

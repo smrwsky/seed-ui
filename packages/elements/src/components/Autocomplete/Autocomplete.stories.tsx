@@ -16,13 +16,13 @@ export default {
 };
 
 export const Basic: StoryFn = (args) => (
-  <Box minHeight={64} width={80}>
+  <Box style={{ minHeight: '160px' }} width={80}>
     <Autocomplete {...args} id="autocomplete-base" options={OPTIONS_LIST} />
   </Box>
 );
 
 export const Multiple: StoryFn = (args) => (
-  <Box minHeight={64} width={80}>
+  <Box style={{ minHeight: '256px' }} width={80}>
     <Autocomplete
       {...args}
       defaultValue={['Peter', 'Chris', 'Stewie']}
@@ -34,7 +34,7 @@ export const Multiple: StoryFn = (args) => (
 );
 
 export const Invalid: StoryFn = (args) => (
-  <Box minHeight={64} width={80}>
+  <Box style={{ minHeight: '256px' }} width={80}>
     <Autocomplete
       {...args}
       id="autocomplete-invalid"
@@ -45,7 +45,7 @@ export const Invalid: StoryFn = (args) => (
 );
 
 export const Sizes: StoryFn = (args) => (
-  <Flex flexDirection="column" minHeight={96} width={80}>
+  <Flex flexDirection="column" style={{ minHeight: '384px' }} width={80}>
     {SIZE_OPTIONS.map((size, i) => (
       <Box key={i} mt={i && 4}>
         <Autocomplete
@@ -60,7 +60,7 @@ export const Sizes: StoryFn = (args) => (
 );
 
 export const Rounded: StoryFn = (args) => (
-  <Box minHeight={64} width={80}>
+  <Box style={{ minHeight: '256px' }} width={80}>
     <Autocomplete
       {...args}
       id="autocomplete-rounded"
@@ -71,7 +71,7 @@ export const Rounded: StoryFn = (args) => (
 );
 
 export const AllowInputValue: StoryFn = (args) => (
-  <Box minHeight={64} width={80}>
+  <Box style={{ minHeight: '256px' }} width={80}>
     <Autocomplete
       {...args}
       allowInputValue
@@ -82,7 +82,7 @@ export const AllowInputValue: StoryFn = (args) => (
 );
 
 export const AutoHighlight: StoryFn = (args) => (
-  <Box minHeight={64} width={80}>
+  <Box style={{ minHeight: '256px' }} width={80}>
     <Autocomplete
       {...args}
       autoHighlight
@@ -93,7 +93,7 @@ export const AutoHighlight: StoryFn = (args) => (
 );
 
 export const InlineAutoComplete: StoryFn = (args) => (
-  <Box minHeight={64} width={80}>
+  <Box style={{ minHeight: '256px' }} width={80}>
     <Autocomplete
       {...args}
       id="autocomplete-inline-auto-complete"

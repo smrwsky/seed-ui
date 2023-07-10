@@ -16,6 +16,7 @@ import { configureAxe } from 'jest-axe';
 import { FunctionComponent, ReactElement, PropsWithChildren } from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
+import 'jest-axe/extend-expect';
 
 export type RenderFn<T = unknown> = (
   component: ReactElement,
@@ -37,6 +38,9 @@ export const axe = configureAxe({
     region: { enabled: false },
   },
 });
+
+// Mock window.HTMLElement.prototype.scrollIntoView to prevent test errors
+window.HTMLElement.prototype.scrollIntoView = jest.fn();
 
 export {
   act,

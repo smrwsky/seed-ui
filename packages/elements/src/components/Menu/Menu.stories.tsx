@@ -1,15 +1,14 @@
-import { Icon } from '@seed-ui/icons';
+import { IconButton, Title } from '@seed-ui/elements';
 import { atoms } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
 import { Fragment, useCallback, useState } from 'react';
 
-import { IconButton } from '../IconButton';
-import { Title } from '../Title';
+import { Icon } from '../Icon';
+import { PopupMenu } from '../PopupMenu';
 
-import Menu, { MenuProps } from './Menu';
+import { Menu, MenuProps } from './Menu';
 import { MenuItem } from './MenuItem';
-import { PopupMenu } from './PopupMenu';
-import { SubMenu } from './SubMenu';
+import { Submenu } from './Submenu';
 
 const types: MenuProps['type'][] = ['horizontal', 'inline', 'vertical'];
 
@@ -26,10 +25,10 @@ export function Base(args: MenuProps): JSX.Element {
   const renderAction = useCallback(
     () => (
       <Icon
+        color={args.variant === 'dark' ? 'white' : 'secondary500'}
+        fontSize="lg"
         name="crown"
-        size="sm"
         type="solid"
-        variant={args.variant === 'dark' ? 'light' : 'secondary'}
       />
     ),
     [args.variant],
@@ -60,22 +59,24 @@ export function Base(args: MenuProps): JSX.Element {
           Option 3
         </MenuItem>
 
-        <SubMenu icon="stats" label="Option 4">
+        <Submenu icon="stats" label="Option 4">
           <MenuItem>Option 4-1</MenuItem>
           <MenuItem>Option 4-2</MenuItem>
           <MenuItem>Option 4-3</MenuItem>
-        </SubMenu>
+        </Submenu>
 
-        <SubMenu icon="cog" label="Option 5">
+        <Submenu icon="cog" label="Option 5">
           <MenuItem>Option 5-1</MenuItem>
           <MenuItem>Option 5-2</MenuItem>
 
-          <SubMenu label="Option 5-3">
+          <Submenu label="Option 5-3">
             <MenuItem>Option 5-3-1</MenuItem>
             <MenuItem>Option 5-3-2</MenuItem>
             <MenuItem>Option 5-3-3</MenuItem>
-          </SubMenu>
-        </SubMenu>
+          </Submenu>
+        </Submenu>
+
+        <MenuItem icon="support">Option 6</MenuItem>
       </Menu>
     </div>
   );
@@ -133,7 +134,7 @@ export function StandalonePopupMenu(): JSX.Element {
   const [buttonElement, setButtonElement] = useState<HTMLElement | null>(null);
 
   const renderAction = useCallback(
-    () => <Icon name="crown" size="sm" type="solid" variant="secondary" />,
+    () => <Icon color="secondary500" fontSize="lg" name="crown" type="solid" />,
     [],
   );
 
@@ -145,13 +146,12 @@ export function StandalonePopupMenu(): JSX.Element {
       }}
     >
       <IconButton
+        icon="dots-vertical-rounded"
         ref={setButtonElement}
         size="sm"
         title="Show menu"
         variant="dark"
-      >
-        <Icon name="dots-vertical-rounded" />
-      </IconButton>
+      />
 
       <PopupMenu anchorElement={buttonElement}>
         <MenuItem ActionComponent={renderAction} icon="home">
@@ -164,22 +164,22 @@ export function StandalonePopupMenu(): JSX.Element {
           Option 3
         </MenuItem>
 
-        <SubMenu icon="stats" label="Option 4">
+        <Submenu icon="stats" label="Option 4">
           <MenuItem>Option 4-1</MenuItem>
           <MenuItem>Option 4-2</MenuItem>
           <MenuItem>Option 4-3</MenuItem>
-        </SubMenu>
+        </Submenu>
 
-        <SubMenu icon="cog" label="Option 5">
+        <Submenu icon="cog" label="Option 5">
           <MenuItem>Option 5-1</MenuItem>
           <MenuItem>Option 5-2</MenuItem>
 
-          <SubMenu label="Option 5-3">
+          <Submenu label="Option 5-3">
             <MenuItem>Option 5-3-1</MenuItem>
             <MenuItem>Option 5-3-2</MenuItem>
             <MenuItem>Option 5-3-3</MenuItem>
-          </SubMenu>
-        </SubMenu>
+          </Submenu>
+        </Submenu>
       </PopupMenu>
     </div>
   );

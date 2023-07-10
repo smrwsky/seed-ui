@@ -29,7 +29,7 @@ const variants: IconButtonVariant[] = [
   'outline-dark',
 ];
 
-const sizes: IconButtonSize[] = ['xs', 'sm', 'md', 'lg'];
+const sizes: IconButtonSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Inputs/IconButton',

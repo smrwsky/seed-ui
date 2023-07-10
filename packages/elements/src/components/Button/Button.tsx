@@ -1,4 +1,3 @@
-import { Icon, IconType } from '@seed-ui/icons';
 import cn from 'classnames';
 import {
   AnchorHTMLAttributes,
@@ -7,9 +6,11 @@ import {
   forwardRef,
 } from 'react';
 
+import { Icon, IconType } from '../Icon';
+
 import * as S from './Button.css';
 
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonVariant =
   | 'secondary'
@@ -86,14 +87,16 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
       {loading && (
         <Icon
           animation="spin"
-          className={cn(S.icon, S.iconSize[size])}
+          color="currentColor"
+          fontSize="lg"
           name="loader-alt"
         />
       )}
 
       {!loading && startIcon && (
         <Icon
-          className={cn(S.icon, S.iconSize[size])}
+          color="currentColor"
+          fontSize="lg"
           name={startIcon}
           type={startIconType}
         />
@@ -103,7 +106,8 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
 
       {!loading && endIcon && (
         <Icon
-          className={cn(S.icon, S.iconSize[size])}
+          color="currentColor"
+          fontSize="lg"
           name={endIcon}
           type={endIconType}
         />

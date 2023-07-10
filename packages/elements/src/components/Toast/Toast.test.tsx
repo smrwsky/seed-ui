@@ -44,7 +44,7 @@ describe('Toast', () => {
         render(<Toast onHide={onHideMock} />);
         const closeButton = screen.getByLabelText('Close');
         await userEvent.click(closeButton);
-        expect(onHideMock).toHaveBeenCalled();
+        expect(onHideMock).toHaveBeenCalledTimes(1);
       });
     });
   });
@@ -61,9 +61,9 @@ describe('Toast', () => {
           <Toast autoCloseTimeout={autoCloseTimeout} onHide={onHideMock} />,
         );
 
-        expect(onHideMock).not.toHaveBeenCalled();
+        expect(onHideMock).toHaveBeenCalledTimes(0);
         jest.advanceTimersByTime(autoCloseTimeout);
-        expect(onHideMock).toHaveBeenCalled();
+        expect(onHideMock).toHaveBeenCalledTimes(1);
       });
     });
   });
@@ -76,7 +76,7 @@ describe('Toast', () => {
         jest.useFakeTimers();
         render(<Toast visible={false} onAfterHide={onAfterHideMock} />);
         jest.advanceTimersByTime(200);
-        expect(onAfterHideMock).toHaveBeenCalled();
+        expect(onAfterHideMock).toHaveBeenCalledTimes(1);
       });
     });
   });

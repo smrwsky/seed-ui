@@ -1,4 +1,4 @@
-import { textTruncateStyle } from '@seed-ui/styles';
+import { textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
 import { forwardRef, HTMLAttributes, memo } from 'react';
 
@@ -8,11 +8,7 @@ export type OptionLabelProps = HTMLAttributes<HTMLSpanElement>;
 
 const OptionLabel = forwardRef<HTMLSpanElement, OptionLabelProps>(
   ({ children, className, ...props }, ref) => (
-    <span
-      className={cn(S.root, textTruncateStyle, className)}
-      ref={ref}
-      {...props}
-    >
+    <span className={cn(S.root, textTruncate, className)} ref={ref} {...props}>
       {children}
     </span>
   ),

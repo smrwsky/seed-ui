@@ -1,4 +1,3 @@
-import { Icon, IconType } from '@seed-ui/icons';
 import {
   ChangeEventHandler,
   FocusEvent,
@@ -8,9 +7,10 @@ import {
   useState,
 } from 'react';
 
-import { InputAction, InputBox, TextBox } from '../InputGroup';
+import { Icon, IconType } from '../Icon';
+import { InputAction, InputBox, InputBoxSize, TextBox } from '../InputGroup';
 
-export type DateInputSize = 'sm' | 'md' | 'lg';
+export type DateInputSize = InputBoxSize;
 
 export interface DateInputProps {
   autoFocus?: boolean;
@@ -80,7 +80,12 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
       >
         {icon && (
           <InputAction>
-            <Icon name={icon} size="sm" type={iconType} variant="primary" />
+            <Icon
+              color="primary500"
+              fontSize="lg"
+              name={icon}
+              type={iconType}
+            />
           </InputAction>
         )}
 

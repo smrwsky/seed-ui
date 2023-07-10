@@ -22,20 +22,6 @@ export const root = style({
       transition: 'none',
     },
 
-    '&:before': {
-      content: '',
-      position: 'absolute',
-      inset: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: 'inherit',
-      transition: vars.transition.base,
-    },
-
-    '&:focus-visible:before': {
-      boxShadow: vars.boxShadow.focus,
-    },
-
     '&:disabled': {
       cursor: 'not-allowed',
     },
@@ -47,17 +33,14 @@ export const rootRounded = style({
 });
 
 export const rootSize = styleVariants({
-  xs: {
-    fontSize: '1.875rem', // 30px
-  },
   sm: {
-    fontSize: '2.25rem', // 36px
+    fontSize: '1.75rem', // 28px
   },
   md: {
-    fontSize: '2.625rem', // 42px
+    fontSize: '2.25rem', // 36px
   },
   lg: {
-    fontSize: '3rem', // 48px
+    fontSize: '2.75rem', // 44px
   },
 });
 

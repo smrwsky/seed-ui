@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function mergeRefs<T>(
-  ...refs: Array<React.Ref<T> | React.MutableRefObject<T>>
+  ...refs: Array<React.Ref<T> | React.MutableRefObject<T> | undefined>
 ) {
   return (node: T): void => {
     // eslint-disable-next-line no-restricted-syntax

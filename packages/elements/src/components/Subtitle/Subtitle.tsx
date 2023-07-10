@@ -1,4 +1,4 @@
-import { Atoms, textBreakStyle, textTruncateStyle } from '@seed-ui/styles';
+import { Atoms, textBreak, textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
 import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
@@ -53,8 +53,8 @@ const Subtitle = forwardRef<HTMLElement, SubtitleProps>(
           ? S.rootPrimarySize[size]
           : S.rootSecondarySize[size],
         S.rootVariant[variant],
-        breakWord && textBreakStyle,
-        truncate && textTruncateStyle,
+        breakWord && textBreak,
+        truncate && textTruncate,
         className,
       )}
       ref={ref}

@@ -44,7 +44,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.10",
     "@types/react-modal": "^3.13.1",
-    "@types/react-transition-group": "^4.4.4",
+    "@types/react-transition-group": "^4.4.6",
     "@vanilla-extract/css": "^1.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -59,6 +59,6 @@
     "classnames": "^2.3.1",
     "lodash": "^4.17.21",
     "react-modal": "^3.15.1",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.5"
   }
 }

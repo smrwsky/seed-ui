@@ -15,25 +15,11 @@ export const root = style({
   transition: vars.transition.base,
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
   outline: 'none',
-  ...vars.typography.button,
+  ...vars.typography.textButton,
 
   selectors: {
-    '&:before': {
-      content: '',
-      position: 'absolute',
-      inset: 0,
-      width: '100%',
-      height: '100%',
-      borderRadius: 'inherit',
-      transition: vars.transition.base,
-    },
-
     '&:active': {
       transition: 'none',
-    },
-
-    '&:focus-visible:before': {
-      boxShadow: vars.boxShadow.focus,
     },
 
     '&:disabled': {
@@ -47,38 +33,29 @@ export const rootRounded = style({
 });
 
 export const rootSize = styleVariants({
-  xs: {
+  sm: {
     minWidth: '6rem',
-    height: '1.875rem',
+    height: '1.75rem', // 28px
     paddingLeft: SPACING[2.5],
     paddingRight: SPACING[2.5],
   },
-  sm: {
+  md: {
     minWidth: '7rem',
-    height: '2.25rem',
+    height: '2.25rem', // 36px
     paddingLeft: SPACING[3],
     paddingRight: SPACING[3],
   },
-  md: {
+  lg: {
     minWidth: '8rem',
-    height: '2.625rem',
+    height: '2.75rem', // 44px
     paddingLeft: SPACING[3.5],
     paddingRight: SPACING[3.5],
   },
-  lg: {
-    minWidth: '9rem',
-    height: '3rem',
-    paddingLeft: SPACING[4],
-    paddingRight: SPACING[4],
-  },
 });
 
-globalStyle(
-  `.${rootSize.xs} > *:not(:last-child), .${rootSize.sm} > *:not(:last-child)`,
-  {
-    marginRight: SPACING[1],
-  },
-);
+globalStyle(`.${rootSize.sm} > *:not(:last-child)`, {
+  marginRight: SPACING[1],
+});
 
 globalStyle(
   `.${rootSize.md} > *:not(:last-child), .${rootSize.lg} > *:not(:last-child)`,
@@ -654,28 +631,11 @@ export const rootVariant = styleVariants({
   },
 });
 
-export const label = style({
-  display: 'inline-block',
-  maxWidth: '100%',
-  paddingTop: SPACING[0.5],
-  ...textTruncate(),
-});
-
-export const icon = style({
-  color: 'currentColor !important',
-});
-
-export const iconSize = styleVariants({
-  xs: {
-    fontSize: '1rem !important',
+export const label = style([
+  {
+    display: 'inline-block',
+    maxWidth: '100%',
+    paddingTop: SPACING[0.5],
   },
-  sm: {
-    fontSize: '1.125rem !important',
-  },
-  md: {
-    fontSize: '1.25rem !important',
-  },
-  lg: {
-    fontSize: '1.375rem !important',
-  },
-});
+  textTruncate,
+]);

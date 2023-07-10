@@ -1,4 +1,4 @@
-import { textBreakStyle, textTruncateStyle } from '@seed-ui/styles';
+import { textBreak, textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
 import { ElementType, forwardRef, LabelHTMLAttributes } from 'react';
 
@@ -45,8 +45,8 @@ const Label = forwardRef<HTMLLabelElement, LabelProps>(
         S.root,
         S.rootSize[size],
         S.rootVariant[variant],
-        breakWord && textBreakStyle,
-        truncate && textTruncateStyle,
+        breakWord && textBreak,
+        truncate && textTruncate,
         className,
       )}
       ref={ref}

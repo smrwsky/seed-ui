@@ -74,7 +74,7 @@ const Message: FC<MessageProps> = ({
           display: 'inline-flex',
           justifyContent: 'center',
           alignItems: 'center',
-          maxWidth: 60,
+          maxWidth: 'xs',
           minWidth: 40,
           borderRadius: 'lg',
           boxShadow: 'md',

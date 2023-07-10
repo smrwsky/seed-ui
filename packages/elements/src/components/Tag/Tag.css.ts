@@ -377,13 +377,15 @@ export const rootVariant = styleVariants({
   },
 });
 
-export const text = style({
-  display: 'inline-block',
-  fontFamily: vars.fontFamily.primary,
-  ...vars.typography.textSm.primary,
-  ...textTruncate(),
-  margin: `0 ${SPACING[0.5]}`,
-});
+export const text = style([
+  {
+    display: 'inline-block',
+    fontFamily: vars.fontFamily.primary,
+    ...vars.typography.textSm.primary,
+    margin: `0 ${SPACING[0.5]}`,
+  },
+  textTruncate,
+]);
 
 export const icon = style({
   transition: vars.transition.base,

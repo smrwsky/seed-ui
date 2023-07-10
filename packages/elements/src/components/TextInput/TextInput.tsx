@@ -1,4 +1,3 @@
-import { Icon, IconType } from '@seed-ui/icons';
 import {
   FocusEvent,
   forwardRef,
@@ -8,6 +7,7 @@ import {
   useState,
 } from 'react';
 
+import { Icon, IconType } from '../Icon';
 import { InputAction, InputBox, TextBox } from '../InputGroup';
 
 export type TextInputSize = 'sm' | 'md' | 'lg';
@@ -79,7 +79,12 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       >
         {icon && (
           <InputAction>
-            <Icon name={icon} size="sm" type={iconType} variant="primary" />
+            <Icon
+              color="primary500"
+              fontSize="lg"
+              name={icon}
+              type={iconType}
+            />
           </InputAction>
         )}
 
