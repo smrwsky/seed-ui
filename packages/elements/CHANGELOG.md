@@ -4,7 +4,8 @@
 
 ### Minor Changes
 
-- 4b22c7b: - Menu redesign
+- 4b22c7b:
+  - Menu redesign
   - Moved all react components into a single package
 
 ### Patch Changes
