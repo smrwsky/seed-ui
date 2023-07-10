@@ -1,6 +1,7 @@
-import { Icon } from '@seed-ui/icons';
 import cn from 'classnames';
 import { forwardRef, HTMLAttributes, KeyboardEvent, ReactNode } from 'react';
+
+import { Icon } from '../Icon';
 
 import * as S from './Tag.css';
 

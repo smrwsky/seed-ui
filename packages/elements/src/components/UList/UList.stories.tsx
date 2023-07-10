@@ -1,8 +1,8 @@
-import { Icon } from '@seed-ui/icons';
 import { atoms } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
 import { Fragment } from 'react';
 
+import { Icon } from '../Icon';
 import { ListItem } from '../ListItem';
 import { Marker } from '../Marker';
 import { Title } from '../Title';
@@ -159,7 +159,7 @@ export function CustomMarker(args: UListProps): JSX.Element {
       {listItems.map((val, idx) => (
         <ListItem key={idx}>
           <Marker>
-            <Icon name="user" type="solid" variant="primary" />
+            <Icon color="primary500" name="user" type="solid" />
           </Marker>
           {val}
         </ListItem>

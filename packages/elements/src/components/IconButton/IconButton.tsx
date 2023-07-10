@@ -1,4 +1,3 @@
-import { Icon, IconType } from '@seed-ui/icons';
 import cn from 'classnames';
 import {
   AnchorHTMLAttributes,
@@ -8,9 +7,11 @@ import {
   ReactElement,
 } from 'react';
 
+import { Icon, IconType } from '../Icon';
+
 import * as S from './IconButton.css';
 
-export type IconButtonSize = 'xs' | 'sm' | 'md' | 'lg';
+export type IconButtonSize = 'sm' | 'md' | 'lg';
 
 export type IconButtonVariant =
   | 'primary'

@@ -1,9 +1,5 @@
 import { vars } from '@seed-ui/styles';
-import { style, styleVariants } from '@vanilla-extract/css';
-
-export const root = style({
-  fontSize: '1rem',
-});
+import { styleVariants } from '@vanilla-extract/css';
 
 export const rootVariant = styleVariants({
   light: {

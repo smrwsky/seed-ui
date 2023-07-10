@@ -1,6 +1,5 @@
 import {
   ConditionalValue,
-  createMapValueFn,
   createSprinkles,
   defineProperties,
 } from '@vanilla-extract/sprinkles';
@@ -10,21 +9,32 @@ import {
   ALIGN_ITEMS,
   ALIGN_SELF,
   BREAKPOINT,
+  COLOR,
+  CURSOR,
   DISPLAY,
   FLEX,
   FLEX_DIRECTION,
   FLEX_WRAP,
+  FONT_WEIGHT,
   HEIGHT,
+  INSET,
   JUSTIFY_CONTENT,
   LINE_HEIGHT,
   MARGIN,
-  OFFSET,
+  MAX_HEIGHT,
+  MAX_WIDTH,
+  MIN_HEIGHT,
+  MIN_WIDTH,
+  OPACITY,
   ORDER,
   OVERFLOW,
+  POINTER_EVENTS,
   POSITION,
   SPACING,
   TEXT_ALIGN,
   TEXT_OVERFLOW,
+  TRANSITION,
+  VERTICAL_ALIGN,
   WHITE_SPACE,
   WIDTH,
 } from '../const';
@@ -33,15 +43,12 @@ import { vars } from './global.css';
 
 const baseProperties = defineProperties({
   properties: {
+    pointerEvents: POINTER_EVENTS,
     textOverflow: TEXT_OVERFLOW,
+    verticalAlign: VERTICAL_ALIGN,
     whiteSpace: WHITE_SPACE,
   },
 });
-
-const widthProperties = {
-  ...WIDTH,
-  ...vars.width,
-};
 
 export type ResponsiveValue<Value extends string | number> = ConditionalValue<
   typeof responsiveProperties,
@@ -67,12 +74,17 @@ const responsiveProperties = defineProperties({
   properties: {
     position: POSITION,
 
-    bottom: OFFSET,
-    left: OFFSET,
-    right: OFFSET,
-    top: OFFSET,
+    bottom: INSET,
+    left: INSET,
+    right: INSET,
+    top: INSET,
 
     display: DISPLAY,
+
+    fontSize: vars.fontSize,
+    fontWeight: FONT_WEIGHT,
+    letterSpacing: vars.letterSpacing,
+    lineHeight: { ...LINE_HEIGHT, ...vars.lineHeight },
 
     flex: FLEX,
     flexWrap: FLEX_WRAP,
@@ -82,13 +94,13 @@ const responsiveProperties = defineProperties({
     justifyContent: JUSTIFY_CONTENT,
     order: ORDER,
 
-    width: widthProperties,
-    maxWidth: widthProperties,
-    minWidth: widthProperties,
+    width: WIDTH,
+    maxWidth: MAX_WIDTH,
+    minWidth: MIN_WIDTH,
 
     height: HEIGHT,
-    maxHeight: HEIGHT,
-    minHeight: HEIGHT,
+    maxHeight: MAX_HEIGHT,
+    minHeight: MIN_HEIGHT,
 
     borderBottom: vars.border,
     borderLeft: vars.border,
@@ -96,7 +108,6 @@ const responsiveProperties = defineProperties({
     borderTop: vars.border,
     borderRadius: vars.borderRadius,
 
-    lineHeight: LINE_HEIGHT,
     textAlign: TEXT_ALIGN,
 
     marginBottom: MARGIN,
@@ -120,6 +131,7 @@ const responsiveProperties = defineProperties({
     border: ['borderBottom', 'borderLeft', 'borderRight', 'borderTop'],
     borderX: ['borderLeft', 'borderRight'],
     borderY: ['borderBottom', 'borderTop'],
+    overflow: ['overflowX', 'overflowY'],
     m: ['marginBottom', 'marginLeft', 'marginRight', 'marginTop'],
     mb: ['marginBottom'],
     ml: ['marginLeft'],
@@ -134,18 +146,32 @@ const responsiveProperties = defineProperties({
     pt: ['paddingTop'],
     px: ['paddingLeft', 'paddingRight'],
     py: ['paddingBottom', 'paddingTop'],
-    overflow: ['overflowX', 'overflowY'],
+    size: ['height', 'width'],
   },
 });
 
-export const mapResponsiveValue = createMapValueFn(responsiveProperties);
+const colorProperties = {
+  ...COLOR,
+  ...vars.color,
+};
 
-const colorProperties = defineProperties({
+const statefulProperties = defineProperties({
+  conditions: {
+    default: {},
+    hover: { selector: '&:hover' },
+    active: { selector: '&:active' },
+    focus: { selector: '&:focus' },
+    disabled: { selector: '&:disabled' },
+  },
+  defaultCondition: 'default',
   properties: {
-    borderColor: vars.color,
-    color: vars.color,
-    backgroundColor: vars.color,
+    backgroundColor: colorProperties,
+    borderColor: colorProperties,
     boxShadow: vars.boxShadow,
+    color: colorProperties,
+    cursor: CURSOR,
+    opacity: OPACITY,
+    transition: { ...TRANSITION, ...vars.transition },
   },
   shorthands: {
     bg: ['backgroundColor'],
@@ -158,5 +184,5 @@ export type Atoms = Parameters<typeof atoms>[0];
 export const atoms = createSprinkles(
   baseProperties,
   responsiveProperties,
-  colorProperties,
+  statefulProperties,
 );

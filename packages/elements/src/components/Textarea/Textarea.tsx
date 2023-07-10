@@ -10,11 +10,11 @@ import {
 } from 'react';
 
 import { textboxStyle } from '../../styles';
-import { InputBox } from '../InputGroup';
+import { InputBox, InputBoxSize } from '../InputGroup';
 
 import * as S from './Textarea.css';
 
-export type TextareaSize = 'sm' | 'md' | 'lg';
+export type TextareaSize = InputBoxSize;
 
 export interface TextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {

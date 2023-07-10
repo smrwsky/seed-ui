@@ -24,7 +24,7 @@ describe('Button', () => {
         render(<Button onClick={onClickMock}>Click me</Button>);
         const buttonElement = screen.getByRole('button');
         await userEvent.click(buttonElement);
-        expect(onClickMock).toHaveBeenCalled();
+        expect(onClickMock).toHaveBeenCalledTimes(1);
       });
     });
   });

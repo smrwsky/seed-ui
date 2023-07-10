@@ -31,7 +31,6 @@ export const rootVariant = styleVariants({
 });
 
 export const icon = style({
-  fontSize: '1.5rem',
   marginRight: SPACING[3],
 });
 

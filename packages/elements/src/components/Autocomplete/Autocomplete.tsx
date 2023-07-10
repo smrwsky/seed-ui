@@ -1,5 +1,4 @@
 import { useDebounceCallback } from '@react-hook/debounce';
-import { Icon, IconType } from '@seed-ui/icons';
 import {
   ChangeEvent,
   ComponentType,
@@ -21,10 +20,12 @@ import {
 
 import { mergeRefs } from '../../utils/merge-refs';
 import { slug } from '../../utils/slug';
+import { Icon, IconType } from '../Icon';
 import { IconButton } from '../IconButton';
 import {
   InputAction,
   InputBox,
+  InputBoxSize,
   InputTag,
   InputTags,
   TextBox,
@@ -34,7 +35,7 @@ import { Tag } from '../Tag';
 
 import { Option, OptionProps } from './Option';
 
-export type AutocompleteSize = 'sm' | 'md' | 'lg';
+export type AutocompleteSize = InputBoxSize;
 
 export interface OptionComponentProps<Option> extends OptionProps {
   option: Option;
@@ -637,7 +638,12 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         >
           {icon && (
             <InputAction>
-              <Icon name={icon} size="sm" type={iconType} variant="primary" />
+              <Icon
+                color="primary500"
+                fontSize="lg"
+                name={icon}
+                type={iconType}
+              />
             </InputAction>
           )}
 
@@ -695,7 +701,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                   aria-label={clearLabel}
                   icon="x"
                   rounded
-                  size="xs"
+                  size="sm"
                   tabIndex={-1}
                   variant="tertiary"
                   onMouseDown={handleClearMouseDown}
@@ -710,7 +716,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           placement="bottom-start"
           strategy="absolute"
           style={popoverStyle}
-          trigger="manual"
         >
           <ul id={slug(id, LISTBOX_ID)} ref={listboxRef} role="listbox">
             {optionsState.map((item, idx) => (

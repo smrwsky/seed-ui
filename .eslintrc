@@ -21,9 +21,12 @@
     },
     {
       "files": [
-        "**/*.stories.tsx"
+        "**/*.stories.tsx",
+        "**/*.test.tsx",
+        "test-utils.tsx"
       ],
       "rules": {
+        "@typescript-eslint/ban-ts-comment": "off",
         "react-perf/jsx-no-jsx-as-prop": "off",
         "react-perf/jsx-no-new-array-as-prop": "off",
         "react-perf/jsx-no-new-function-as-prop": "off",

@@ -1,29 +1,39 @@
-import cx from 'classnames';
-import { forwardRef, LiHTMLAttributes, useContext } from 'react';
+import { atoms } from '@seed-ui/styles';
+import cn from 'classnames';
+import { FC, LiHTMLAttributes, useContext } from 'react';
 
-import { MenuContext } from '../context';
-
-import * as S from './MenuListItem.css';
+import { MenuContext } from '../Menu.context';
 
 export type MenuListItemProps = LiHTMLAttributes<HTMLLIElement>;
 
-const MenuListItem = forwardRef<HTMLLIElement, MenuListItemProps>(
-  ({ children, className, role = 'none', ...props }, ref) => {
-    const { collapsed } = useContext(MenuContext);
+const MenuListItem: FC<MenuListItemProps> = ({
+  children,
+  className,
+  role = 'none',
+  ...props
+}) => {
+  const { collapsed } = useContext(MenuContext);
 
-    return (
-      <li
-        className={cx(S.root, collapsed && S.rootCollapsed, className)}
-        ref={ref}
-        role={role}
-        {...props}
-      >
-        {children}
-      </li>
-    );
-  },
-);
+  return (
+    <li
+      className={cn(
+        atoms({
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          m: 0,
+        }),
+        collapsed && atoms({ flex: 1 }),
+        className,
+      )}
+      role={role}
+      {...props}
+    >
+      {children}
+    </li>
+  );
+};
 
 MenuListItem.displayName = 'MenuListItem';
 
-export default MenuListItem;
+export { MenuListItem };

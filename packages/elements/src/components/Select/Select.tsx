@@ -1,4 +1,3 @@
-import { Icon, IconType } from '@seed-ui/icons';
 import cn from 'classnames';
 import {
   ChangeEvent,
@@ -14,11 +13,12 @@ import {
 } from 'react';
 
 import { textboxStyle } from '../../styles';
-import { InputAction, InputBox } from '../InputGroup';
+import { Icon, IconType } from '../Icon';
+import { InputAction, InputBox, InputBoxSize } from '../InputGroup';
 
 import * as S from './Select.css';
 
-export type SelectSize = 'sm' | 'md' | 'lg';
+export type SelectSize = InputBoxSize;
 
 export type SelectValue = string | string[];
 
@@ -123,7 +123,12 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       >
         {icon && (
           <InputAction>
-            <Icon name={icon} size="sm" type={iconType} variant="primary" />
+            <Icon
+              color="primary500"
+              fontSize="lg"
+              name={icon}
+              type={iconType}
+            />
           </InputAction>
         )}
 
@@ -145,7 +150,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
         {!multiple && !disabled && (
           <InputAction className={S.action}>
-            <Icon name="chevron-down" size="sm" />
+            <Icon fontSize="lg" name="chevron-down" />
           </InputAction>
         )}
       </InputBox>

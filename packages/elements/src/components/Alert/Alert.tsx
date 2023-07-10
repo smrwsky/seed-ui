@@ -1,7 +1,7 @@
-import { Icon } from '@seed-ui/icons';
 import cn from 'classnames';
 import { FC, HTMLAttributes, ReactNode } from 'react';
 
+import { Icon } from '../Icon';
 import { Text } from '../Text';
 
 import * as S from './Alert.css';
@@ -16,29 +16,29 @@ const getIconByVariant = (variant: AlertProps['variant']) =>
   (variant === 'warning' && (
     <Icon
       className={cn(S.icon, S.iconVariant[variant])}
+      fontSize="xl"
       name="error"
-      size="md"
     />
   )) ||
   (variant === 'success' && (
     <Icon
       className={cn(S.icon, S.iconVariant[variant])}
+      fontSize="xl"
       name="check-circle"
-      size="md"
     />
   )) ||
   (variant === 'info' && (
     <Icon
       className={cn(S.icon, S.iconVariant[variant])}
+      fontSize="xl"
       name="info-circle"
-      size="md"
     />
   )) ||
   (variant === 'danger' && (
     <Icon
       className={cn(S.icon, S.iconVariant[variant])}
+      fontSize="xl"
       name="error-circle"
-      size="md"
     />
   )) ||
   null;

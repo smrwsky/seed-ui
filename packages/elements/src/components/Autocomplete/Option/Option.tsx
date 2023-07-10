@@ -1,7 +1,7 @@
-import { IconType } from '@seed-ui/icons';
 import cx from 'classnames';
 import { ComponentType, forwardRef, LiHTMLAttributes, memo } from 'react';
 
+import { IconType } from '../../Icon';
 import { OptionAction } from '../OptionAction';
 import { OptionDescription } from '../OptionDescription';
 import { OptionIcon } from '../OptionIcon';

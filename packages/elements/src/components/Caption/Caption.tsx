@@ -1,4 +1,4 @@
-import { textBreakStyle, textTruncateStyle } from '@seed-ui/styles';
+import { textBreak, textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
 import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
@@ -40,8 +40,8 @@ const Caption = forwardRef<HTMLElement, CaptionProps>(
       className={cn(
         S.root,
         S.rootVariant[variant],
-        breakWord && textBreakStyle,
-        truncate && textTruncateStyle,
+        breakWord && textBreak,
+        truncate && textTruncate,
         className,
       )}
       ref={ref}

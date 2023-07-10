@@ -16,55 +16,50 @@ import {
 
 import { mergeRefs } from '../../utils/merge-refs';
 
+import { MenuContext, MenuContextType } from './Menu.context';
+import { MenuSize, MenuType, MenuVariant } from './Menu.types';
 import { MenuList } from './MenuList';
-import {
-  MenuContext,
-  MenuContextType,
-  MenuSize,
-  MenuType,
-  MenuVariant,
-} from './context';
 
 export type MenuAutoFocus = 'on' | 'reversed' | 'off';
 
 export interface MenuProps extends HTMLAttributes<HTMLUListElement> {
-  activeIndex?: number;
+  highlightedIndex?: number;
   anchorElement?: HTMLElement | null;
   autoFocus?: MenuAutoFocus;
   collapsed?: boolean;
-  defaultActiveIndex?: number;
+  defaultHighlightedIndex?: number;
   indent?: number;
   type?: MenuType;
   size?: MenuSize;
   variant?: MenuVariant;
-  onActiveIndexChange?: (index: number) => void;
+  onHighlightedIndexChange?: (index: number) => void;
   onAutoFocusChange?: (autoFocus: MenuAutoFocus) => void;
 }
 
 const Menu = forwardRef<HTMLUListElement, MenuProps>(
   (
     {
-      activeIndex,
+      highlightedIndex,
       anchorElement,
       autoFocus,
       collapsed = false,
-      defaultActiveIndex = -1,
+      defaultHighlightedIndex = -1,
       indent = 0,
       type = 'vertical',
       size = 'md',
       variant = 'primary',
-      onActiveIndexChange,
+      onHighlightedIndexChange,
       onAutoFocusChange,
       children,
       ...props
     },
     ref,
   ) => {
-    const [activeIndexState, setActiveIndexState] =
-      useState(defaultActiveIndex);
+    const [highlightedIndexState, setHighlightedIndexState] = useState(
+      defaultHighlightedIndex,
+    );
 
     const [autoFocusState, setAutoFocusState] = useState<MenuAutoFocus>('off');
-    const [focused, setFocused] = useState(false);
     const [numberOfItems] = useState(() => Children.count(children));
 
     const context: MenuContextType = useMemo(
@@ -75,21 +70,21 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
     const menuListRef = useRef<HTMLUListElement>(null);
     const mergedRef = mergeRefs(menuListRef, ref);
 
-    const isActiveIndexUncontrolled =
-      typeof activeIndex === 'undefined' && !onActiveIndexChange;
+    const isHighlightedIndexUncontrolled =
+      typeof highlightedIndex === 'undefined' && !onHighlightedIndexChange;
 
     const isAutoFocusUncontrolled =
       typeof autoFocus === 'undefined' && !onAutoFocusChange;
 
-    const changeActiveIndex = useCallback(
+    const changeHighlightedIndex = useCallback(
       (nextVal: number) => {
-        if (isActiveIndexUncontrolled) {
-          setActiveIndexState(nextVal);
+        if (isHighlightedIndexUncontrolled) {
+          setHighlightedIndexState(nextVal);
         } else {
-          onActiveIndexChange?.(nextVal);
+          onHighlightedIndexChange?.(nextVal);
         }
       },
-      [isActiveIndexUncontrolled, onActiveIndexChange],
+      [isHighlightedIndexUncontrolled, onHighlightedIndexChange],
     );
 
     const changeAutoFocus = useCallback(
@@ -104,41 +99,38 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
     );
 
     const handleMenuItemBlur = useCallback(() => {
-      setFocused(false);
-      changeActiveIndex(-1);
-    }, [changeActiveIndex]);
+      changeHighlightedIndex(-1);
+    }, [changeHighlightedIndex]);
 
     const handleMenuItemFocus = useCallback(
       (e: FocusEvent<HTMLUListElement>) => {
         const idx = Number(e.currentTarget.dataset.index);
-        if (!Number.isNaN(idx)) {
-          changeActiveIndex(idx);
-        }
 
-        setFocused(true);
+        if (!Number.isNaN(idx)) {
+          changeHighlightedIndex(idx);
+        }
       },
-      [changeActiveIndex],
+      [changeHighlightedIndex],
     );
 
     const moveToItem = useCallback(
-      (index: number, scrollIntoView = true) => {
+      (index: number, focus = true) => {
         const menuItem = menuListRef.current?.querySelector<HTMLElement>(
           `[data-index="${index}"]`,
         );
 
-        if (scrollIntoView) {
+        if (focus) {
           menuItem?.scrollIntoView({ block: 'nearest' });
+          menuItem?.focus();
         }
 
         if (
-          type === 'horizontal' &&
+          type !== 'inline' &&
           menuItem?.getAttribute('aria-haspopup') === 'true' &&
           menuItem?.getAttribute('aria-expanded') !== 'true'
         ) {
           menuItem?.click();
         }
-
-        menuItem?.focus();
       },
       [type],
     );
@@ -160,36 +152,41 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
       const parentEl = anchorElement?.parentElement?.parentElement;
 
       if (
-        !Number.isNaN(index) &&
-        parentEl?.getAttribute('role') === 'menubar'
+        !(!Number.isNaN(index) && parentEl?.getAttribute('role') === 'menubar')
       ) {
-        const numOfChildren = parentEl?.children.length ?? 0;
-        const nextIdx = index >= numOfChildren - 1 ? 0 : index + 1;
+        return;
+      }
 
-        const nextEl = parentEl?.querySelector<HTMLElement>(
-          `[role="menuitem"][data-index="${nextIdx}"]`,
+      const numOfChildren = parentEl?.children.length ?? 0;
+      const nextIdx = index >= numOfChildren - 1 ? 0 : index + 1;
+
+      const nextEl =
+        parentEl.children[nextIdx].querySelector<HTMLElement>(
+          `[role="menuitem"]`,
         );
 
-        changeActiveIndex(-1);
+      changeHighlightedIndex(-1);
+      anchorElement?.click();
 
-        if (type !== 'inline') {
-          anchorElement?.click();
-          nextEl?.click();
-        }
-
+      if (nextEl?.getAttribute('aria-haspopup') === 'true') {
+        nextEl.setAttribute('data-autofocus', 'true');
+        nextEl?.click();
+      } else {
         nextEl?.focus();
       }
-    }, [anchorElement, changeActiveIndex, type]);
+    }, [anchorElement, changeHighlightedIndex]);
 
     const moveToNextItem = useCallback(
       (e: KeyboardEvent<HTMLAnchorElement>) => {
         const nextIdx =
-          activeIndexState >= numberOfItems - 1 ? 0 : activeIndexState + 1;
+          highlightedIndexState >= numberOfItems - 1
+            ? 0
+            : highlightedIndexState + 1;
 
         closePopup(e);
         moveToItem(nextIdx);
       },
-      [activeIndexState, closePopup, moveToItem, numberOfItems],
+      [highlightedIndexState, closePopup, moveToItem, numberOfItems],
     );
 
     const moveToPreviousParentItem = useCallback(() => {
@@ -204,20 +201,26 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
         const numOfChildren = parentEl.children.length;
         const nextIdx = index <= 0 ? numOfChildren - 1 : index - 1;
 
-        const nextEl = parentEl.querySelector<HTMLElement>(
-          `[data-index="${nextIdx}"]`,
-        );
+        const nextEl =
+          parentEl.children[nextIdx].querySelector<HTMLElement>(
+            `[role="menuitem"]`,
+          );
 
         anchorElement?.click();
-        nextEl?.click();
-        nextEl?.focus();
+
+        if (nextEl?.getAttribute('aria-haspopup') === 'true') {
+          nextEl.setAttribute('data-autofocus', 'true');
+          nextEl?.click();
+        } else {
+          nextEl?.focus();
+        }
       } else {
         anchorElement?.click();
         anchorElement?.focus();
       }
 
-      changeActiveIndex(-1);
-    }, [anchorElement, changeActiveIndex]);
+      changeHighlightedIndex(-1);
+    }, [anchorElement, changeHighlightedIndex]);
 
     const moveToFirstItem = useCallback(
       (e: KeyboardEvent<HTMLAnchorElement>) => {
@@ -240,17 +243,10 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
     const moveToParentItem = useCallback(
       (e: KeyboardEvent<HTMLAnchorElement>) => {
         closePopup(e);
-
-        if (
-          anchorElement?.getAttribute('aria-expanded') === 'true' &&
-          type !== 'inline'
-        ) {
-          anchorElement.click();
-        }
-
+        anchorElement?.click();
         anchorElement?.focus();
       },
-      [anchorElement, closePopup, type],
+      [anchorElement, closePopup],
     );
 
     const moveToNextInlineItem = useCallback(
@@ -295,9 +291,10 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
 
           const nextIdx = currIdx >= numOfItems - 1 ? 0 : currIdx + 1;
 
-          nextItem = menuEl?.querySelector<HTMLAnchorElement>(
-            `[data-index="${nextIdx}"]`,
-          );
+          nextItem =
+            menuEl?.children[nextIdx]?.querySelector<HTMLAnchorElement>(
+              `[role="menuitem"]`,
+            );
         } else {
           nextItem = menuListRef.current?.querySelector<HTMLAnchorElement>(
             `[data-index="${index + 1}"]`,
@@ -322,9 +319,10 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
         } else {
           const nextIdx = index <= 0 ? numberOfItems - 1 : index - 1;
 
-          let nextItem = menuListRef.current?.querySelector<HTMLAnchorElement>(
-            `[data-index="${nextIdx}"]`,
-          );
+          let nextItem =
+            menuListRef.current?.children[
+              nextIdx
+            ].querySelector<HTMLAnchorElement>(`[role="menuitem"]`);
 
           while (nextItem?.getAttribute('aria-expanded') === 'true') {
             const menuEl =
@@ -332,9 +330,10 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
 
             const numOfItems = menuEl?.children.length ?? 0;
 
-            nextItem = menuEl?.querySelector(
-              `[data-index="${numOfItems - 1}"]`,
-            );
+            nextItem =
+              menuEl?.children[numOfItems - 1].querySelector(
+                `[role="menuitem"]`,
+              );
           }
 
           nextItem?.focus();
@@ -346,12 +345,14 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
     const moveToPreviousItem = useCallback(
       (e: KeyboardEvent<HTMLAnchorElement>) => {
         const nextIdx =
-          activeIndexState <= 0 ? numberOfItems - 1 : activeIndexState - 1;
+          highlightedIndexState <= 0
+            ? numberOfItems - 1
+            : highlightedIndexState - 1;
 
         closePopup(e);
         moveToItem(nextIdx);
       },
-      [activeIndexState, closePopup, moveToItem, numberOfItems],
+      [highlightedIndexState, closePopup, moveToItem, numberOfItems],
     );
 
     const handleMenuItemKeyDown = useCallback(
@@ -439,8 +440,11 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
           }
 
           case 'Escape': {
-            e.preventDefault();
-            moveToParentItem(e);
+            if (type !== 'inline') {
+              e.preventDefault();
+              moveToParentItem(e);
+            }
+
             break;
           }
 
@@ -470,24 +474,21 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
           return;
         }
 
-        changeActiveIndex(idx);
-
-        if (focused) {
-          moveToItem(idx, false);
-        }
+        changeHighlightedIndex(idx);
+        moveToItem(idx, false);
       },
-      [changeActiveIndex, focused, moveToItem],
+      [changeHighlightedIndex, moveToItem],
     );
 
     const handleMenuItemMouseLeave = useCallback(() => {
-      changeActiveIndex(-1);
-    }, [changeActiveIndex]);
+      changeHighlightedIndex(-1);
+    }, [changeHighlightedIndex]);
 
     useEffect(() => {
-      if (typeof activeIndex !== 'undefined') {
-        setActiveIndexState(activeIndex);
+      if (typeof highlightedIndex !== 'undefined') {
+        setHighlightedIndexState(highlightedIndex);
       }
-    }, [activeIndex]);
+    }, [highlightedIndex]);
 
     useEffect(() => {
       if (typeof autoFocus !== 'undefined') {
@@ -498,40 +499,20 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
     useEffect(() => {
       if (autoFocusState !== 'off') {
         const index = autoFocusState === 'reversed' ? numberOfItems - 1 : 0;
-
-        moveToItem(index, false);
+        moveToItem(index);
         changeAutoFocus('off');
       }
     }, [autoFocusState, changeAutoFocus, moveToItem, numberOfItems]);
 
-    useEffect(() => {
-      function handler(e: MouseEvent) {
-        if (
-          menuListRef.current &&
-          !menuListRef.current?.contains(e.target as Node)
-        ) {
-          changeActiveIndex(-1);
-        }
-      }
-
-      if (!focused) {
-        document.addEventListener('mousemove', handler);
-      }
-
-      return () => {
-        document.removeEventListener('mousemove', handler);
-      };
-    }, [changeActiveIndex, focused]);
-
     return (
       <MenuContext.Provider value={context}>
-        <MenuList ref={mergedRef} {...props}>
+        <MenuList isSubmenu={indent > 0} ref={mergedRef} {...props}>
           {Children.map(
             children,
             (node, idx) =>
               isValidElement(node) &&
               cloneElement(node, {
-                'active': idx === activeIndexState,
+                'highlighted': idx === highlightedIndexState,
                 'data-index': idx,
                 'indent': indent,
                 'tabIndex': idx && -1,
@@ -550,4 +531,4 @@ const Menu = forwardRef<HTMLUListElement, MenuProps>(
 
 Menu.displayName = 'Menu';
 
-export default Menu;
+export { Menu };

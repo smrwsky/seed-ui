@@ -32,7 +32,7 @@ const variants: ButtonVariant[] = [
   'overlay-dark',
 ];
 
-const sizes: ButtonSize[] = ['xs', 'sm', 'md', 'lg'];
+const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Inputs/Button',

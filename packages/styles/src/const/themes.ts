@@ -5,14 +5,6 @@ import { Theme } from '../types';
 import { colors } from './colors';
 
 export const DEFAULT_THEME: Theme = {
-  width: {
-    containerMobile: '540px',
-    containerMobileLg: '720px',
-    containerTablet: '960px',
-    containerDesktop: '1140px',
-    containerDesktopLg: '1320px',
-  },
-
   border: {
     thin: '1px solid',
     medium: '2px solid',
@@ -182,9 +174,39 @@ export const DEFAULT_THEME: Theme = {
     secondary: 'Vollkorn,Georgia,Cambria,"Times New Roman",Times,serif',
   },
 
+  fontSize: {
+    'xs': '0.75rem', // 12px
+    'sm': '0.875rem', // 14px
+    'md': '1rem', // 16px
+    'lg': '1.125rem', // 18px
+    'xl': '1.25rem', // 20px
+    '2xl': '1.5rem', // 24px
+    '3xl': '1.75rem', // 28px
+    '4xl': '2rem', // 32px
+    '5xl': '2.5rem', // 40px
+    '6xl': '3rem', // 48px
+  },
+
+  letterSpacing: {
+    tighter: '-0.05em',
+    tight: '-0.025em',
+    normal: '0em',
+    wide: '0.025em',
+    wider: '0.05em',
+    widest: '0.1em',
+  },
+
+  lineHeight: {
+    tight: '1.112',
+    snug: '1.2',
+    normal: '1.5',
+    relaxed: '1.625',
+    loose: '2',
+  },
+
   /**
-   * Font ratio: 1.2 (5:6 - Minor Third)
-   * @See: https://www.modularscale.com/?16&px&1.2
+   * @deprecated
+   * use fontSize, fontWeight, letterSpacing, lineHeight separately
    */
 
   typography: {
@@ -324,6 +346,13 @@ export const DEFAULT_THEME: Theme = {
       },
     },
 
+    textButton: {
+      fontSize: '0.833rem', // 13.333px
+      fontWeight: '400',
+      letterSpacing: '0.75px',
+      lineHeight: '1.2',
+    },
+
     labelMd: {
       fontSize: '1rem', // 16px
       fontWeight: '600',
@@ -355,19 +384,12 @@ export const DEFAULT_THEME: Theme = {
     bold: {
       fontWeight: '600',
     },
-
-    button: {
-      fontSize: '0.833rem', // 13.333px
-      fontWeight: '400',
-      letterSpacing: '0.75px',
-      lineHeight: '1.2',
-    },
   },
 
   transition: {
     base: 'all 0.15s ease-in-out',
     fade: 'opacity 0.15s linear',
-    collapse: 'height 0.3s ease',
+    collapse: 'max-height 0.3s ease',
   },
 
   zIndex: {

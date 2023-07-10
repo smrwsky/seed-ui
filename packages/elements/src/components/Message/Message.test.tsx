@@ -35,9 +35,9 @@ describe('Message', () => {
           <Message autoCloseTimeout={autoCloseTimeout} onHide={onHideMock} />,
         );
 
-        expect(onHideMock).not.toHaveBeenCalled();
+        expect(onHideMock).toHaveBeenCalledTimes(0);
         jest.advanceTimersByTime(autoCloseTimeout);
-        expect(onHideMock).toHaveBeenCalled();
+        expect(onHideMock).toHaveBeenCalledTimes(1);
       });
     });
   });
@@ -50,7 +50,7 @@ describe('Message', () => {
         jest.useFakeTimers();
         render(<Message visible={false} onAfterHide={onAfterHideMock} />);
         jest.advanceTimersByTime(200);
-        expect(onAfterHideMock).toHaveBeenCalled();
+        expect(onAfterHideMock).toHaveBeenCalledTimes(1);
       });
     });
   });

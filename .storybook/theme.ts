@@ -1,4 +1,4 @@
-import { colors } from '@seed-ui/elements';
+import { colors } from '@seed-ui/styles';
 import { create } from '@storybook/theming';
 
 export const theme = create({
