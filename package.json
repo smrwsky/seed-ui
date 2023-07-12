@@ -7,9 +7,9 @@
   "workspaces": ["packages/*"],
   "scripts": {
     "docs": "storybook dev -p 6006",
-    "build": "yarn build:styles && yarn build:elements",
+    "build": "yarn build:styles && yarn build:react",
     "build:styles": "lerna run --scope @seed-ui/styles --stream build",
-    "build:elements": "lerna run --scope @seed-ui/elements --stream build",
+    "build:react": "lerna run --scope @seed-ui/react --stream build",
     "check:licenses": "license-checker --production --summary --failOn=GPLv3",
     "format": "yarn format:ts && yarn format:js && yarn format:json && yarn format:yaml",
     "format:ts": "prettier --parser typescript --write \"**/*.{ts,tsx}\" --loglevel error",

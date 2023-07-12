@@ -1,10 +1,10 @@
-import { Link, ThemeProvider } from '@seed-ui/elements';
+import { Link, ThemeProvider } from '@seed-ui/react';
 import { colors, defaultTheme } from '@seed-ui/styles';
 import { theme } from './theme';
 import { FC } from 'react';
 
 import '@seed-ui/styles/css/styles.min.css';
-import '@seed-ui/elements/css/elements.min.css';
+import '@seed-ui/react/css/elements.min.css';
 
 const components = {
   a: Link,

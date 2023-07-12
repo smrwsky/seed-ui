@@ -25,7 +25,7 @@
   },
   "scripts": {
     "build": "yarn clean && rollup -c rollup.config.mjs",
-    "clean": "rimraf dist css",
+    "clean": "rimraf css dist fonts",
     "test": "jest --config jest.config.js --passWithNoTests",
     "test:watch": "yarn test --watch",
     "typecheck": "tsc -p tsconfig.json --noEmit"
