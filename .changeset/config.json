@@ -2,9 +2,8 @@
   "$schema": "https://unpkg.com/@changesets/config@1.6.0/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "linked": [],
+  "linked": [["@seed-ui/react", "@seed-ui/styles"]],
   "access": "public",
   "baseBranch": "main",
-  "updateInternalDependencies": "minor",
-  "ignore": []
+  "updateInternalDependencies": "patch"
 }
