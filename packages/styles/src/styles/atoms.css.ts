@@ -32,6 +32,7 @@ import {
   POSITION,
   SPACING,
   TEXT_ALIGN,
+  TEXT_DECORATION,
   TEXT_OVERFLOW,
   TRANSITION,
   VERTICAL_ALIGN,
@@ -171,6 +172,7 @@ const statefulProperties = defineProperties({
     color: colorProperties,
     cursor: CURSOR,
     opacity: OPACITY,
+    textDecoration: TEXT_DECORATION,
     transition: { ...TRANSITION, ...vars.transition },
   },
   shorthands: {
