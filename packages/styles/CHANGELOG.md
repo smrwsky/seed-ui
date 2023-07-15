@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 0.12.1
+
+### Patch Changes
+
+- 0352a82: Added text-decoration styles
+
 ## 0.11.0
 
 ### Minor Changes
