@@ -49,23 +49,27 @@ export function Base(args: MenuProps): JSX.Element {
               : { mobile: 'full', mobileLg: '1/2', desktop: '1/3' },
         })}
       >
-        <MenuItem ActionComponent={renderAction} icon="home" selected>
+        <MenuItem
+          ActionComponent={renderAction}
+          icon={<Icon name="home" />}
+          selected
+        >
           Option 1
         </MenuItem>
 
-        <MenuItem icon="envelope">Option 2</MenuItem>
+        <MenuItem icon={<Icon name="envelope" />}>Option 2</MenuItem>
 
-        <MenuItem description="Description" icon="grid-alt">
+        <MenuItem description="Description" icon={<Icon name="grid-alt" />}>
           Option 3
         </MenuItem>
 
-        <Submenu icon="stats" label="Option 4">
+        <Submenu icon={<Icon name="stats" />} label="Option 4">
           <MenuItem>Option 4-1</MenuItem>
           <MenuItem>Option 4-2</MenuItem>
           <MenuItem>Option 4-3</MenuItem>
         </Submenu>
 
-        <Submenu icon="cog" label="Option 5">
+        <Submenu icon={<Icon name="cog" />} label="Option 5">
           <MenuItem>Option 5-1</MenuItem>
           <MenuItem>Option 5-2</MenuItem>
 
@@ -76,7 +80,7 @@ export function Base(args: MenuProps): JSX.Element {
           </Submenu>
         </Submenu>
 
-        <MenuItem icon="support">Option 6</MenuItem>
+        <MenuItem icon={<Icon name="support" />}>Option 6</MenuItem>
       </Menu>
     </div>
   );
@@ -146,31 +150,32 @@ export function StandalonePopupMenu(): JSX.Element {
       }}
     >
       <IconButton
-        icon="dots-vertical-rounded"
         ref={setButtonElement}
         size="sm"
         title="Show menu"
         variant="dark"
-      />
+      >
+        <Icon name="dots-vertical-rounded" />
+      </IconButton>
 
       <PopupMenu anchorElement={buttonElement}>
-        <MenuItem ActionComponent={renderAction} icon="home">
+        <MenuItem ActionComponent={renderAction} icon={<Icon name="home" />}>
           Option 1
         </MenuItem>
 
-        <MenuItem icon="envelope">Option 2</MenuItem>
+        <MenuItem icon={<Icon name="envelope" />}>Option 2</MenuItem>
 
-        <MenuItem description="Description" icon="grid-alt">
+        <MenuItem description="Description" icon={<Icon name="grid-alt" />}>
           Option 3
         </MenuItem>
 
-        <Submenu icon="stats" label="Option 4">
+        <Submenu icon={<Icon name="stats" />} label="Option 4">
           <MenuItem>Option 4-1</MenuItem>
           <MenuItem>Option 4-2</MenuItem>
           <MenuItem>Option 4-3</MenuItem>
         </Submenu>
 
-        <Submenu icon="cog" label="Option 5">
+        <Submenu icon={<Icon name="cog" />} label="Option 5">
           <MenuItem>Option 5-1</MenuItem>
           <MenuItem>Option 5-2</MenuItem>
 

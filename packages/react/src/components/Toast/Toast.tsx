@@ -1,25 +1,30 @@
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import React, {
+import {
   forwardRef,
   HTMLAttributes,
-  KeyboardEventHandler,
-  useCallback,
+  ReactElement,
+  ReactNode,
   useEffect,
 } from 'react';
 
 import { useTimeout } from '../../utils/use-timeout';
+import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
 import { Text } from '../Text';
 
-import * as S from './Toast.css';
-import { ToastIcon } from './ToastIcon';
+export type ToastVariant = 'primary' | 'danger' | 'warning' | 'success';
 
 export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Specifies the duration (in milliseconds) after which the toast automatically closes if set.
    */
-  autoCloseTimeout?: number;
+  autoHideDuration?: number;
+
+  /**
+   * Represents the title or main content of the toast component.
+   */
+  children?: ReactNode;
 
   /**
    * Aria label for close button.
@@ -27,14 +32,19 @@ export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   closeLabel?: string;
 
   /**
-   * Represents the title or main content of the toast component.
+   * Specifies whether the toast should be closed when the escape key is pressed.
    */
-  title?: string;
+  closeOnEscKey?: boolean;
+
+  /**
+   * Represents the icon of the toast component.
+   */
+  icon?: ReactElement;
 
   /**
    * Determines the visual style or variant of the toast component.
    */
-  variant?: 'danger' | 'warning' | 'info' | 'success' | 'light';
+  variant?: ToastVariant;
 
   /**
    * Indicates whether the toast component is currently visible or not.
@@ -42,55 +52,56 @@ export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   visible?: boolean;
 
   /**
-   * A callback function triggered when the toast is hidden or dismissed.
+   * A callback function triggered when the toast is closed manually.
+   */
+  onClose?: () => void;
+
+  /**
+   * A callback function triggered when the toast is closed automatically after timeout.
    */
   onHide?: () => void;
 
   /**
-   * A callback function triggered after the toast has been hidden or dismissed.
+   * A callback function triggered after the hide animation has finished.
    */
   onAfterHide?: () => void;
 }
 
+const iconByVariant: Record<ToastVariant, ReactNode> = {
+  primary: <Icon color="primary400" fontSize="3xl" name="info-circle" />,
+  danger: <Icon color="danger400" fontSize="3xl" name="error-circle" />,
+  warning: <Icon color="warning400" fontSize="3xl" name="error" />,
+  success: <Icon color="success400" fontSize="3xl" name="check-circle" />,
+};
+
 const Toast = forwardRef<HTMLDivElement, ToastProps>(
   (
     {
-      autoCloseTimeout,
+      autoHideDuration,
+      children,
       className,
       closeLabel = 'Close',
-      children,
+      closeOnEscKey = true,
+      icon,
       role = 'alert',
-      title,
       visible = true,
-      variant = 'light',
-      tabIndex = 0,
+      variant = 'primary',
+      onClose,
       onHide,
       onAfterHide,
-      onKeyDown,
       ...props
     },
     ref,
   ) => {
     const { setTimeout } = useTimeout();
 
-    const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
-      (e) => {
-        if (e.key === 'Esc') {
-          onHide?.();
-        }
-
-        onKeyDown?.(e);
-      },
-      [onHide, onKeyDown],
-    );
-
     useEffect(() => {
-      if (autoCloseTimeout && onHide) {
+      if (autoHideDuration != null) {
         setTimeout(() => {
-          onHide();
-        }, autoCloseTimeout);
+          onHide?.();
+        }, autoHideDuration);
       }
-    }, [autoCloseTimeout, onHide, setTimeout]);
+    }, [autoHideDuration, onHide, setTimeout]);
 
     useEffect(() => {
       if (!visible && onAfterHide) {
@@ -100,14 +111,32 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
       }
     }, [onAfterHide, setTimeout, visible]);
 
+    useEffect(() => {
+      if (!closeOnEscKey || !onHide) {
+        return;
+      }
+
+      function handler(e: KeyboardEvent) {
+        if (e.key === 'Escape') {
+          e.stopPropagation();
+          onHide?.();
+        }
+      }
+
+      document.addEventListener('keydown', handler, true);
+
+      return () => {
+        document.removeEventListener('keydown', handler, true);
+      };
+    }, [closeOnEscKey, onHide]);
+
     return (
       <div
         className={cn(
-          S.root,
-          visible && S.rootVisible,
           atoms({
             position: 'relative',
             display: 'flex',
+            alignItems: 'center',
             width: 'full',
             maxWidth: 'sm',
             borderRadius: 'lg',
@@ -115,56 +144,51 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
             borderColor: 'neutral100',
             backgroundColor: 'white',
             boxShadow: 'md',
-            py: 2,
-            pr: 11,
-            pl: 3,
+            transition: 'fade',
+            opacity: visible ? 1 : 0,
+            overflow: 'hidden',
+            pointerEvents: 'auto',
+            py: 3,
+            pr: 12,
+            pl: 4,
           }),
           className,
         )}
         ref={ref}
         role={role}
-        tabIndex={tabIndex}
-        onKeyDown={handleKeyDown}
         {...props}
       >
-        <ToastIcon className={atoms({ mr: 2 })} variant={variant} />
+        {icon ?? iconByVariant[variant]}
 
         <Text
           as="div"
           className={atoms({
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            mt: 0.5,
+            ml: 3,
           })}
           size="sm"
         >
-          {title && (
-            <Text as="div" bold className={atoms({ mt: '-0.5', mb: 1 })}>
-              {title}
-            </Text>
-          )}
-
           {children}
         </Text>
 
-        <IconButton
-          aria-label={closeLabel}
-          className={cn(
-            S.close,
-            atoms({
-              top: 1,
-              right: 1,
-            }),
-          )}
-          icon="x"
-          rounded
-          size="sm"
-          tabIndex={0}
-          title=""
-          variant="tertiary"
-          onClick={onHide}
-        />
+        <div
+          className={atoms({
+            position: 'absolute',
+            top: 1,
+            right: 1,
+          })}
+        >
+          <IconButton
+            aria-label={closeLabel}
+            rounded
+            size="sm"
+            tabIndex={0}
+            title=""
+            variant="tertiary"
+            onClick={onClose}
+          >
+            <Icon name="x" />
+          </IconButton>
+        </div>
       </div>
     );
   },
@@ -172,4 +196,4 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
 
 Toast.displayName = 'Toast';
 
-export default Toast;
+export { Toast };

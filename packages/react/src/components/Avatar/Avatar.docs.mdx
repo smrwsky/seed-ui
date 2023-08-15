@@ -1,0 +1,89 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+import Avatar, { Basic, Sizes } from './Avatar.stories';
+
+<Meta of={Avatar} />
+
+# Avatar
+
+A small image or icon, used to symbolize users or entities in user interfaces.
+
+## When to use
+
+- User Profiles: Displaying a user's profile picture or initials alongside their name in a profile section.
+
+- Comment Sections: Showing the profile pictures or avatars of users who have commented on a post or article.
+
+- Messaging Apps: Representing individuals or groups with avatars in messaging interfaces to quickly identify
+conversation participants.
+
+- User Lists: Displaying avatars in lists of users, such as followers, friends, or contacts.
+
+- Team Collaboration: Identifying team members in collaborative tools, project management apps, or within a company
+directory.
+
+- Social Media Feeds: Showing the avatars of users who have posted content in social media feeds.
+
+- Online Communities: Displaying avatars for members of online forums, discussion boards, or community platforms.
+
+- Email Clients: Representing contacts in the sender or recipient fields of emails.
+
+- E-commerce: Showing avatars of sellers or customers in product reviews and ratings.
+
+- Notifications: Using avatars to associate profile images with notifications, alerts, or activity updates.
+
+- Chatbots: Using avatars to visually represent chatbot interfaces, making them appear more personable.
+
+- User Authentication: Displaying avatars on login screens or user account pages.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### Sizes
+
+Use the `size` prop to change the size of the avatar. Available sizes are `xs`, `sm`, `md`, `lg`, and `xl`.
+
+<Canvas of={Sizes} />
+
+## Guidelines
+
+- Consistency: Maintain a consistent style for avatars throughout your application to establish a cohesive visual
+identity.
+
+- Size Variants: Provide different size variants of avatars for various screen layouts and devices to ensure they
+remain visually appealing.
+
+- Performance: Optimize image files to reduce loading times, especially for larger avatars, and consider lazy loading
+techniques for avatars that appear below the fold.
+
+- Fallbacks: Have a fallback plan in case the avatar image fails to load, showing initials, icons, or a default image.
+
+- Initials: When using initials as avatars, ensure they are generated consistently based on user names and use
+contrasting colors for better readability.
+
+- Retina Displays: Provide higher resolution avatar images for retina displays to maintain image quality.
+
+- Performance Testing: Test avatars on various devices and connection speeds to ensure they load quickly and don't
+impact overall performance.
+
+- Mobile Considerations: Ensure avatars are appropriately sized and spaced for mobile interfaces to prevent
+overcrowding.
+
+- Localization: If your application supports multiple languages, make sure avatars adapt to different character sets
+and text directions.
+
+- API Integration: If avatars are fetched from external sources, handle errors and loading states gracefully to prevent
+broken UI elements.
+
+## Accessibility
+
+Provide a descriptive `alt` attribute for avatar images to ensure they are accessible to screen readers and other
+assistive technologies.
+
+## API
+
+<ArgTypes />
+
+

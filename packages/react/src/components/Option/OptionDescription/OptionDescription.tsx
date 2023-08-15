@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { forwardRef, HTMLAttributes, memo } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './OptionDescription.css';
 
@@ -15,4 +15,4 @@ const OptionDescription = forwardRef<HTMLSpanElement, OptionDescriptionProps>(
 
 OptionDescription.displayName = 'OptionDescription';
 
-export default memo(OptionDescription);
+export { OptionDescription };

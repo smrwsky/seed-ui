@@ -1,7 +1,7 @@
 import { Box, Flex } from '@seed-ui/react';
 import { StoryFn } from '@storybook/react';
 
-import Autocomplete, { AutocompleteSize } from './Autocomplete';
+import { Autocomplete, AutocompleteSize } from './Autocomplete';
 
 const SIZE_OPTIONS: AutocompleteSize[] = ['sm', 'md', 'lg'];
 

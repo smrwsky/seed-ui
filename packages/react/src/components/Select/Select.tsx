@@ -1,9 +1,11 @@
 import cn from 'classnames';
 import {
   ChangeEvent,
+  cloneElement,
   FocusEvent,
   FocusEventHandler,
   forwardRef,
+  isValidElement,
   memo,
   ReactElement,
   ReactNode,
@@ -13,7 +15,7 @@ import {
 } from 'react';
 
 import { textboxStyle } from '../../styles';
-import { Icon, IconType } from '../Icon';
+import { Icon, IconProps } from '../Icon';
 import { InputAction, InputBox, InputBoxSize } from '../InputGroup';
 
 import * as S from './Select.css';
@@ -26,8 +28,7 @@ export interface SelectProps<TValue extends SelectValue = SelectValue> {
   autoFocus?: boolean;
   defaultValue?: TValue;
   disabled?: boolean;
-  icon?: string;
-  iconType?: IconType;
+  icon?: ReactElement;
   id?: string;
   invalid?: boolean;
   maxRows?: number;
@@ -54,7 +55,6 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       defaultValue,
       disabled,
       icon,
-      iconType,
       invalid,
       maxRows,
       multiple,
@@ -121,15 +121,8 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         rounded={rounded}
         size={size}
       >
-        {icon && (
-          <InputAction>
-            <Icon
-              color="primary500"
-              fontSize="lg"
-              name={icon}
-              type={iconType}
-            />
-          </InputAction>
+        {isValidElement<IconProps>(icon) && (
+          <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
         )}
 
         <select

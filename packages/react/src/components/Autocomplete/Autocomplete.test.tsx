@@ -7,7 +7,7 @@ import {
   waitFor,
 } from '../../utils/test-utils';
 
-import Autocomplete from './Autocomplete';
+import { Autocomplete } from './Autocomplete';
 
 describe('Autocomplete', () => {
   describe('Given an Autocomplete with a set of options', () => {

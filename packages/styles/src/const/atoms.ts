@@ -85,6 +85,8 @@ export const LINE_HEIGHT = {
 
 export const OPACITY = [0, 1] as const;
 
+export const OBJECT_FIT = ['contain', 'cover'] as const;
+
 export const ORDER = {
   0: 0,
   1: 1,

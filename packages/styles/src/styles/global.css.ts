@@ -33,6 +33,13 @@ globalStyle('body', {
   backgroundColor: vars.color.white,
 });
 
+globalStyle('img', {
+  fontFamily: vars.fontFamily.primary,
+  fontSize: 'xs',
+  letterSpacing: 'wide',
+  lineHeight: 'snug',
+});
+
 globalStyle('ul', {
   listStyle: 'none',
 });

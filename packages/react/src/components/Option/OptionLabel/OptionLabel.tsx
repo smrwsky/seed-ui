@@ -1,6 +1,6 @@
 import { textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
-import { forwardRef, HTMLAttributes, memo } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 
 import * as S from './OptionLabel.css';
 
@@ -16,4 +16,4 @@ const OptionLabel = forwardRef<HTMLSpanElement, OptionLabelProps>(
 
 OptionLabel.displayName = 'OptionLabel';
 
-export default memo(OptionLabel);
+export { OptionLabel };
