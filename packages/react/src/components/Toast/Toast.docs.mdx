@@ -1,6 +1,6 @@
 import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
 
-import Toast, { Basic, Title, Variants } from './Toast.stories';
+import Toast, { Basic, Variants, WithAvatar, WithIcon } from './Toast.stories';
 
 <Meta of={Toast} />
 
@@ -36,17 +36,23 @@ Here are some examples of situations where a toast component with a close button
 
 <Canvas of={Basic} />
 
-### With Title
-
-Set `title` to represent the title or main content of the toast component.
-
-<Canvas of={Title} />
-
 ### Variants
 
 Possible values: 'danger', 'warning', 'info', 'success', 'light'.
 
 <Canvas of={Variants} />
+
+### With Icon
+
+Set `icon` to represent the icon of the toast component.
+
+<Canvas of={WithIcon} />
+
+### With Avatar
+
+`icon` can also be used to represent an avatar image.
+
+<Canvas of={WithAvatar} />
 
 ## Guidelines
 
