@@ -1,0 +1,121 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+import Badge, { BackgroundColor, OverflowCount, ZeroCount, Position, Offset, CustomContent } from './Badge.stories';
+import { Basic, Dot } from './Badge.stories';
+
+<Meta of={Badge} />
+
+# Badge
+
+Badges are used to display counts, labels, or statuses for items in a user interface. They are often used to indicate.
+
+## When to use
+
+- Notification Counts: Displaying the count of unread notifications or alerts. For example, indicating the number of new
+messages or pending tasks.
+
+- Unread Items: Marking unread items, such as unread emails, messages, or news articles.
+
+- Status Indicators: Using a colored dot to indicate the status of an item, user, or process. For instance,
+online/offline status of users.
+
+- Badges on Icons: Overlaying badges on icons to show additional information. Common in navigation menus or product
+icons.
+
+- Cart Items: Indicating the number of items in a shopping cart. Useful for e-commerce websites.
+
+- Activity Counts: Displaying the number of actions or interactions related to an item. For example, likes, comments,
+or shares.
+
+- New Updates: Marking new or updated content, such as new posts, comments, or features.
+
+- Priority or Urgency: Indicating the urgency or priority level of an item, like marking high-priority tasks or
+important messages.
+
+- User Roles: Showing user roles or permissions with corresponding badges, such as "Admin," "Moderator," etc.
+
+- User Achievements: Displaying badges as rewards or achievements to showcase user accomplishments within a system.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### Background Color
+
+Set `beckgroundColor` to change the background color of the badge. This property accepts color tokens from the theme.
+
+<Canvas of={BackgroundColor} />
+
+### Dot
+
+Set `dot` as `true` to show a dot without number.
+
+<Canvas of={Dot} />
+
+### Overflow Count
+
+`overflowCount` is displayed when count is larger than overflowCount. The default value of overflowCount is 99.
+
+<Canvas of={OverflowCount} />
+
+### Zero Count
+
+Set `showZero` as `true` to show a zero when count is zero. The default value of showZero is false.
+
+<Canvas of={ZeroCount} />
+
+### Position
+
+Set `position` to change the position of the badge. The default value of position is `top-right`.
+
+<Canvas of={Position} />
+
+### Offset
+
+Use `offsetX` and `offsetY` to set the offset of the badge.
+
+<Canvas of={Offset} />
+
+### Custom Content
+
+You can use a custom component as the content of the badge.
+
+<Canvas of={CustomContent} />
+
+## Guidelines
+
+- Purposeful Use: Use Badge components to convey important information or interactions. Avoid using badges excessively,
+as they can clutter the UI.
+
+- Clear Meaning: Ensure the badge's purpose is clear to users. It should provide meaningful context and not confuse
+users.
+
+- Prioritize Content: Keep the badge content concise and relevant. If using a number, make sure it's essential to the
+user's understanding.
+
+- Use Color Meaningfully: Choose colors that align with your UI's color scheme and have appropriate meaning.
+For example, red for alerts or green for success.
+
+- Positioning: Position badges logically to indicate relevance. Top-right corners are often used, but consider the
+context and user flow.
+
+- Use as Supplement: Use badges as a supplementary element, not as a primary means of conveying crucial information.
+
+- Avoid Redundancy: Don't use badges to repeat information that's already visible. They should provide additional
+context or interactions.
+
+- Contextual Use: Employ badges where they naturally fit in the context. Don't force them into places where they
+don't make sense.
+
+## Accessibility
+
+Ensure badges are accessible to all users. Use proper contrast ratios and provide a meaningful title attribute
+for tooltips.
+
+## API
+
+<ArgTypes of={Badge} />
+
+
+

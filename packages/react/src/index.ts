@@ -5,6 +5,7 @@ export * from './styles';
 export * from './components/Alert';
 export * from './components/Autocomplete';
 export * from './components/Avatar';
+export * from './components/Badge';
 export * from './components/Box';
 export * from './components/Button';
 export * from './components/Caption';
