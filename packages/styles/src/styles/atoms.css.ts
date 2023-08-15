@@ -25,6 +25,7 @@ import {
   MAX_WIDTH,
   MIN_HEIGHT,
   MIN_WIDTH,
+  OBJECT_FIT,
   OPACITY,
   ORDER,
   OVERFLOW,
@@ -43,6 +44,8 @@ import { vars } from './global.css';
 
 const baseProperties = defineProperties({
   properties: {
+    fontFamily: vars.fontFamily,
+    objectFit: OBJECT_FIT,
     pointerEvents: POINTER_EVENTS,
     textOverflow: TEXT_OVERFLOW,
     verticalAlign: VERTICAL_ALIGN,
