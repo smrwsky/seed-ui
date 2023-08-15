@@ -1,13 +1,16 @@
 import {
+  cloneElement,
   FocusEvent,
   forwardRef,
   InputHTMLAttributes,
+  isValidElement,
   memo,
+  ReactElement,
   useCallback,
   useState,
 } from 'react';
 
-import { Icon, IconType } from '../Icon';
+import { IconProps } from '../Icon';
 import { InputAction, InputBox, TextBox } from '../InputGroup';
 
 export type TextInputSize = 'sm' | 'md' | 'lg';
@@ -16,8 +19,7 @@ export interface TextInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   defaultValue?: string;
   disabled?: boolean;
-  icon?: string;
-  iconType?: IconType;
+  icon?: ReactElement;
   inputSize?: number;
   invalid?: boolean;
   rounded?: boolean;
@@ -32,7 +34,6 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       size,
       disabled,
       icon,
-      iconType,
       inputSize,
       invalid,
       readOnly,
@@ -77,15 +78,8 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         rounded={rounded}
         size={size}
       >
-        {icon && (
-          <InputAction>
-            <Icon
-              color="primary500"
-              fontSize="lg"
-              name={icon}
-              type={iconType}
-            />
-          </InputAction>
+        {isValidElement<IconProps>(icon) && (
+          <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
         )}
 
         <TextBox

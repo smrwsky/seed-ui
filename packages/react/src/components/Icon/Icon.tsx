@@ -47,8 +47,8 @@ let Icon = forwardRef<HTMLElement, IconProps>(
     {
       animation = 'none',
       className,
-      color = 'currentColor',
-      fontSize = '2xl',
+      color,
+      fontSize,
       flip = 'none',
       name,
       pull = 'none',

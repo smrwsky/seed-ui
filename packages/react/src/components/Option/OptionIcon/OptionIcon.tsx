@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { FC, HTMLAttributes, memo } from 'react';
+import { FC, HTMLAttributes } from 'react';
 
 import { Icon, IconType } from '../../Icon';
 
@@ -17,4 +17,4 @@ const OptionIcon: FC<OptionIconProps> = ({ className, ...props }) => (
 
 OptionIcon.displayName = 'OptionIcon';
 
-export default memo(OptionIcon);
+export { OptionIcon };

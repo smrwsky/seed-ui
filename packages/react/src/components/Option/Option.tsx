@@ -1,13 +1,16 @@
 import cx from 'classnames';
-import { ComponentType, forwardRef, LiHTMLAttributes, memo } from 'react';
-
-import { IconType } from '../../Icon';
-import { OptionAction } from '../OptionAction';
-import { OptionDescription } from '../OptionDescription';
-import { OptionIcon } from '../OptionIcon';
-import { OptionLabel } from '../OptionLabel';
+import {
+  ComponentType,
+  forwardRef,
+  LiHTMLAttributes,
+  ReactElement,
+} from 'react';
 
 import * as S from './Option.css';
+import { OptionAction } from './OptionAction';
+import { OptionDescription } from './OptionDescription';
+import { OptionIcon } from './OptionIcon';
+import { OptionLabel } from './OptionLabel';
 
 export interface OptionProps
   extends Omit<LiHTMLAttributes<HTMLLIElement>, 'value'> {
@@ -15,13 +18,12 @@ export interface OptionProps
   highlighted?: boolean;
   description?: string;
   disabled?: boolean;
-  icon?: string;
-  iconType?: IconType;
+  icon?: ReactElement;
   invalid?: boolean;
   selected?: boolean;
 }
 
-const Option = forwardRef<HTMLLIElement, OptionProps>(
+const OptionBase = forwardRef<HTMLLIElement, OptionProps>(
   (
     {
       ActionComponent,
@@ -29,7 +31,6 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
       disabled,
       description,
       icon,
-      iconType,
       invalid,
       selected,
       children,
@@ -45,7 +46,7 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
       role="option"
       {...props}
     >
-      {icon && <OptionIcon name={icon} type={iconType} />}
+      {icon}
 
       {typeof children === 'string' ? (
         <OptionLabel>{children}</OptionLabel>
@@ -64,11 +65,13 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
   ),
 );
 
-Option.displayName = 'Option';
+OptionBase.displayName = 'Option';
 
-export default Object.assign(memo(Option), {
+const Option = Object.assign(OptionBase, {
   Action: OptionAction,
   Description: OptionDescription,
   Icon: OptionIcon,
   Label: OptionLabel,
 });
+
+export { Option };

@@ -1,10 +1,12 @@
 import { useDebounceCallback } from '@react-hook/debounce';
 import {
   ChangeEvent,
+  cloneElement,
   ComponentType,
   FocusEvent,
   FocusEventHandler,
   forwardRef,
+  isValidElement,
   KeyboardEvent,
   MouseEvent,
   ReactElement,
@@ -20,7 +22,7 @@ import {
 
 import { mergeRefs } from '../../utils/merge-refs';
 import { slug } from '../../utils/slug';
-import { Icon, IconType } from '../Icon';
+import { Icon, IconProps } from '../Icon';
 import { IconButton } from '../IconButton';
 import {
   InputAction,
@@ -30,10 +32,9 @@ import {
   InputTags,
   TextBox,
 } from '../InputGroup';
+import { Option, OptionProps } from '../Option';
 import { Popover } from '../Popover';
 import { Tag } from '../Tag';
-
-import { Option, OptionProps } from './Option';
 
 export type AutocompleteSize = InputBoxSize;
 
@@ -88,12 +89,7 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
    * Icon to display in the input element.
    */
-  icon?: string;
-
-  /**
-   * Type of the icon to display in the input element.
-   */
-  iconType?: IconType;
+  icon?: ReactElement;
 
   /**
    * ID attribute for the input element.
@@ -249,7 +245,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       disabled = false,
       getLabel = String,
       icon,
-      iconType,
       id,
       inlineAutoComplete = false,
       invalid = false,
@@ -636,17 +631,9 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           rounded={rounded}
           size={size}
         >
-          {icon && (
-            <InputAction>
-              <Icon
-                color="primary500"
-                fontSize="lg"
-                name={icon}
-                type={iconType}
-              />
-            </InputAction>
+          {isValidElement<IconProps>(icon) && (
+            <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
           )}
-
           <InputTags>
             {multiple &&
               selectedOptions.map((item, idx) => (
@@ -699,13 +686,14 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
               <InputAction>
                 <IconButton
                   aria-label={clearLabel}
-                  icon="x"
                   rounded
                   size="sm"
                   tabIndex={-1}
                   variant="tertiary"
                   onMouseDown={handleClearMouseDown}
-                />
+                >
+                  <Icon name="x" />
+                </IconButton>
               </InputAction>
             )}
         </InputBox>
@@ -755,8 +743,8 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       </>
     );
   },
-);
+) as AutocompleteFn;
 
 Autocomplete.displayName = 'Autocomplete';
 
-export default Autocomplete as AutocompleteFn;
+export { Autocomplete };

@@ -1,5 +1,7 @@
 import { Box, Flex } from '@seed-ui/react';
 
+import { Icon } from '../Icon';
+
 import Button, { ButtonProps, ButtonSize, ButtonVariant } from './Button';
 
 const variants: ButtonVariant[] = [
@@ -83,13 +85,13 @@ export function WithIcon(args: ButtonProps): JSX.Element {
   return (
     <Flex flexWrap="wrap" mt="-4" mx="-2">
       <Box mt={4} px={2}>
-        <Button {...args} startIcon="like" startIconType="solid">
+        <Button {...args} startIcon={<Icon name="like" type="solid" />}>
           Start icon
         </Button>
       </Box>
 
       <Box mt={4} px={2}>
-        <Button {...args} endIcon="like" endIconType="solid">
+        <Button {...args} endIcon={<Icon name="like" type="solid" />}>
           End icon
         </Button>
       </Box>

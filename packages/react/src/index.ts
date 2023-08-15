@@ -21,6 +21,7 @@ export * from './components/Menu';
 export * from './components/Message';
 export * from './components/Modal';
 export * from './components/OList';
+export * from './components/Option';
 export * from './components/Overline';
 export * from './components/Popover';
 export * from './components/PopupMenu';

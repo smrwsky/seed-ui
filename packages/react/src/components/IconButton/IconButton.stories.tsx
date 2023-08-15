@@ -1,8 +1,10 @@
 import { Box, Flex } from '@seed-ui/react';
 
 import { Avatar } from '../Avatar';
+import { Icon } from '../Icon';
 
-import IconButton, {
+import {
+  IconButton,
   IconButtonProps,
   IconButtonSize,
   IconButtonVariant,
@@ -36,12 +38,11 @@ export default {
   component: IconButton,
 
   args: {
-    icon: 'like',
-    iconType: 'solid',
+    children: <Icon name="like" type="solid" />,
   },
 };
 
-export function Base(args: IconButtonProps): JSX.Element {
+export function Basic(args: IconButtonProps): JSX.Element {
   return <IconButton {...args} />;
 }
 
@@ -79,9 +80,9 @@ export function Rounded(args: IconButtonProps): JSX.Element {
 
 export function WithAvatar(args: IconButtonProps): JSX.Element {
   return (
-    <IconButton {...args}>
+    <IconButton avatar {...args}>
       <Avatar>
-        <img alt="Doggo" src="/images/dog.jpg" />
+        <img alt="Profile" src="https://i.pravatar.cc/300" />
       </Avatar>
     </IconButton>
   );

@@ -2,13 +2,16 @@ import { Atoms, atoms } from '@seed-ui/styles';
 import cn from 'classnames';
 import {
   AnchorHTMLAttributes,
+  cloneElement,
   ComponentType,
   forwardRef,
+  isValidElement,
   memo,
+  ReactElement,
   useContext,
 } from 'react';
 
-import { Icon, IconType } from '../../Icon';
+import { IconProps } from '../../Icon';
 import { MenuContext } from '../Menu.context';
 import { MenuSize, MenuType, MenuVariant } from '../Menu.types';
 
@@ -17,8 +20,7 @@ export interface MenuLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   description?: string;
   disabled?: boolean;
   highlighted?: boolean;
-  icon?: string;
-  iconType?: IconType;
+  icon?: ReactElement;
   indent?: number;
   selected?: boolean;
 }
@@ -173,7 +175,6 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
       highlighted,
       href,
       icon,
-      iconType,
       indent = 0,
       selected,
       children,
@@ -234,9 +235,10 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
           />
         )}
 
-        {icon && (
-          <Icon
-            className={cn(
+        {isValidElement<IconProps>(icon) &&
+          cloneElement(icon, {
+            fontSize: collapsed ? '2xl' : 'xl',
+            className: cn(
               collapsed
                 ? [
                     atoms({
@@ -256,12 +258,8 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                       ...(selected && iconSelectedVariantStyle[variant]),
                     }),
                   ],
-            )}
-            fontSize={collapsed ? '2xl' : 'lg'}
-            name={icon}
-            type={iconType}
-          />
-        )}
+            ),
+          })}
 
         <span
           className={cn(

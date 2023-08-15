@@ -12,6 +12,7 @@ import {
   FC,
   KeyboardEvent,
   MouseEvent as ReactMouseEvent,
+  ReactElement,
   ReactNode,
   useCallback,
   useContext,
@@ -21,15 +22,14 @@ import {
 } from 'react';
 import { Transition } from 'react-transition-group';
 
-import { Icon, IconType } from '../../Icon';
+import { Icon } from '../../Icon';
 import { Menu, MenuAutoFocus } from '../Menu';
 import { MenuContext } from '../Menu.context';
 import { MenuLink, MenuLinkProps } from '../MenuLink';
 import { MenuListItem } from '../MenuListItem';
 
 export interface SubMenuProps extends MenuLinkProps {
-  icon?: string;
-  iconType?: IconType;
+  icon?: ReactElement;
   label?: string;
   children?: ReactNode;
 }
@@ -51,7 +51,6 @@ const MOUSEMOVE_HANDLER_DELAY = 20;
 const Submenu: FC<SubMenuProps> = ({
   disabled,
   icon,
-  iconType,
   label,
   onClick,
   onKeyDown,
@@ -258,7 +257,6 @@ const Submenu: FC<SubMenuProps> = ({
         aria-haspopup
         disabled={disabled}
         icon={icon}
-        iconType={iconType}
         ref={setAnchorElement}
         onClick={handleMenuItemClick}
         onKeyDown={handleMenuItemKeyDown}

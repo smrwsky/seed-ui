@@ -15,4 +15,4 @@ const OptionAction = forwardRef<HTMLSpanElement, OptionActionProps>(
 
 OptionAction.displayName = 'OptionAction';
 
-export default OptionAction;
+export { OptionAction };

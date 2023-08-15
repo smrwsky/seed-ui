@@ -2,11 +2,14 @@ import cn from 'classnames';
 import {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
+  cloneElement,
   ElementType,
   forwardRef,
+  isValidElement,
+  ReactNode,
 } from 'react';
 
-import { Icon, IconType } from '../Icon';
+import { Icon, IconProps } from '../Icon';
 
 import * as S from './Button.css';
 
@@ -48,10 +51,8 @@ export interface ButtonProps
   loading?: boolean;
   rounded?: boolean;
   size?: ButtonSize;
-  startIcon?: string;
-  startIconType?: IconType;
-  endIcon?: string;
-  endIconType?: IconType;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
   variant?: ButtonVariant;
 }
 
@@ -62,9 +63,7 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
       rounded,
       size = 'md',
       startIcon,
-      startIconType,
       endIcon,
-      endIconType,
       variant = 'primary',
       loading,
       className,
@@ -93,25 +92,21 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
         />
       )}
 
-      {!loading && startIcon && (
-        <Icon
-          color="currentColor"
-          fontSize="lg"
-          name={startIcon}
-          type={startIconType}
-        />
-      )}
+      {!loading &&
+        isValidElement<IconProps>(startIcon) &&
+        cloneElement(startIcon, {
+          color: 'currentColor',
+          fontSize: 'lg',
+        })}
 
       {!loading && <span className={S.label}>{children}</span>}
 
-      {!loading && endIcon && (
-        <Icon
-          color="currentColor"
-          fontSize="lg"
-          name={endIcon}
-          type={endIconType}
-        />
-      )}
+      {!loading &&
+        isValidElement<IconProps>(endIcon) &&
+        cloneElement(endIcon, {
+          color: 'currentColor',
+          fontSize: 'lg',
+        })}
     </As>
   ),
 );

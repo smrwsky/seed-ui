@@ -424,12 +424,6 @@ export const rootVariant = styleVariants({
   },
 });
 
-// override avatar styles
-globalStyle(`.${root}> *:not(i)`, {
-  borderRadius: 'inherit !important',
-  fontSize: '0.85em !important',
-});
-
 // override icon styles
 globalStyle(`.${root} > i`, {
   color: 'currentColor !important',

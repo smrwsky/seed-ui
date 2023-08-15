@@ -1,13 +1,16 @@
 import {
   ChangeEventHandler,
+  cloneElement,
   FocusEvent,
   FocusEventHandler,
   forwardRef,
+  isValidElement,
   memo,
+  ReactElement,
   useState,
 } from 'react';
 
-import { Icon, IconType } from '../Icon';
+import { IconProps } from '../Icon';
 import { InputAction, InputBox, InputBoxSize, TextBox } from '../InputGroup';
 
 export type DateInputSize = InputBoxSize;
@@ -16,8 +19,7 @@ export interface DateInputProps {
   autoFocus?: boolean;
   className?: string;
   disabled?: boolean;
-  icon?: string;
-  iconType?: IconType;
+  icon?: ReactElement;
   id?: string;
   invalid?: boolean;
   name?: string;
@@ -35,7 +37,6 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
     {
       disabled,
       icon,
-      iconType,
       invalid,
       readOnly,
       rounded,
@@ -78,15 +79,8 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
         rounded={rounded}
         size={size}
       >
-        {icon && (
-          <InputAction>
-            <Icon
-              color="primary500"
-              fontSize="lg"
-              name={icon}
-              type={iconType}
-            />
-          </InputAction>
+        {isValidElement<IconProps>(icon) && (
+          <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
         )}
 
         <TextBox

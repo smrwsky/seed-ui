@@ -1,6 +1,12 @@
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import { forwardRef, HTMLAttributes, ReactNode, useEffect } from 'react';
+import {
+  forwardRef,
+  HTMLAttributes,
+  ReactElement,
+  ReactNode,
+  useEffect,
+} from 'react';
 
 import { useTimeout } from '../../utils/use-timeout';
 import { Icon } from '../Icon';
@@ -33,7 +39,7 @@ export interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Represents the icon of the toast component.
    */
-  icon?: ReactNode;
+  icon?: ReactElement;
 
   /**
    * Determines the visual style or variant of the toast component.
