@@ -1,6 +1,8 @@
 import { Box, Flex } from '@seed-ui/react';
 
-import Avatar, { AvatarProps, AvatarSize } from './Avatar';
+import { Icon } from '../Icon';
+
+import { Avatar, AvatarProps, AvatarSize } from './Avatar';
 
 const sizes: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 
@@ -13,19 +15,21 @@ export default {
   },
 };
 
-export function Base(args: AvatarProps): JSX.Element {
+export function Basic(args: AvatarProps): JSX.Element {
   return (
     <Flex>
       <Box mr={2}>
         <Avatar {...args}>
-          <img alt="Doggo" src="/images/dog.jpg" />
+          <img alt="Profile" src="https://i.pravatar.cc/300" />
         </Avatar>
       </Box>
+
       <Box mr={2}>
         <Avatar {...args} backgroundColor="secondary400" />
       </Box>
+
       <Box>
-        <Avatar {...args} icon="user" />
+        <Avatar {...args} icon={<Icon name="user" />} />
       </Box>
     </Flex>
   );
@@ -37,18 +41,10 @@ export function Sizes(args: AvatarProps): JSX.Element {
       {sizes.map((size, i) => (
         <Box key={i} ml={i && 2}>
           <Avatar {...args} size={size}>
-            <img alt="Doggo" src="/images/dog.jpg" />
+            <img alt="Profile" src="https://i.pravatar.cc/300" />
           </Avatar>
         </Box>
       ))}
     </Flex>
-  );
-}
-
-export function Rounded(args: AvatarProps): JSX.Element {
-  return (
-    <Avatar {...args} rounded>
-      <img alt="Doggo" src="/images/dog.jpg" />
-    </Avatar>
   );
 }
