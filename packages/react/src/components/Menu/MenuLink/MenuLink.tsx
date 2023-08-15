@@ -27,7 +27,7 @@ export interface MenuLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 const INDENT_BASE = 1.625;
 
-const rootSizeStyle: Record<MenuSize, string> = {
+const rootVerticalSizeStyle: Record<MenuSize, string> = {
   sm: atoms({
     minWidth: 36,
     px: 1,
@@ -42,6 +42,25 @@ const rootSizeStyle: Record<MenuSize, string> = {
     p: 2.5,
   }),
 };
+
+const rootHorizontalSizeStyle: Record<MenuSize, string> = {
+  sm: atoms({
+    px: 1,
+    py: 0.5,
+  }),
+  md: atoms({
+    p: 1.5,
+  }),
+  lg: atoms({
+    p: 2.5,
+  }),
+};
+
+function rootSizeStyle(type: MenuType, size: MenuSize): string {
+  return type === 'horizontal'
+    ? rootHorizontalSizeStyle[size]
+    : rootVerticalSizeStyle[size];
+}
 
 const rootVerticalHighlightedVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {
@@ -196,6 +215,7 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                   justifyContent: 'center',
                   flexDirection: 'column',
                   minWidth: 0,
+                  textDecoration: 'none',
                   transition: 'base',
                   px: 2,
                   py: 1,
@@ -211,12 +231,13 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  textDecoration: 'none',
                   transition: 'base',
                   cursor: 'pointer',
                 }),
                 type !== 'horizontal' &&
                   atoms({ borderRadius: 'md', mx: 1, my: 0.5 }),
-                rootSizeStyle[size],
+                rootSizeStyle(type, size),
                 atoms({
                   ...(highlighted && rootHighlightedStyle(type, variant)),
                   ...(selected && rootSelectedStyle(type, variant)),
@@ -345,13 +366,12 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
           <span
             className={atoms({
               position: 'absolute',
-              bottom: 0,
+              bottom: '-0.5',
               left: 1,
               right: 1,
               display: 'block',
               height: 1,
               borderRadius: 'full',
-              mb: '-0.5',
               transition: 'base',
 
               ...(highlighted && {

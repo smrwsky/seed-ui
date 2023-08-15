@@ -182,19 +182,8 @@ export const HEIGHT = {
   'fit': 'fit-content',
 };
 
-export const INSET = {
-  'auto': 'auto',
-  ...SPACING,
-  '1/2': '50%',
-  '1/3': '33.333333%',
-  '2/3': '66.666667%',
-  '1/4': '25%',
-  '2/4': '50%',
-  '3/4': '75%',
-  'full': '100%',
-};
-
 export const MARGIN = {
+  'auto': 'auto',
   ...SPACING,
   '-0.5': '-0.125rem', // -2px
   '-1': '-0.25rem', // -4px
@@ -231,7 +220,17 @@ export const MARGIN = {
   '-72': '-18rem', // -272px
   '-80': '-20rem', // -320px
   '-96': '-24rem', // -336px
-  'auto': 'auto',
+};
+
+export const INSET = {
+  ...MARGIN,
+  '1/2': '50%',
+  '1/3': '33.333333%',
+  '2/3': '66.666667%',
+  '1/4': '25%',
+  '2/4': '50%',
+  '3/4': '75%',
+  'full': '100%',
 };
 
 export const MAX_HEIGHT = {
@@ -333,6 +332,13 @@ export const TEXT_ALIGN = [
   'justify',
   'start',
   'end',
+] as const;
+
+export const TEXT_DECORATION = [
+  'none',
+  'underline',
+  'line-through',
+  'overline',
 ] as const;
 
 export const TEXT_OVERFLOW = ['ellipsis', 'clip'] as const;
