@@ -1,5 +1,12 @@
 # @seed-ui/styles
 
+## 1.0.0
+
+### Patch Changes
+
+- a032ea3: Added object-fit and font-family utility classes.
+- f656753: Added global styles for images.
+
 ## 0.12.1
 
 ### Patch Changes
