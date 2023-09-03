@@ -1,169 +1,101 @@
-import { atoms } from '@seed-ui/styles';
-import { capitalize } from 'lodash';
-import { Fragment } from 'react';
+import { Meta, StoryFn } from '@storybook/react';
 
 import { Icon } from '../Icon';
 import { ListItem } from '../ListItem';
 import { Marker } from '../Marker';
-import { Title } from '../Title';
+import { Text } from '../Text';
 
-import UList, {
-  UListProps,
-  UListFontFamily,
-  UListSize,
-  UListType,
-  UListVariant,
-} from './UList';
+import UList, { UListProps } from './UList';
 
-const types: UListType[] = ['disc', 'dash', 'none'];
-
-const fontFamilies: UListFontFamily[] = ['primary', 'secondary'];
-
-const sizes: UListSize[] = ['sm', 'md'];
-
-const variants: UListVariant[] = [
-  'primary',
-  'secondary',
-  'tertiary',
-  'info',
-  'success',
-  'warning',
-  'danger',
-  'light',
-  'dark',
-];
-
-const listItems = [
-  'Peter',
-  'Louis',
-  'Mag',
-  'Chris',
-  'Stewie',
-  'Bryan',
-  'Glenn',
-  'Joe',
-  'Cleveland',
-];
-
-export default {
-  title: 'Typography/UList',
+const meta: Meta = {
+  title: 'typography/UList',
   component: UList,
 };
 
-export function Base(args: UListProps): JSX.Element {
-  return (
-    <UList {...args}>
-      {listItems.map((val, idx) => (
-        <ListItem key={idx}>{val}</ListItem>
-      ))}
+export const Basic: StoryFn<UListProps> = (args) => (
+  <UList {...args}>
+    <ListItem>Item 1</ListItem>
+    <ListItem>Item 2</ListItem>
+    <ListItem>Item 3</ListItem>
+  </UList>
+);
+
+export const Types: StoryFn<UListProps> = (args) => (
+  <>
+    <Text
+      as="h3"
+      fontSize="xl"
+      fontWeight="bold"
+      letterSpacing="tight"
+      lineHeight="tight"
+      mb={8}
+    >
+      Disc
+    </Text>
+
+    <UList {...args} mb={8} type="disc">
+      <ListItem>Item 1</ListItem>
+      <ListItem>Item 2</ListItem>
+      <ListItem>Item 3</ListItem>
     </UList>
-  );
-}
 
-export function Types(args: UListProps): JSX.Element {
-  return (
-    <>
-      {types.map((type, i) => (
-        <Fragment key={i}>
-          <Title className={atoms({ mt: i > 0 ? 8 : 0 })} size="xs">
-            {capitalize(type)}
-          </Title>
+    <Text
+      as="h3"
+      fontSize="xl"
+      fontWeight="bold"
+      letterSpacing="tight"
+      lineHeight="tight"
+      mb={8}
+    >
+      Dash
+    </Text>
 
-          <UList {...args} className={atoms({ mt: 3 })} type={type}>
-            {listItems.map((val, j) => (
-              <ListItem key={j}>{val}</ListItem>
-            ))}
-          </UList>
-        </Fragment>
-      ))}
-    </>
-  );
-}
+    <UList {...args} mb={8} type="dash">
+      <ListItem>Item 1</ListItem>
+      <ListItem>Item 2</ListItem>
+      <ListItem>Item 3</ListItem>
+    </UList>
 
-export function FontFamilies(args: UListProps): JSX.Element {
-  return (
-    <>
-      {fontFamilies.map((fontFamily, i) => (
-        <Fragment key={i}>
-          <Title
-            className={atoms({ mt: i > 0 ? 8 : 0 })}
-            fontFamily={fontFamily}
-            size="xs"
-          >
-            {capitalize(fontFamily)}
-          </Title>
+    <Text
+      as="h3"
+      fontSize="xl"
+      fontWeight="bold"
+      letterSpacing="tight"
+      lineHeight="tight"
+      mb={8}
+    >
+      None
+    </Text>
 
-          <UList {...args} className={atoms({ mt: 3 })} fontFamily={fontFamily}>
-            {listItems.map((val, j) => (
-              <ListItem key={j}>{val}</ListItem>
-            ))}
-          </UList>
-        </Fragment>
-      ))}
-    </>
-  );
-}
-
-export function Sizes(args: UListProps): JSX.Element {
-  return (
-    <>
-      {sizes.map((size, i) => (
-        <Fragment key={i}>
-          <Title className={atoms({ mt: i > 0 ? 8 : 0 })} size="xs">
-            {capitalize(size)}
-          </Title>
-
-          <UList {...args} className={atoms({ mt: 3 })} size={size}>
-            {listItems.map((val, j) => (
-              <ListItem key={j}>{val}</ListItem>
-            ))}
-          </UList>
-        </Fragment>
-      ))}
-    </>
-  );
-}
-
-export function Variants(args: UListProps): JSX.Element {
-  return (
-    <>
-      {variants.map((variant, i) => (
-        <Fragment key={i}>
-          <Title
-            className={atoms({ mt: i > 0 ? 8 : 0 })}
-            size="xs"
-            variant={variant}
-          >
-            {capitalize(variant)}
-          </Title>
-
-          <UList
-            {...args}
-            className={atoms({ mt: 3 })}
-            key={i}
-            variant={variant}
-          >
-            {listItems.map((val, j) => (
-              <ListItem key={j}>{val}</ListItem>
-            ))}
-          </UList>
-        </Fragment>
-      ))}
-    </>
-  );
-}
-
-export function CustomMarker(args: UListProps): JSX.Element {
-  return (
     <UList {...args} type="none">
-      {listItems.map((val, idx) => (
-        <ListItem key={idx}>
-          <Marker>
-            <Icon color="primary500" name="user" type="solid" />
-          </Marker>
-          {val}
-        </ListItem>
-      ))}
+      <ListItem>Item 1</ListItem>
+      <ListItem>Item 2</ListItem>
+      <ListItem>Item 3</ListItem>
     </UList>
-  );
-}
+  </>
+);
+
+export const WithIcons: StoryFn<UListProps> = (args) => (
+  <UList {...args} type="none">
+    <ListItem>
+      <Marker role="none">
+        <Icon name="grid-alt" />
+      </Marker>
+      Item 1
+    </ListItem>
+    <ListItem>
+      <Marker role="none">
+        <Icon name="stats" />
+      </Marker>
+      Item 2
+    </ListItem>
+    <ListItem>
+      <Marker role="none">
+        <Icon name="cog" />
+      </Marker>
+      Item 3
+    </ListItem>
+  </UList>
+);
+
+export default meta;

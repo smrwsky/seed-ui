@@ -15,7 +15,6 @@ import {
   FLEX,
   FLEX_DIRECTION,
   FLEX_WRAP,
-  FONT_WEIGHT,
   HEIGHT,
   INSET,
   JUSTIFY_CONTENT,
@@ -39,6 +38,7 @@ import {
   VERTICAL_ALIGN,
   WHITE_SPACE,
   WIDTH,
+  Z_INDEX,
 } from '../const';
 
 import { vars } from './global.css';
@@ -46,11 +46,19 @@ import { vars } from './global.css';
 const baseProperties = defineProperties({
   properties: {
     fontFamily: vars.fontFamily,
+    fontWeight: vars.fontWeight,
+    letterSpacing: vars.letterSpacing,
+    lineHeight: { ...LINE_HEIGHT, ...vars.lineHeight },
     objectFit: OBJECT_FIT,
+    overflowX: OVERFLOW,
+    overflowY: OVERFLOW,
     pointerEvents: POINTER_EVENTS,
     textOverflow: TEXT_OVERFLOW,
     verticalAlign: VERTICAL_ALIGN,
     whiteSpace: WHITE_SPACE,
+  },
+  shorthands: {
+    overflow: ['overflowX', 'overflowY'],
   },
 });
 
@@ -86,9 +94,7 @@ const responsiveProperties = defineProperties({
     display: DISPLAY,
 
     fontSize: vars.fontSize,
-    fontWeight: FONT_WEIGHT,
-    letterSpacing: vars.letterSpacing,
-    lineHeight: { ...LINE_HEIGHT, ...vars.lineHeight },
+    textAlign: TEXT_ALIGN,
 
     flex: FLEX,
     flexWrap: FLEX_WRAP,
@@ -112,8 +118,6 @@ const responsiveProperties = defineProperties({
     borderTop: vars.border,
     borderRadius: vars.borderRadius,
 
-    textAlign: TEXT_ALIGN,
-
     marginBottom: MARGIN,
     marginLeft: MARGIN,
     marginRight: MARGIN,
@@ -124,10 +128,7 @@ const responsiveProperties = defineProperties({
     paddingRight: SPACING,
     paddingTop: SPACING,
 
-    overflowX: OVERFLOW,
-    overflowY: OVERFLOW,
-
-    zIndex: vars.zIndex,
+    zIndex: Z_INDEX,
   },
 
   shorthands: {
@@ -135,7 +136,6 @@ const responsiveProperties = defineProperties({
     border: ['borderBottom', 'borderLeft', 'borderRight', 'borderTop'],
     borderX: ['borderLeft', 'borderRight'],
     borderY: ['borderBottom', 'borderTop'],
-    overflow: ['overflowX', 'overflowY'],
     m: ['marginBottom', 'marginLeft', 'marginRight', 'marginTop'],
     mb: ['marginBottom'],
     ml: ['marginLeft'],

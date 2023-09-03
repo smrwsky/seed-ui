@@ -3,7 +3,6 @@ import { StoryFn } from '@storybook/react';
 
 import { Avatar } from '../Avatar';
 import { Icon } from '../Icon';
-import { Link } from '../Link';
 
 import { Toast, ToastProps } from './Toast';
 
@@ -21,7 +20,8 @@ export default {
   args: {
     children: (
       <>
-        This is a toast message - <Link href="#">Check this out</Link>
+        This is a toast message -{' '}
+        <a href={window.location.href}>Check this out</a>
       </>
     ),
   },
@@ -33,7 +33,8 @@ export const Variants: StoryFn<ToastProps> = (args) => (
   <>
     {variants.map((variant, i) => (
       <Toast {...args} className={atoms({ mb: 2 })} key={i} variant={variant}>
-        This is a {variant} message - <Link href="#">Check this out</Link>
+        This is a {variant} message -{' '}
+        <a href={window.location.href}>Check this out</a>
       </Toast>
     ))}
   </>
@@ -44,7 +45,7 @@ export const WithIcon: StoryFn<ToastProps> = (args) => (
     {...args}
     icon={<Icon color="primary400" fontSize="3xl" name="dollar" />}
   >
-    This is a toast message - <Link href="#">Check this out</Link>
+    This is a toast message - <a href={window.location.href}>Check this out</a>
   </Toast>
 );
 
@@ -57,6 +58,6 @@ export const WithAvatar: StoryFn<ToastProps> = (args) => (
       </Avatar>
     }
   >
-    This is a toast message - <Link href="#">Check this out</Link>
+    This is a toast message - <a href={window.location.href}>Check this out</a>
   </Toast>
 );

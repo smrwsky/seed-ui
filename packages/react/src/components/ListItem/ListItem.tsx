@@ -1,46 +1,34 @@
-import { textBreak, textTruncate } from '@seed-ui/styles';
+import { atoms, Atoms, textBreak, textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
 import { forwardRef, LiHTMLAttributes, Ref } from 'react';
 
-import * as S from './ListItem.css';
-
-export type ListItemVariant =
-  | 'primary'
-  | 'secondary'
-  | 'tertiary'
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'light'
-  | 'dark'
-  | 'default';
-
-export interface ListItemProps extends LiHTMLAttributes<HTMLLIElement> {
-  bold?: boolean;
+export interface ListItemProps
+  extends Omit<LiHTMLAttributes<HTMLLIElement>, 'color'> {
+  color?: Atoms['color'];
+  fontWeight?: Atoms['fontWeight'];
   breakWord?: boolean;
   truncate?: boolean;
-  variant?: ListItemVariant;
 }
 
-function ListItem(
-  {
-    bold,
-    breakWord,
-    className,
-    truncate,
-    variant = 'default',
-    children,
-    ...elemProps
-  }: ListItemProps,
-  ref: Ref<HTMLLIElement>,
-): JSX.Element {
-  return (
+const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
+  (
+    {
+      breakWord,
+      className,
+      color,
+      fontWeight,
+      truncate,
+      children,
+      ...elemProps
+    }: ListItemProps,
+    ref: Ref<HTMLLIElement>,
+  ): JSX.Element => (
     <li
       className={cn(
-        S.root,
-        bold && S.rootVariant[variant],
-        bold && S.rootBold,
+        atoms({
+          color,
+          fontWeight,
+        }),
         breakWord && textBreak,
         truncate && textTruncate,
         className,
@@ -50,7 +38,9 @@ function ListItem(
     >
       {children}
     </li>
-  );
-}
+  ),
+);
 
-export default forwardRef(ListItem);
+ListItem.displayName = 'ListItem';
+
+export default ListItem;

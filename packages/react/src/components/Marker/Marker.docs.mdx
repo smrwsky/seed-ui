@@ -1,0 +1,52 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+
+import Marker, { Basic } from './Marker.stories';
+
+<Meta of={Marker} />
+
+# Marker
+
+Marker component is used for customizing the marker of a list item.
+
+## When to use
+
+- Styled Bullet Points: Customize bullet points or markers for unordered lists (ul) to match the theme or branding
+of your website or app.
+
+- Checklists: Replace standard list markers with custom checkboxes or icons for to-do lists or task lists, providing
+a more visually engaging way for users to track completion.
+
+- Icons and Symbols: Use custom icons or symbols as markers to represent specific list items, such as using a star icon
+to highlight important items in a list.
+
+- Multilevel Lists: Customize markers to indicate hierarchical levels within multilevel lists, helping users understand
+the list's structure.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+## Guidelines
+
+- Marker component can be used only within ListItem component and UList component with `listStyle` set to `none`.
+
+- Use Icon component or custom image as a child of Marker component to specify the marker.
+
+## Accessibility
+
+- Use `aria-label` to specify the marker for screen readers or use role 'presentation' to indicate that the element
+is decorative and does not have any semantic value.
+
+- If the marker contains image, provide appropriate alternative text (alt attributes)
+to describe the content to users who cannot see it.
+
+- If the icon inside marker is used as image, use `role` attribute to specify the type of image and provide
+appropriate alternative text (alt attributes) to describe the content to users who cannot see it.
+
+- If the marker content is interactive, use `role` attribute to specify the type of interactive element.
+
+## API
+
+<ArgTypes />

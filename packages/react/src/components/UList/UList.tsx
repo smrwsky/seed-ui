@@ -1,43 +1,45 @@
+import { atoms, Atoms, listTypeDash, listTypeDisc } from '@seed-ui/styles';
 import cn from 'classnames';
 import { forwardRef, HTMLAttributes } from 'react';
 
-import * as S from './UList.css';
-
 export type UListType = 'disc' | 'dash' | 'none';
 
-export type UListFontFamily = 'primary' | 'secondary';
-
-export type UListSize = 'sm' | 'md';
-
-export type UListVariant =
-  | 'primary'
-  | 'secondary'
-  | 'tertiary'
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'light'
-  | 'dark'
-  | 'default';
-
-export interface UListProps extends HTMLAttributes<HTMLUListElement> {
-  bold?: boolean;
-  fontFamily?: UListFontFamily;
-  size?: UListSize;
+export interface UListProps
+  extends Omit<HTMLAttributes<HTMLUListElement>, 'color' | 'type'> {
+  color?: Atoms['color'];
+  fontFamily?: Atoms['fontFamily'];
+  fontSize?: Atoms['fontSize'];
+  fontWeight?: Atoms['fontWeight'];
+  letterSpacing?: Atoms['letterSpacing'];
+  lineHeight?: Atoms['lineHeight'];
+  m?: Atoms['m'];
+  mt?: Atoms['mt'];
+  mb?: Atoms['mb'];
+  ml?: Atoms['ml'];
+  mr?: Atoms['mr'];
+  mx?: Atoms['mx'];
+  my?: Atoms['my'];
   type?: UListType;
-  variant?: UListVariant;
 }
 
 const UList = forwardRef<HTMLUListElement, UListProps>(
   (
     {
-      bold,
       className,
-      fontFamily = 'primary',
-      size = 'md',
+      color,
+      fontFamily,
+      fontSize,
+      fontWeight,
+      letterSpacing,
+      lineHeight,
+      m,
+      mt,
+      mb,
+      ml,
+      mr,
+      mx,
+      my,
       type = 'disc',
-      variant = 'default',
       children,
       ...elemProps
     },
@@ -45,13 +47,23 @@ const UList = forwardRef<HTMLUListElement, UListProps>(
   ) => (
     <ul
       className={cn(
-        S.root,
-        S.rootType[type],
-        fontFamily === 'primary'
-          ? S.rootPrimarySize[size]
-          : S.rootSecondarySize[size],
-        S.rootVariant[variant],
-        bold && S.rootBold,
+        atoms({
+          color,
+          fontFamily,
+          fontSize,
+          fontWeight,
+          letterSpacing,
+          lineHeight,
+          m,
+          mt,
+          mb,
+          ml,
+          mr,
+          mx,
+          my,
+        }),
+        type === 'disc' && listTypeDisc,
+        type === 'dash' && listTypeDash,
         className,
       )}
       ref={ref}

@@ -61,9 +61,9 @@ const Alert: FC<AlertProps> = ({
     >
       {icon}
 
-      <Text as="div" className={S.content} size="sm">
+      <Text as="div" className={S.content} fontSize="sm">
         {title && (
-          <Text as="div" bold className={S.title}>
+          <Text as="div" className={S.title} fontWeight="semiBold">
             {title}
           </Text>
         )}

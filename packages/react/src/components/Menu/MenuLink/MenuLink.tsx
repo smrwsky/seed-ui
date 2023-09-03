@@ -352,7 +352,7 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
             className={cn(
               atoms({
                 display: 'block',
-                lineHeight: 0,
+                lineHeight: 'none',
                 overflow: 'hidden',
                 mx: 1.5,
               }),

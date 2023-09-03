@@ -14,7 +14,6 @@ import {
   useState,
 } from 'react';
 
-import { textboxStyle } from '../../styles';
 import { Icon, IconProps } from '../Icon';
 import { InputAction, InputBox, InputBoxSize } from '../InputGroup';
 
@@ -127,7 +126,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
         <select
           {...inputProps}
-          className={cn(S.select, textboxStyle, multiple && S.selectMultiple)}
+          className={cn(S.select, multiple && S.selectMultiple)}
           disabled={disabled}
           id={id}
           multiple={multiple}

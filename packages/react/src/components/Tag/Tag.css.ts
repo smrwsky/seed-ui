@@ -381,7 +381,10 @@ export const text = style([
   {
     display: 'inline-block',
     fontFamily: vars.fontFamily.primary,
-    ...vars.typography.textSm.primary,
+    fontSize: vars.fontSize.sm,
+    fontWeight: vars.fontWeight.regular,
+    letterSpacing: vars.letterSpacing.wider,
+    lineHeight: vars.lineHeight.normal,
     margin: `0 ${SPACING[0.5]}`,
   },
   textTruncate,

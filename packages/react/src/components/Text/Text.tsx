@@ -1,58 +1,74 @@
-import { textBreak, textTruncate } from '@seed-ui/styles';
+import { Atoms, atoms, textBreak, textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
 import { ElementType, forwardRef, HTMLAttributes } from 'react';
 
-import * as S from './Text.css';
-
-export type TextFontFamily = 'primary' | 'secondary';
-
-export type TextSize = 'sm' | 'md';
-
-export type TextVariant =
-  | 'primary'
-  | 'secondary'
-  | 'tertiary'
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'light'
-  | 'dark'
-  | 'default';
-
-export interface TextProps extends HTMLAttributes<HTMLElement> {
+export interface TextProps extends Omit<HTMLAttributes<HTMLElement>, 'color'> {
   as?: ElementType;
-  bold?: boolean;
+  color?: Atoms['color'];
+  fontFamily?: Atoms['fontFamily'];
+  fontSize?: Atoms['fontSize'];
+  fontWeight?: Atoms['fontWeight'];
+  letterSpacing?: Atoms['letterSpacing'];
+  lineHeight?: Atoms['lineHeight'];
+  m?: Atoms['m'];
+  mt?: Atoms['mt'];
+  mb?: Atoms['mb'];
+  ml?: Atoms['ml'];
+  mr?: Atoms['mr'];
+  mx?: Atoms['mx'];
+  my?: Atoms['my'];
+  textAlign?: Atoms['textAlign'];
+  textDecoration?: Atoms['textDecoration'];
   breakWord?: boolean;
-  fontFamily?: TextFontFamily;
-  size?: TextSize;
   truncate?: boolean;
-  variant?: TextVariant;
 }
 
 const Text = forwardRef<HTMLElement, TextProps>(
   (
     {
       as: As = 'p',
-      bold,
+      color,
       breakWord,
       className,
-      fontFamily = 'primary',
-      size = 'md',
+      fontFamily,
+      fontSize,
+      fontWeight,
+      letterSpacing,
+      lineHeight,
+      m,
+      mt,
+      mb,
+      ml,
+      mr,
+      mx,
+      my,
+      textAlign,
+      textDecoration,
       truncate,
-      variant = 'default',
       children,
       ...elemProps
-    },
+    }: TextProps,
     ref,
   ) => (
     <As
       className={cn(
-        fontFamily === 'primary'
-          ? S.rootPrimarySize[size]
-          : S.rootSecondarySize[size],
-        S.rootVariant[variant],
-        bold && S.rootBold,
+        atoms({
+          color,
+          fontFamily,
+          fontSize,
+          fontWeight,
+          letterSpacing,
+          lineHeight,
+          m,
+          mt,
+          mb,
+          ml,
+          mr,
+          mx,
+          my,
+          textAlign,
+          textDecoration,
+        }),
         breakWord && textBreak,
         truncate && textTruncate,
         className,

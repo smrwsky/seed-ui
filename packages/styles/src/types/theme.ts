@@ -16,165 +16,6 @@ export type Theme = {
     primary: string;
     info: string;
   };
-  typography: {
-    subtitleMd: {
-      secondary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-      primary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-    };
-    titleSm: {
-      secondary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-      primary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-    };
-    titleLg: {
-      secondary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-      primary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-    };
-    titleXs: {
-      secondary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-      primary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-    };
-    caption: {
-      letterSpacing: string;
-      fontSize: string;
-      lineHeight: string;
-      fontWeight: string;
-    };
-    bold: { fontWeight: string };
-    labelMd: {
-      letterSpacing: string;
-      fontSize: string;
-      lineHeight: string;
-      fontWeight: string;
-    };
-    textButton: {
-      letterSpacing: string;
-      fontSize: string;
-      lineHeight: string;
-      fontWeight: string;
-    };
-    labelSm: {
-      letterSpacing: string;
-      fontSize: string;
-      lineHeight: string;
-      fontWeight: string;
-    };
-    titleXl: {
-      secondary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-      primary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-    };
-    titleMd: {
-      secondary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-      primary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-    };
-    overline: {
-      letterSpacing: string;
-      fontSize: string;
-      lineHeight: string;
-      fontWeight: string;
-    };
-    textMd: {
-      secondary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-      primary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-    };
-    subtitleSm: {
-      secondary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-      primary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-    };
-    textSm: {
-      secondary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-      primary: {
-        letterSpacing: string;
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: string;
-      };
-    };
-  };
   fontFamily: { secondary: string; primary: string };
   borderRadius: {
     xl: string;
@@ -287,33 +128,35 @@ export type Theme = {
     tight: string;
   };
   fontSize: {
+    'xl': string;
     '2xl': string;
+    'md': string;
     '3xl': string;
     '4xl': string;
     '5xl': string;
-    '6xl': string;
-    'xl': string;
-    'md': string;
     'sm': string;
+    '6xl': string;
     'xs': string;
     'lg': string;
   };
   lineHeight: {
+    none: string;
     relaxed: string;
     normal: string;
     snug: string;
     loose: string;
     tight: string;
   };
-  transition: { fade: string; collapse: string; base: string };
-  zIndex: {
-    toast: string;
-    modalBackdrop: string;
-    popover: string;
-    sticky: string;
-    tooltip: string;
-    fixed: string;
-    dropdown: string;
-    modal: string;
+  fontWeight: {
+    extraLight: string;
+    light: string;
+    semiBold: string;
+    black: string;
+    medium: string;
+    bold: string;
+    extraBold: string;
+    regular: string;
+    thin: string;
   };
+  transition: { fade: string; collapse: string; base: string };
 };

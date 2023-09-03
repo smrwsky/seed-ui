@@ -1,0 +1,34 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+
+import ListItem, { Basic } from './ListItem.stories';
+
+<Meta of={ListItem} />
+
+# ListItem
+
+A ListItem component represents individual items within a list or collection. It encapsulates the presentation
+and behavior of a single list item, making it easy to render and manage multiple items in a structured and consistent
+manner within user interfaces.
+
+## When to use
+
+Use ListItem component to represent a single item within a list or collection.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+## Guidelines
+
+ListItem components should be used within `ul` or `ol` elements.
+
+## Accessibility
+
+ListItem components are accessible by default. See [ARIA Listbox](https://www.w3.org/TR/wai-aria-practices-1.1/#Listbox)
+for more information.
+
+## API
+
+<ArgTypes />

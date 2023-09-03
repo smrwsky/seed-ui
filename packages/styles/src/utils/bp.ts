@@ -1,6 +1,6 @@
 import { StyleRule } from '@vanilla-extract/css';
 
-import { BREAKPOINT } from '../../const';
+import { BREAKPOINT } from '../const';
 
 export type Breakpoint = keyof typeof BREAKPOINT;
 

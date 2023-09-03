@@ -1,78 +1,256 @@
-import { capitalize } from 'lodash';
+import { atoms } from '@seed-ui/styles';
+import { StoryFn } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
-import { StrongProps } from '../Strong';
+import { Box } from '../Box';
+import { Flex } from '../Flex';
 
-import Text, { TextFontFamily, TextProps, TextSize, TextVariant } from './Text';
+import Text, { TextProps } from './Text';
 
-const fontFamilies: TextFontFamily[] = ['primary', 'secondary'];
-
-const sizes: TextSize[] = ['sm', 'md'];
-
-const variants: TextVariant[] = [
-  'primary',
-  'secondary',
-  'tertiary',
-  'info',
-  'success',
-  'warning',
-  'danger',
-  'light',
-  'dark',
-];
-
-export default {
+const meta: Meta = {
   title: 'Typography/Text',
   component: Text,
-
   args: {
     children: 'This is a text',
   },
 };
 
-export function Base(args: TextProps): JSX.Element {
-  return <Text {...args} />;
-}
+export const Basic: StoryFn = (args: TextProps) => <Text {...args} />;
 
-export function FontFamilies(args: TextProps): JSX.Element {
-  return (
-    <>
-      {fontFamilies.map((fontFamily, i) => (
-        <Text {...args} fontFamily={fontFamily} key={i}>
-          {capitalize(fontFamily)}
-        </Text>
-      ))}
-    </>
-  );
-}
+export const Headings: StoryFn = (): JSX.Element => (
+  <Flex>
+    <Box mr={32}>
+      <Text color="neutral500" mb={8}>
+        Primary
+      </Text>
 
-export function Sizes(args: TextProps): JSX.Element {
-  return (
-    <>
-      {sizes.map((size, i) => (
-        <Text {...args} key={i} size={size}>
-          A text with size {size}
-        </Text>
-      ))}
-    </>
-  );
-}
+      <Text
+        fontSize="6xl"
+        fontWeight="bold"
+        letterSpacing="normal"
+        lineHeight="tight"
+        mb={8}
+      >
+        48pt
+      </Text>
 
-export function Variants(args: TextProps): JSX.Element {
-  return (
-    <>
-      {variants.map((variant, i) => (
-        <Text {...args} key={i} variant={variant}>
-          This is {variant} text
-        </Text>
-      ))}
-    </>
-  );
-}
+      <Text
+        fontSize="5xl"
+        fontWeight="bold"
+        letterSpacing="tight"
+        lineHeight="tight"
+        mb={8}
+      >
+        40pt
+      </Text>
 
-export function Bold(args: StrongProps): JSX.Element {
-  return (
-    <Text {...args} bold>
-      This is a bold text
+      <Text
+        fontSize="4xl"
+        fontWeight="bold"
+        letterSpacing="tight"
+        lineHeight="tight"
+        mb={8}
+      >
+        32pt
+      </Text>
+
+      <Text
+        fontSize="3xl"
+        fontWeight="bold"
+        letterSpacing="tight"
+        lineHeight="tight"
+        mb={8}
+      >
+        28pt
+      </Text>
+
+      <Text
+        fontSize="2xl"
+        fontWeight="bold"
+        letterSpacing="tight"
+        lineHeight="tight"
+        mb={8}
+      >
+        24pt
+      </Text>
+
+      <Text
+        fontSize="xl"
+        fontWeight="bold"
+        letterSpacing="tight"
+        lineHeight="tight"
+      >
+        20pt
+      </Text>
+    </Box>
+
+    <Box>
+      <Text color="neutral500" mb={8}>
+        Secondary
+      </Text>
+
+      <Text
+        fontFamily="secondary"
+        fontSize="6xl"
+        fontWeight="medium"
+        letterSpacing="normal"
+        lineHeight="tight"
+        mb={8}
+      >
+        48pt
+      </Text>
+
+      <Text
+        fontFamily="secondary"
+        fontSize="5xl"
+        fontWeight="semiBold"
+        letterSpacing="wide"
+        lineHeight="tight"
+        mb={8}
+      >
+        40pt
+      </Text>
+
+      <Text
+        fontFamily="secondary"
+        fontSize="4xl"
+        fontWeight="semiBold"
+        letterSpacing="wide"
+        lineHeight="tight"
+        mb={8}
+      >
+        32pt
+      </Text>
+
+      <Text
+        fontFamily="secondary"
+        fontSize="3xl"
+        fontWeight="semiBold"
+        letterSpacing="wide"
+        lineHeight="tight"
+        mb={8}
+      >
+        28pt
+      </Text>
+
+      <Text
+        fontFamily="secondary"
+        fontSize="2xl"
+        fontWeight="semiBold"
+        letterSpacing="wide"
+        lineHeight="tight"
+        mb={8}
+      >
+        24pt
+      </Text>
+
+      <Text
+        fontFamily="secondary"
+        fontSize="xl"
+        fontWeight="semiBold"
+        letterSpacing="wide"
+        lineHeight="tight"
+      >
+        20pt
+      </Text>
+    </Box>
+  </Flex>
+);
+
+export const Body: StoryFn = () => (
+  <Flex>
+    <Box mr={32}>
+      <Text color="neutral500" mb={8}>
+        Primary
+      </Text>
+
+      <Text mb={2}>Regular 16pt</Text>
+
+      <Text fontWeight="semiBold" mb={8}>
+        Bold 16pt
+      </Text>
+
+      <Text fontSize="sm" mb={2}>
+        Regular 14pt
+      </Text>
+
+      <Text fontSize="sm" fontWeight="semiBold">
+        Bold 14pt
+      </Text>
+    </Box>
+
+    <Box>
+      <Text color="neutral500" mb={8}>
+        Secondary
+      </Text>
+
+      <Text fontFamily="secondary" letterSpacing="wide" mb={2}>
+        Regular 16pt
+      </Text>
+
+      <Text
+        fontFamily="secondary"
+        fontWeight="semiBold"
+        letterSpacing="wide"
+        mb={8}
+      >
+        Bold 16pt
+      </Text>
+
+      <Text fontFamily="secondary" fontSize="sm" letterSpacing="wide" mb={2}>
+        Regular 14pt
+      </Text>
+
+      <Text
+        fontFamily="secondary"
+        fontSize="sm"
+        fontWeight="semiBold"
+        letterSpacing="wide"
+      >
+        Bold 14pt
+      </Text>
+    </Box>
+  </Flex>
+);
+
+export const Elements: StoryFn = () => (
+  <>
+    <Text fontWeight="semiBold" letterSpacing="widest" lineHeight="snug" mb={8}>
+      Medium Label
     </Text>
-  );
-}
+
+    <Text
+      fontSize="sm"
+      fontWeight="semiBold"
+      letterSpacing="widest"
+      lineHeight="snug"
+      mb={8}
+    >
+      Small Label
+    </Text>
+
+    <Text fontSize="xs" letterSpacing="widest" lineHeight="snug" mb={8}>
+      Caption
+    </Text>
+
+    <Text
+      fontSize="sm"
+      fontWeight="regular"
+      letterSpacing="widest"
+      lineHeight="snug"
+      mb={8}
+    >
+      Button
+    </Text>
+
+    <Text
+      className={atoms({ cursor: 'pointer' })}
+      color="primary500"
+      textDecoration={{ hover: 'underline' }}
+    >
+      Link
+    </Text>
+  </>
+);
+
+export default meta;

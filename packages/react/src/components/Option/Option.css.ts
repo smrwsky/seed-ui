@@ -18,7 +18,10 @@ export const root = style({
   minHeight: '2.25rem',
   color: vars.color.neutral900,
   fontFamily: vars.fontFamily.primary,
-  ...vars.typography.textMd.primary,
+  fontSize: vars.fontSize.md,
+  fontWeight: vars.fontWeight.regular,
+  letterSpacing: vars.letterSpacing.wider,
+  lineHeight: vars.lineHeight.normal,
   background: vars.color.white,
   textDecoration: 'none',
   padding: `${SPACING[0.5]} ${SPACING[1.5]}`,
@@ -31,7 +34,7 @@ export const root = style({
     },
 
     '&[aria-selected="true"]': {
-      ...vars.typography.bold,
+      fontWeight: vars.fontWeight.semiBold,
       background: vars.color.dark50,
     },
 

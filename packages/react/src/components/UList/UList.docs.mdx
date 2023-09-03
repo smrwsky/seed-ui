@@ -1,0 +1,68 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+
+import UList, { Basic, Checklist, Types, WithIcons } from './UList.stories';
+
+<Meta of={UList} />
+
+# UList
+
+The UList component is used to create unordered lists. It is a wrapper for the `<ul>` element.
+
+## When to use
+
+- Bulleted Lists: Present lists of items with simple bullet points to convey information in an easy-to-read format.
+
+- Icon Lists: Combine icons or symbols with list items to create visually appealing lists, such as a list of social
+media icons and links.
+
+- Checklists: Create checklists for tasks, to-do lists, or shopping lists, allowing users to mark items as completed.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### Types
+
+Use the `type` prop to change the list style.
+
+<Canvas of={Types} />
+
+### With Icons
+
+Use Marker component to add icons to list items.
+
+<Canvas of={WithIcons} />
+
+## Guidelines
+
+- List Item Content: Use ListItem component to wrap  list item content in `<li>` element. Each list item should contain
+a single item of content or a group of related content.
+
+- List Length: Keep unordered lists to a reasonable length. If a list becomes too long, consider breaking it into smaller
+sub-lists or sections for improved comprehension.
+
+- Nesting: You can nest ordered lists within other unordered lists or within unordered lists. This is useful
+for representing hierarchies or sub-steps.
+
+## Accessibility
+
+- Semantic Structure: Use unordered lists when the order of items is not semantically meaningful, and the items can be
+presented in any order.
+
+- Use List Elements: Wrap each list item in `<li>` (list item) elements. Never use list-style markers (e.g., numbers,
+letters) manually without the proper list structure.
+
+- Descriptive Labels: Provide a clear and descriptive label or title for the unordered list using the `<caption>`
+element or ARIA (Accessible Rich Internet Applications) attributes like aria-label or aria-labelledby. This label should
+convey the purpose or context of the list.
+
+- List Item Labels: Make sure list items have meaningful and concise labels. Avoid using generic labels like "item"
+or "element." The labels should give users a clear understanding of the content.
+
+More info: [https://www.w3.org/WAI/tutorials/page-structure/lists/](https://www.w3.org/WAI/tutorials/page-structure/lists/)
+
+## API
+
+<ArgTypes />
