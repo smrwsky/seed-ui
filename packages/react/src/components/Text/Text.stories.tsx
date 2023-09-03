@@ -28,7 +28,7 @@ export const Headings: StoryFn = (): JSX.Element => (
         fontSize="6xl"
         fontWeight="bold"
         letterSpacing="normal"
-        lineHeight="tight"
+        lineHeight="normal"
         mb={8}
       >
         48pt

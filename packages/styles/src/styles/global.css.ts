@@ -37,8 +37,8 @@ globalStyle('li', {
   position: 'relative',
 });
 
-globalStyle('li:not(:last-of-type)', {
-  marginBottom: '.5em',
+globalStyle('li+li', {
+  marginTop: '.5em',
 });
 
 globalStyle('a', {
