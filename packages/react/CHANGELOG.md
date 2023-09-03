@@ -1,5 +1,16 @@
 # @seed-ui/react
 
+## 2.0.0
+
+### Minor Changes
+
+- 1bf7214: Improved typography components.
+
+### Patch Changes
+
+- Updated dependencies [1bf7214]
+  - @seed-ui/styles@2.0.0
+
 ## 1.0.0
 
 ### Minor Changes
