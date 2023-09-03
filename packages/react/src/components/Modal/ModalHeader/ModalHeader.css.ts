@@ -21,7 +21,7 @@ export const rootSize = styleVariants({
     width: '100%',
     borderBottom: `1px solid ${vars.color.neutral100}`,
     padding: `${SPACING[1.5]} ${SPACING[1]}`,
-    zIndex: vars.zIndex.fixed,
+    zIndex: 20,
 
     ...bpUp('tablet', {
       position: 'static',

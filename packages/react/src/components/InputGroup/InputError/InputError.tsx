@@ -9,7 +9,13 @@ export interface InputErrorProps {
 }
 
 const InputError: FC<InputErrorProps> = ({ children }) => (
-  <Text as="div" className={S.root} role="alert" size="sm" variant="danger">
+  <Text
+    as="div"
+    className={S.root}
+    color="danger500"
+    fontSize="sm"
+    role="alert"
+  >
     {children}
   </Text>
 );

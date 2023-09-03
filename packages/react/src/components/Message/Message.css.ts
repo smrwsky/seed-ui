@@ -13,7 +13,3 @@ export const root = style({
 export const rootVisible = style({
   opacity: 1,
 });
-
-export const content = style({
-  color: 'inherit',
-});

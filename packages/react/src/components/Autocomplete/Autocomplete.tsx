@@ -32,6 +32,7 @@ import {
   InputTags,
   TextBox,
 } from '../InputGroup';
+import { MenuList } from '../Menu';
 import { Option, OptionProps } from '../Option';
 import { Popover } from '../Popover';
 import { Tag } from '../Tag';
@@ -705,7 +706,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           strategy="absolute"
           style={popoverStyle}
         >
-          <ul id={slug(id, LISTBOX_ID)} ref={listboxRef} role="listbox">
+          <MenuList id={slug(id, LISTBOX_ID)} ref={listboxRef} role="listbox">
             {optionsState.map((item, idx) => (
               <OptionComponent
                 data-index={idx}
@@ -738,7 +739,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                 {noResultLabel}
               </Option>
             )}
-          </ul>
+          </MenuList>
         </Popover>
       </>
     );

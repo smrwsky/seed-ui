@@ -187,16 +187,29 @@ export const DEFAULT_THEME: Theme = {
     '6xl': '3rem', // 48px
   },
 
+  fontWeight: {
+    thin: '100',
+    extraLight: '200',
+    light: '300',
+    regular: '400',
+    medium: '500',
+    semiBold: '600',
+    bold: '700',
+    extraBold: '800',
+    black: '900',
+  },
+
   letterSpacing: {
-    tighter: '-0.05em',
-    tight: '-0.025em',
-    normal: '0em',
-    wide: '0.025em',
-    wider: '0.05em',
-    widest: '0.1em',
+    tighter: '0',
+    tight: '0.002em',
+    normal: '0.004em',
+    wide: '0.008em',
+    wider: '0.012em',
+    widest: '0.024em',
   },
 
   lineHeight: {
+    none: '1',
     tight: '1.112',
     snug: '1.2',
     normal: '1.5',
@@ -204,202 +217,9 @@ export const DEFAULT_THEME: Theme = {
     loose: '2',
   },
 
-  /**
-   * @deprecated
-   * use fontSize, fontWeight, letterSpacing, lineHeight separately
-   */
-
-  typography: {
-    titleXl: {
-      primary: {
-        fontSize: '2.986rem', // 47.776px
-        fontWeight: '500',
-        letterSpacing: '0.25px',
-        lineHeight: '1.112',
-      },
-
-      secondary: {
-        fontSize: '2.986rem', // 47.776px
-        fontWeight: '900',
-        letterSpacing: '0.75px',
-        lineHeight: '1.112',
-      },
-    },
-
-    titleLg: {
-      primary: {
-        fontSize: '2.488rem', // 39.813px
-        fontWeight: '600',
-        letterSpacing: '0.13px',
-        lineHeight: '1.112',
-      },
-      secondary: {
-        fontSize: '2.488rem', // 39.813px
-        fontWeight: '700',
-        letterSpacing: '0.5px',
-        lineHeight: '1.112',
-      },
-    },
-
-    titleMd: {
-      primary: {
-        fontSize: '2.074rem', // 33.178px
-        fontWeight: '600',
-        letterSpacing: '0.13px',
-        lineHeight: '1.112',
-      },
-      secondary: {
-        fontSize: '2.074rem', // 33.178px
-        fontWeight: '700',
-        letterSpacing: '0.5px',
-        lineHeight: '1.112',
-      },
-    },
-
-    titleSm: {
-      primary: {
-        fontSize: '1.728rem', // 27.648px
-        fontWeight: '600',
-        letterSpacing: '0.13px',
-        lineHeight: '1.112',
-      },
-      secondary: {
-        fontSize: '1.728rem', // 27.648px
-        fontWeight: '700',
-        letterSpacing: '0.5px',
-        lineHeight: '1.112',
-      },
-    },
-
-    titleXs: {
-      primary: {
-        fontSize: '1.44rem', // 23.04px
-        fontWeight: '600',
-        letterSpacing: '0.13px',
-        lineHeight: '1.112',
-      },
-      secondary: {
-        fontSize: '1.44rem', // 23.04px
-        fontWeight: '700',
-        letterSpacing: '0.5px',
-        lineHeight: '1.112',
-      },
-    },
-
-    subtitleMd: {
-      primary: {
-        fontSize: '1.2rem', // 19.2px
-        fontWeight: '700',
-        letterSpacing: '0.13px',
-        lineHeight: '1.112',
-      },
-      secondary: {
-        fontSize: '1.2rem', // 19.2px
-        fontWeight: '600',
-        letterSpacing: '0.25px',
-        lineHeight: '1.112',
-      },
-    },
-
-    subtitleSm: {
-      primary: {
-        fontSize: '1rem', // 16px
-        fontWeight: '700',
-        letterSpacing: '0.13px',
-        lineHeight: '1.112',
-      },
-      secondary: {
-        fontSize: '1rem', // 16px
-        fontWeight: '600',
-        letterSpacing: '0.25px',
-        lineHeight: '1.112',
-      },
-    },
-
-    textMd: {
-      primary: {
-        fontSize: '1rem', // 16px
-        fontWeight: '400',
-        letterSpacing: '0.13px',
-        lineHeight: '1.5',
-      },
-      secondary: {
-        fontSize: '1rem', // 16px
-        fontWeight: '400',
-        letterSpacing: '0.25px',
-        lineHeight: '1.5',
-      },
-    },
-
-    textSm: {
-      primary: {
-        fontSize: '0.833rem', // 13.333px
-        fontWeight: '400',
-        letterSpacing: '0.13px',
-        lineHeight: '1.5',
-      },
-      secondary: {
-        fontSize: '0.833rem', // 13.333px
-        fontWeight: '400',
-        letterSpacing: '0.25px',
-        lineHeight: '1.5',
-      },
-    },
-
-    textButton: {
-      fontSize: '0.833rem', // 13.333px
-      fontWeight: '400',
-      letterSpacing: '0.75px',
-      lineHeight: '1.2',
-    },
-
-    labelMd: {
-      fontSize: '1rem', // 16px
-      fontWeight: '600',
-      letterSpacing: '0.5px',
-      lineHeight: '1.2',
-    },
-
-    labelSm: {
-      fontSize: '0.833rem', // 13.333px
-      fontWeight: '600',
-      letterSpacing: '0.5px',
-      lineHeight: '1.2',
-    },
-
-    overline: {
-      fontSize: '0.694rem', // 11.111px
-      fontWeight: '400',
-      letterSpacing: '1.5px',
-      lineHeight: '1.2',
-    },
-
-    caption: {
-      fontSize: '0.694rem', // 11.111px
-      fontWeight: '400',
-      letterSpacing: '0.5px',
-      lineHeight: '1.2',
-    },
-
-    bold: {
-      fontWeight: '600',
-    },
-  },
-
   transition: {
     base: 'all 0.15s ease-in-out',
     fade: 'opacity 0.15s linear',
     collapse: 'max-height 0.3s ease',
-  },
-
-  zIndex: {
-    dropdown: '1000',
-    sticky: '1020',
-    fixed: '1030',
-    modalBackdrop: '1040',
-    modal: '1050',
-    popover: '1060',
-    tooltip: '1070',
-    toast: '1080',
   },
 };

@@ -55,7 +55,7 @@ export function Variants(args: TagProps): JSX.Element {
   return (
     <Flex alignItems="center" flexWrap="wrap" mt="-2" mx="-1">
       {variants.map((variant, i) => (
-        <Box key={i} lineHeight={0} mt={2} px={1} width="auto">
+        <Box key={i} mt={2} px={1}>
           <Tag {...args} variant={variant}>
             {capitalize(variant)}
           </Tag>

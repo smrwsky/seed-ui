@@ -1,10 +1,11 @@
-import { IconButton, Title } from '@seed-ui/react';
 import { atoms } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
 import { Fragment, useCallback, useState } from 'react';
 
 import { Icon } from '../Icon';
+import { IconButton } from '../IconButton';
 import { PopupMenu } from '../PopupMenu';
+import { Text } from '../Text';
 
 import { Menu, MenuProps } from './Menu';
 import { MenuItem } from './MenuItem';
@@ -91,9 +92,17 @@ export function Type(args: MenuProps): JSX.Element {
     <>
       {types.map((type, i) => (
         <Fragment key={i}>
-          <Title className={atoms({ mt: i > 0 ? 4 : 0, mb: 1.5 })} size="xs">
+          <Text
+            as="h3"
+            className={atoms({ mt: i > 0 ? 4 : 0, mb: 1.5 })}
+            fontFamily="secondary"
+            fontSize="2xl"
+            fontWeight="semiBold"
+            letterSpacing="wide"
+            lineHeight="tight"
+          >
             {capitalize(type)}
-          </Title>
+          </Text>
 
           <Base {...args} key={i} type={type} />
         </Fragment>
@@ -107,9 +116,17 @@ export function Size(args: MenuProps): JSX.Element {
     <>
       {sizes.map((size, i) => (
         <Fragment key={i}>
-          <Title className={atoms({ mt: i > 0 ? 4 : 0, mb: 1.5 })} size="xs">
+          <Text
+            as="h3"
+            className={atoms({ mt: i > 0 ? 4 : 0, mb: 1.5 })}
+            fontFamily="secondary"
+            fontSize="2xl"
+            fontWeight="semiBold"
+            letterSpacing="wide"
+            lineHeight="tight"
+          >
             {capitalize(size)}
-          </Title>
+          </Text>
 
           <Base {...args} key={i} size={size} />
         </Fragment>
@@ -123,9 +140,17 @@ export function Variant(args: MenuProps): JSX.Element {
     <>
       {variants.map((variant, i) => (
         <Fragment key={i}>
-          <Title className={atoms({ mt: i > 0 ? 4 : 0, mb: 1.5 })} size="xs">
+          <Text
+            as="h3"
+            className={atoms({ mt: i > 0 ? 4 : 0, mb: 1.5 })}
+            fontFamily="secondary"
+            fontSize="2xl"
+            fontWeight="semiBold"
+            letterSpacing="wide"
+            lineHeight="tight"
+          >
             {capitalize(variant)}
-          </Title>
+          </Text>
 
           <Base {...args} key={i} variant={variant} />
         </Fragment>

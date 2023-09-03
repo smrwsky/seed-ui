@@ -88,7 +88,7 @@ const Message: FC<MessageProps> = ({
     >
       <MessageIcon variant={variant} />
 
-      <Text className={cn(S.content, atoms({ pt: 0.5 }))} size="sm" truncate>
+      <Text className={atoms({ pt: 0.5 })} fontSize="sm" truncate>
         {children}
       </Text>
     </div>

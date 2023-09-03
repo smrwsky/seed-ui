@@ -1,3 +1,9 @@
+/**
+ * Use this file for constants that are used in atoms but can be written
+ * manually in *.css files. Values that are used in both atoms and *.css files
+ * should be defined in themes.ts and accessed through `vars` object.
+ */
+
 export const ALIGN_ITEMS = [
   'baseline',
   'center',
@@ -45,18 +51,6 @@ export const DISPLAY = [
   'none',
 ] as const;
 
-export const FONT_WEIGHT = {
-  thin: '100',
-  extraLight: '200',
-  light: '300',
-  normal: '400',
-  medium: '500',
-  semiBold: '600',
-  bold: '700',
-  extraBold: '800',
-  black: '900',
-};
-
 export const FLEX = {
   1: '1 0 0',
   none: 'none',
@@ -79,7 +73,6 @@ export const JUSTIFY_CONTENT = [
 ] as const;
 
 export const LINE_HEIGHT = {
-  0: 0,
   none: '1',
 };
 
@@ -350,3 +343,13 @@ export const TRANSITION = {
 export const VERTICAL_ALIGN = ['baseline', 'top', 'middle', 'bottom'] as const;
 
 export const WHITE_SPACE = ['normal', 'nowrap'] as const;
+
+export const Z_INDEX = {
+  auto: 'auto',
+  0: 0,
+  10: 10,
+  20: 20,
+  30: 30,
+  40: 40,
+  50: 50,
+};

@@ -1,0 +1,106 @@
+import { Meta, ArgTypes, Canvas, ArgsTable } from '@storybook/addon-docs';
+import Text, { Basic, Headings, Body, Elements } from './Text.stories';
+
+<Meta of={Text} />
+
+# Text
+
+A Text React component is a reusable element in a React application designed specifically for implementing various
+typography styles, such as headings, body text, labels, and captions. It allows developers to easily apply consistent
+and customizable text formatting across their app, enhancing design and readability while maintaining code modularity.
+
+## When to use
+
+- Headings: Apply different levels of headings (e.g., h1, h2, h3) with appropriate font sizes and styles for titles
+and sections.
+
+- Body Text: Style regular paragraphs and content text to ensure uniformity in font size, line height, and spacing.
+
+- Labels: Create visually appealing and consistent labels for form elements, input fields, and other UI components.
+
+- Links: Style hyperlink text for navigation and user interaction, including hover and active states.
+
+- Captions: Add captions to images, charts, or media elements with consistent typography for enhanced accessibility.
+
+- Buttons: Apply consistent typography to button text that matches the style defined in the design system.
+
+- Responsive Typography: Use responsive properties for font size and margins to ensure text scales appropriately across
+screen sizes.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### Headings
+
+Headings are used to create a hierarchy of titles and sections within a page. They are used to organize content and
+guide users through the page.
+
+<Canvas of={Headings} />
+
+### Body
+
+Body text is used for regular paragraphs and content text. It is used to provide additional information and context to
+users.
+
+<Canvas of={Body} />
+
+### Elements
+
+Text can be used to style other elements, such as buttons, labels, and captions.
+
+<Canvas of={Elements} />
+
+## Guidelines
+
+- Font Selection: Choose fonts that align with the app's branding and readability requirements. Consider using web-safe
+fonts or loading custom fonts using web font services like Google Fonts.
+
+- Hierarchy: Establish a clear typographic hierarchy with distinct styles for headings, subheadings, body text,
+and other elements.
+
+- Responsive Design: Ensure that typography adapts gracefully to different screen sizes and orientations. Use responsive
+properties to adjust font sizes and spacing as needed for various devices.
+
+- Line Length: Limit line length to improve readability. Ideally, aim for 50-75 characters per line for body text.
+
+- Line Height: Use a line height of 1.5-1.75 for body text to improve readability. For headings, use a line height of
+1.25-1.5.
+
+- Text Color: Use a limited color palette for text to maintain a cohesive design. Reserve unique or attention-grabbing
+colors for specific elements like headings or call-to-action buttons.
+
+- Whitespace: Embrace whitespace to improve text legibility and visual clarity. Proper margins and padding around text
+elements create a cleaner design.
+
+- Kerning and Letter Spacing: Adjust letter spacing (kerning) and word spacing as needed for improved typography,
+especially for display or decorative text.
+
+- Font Weight and Style: Use font weight and style variations (e.g., bold, italic) purposefully to emphasize key content
+or create visual contrast.
+
+- Localization: Design text elements to accommodate different languages, character sets, and text expansion
+or contraction. Avoid hardcoded text lengths.
+
+- Readability: Prioritize readability over aesthetics. Fancy fonts or decorative typography should not sacrifice ease
+of reading.
+
+## Accessibility
+
+- Use semantic HTML tags (e.g., h1, h2, p) for better accessibility and SEO.
+
+- Ensure sufficient contrast between text, and it's background to meet accessibility standards. High contrast
+aids readability, especially for users with visual impairments.
+
+## API
+
+<ArgsTable />
+
+
+
+
+
+
+

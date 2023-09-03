@@ -4,7 +4,7 @@ import { style } from '@vanilla-extract/css';
 export const root = style({
   width: 'max-content',
   pointerEvents: 'auto',
-  zIndex: vars.zIndex.popover,
+  zIndex: 10,
 });
 
 export const content = style({

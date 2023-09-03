@@ -322,7 +322,7 @@ const Submenu: FC<SubMenuProps> = ({
                   boxShadow: 'lg',
                   opacity: 0,
                   transition: 'fade',
-                  zIndex: 'popover',
+                  zIndex: 10,
                 }),
                 variant === 'dark'
                   ? atoms({ borderColor: 'dark100' })

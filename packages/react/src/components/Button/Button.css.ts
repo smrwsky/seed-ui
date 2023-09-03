@@ -9,13 +9,17 @@ export const root = style({
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: vars.borderRadius.md,
+  fontFamily: vars.fontFamily.primary,
+  fontSize: vars.fontSize.sm,
+  fontWeight: vars.fontWeight.regular,
+  letterSpacing: vars.letterSpacing.widest,
+  lineHeight: vars.lineHeight.snug,
   textAlign: 'center',
   textDecoration: 'none',
   textTransform: 'uppercase',
   transition: vars.transition.base,
   WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
   outline: 'none',
-  ...vars.typography.textButton,
 
   selectors: {
     '&:active': {

@@ -193,7 +193,7 @@ const PopupMenu = forwardRef<HTMLUListElement, PopupMenuProps>(
           atoms({
             display: openState ? 'block' : 'none',
             width: 'max',
-            zIndex: 'popover',
+            zIndex: 10,
           }),
           className,
         )}

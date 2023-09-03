@@ -43,12 +43,17 @@ const MenuList = forwardRef<HTMLUListElement, MenuListProps>(
         className={cn(
           atoms({
             display: 'flex',
+            m: 0,
           }),
-          type !== 'horizontal' &&
-            atoms({
-              flexDirection: 'column',
-              py: 0.5,
-            }),
+          type === 'horizontal'
+            ? atoms({
+                p: 0,
+              })
+            : atoms({
+                flexDirection: 'column',
+                px: 0,
+                py: 0.5,
+              }),
           atoms({
             ...rootVariantStyle[variant],
             ...(isSubmenu && rootSubmenuVariantStyle[variant]),

@@ -2,7 +2,7 @@ import { Box, Flex } from '@seed-ui/react';
 import { useState } from 'react';
 
 import { Button } from '../Button';
-import { Subtitle } from '../Subtitle';
+import { Text } from '../Text';
 
 import Modal, { ModalProps } from './Modal';
 import { ModalSize } from './context';
@@ -21,7 +21,16 @@ export function Base(args: ModalProps): JSX.Element {
 
       <Modal {...args} open={open} onClose={() => setOpen(false)}>
         <Modal.Header>
-          <Subtitle>Basic modal</Subtitle>
+          <Text
+            as="h3"
+            fontFamily="secondary"
+            fontSize="xl"
+            fontWeight="semiBold"
+            letterSpacing="wide"
+            lineHeight="tight"
+          >
+            Basic modal
+          </Text>
         </Modal.Header>
         <Modal.Body>
           .<br /> .<br /> .<br /> .<br />
@@ -96,7 +105,16 @@ export function Sizes(args: ModalProps): JSX.Element {
         onClose={handleClose}
       >
         <Modal.Header>
-          <Subtitle>Small modal</Subtitle>
+          <Text
+            as="h1"
+            fontFamily="secondary"
+            fontSize="xl"
+            fontWeight="semiBold"
+            letterSpacing="wide"
+            lineHeight="tight"
+          >
+            Small modal
+          </Text>
         </Modal.Header>
         <Modal.Body>
           .<br /> .<br />
@@ -117,7 +135,16 @@ export function Sizes(args: ModalProps): JSX.Element {
         onClose={handleClose}
       >
         <Modal.Header>
-          <Subtitle>Medium modal</Subtitle>
+          <Text
+            as="h1"
+            fontFamily="secondary"
+            fontSize="xl"
+            fontWeight="semiBold"
+            letterSpacing="wide"
+            lineHeight="tight"
+          >
+            Medium modal
+          </Text>
         </Modal.Header>
         <Modal.Body>
           .<br /> .<br /> .<br /> .<br />
@@ -146,8 +173,16 @@ export function Sizes(args: ModalProps): JSX.Element {
         onClose={handleClose}
       >
         <Modal.Header>
-          {' '}
-          <Subtitle>Large modal</Subtitle>
+          <Text
+            as="h1"
+            fontFamily="secondary"
+            fontSize="xl"
+            fontWeight="semiBold"
+            letterSpacing="wide"
+            lineHeight="tight"
+          >
+            Large modal
+          </Text>
         </Modal.Header>
         <Modal.Body>
           .<br /> .<br /> .<br /> .<br />.<br /> .<br /> .<br /> .<br />.<br />{' '}

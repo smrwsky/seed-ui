@@ -160,13 +160,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
       >
         {icon ?? iconByVariant[variant]}
 
-        <Text
-          as="div"
-          className={atoms({
-            ml: 3,
-          })}
-          size="sm"
-        >
+        <Text as="div" fontSize="sm" ml={3}>
           {children}
         </Text>
 

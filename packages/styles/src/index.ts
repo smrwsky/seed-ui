@@ -4,9 +4,9 @@ import 'boxicons/css/boxicons.min.css';
 
 export * from './const';
 export * from './types';
+export * from './utils/bp';
 
 // Order of exported styles should be preserved
-export * from './styles/mixins';
 export * from './styles/global.css';
 export * from './styles/atoms.css';
 export * from './styles/typography.css';

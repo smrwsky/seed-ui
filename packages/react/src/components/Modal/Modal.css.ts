@@ -10,7 +10,7 @@ export const overlay = style({
   opacity: 0,
   transition: vars.transition.fade,
   backgroundColor: vars.color.dark500,
-  zIndex: vars.zIndex.modalBackdrop,
+  zIndex: 30,
 });
 
 export const overlaySize = styleVariants({
@@ -46,7 +46,6 @@ export const content = style({
   transform: 'translateY(-40px)',
   transition: vars.transition.base,
   overflow: 'hidden',
-  zIndex: vars.zIndex.modal,
 });
 
 export const contentSize = styleVariants({

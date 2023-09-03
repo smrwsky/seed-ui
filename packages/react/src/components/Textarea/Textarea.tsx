@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import {
   FC,
   FocusEvent,
@@ -9,7 +8,6 @@ import {
   useState,
 } from 'react';
 
-import { textboxStyle } from '../../styles';
 import { InputBox, InputBoxSize } from '../InputGroup';
 
 import * as S from './Textarea.css';
@@ -74,7 +72,7 @@ const Textarea: FC<TextareaProps> = forwardRef<
         size={size}
       >
         <textarea
-          className={cn(textboxStyle, S.textarea)}
+          className={S.textarea}
           disabled={disabled}
           id={id}
           readOnly={readOnly}

@@ -1,11 +1,11 @@
-import { bpUp, SPACING, vars } from '@seed-ui/styles';
+import { bpUp, SPACING } from '@seed-ui/styles';
 import { globalStyle, style, styleVariants } from '@vanilla-extract/css';
 
 export const root = style({
   position: 'absolute',
   width: 'max-content',
   maxWidth: '100%',
-  zIndex: vars.zIndex.toast,
+  zIndex: 50,
   pointerEvents: 'none',
 });
 
