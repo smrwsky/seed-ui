@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 2.0.1
+
+### Patch Changes
+
+- 93d64df: Fixed list global styles.
+
 ## 2.0.0
 
 ### Minor Changes
