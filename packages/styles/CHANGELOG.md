@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 2.0.0
+
+### Minor Changes
+
+- 1bf7214: Improved typography components.
+
 ## 1.0.0
 
 ### Patch Changes
