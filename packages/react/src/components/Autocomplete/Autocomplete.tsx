@@ -687,7 +687,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
               <InputAction>
                 <IconButton
                   aria-label={clearLabel}
-                  rounded
                   size="sm"
                   tabIndex={-1}
                   variant="tertiary"

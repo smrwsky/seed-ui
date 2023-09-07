@@ -55,6 +55,10 @@ globalStyle('a:visited', {
   color: vars.color.secondary500,
 });
 
+globalStyle('button', {
+  WebkitTapHighlightColor: 'transparent',
+});
+
 globalStyle('img', {
   fontFamily: vars.fontFamily.primary,
   fontSize: 'xs',
@@ -67,7 +71,7 @@ globalStyle('input, select, textarea', {
 });
 
 globalStyle(
-  'input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea',
+  'input:not([type="checkbox"]):not([type="radio"]), select, textarea',
   {
     flex: 1,
     maxWidth: '100%',
@@ -80,7 +84,6 @@ globalStyle(
     letterSpacing: vars.letterSpacing.wider,
     lineHeight: vars.lineHeight.normal,
     background: 'transparent',
-    outline: 'none',
     padding: '0 0.25rem',
   },
 );
