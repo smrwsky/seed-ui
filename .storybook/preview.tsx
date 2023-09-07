@@ -1,14 +1,10 @@
-import { Link, ThemeProvider } from '@seed-ui/react';
+import {  ThemeProvider } from '@seed-ui/react';
 import { colors, defaultTheme } from '@seed-ui/styles';
 import { theme } from './theme';
 import { FC } from 'react';
 
 import '@seed-ui/styles/css/styles.min.css';
 import '@seed-ui/react/css/elements.min.css';
-
-const components = {
-  a: Link,
-};
 
 export const parameters = {
   layout: 'centered',
@@ -37,7 +33,7 @@ export const parameters = {
   controls: {
     hideNoControlsWarning: true,
   },
-  docs: { theme, components },
+  docs: { theme },
 };
 
 export const decorators = [

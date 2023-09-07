@@ -38,7 +38,7 @@ export function Base(args: ModalProps): JSX.Element {
         <Modal.Footer>
           <Flex justifyContent="end">
             <Box mr={3}>
-              <Button variant="overlay-tertiary" onClick={() => setOpen(false)}>
+              <Button variant="tertiary-overlay" onClick={() => setOpen(false)}>
                 Cancel
               </Button>
             </Box>
@@ -80,19 +80,19 @@ export function Sizes(args: ModalProps): JSX.Element {
     <>
       <Flex>
         <Box mr={4}>
-          <Button variant="outline-primary" onClick={handleOpenSmallModal}>
+          <Button variant="primary-outline" onClick={handleOpenSmallModal}>
             Open small modal
           </Button>
         </Box>
 
         <Box mr={4}>
-          <Button variant="outline-primary" onClick={handleOpenMediumModal}>
+          <Button variant="primary-outline" onClick={handleOpenMediumModal}>
             Open medium modal
           </Button>
         </Box>
 
         <Box>
-          <Button variant="outline-primary" onClick={handleOpenLargeModal}>
+          <Button variant="primary-outline" onClick={handleOpenLargeModal}>
             Open large modal
           </Button>
         </Box>
@@ -152,7 +152,7 @@ export function Sizes(args: ModalProps): JSX.Element {
         <Modal.Footer>
           <Flex justifyContent="end">
             <Box mr={3}>
-              <Button variant="overlay-tertiary" onClick={handleClose}>
+              <Button variant="tertiary-overlay" onClick={handleClose}>
                 Cancel
               </Button>
             </Box>
@@ -191,7 +191,7 @@ export function Sizes(args: ModalProps): JSX.Element {
         <Modal.Footer>
           <Flex justifyContent="end">
             <Box mr={3}>
-              <Button variant="overlay-tertiary" onClick={handleClose}>
+              <Button variant="tertiary-overlay" onClick={handleClose}>
                 Cancel
               </Button>
             </Box>

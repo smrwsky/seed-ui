@@ -147,6 +147,13 @@ export const SPACING = {
   96: '24rem', // 336px
 };
 
+export const TEXT_TRANSFORM = [
+  'none',
+  'uppercase',
+  'lowercase',
+  'capitalize',
+] as const;
+
 export const HEIGHT = {
   'auto': 'auto',
   ...SPACING,
@@ -242,18 +249,18 @@ export const MAX_HEIGHT = {
 export const MAX_WIDTH = {
   'none': 'none',
   0: '0rem',
-  'xs': '20rem',
-  'sm': '24rem',
-  'md': '28rem',
-  'lg': '32rem',
-  'xl': '36rem',
-  '2xl': '42rem',
-  '3xl': '48rem',
-  '4xl': '56rem',
-  '5xl': '64rem',
-  '6xl': '72rem',
-  '7xl': '80rem',
-  'full': '100%',
+  'xs': '20rem', // 320px
+  'sm': '24rem', // 384px
+  'md': '28rem', // 448px
+  'lg': '32rem', // 512px
+  'xl': '36rem', // 576px
+  '2xl': '42rem', // 672px
+  '3xl': '48rem', // 768px
+  '4xl': '56rem', // 896px
+  '5xl': '64rem', // 1024px
+  '6xl': '72rem', // 1152px
+  '7xl': '80rem', // 1280px
+  'full': '100%', // 100%
   'min': 'min-content',
   'max': 'max-content',
   'fit': 'fit-content',
