@@ -1,5 +1,13 @@
 # @seed-ui/react
 
+## 2.0.2
+
+### Patch Changes
+
+- 95da12b: Overrided link styles in components
+- Updated dependencies [95da12b]
+  - @seed-ui/styles@2.0.2
+
 ## 2.0.0
 
 ### Minor Changes
