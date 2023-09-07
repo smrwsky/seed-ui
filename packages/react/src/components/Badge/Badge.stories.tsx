@@ -13,7 +13,7 @@ export default {
   args: {
     content: 5,
     children: (
-      <IconButton title="Notifications" variant="primary-outline">
+      <IconButton title="Notifications" variant="outline-primary">
         <Icon name="bell" />
       </IconButton>
     ),
@@ -75,7 +75,7 @@ export const CustomContent = Template.bind({});
 CustomContent.args = {
   content: <Icon color="danger400" fontSize="md" name="error" />,
   children: (
-    <IconButton title="Notifications">
+    <IconButton rounded title="Notifications">
       <Icon name="bell" />
     </IconButton>
   ),

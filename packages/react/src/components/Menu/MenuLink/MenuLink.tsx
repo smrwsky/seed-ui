@@ -91,14 +91,14 @@ const rootHighlightedStyle = (type: MenuType, variant: MenuVariant): Atoms =>
 
 const rootVerticalSelectedVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {
-    color: { default: 'primary500', visited: 'primary500' },
+    color: 'primary500',
     bg: 'primary50',
   },
   secondary: {
-    color: { default: 'primary500', visited: 'primary500' },
+    color: 'primary500',
   },
   dark: {
-    bg: { default: 'primary400', visited: 'primary400' },
+    bg: 'primary400',
   },
 };
 
@@ -215,7 +215,7 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                   justifyContent: 'center',
                   flexDirection: 'column',
                   minWidth: 0,
-                  textDecoration: { default: 'none', hover: 'none' },
+                  textDecoration: 'none',
                   transition: 'base',
                   px: 2,
                   py: 1,
@@ -231,7 +231,7 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  textDecoration: { default: 'none', hover: 'none' },
+                  textDecoration: 'none',
                   transition: 'base',
                   cursor: 'pointer',
                 }),
