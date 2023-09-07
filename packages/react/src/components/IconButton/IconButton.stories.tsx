@@ -14,19 +14,21 @@ const variants: IconButtonVariant[] = [
   'primary',
   'secondary',
   'tertiary',
+  'info',
   'success',
   'warning',
   'danger',
   'light',
   'dark',
-  'primary-outline',
-  'secondary-outline',
-  'tertiary-outline',
-  'success-outline',
-  'warning-outline',
-  'danger-outline',
-  'light-outline',
-  'dark-outline',
+  'outline-primary',
+  'outline-secondary',
+  'outline-tertiary',
+  'outline-info',
+  'outline-success',
+  'outline-warning',
+  'outline-danger',
+  'outline-light',
+  'outline-dark',
 ];
 
 const sizes: IconButtonSize[] = ['sm', 'md', 'lg'];
@@ -70,6 +72,10 @@ export function Sizes(args: IconButtonProps): JSX.Element {
       ))}
     </Flex>
   );
+}
+
+export function Rounded(args: IconButtonProps): JSX.Element {
+  return <IconButton {...args} rounded title={'Rounded IconButton'} />;
 }
 
 export function WithAvatar(args: IconButtonProps): JSX.Element {

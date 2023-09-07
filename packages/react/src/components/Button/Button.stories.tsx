@@ -8,27 +8,30 @@ const variants: ButtonVariant[] = [
   'primary',
   'secondary',
   'tertiary',
+  'info',
   'success',
   'warning',
   'danger',
   'light',
   'dark',
-  'primary-outline',
-  'secondary-outline',
-  'tertiary-outline',
-  'success-outline',
-  'warning-outline',
-  'danger-outline',
-  'light-outline',
-  'dark-outline',
-  'primary-overlay',
-  'secondary-overlay',
-  'tertiary-overlay',
-  'success-overlay',
-  'warning-overlay',
-  'danger-overlay',
-  'light-overlay',
-  'dark-overlay',
+  'outline-primary',
+  'outline-secondary',
+  'outline-tertiary',
+  'outline-info',
+  'outline-success',
+  'outline-warning',
+  'outline-danger',
+  'outline-light',
+  'outline-dark',
+  'overlay-secondary',
+  'overlay-primary',
+  'overlay-tertiary',
+  'overlay-info',
+  'overlay-success',
+  'overlay-warning',
+  'overlay-danger',
+  'overlay-light',
+  'overlay-dark',
 ];
 
 const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
@@ -72,6 +75,10 @@ export function Sizes(args: ButtonProps): JSX.Element {
       ))}
     </Flex>
   );
+}
+
+export function Rounded(args: ButtonProps): JSX.Element {
+  return <Button {...args} rounded />;
 }
 
 export function WithIcon(args: ButtonProps): JSX.Element {

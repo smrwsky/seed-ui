@@ -173,6 +173,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
         >
           <IconButton
             aria-label={closeLabel}
+            rounded
             size="sm"
             tabIndex={0}
             title=""

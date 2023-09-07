@@ -13,9 +13,8 @@ export const DEFAULT_THEME: Theme = {
   },
 
   borderRadius: {
-    button: '0.25rem',
     sm: '0.125rem', // 2px - rectangles, banners etc.
-    md: '0.25rem', // 4px - inputs, buttons, popups etc.
+    md: '0.25rem', // 4px - input, buttons, popups etc.
     lg: '0.5rem', // 8px - modals, small cards etc.
     xl: '0.75rem', // 12px - large cards
     full: '9999px',

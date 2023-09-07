@@ -19,7 +19,7 @@ describe('Button', () => {
   describe('Given that the button component is rendered with an onClick callback', () => {
     const onClickMock = jest.fn();
 
-    describe('When the button is clicked', () => {
+    describe('When the close button is clicked', () => {
       it('Then the onClick callback should be triggered', async () => {
         render(<Button onClick={onClickMock}>Click me</Button>);
         const buttonElement = screen.getByRole('button');
