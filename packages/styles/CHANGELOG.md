@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 2.0.2
+
+### Patch Changes
+
+- 95da12b: Overrided link styles in components
+
 ## 2.0.1
 
 ### Patch Changes
