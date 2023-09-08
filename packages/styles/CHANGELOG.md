@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 2.0.3
+
+### Patch Changes
+
+- 6597e58: Unset a:visible styles by default.
+
 ## 2.0.2
 
 ### Patch Changes
