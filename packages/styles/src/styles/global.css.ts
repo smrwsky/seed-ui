@@ -45,14 +45,11 @@ globalStyle('a', {
   color: vars.color.primary500,
   cursor: 'pointer',
   textDecoration: 'none',
+  transition: vars.transition.base,
 });
 
 globalStyle('a:hover', {
   textDecoration: 'underline',
-});
-
-globalStyle('a:visited', {
-  color: vars.color.secondary500,
 });
 
 globalStyle('button', {

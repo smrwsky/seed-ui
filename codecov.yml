@@ -15,6 +15,9 @@ coverage:
     default_rules:
       flag_coverage_not_uploaded_behavior: include
     patch: false
-    project: true
+    project:
+      default:
+        target: 60%
+        removed_code_behavior: adjust_base
 github_checks:
   annotations: true
