@@ -7,7 +7,7 @@ import { IconButton } from '../IconButton';
 
 import { Badge, BadgeProps } from './Badge';
 
-export default {
+const meta: Meta = {
   title: 'Data Display/Badge',
   component: Badge,
   args: {
@@ -18,7 +18,7 @@ export default {
       </IconButton>
     ),
   },
-} as Meta;
+};
 
 const Template: StoryFn<BadgeProps> = (args) => <Badge {...args} />;
 
@@ -86,3 +86,5 @@ export const Standalone = Template.bind({});
 Standalone.args = {
   content: 42,
 };
+
+export default meta;
