@@ -40,7 +40,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@seed-ui/styles": "^0.0.0",
+    "@seed-ui/styles": "^0.1.0",
     "@types/lodash": "^4.14.182",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.10",
