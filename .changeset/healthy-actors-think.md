@@ -1,5 +1,5 @@
 ---
-'@seed-ui/react': minor
+'@seed-ui/react': patch
 ---
 
 Redesigned components.

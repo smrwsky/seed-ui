@@ -1,5 +1,5 @@
 ---
-'@seed-ui/styles': minor
+'@seed-ui/styles': patch
 ---
 
-Redesigned styles.
+Redesigned components.
