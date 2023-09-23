@@ -11,7 +11,8 @@ import {
 } from 'react';
 
 import { IconProps } from '../Icon';
-import { InputAction, InputBox, InputBoxSize, TextBox } from '../InputGroup';
+import { InputAction } from '../InputAction';
+import { InputBox, InputBoxSize } from '../InputBox';
 
 export type DateInputSize = InputBoxSize;
 
@@ -27,7 +28,6 @@ export interface DateInputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   readOnly?: boolean;
-  rounded?: boolean;
   size?: DateInputSize;
   value?: string;
 }
@@ -39,7 +39,6 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
       icon,
       invalid,
       readOnly,
-      rounded,
       size = 'md',
       className,
       id,
@@ -76,14 +75,13 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
         focused={focused}
         invalid={invalid}
         readOnly={readOnly}
-        rounded={rounded}
         size={size}
       >
         {isValidElement<IconProps>(icon) && (
           <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
         )}
 
-        <TextBox
+        <input
           {...inputProps}
           disabled={disabled}
           id={id}

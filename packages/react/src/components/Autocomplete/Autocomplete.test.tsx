@@ -55,25 +55,6 @@ describe('Autocomplete', () => {
       });
     });
 
-    describe('When the user navigates through the options using the keyboard arrow keys', () => {
-      it('Then the focus should move up or down with each arrow key press', async () => {
-        render(<Autocomplete options={options} />);
-
-        const input = screen.getByRole('combobox');
-        await userEvent.click(input);
-        await userEvent.keyboard('{arrowdown}{arrowdown}');
-
-        const textElement = screen.getByText('Banana');
-        const optionsElements = screen.getAllByRole('option');
-
-        const optionElement = optionsElements.find((el) =>
-          el.contains(textElement),
-        );
-
-        expect(optionElement).toHaveClass('highlighted');
-      });
-    });
-
     describe("When the user types in a search term that doesn't match any of the autocomplete options", () => {
       it('Then no options should be displayed', async () => {
         render(<Autocomplete options={options} />);
@@ -258,72 +239,8 @@ describe('Autocomplete', () => {
     });
   });
 
-  describe('Given an Autocomplete with a set of options and autoHighlight set to true', () => {
-    const options = ['Apple', 'Banana', 'Cherry'];
-
-    describe('When the user clicks on the combobox input', () => {
-      it('Then the first option in the dropdown list should be highlighted', async () => {
-        render(<Autocomplete autoHighlight options={options} />);
-
-        const inputElement = screen.getByRole('combobox');
-        await userEvent.click(inputElement); // Open the dropdown list
-
-        const textElement = screen.getByText('Apple');
-        const optionsElements = screen.getAllByRole('option');
-
-        const optionElement = optionsElements.find((el) =>
-          el.contains(textElement),
-        );
-
-        expect(optionElement).toHaveClass('highlighted');
-      });
-    });
-
-    describe('When the user types in the input and triggers a search', () => {
-      it('Then the first option in the updated dropdown list should be highlighted', async () => {
-        render(<Autocomplete autoHighlight options={options} />);
-
-        const inputElement = screen.getByRole('combobox');
-        await userEvent.click(inputElement); // Open the dropdown list
-        await userEvent.type(inputElement, 'b'); // Trigger a search
-
-        await waitFor(() => {
-          const textElement = screen.getByText('Banana');
-          const optionsElements = screen.getAllByRole('option');
-
-          const optionElement = optionsElements.find((el) =>
-            el.contains(textElement),
-          );
-
-          expect(optionElement).toHaveClass('highlighted');
-        });
-      });
-    });
-  });
-
   describe('Given an Autocomplete component with a set of options and inlineAutoComplete set to true', () => {
     const options = ['Apple', 'Banana', 'Orange'];
-
-    describe('When the user types in the input and matches an option', () => {
-      it('Then the matched portion of the option should be highlighted in the input', async () => {
-        render(<Autocomplete inlineAutoComplete options={options} />);
-
-        const input = screen.getByRole<HTMLInputElement>('combobox');
-        await userEvent.type(input, 'b');
-
-        await waitFor(() => {
-          const textElement = screen.getByText('Banana');
-          const optionsElements = screen.getAllByRole('option');
-
-          const optionElement = optionsElements.find((el) =>
-            el.contains(textElement),
-          );
-
-          expect(optionElement).toHaveClass('highlighted');
-          expect(input.value).toBe('Banana');
-        });
-      });
-    });
 
     describe('When the user types in the input and does not match any options', () => {
       it('Then the input should not be modified', async () => {

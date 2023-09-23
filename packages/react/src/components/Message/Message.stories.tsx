@@ -5,11 +5,10 @@ import { StoryFn } from '@storybook/react';
 import Message, { MessageProps } from './Message';
 
 const variants: MessageProps['variant'][] = [
-  'info',
+  'primary',
   'success',
   'warning',
   'danger',
-  'light',
 ];
 
 export default {
@@ -30,7 +29,7 @@ export const Variants: StoryFn<MessageProps> = (args) => (
   <Flex alignItems="center" flexDirection="column">
     {variants.map((variant, i) => (
       <Message {...args} className={atoms({ mb: 2 })} key={i} variant={variant}>
-        This is {variant === 'info' ? 'an' : 'a'} {variant} message.
+        This is a {variant} message.
       </Message>
     ))}
   </Flex>

@@ -10,7 +10,8 @@
         "**/*.tsx"
       ],
       "rules": {
-        "@typescript-eslint/quotes": "off"
+        "@typescript-eslint/quotes": "off",
+        "react-perf/jsx-no-jsx-as-prop": "off"
       },
       "parserOptions": {
         "tsconfigRootDir": ".",
@@ -27,7 +28,6 @@
       ],
       "rules": {
         "@typescript-eslint/ban-ts-comment": "off",
-        "react-perf/jsx-no-jsx-as-prop": "off",
         "react-perf/jsx-no-new-array-as-prop": "off",
         "react-perf/jsx-no-new-function-as-prop": "off",
         "react-perf/jsx-no-new-object-as-prop": "off"

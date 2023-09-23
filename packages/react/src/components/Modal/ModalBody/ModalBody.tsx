@@ -1,16 +1,35 @@
-import { ReactNode, useContext } from 'react';
+import { atoms } from '@seed-ui/styles';
+import cn from 'classnames';
+import { FC, HTMLAttributes, ReactNode, useContext } from 'react';
 
 import { ModalContext } from '../context';
 
-import * as S from './ModalBody.css';
-
-export interface ModalBodyProps {
+export interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-function ModalBody({ children }: ModalBodyProps): JSX.Element {
+const sizeStyles = {
+  sm: atoms({
+    px: 5,
+  }),
+  md: atoms({
+    px: 5,
+  }),
+  lg: atoms({
+    px: {
+      mobile: 2,
+      tablet: 5,
+    },
+  }),
+};
+
+const ModalBody: FC<ModalBodyProps> = ({ className, children, ...props }) => {
   const { size } = useContext(ModalContext);
-  return <div className={S.rootSize[size]}>{children}</div>;
-}
+  return (
+    <div className={cn(sizeStyles[size], className)} {...props}>
+      {children}
+    </div>
+  );
+};
 
 export default ModalBody;

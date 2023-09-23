@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { atoms } from '@seed-ui/styles';
 import {
   ChangeEvent,
   cloneElement,
@@ -15,9 +15,8 @@ import {
 } from 'react';
 
 import { Icon, IconProps } from '../Icon';
-import { InputAction, InputBox, InputBoxSize } from '../InputGroup';
-
-import * as S from './Select.css';
+import { InputAction } from '../InputAction';
+import { InputBox, InputBoxSize } from '../InputBox';
 
 export type SelectSize = InputBoxSize;
 
@@ -36,7 +35,6 @@ export interface SelectProps<TValue extends SelectValue = SelectValue> {
   onBlur?: FocusEventHandler<HTMLSelectElement>;
   onChange?: (value: TValue) => void;
   onFocus?: FocusEventHandler<HTMLSelectElement>;
-  rounded?: boolean;
   size?: SelectSize;
   value?: TValue;
   children?: ReactNode;
@@ -57,7 +55,6 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       invalid,
       maxRows,
       multiple,
-      rounded,
       size = 'md',
       id = 'select',
       value,
@@ -113,11 +110,12 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     return (
       <InputBox
-        className={S.container}
+        className={atoms({
+          position: 'relative',
+        })}
         disabled={disabled}
         focused={focused}
         invalid={invalid}
-        rounded={rounded}
         size={size}
       >
         {isValidElement<IconProps>(icon) && (
@@ -126,7 +124,10 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
         <select
           {...inputProps}
-          className={cn(S.select, multiple && S.selectMultiple)}
+          className={atoms({
+            paddingRight: multiple ? 0 : 7,
+            zIndex: 10,
+          })}
           disabled={disabled}
           id={id}
           multiple={multiple}
@@ -141,7 +142,15 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         </select>
 
         {!multiple && !disabled && (
-          <InputAction className={S.action}>
+          <InputAction
+            className={atoms({
+              position: 'absolute',
+              top: 0,
+              right: 2,
+              bottom: 0,
+              my: 'auto',
+            })}
+          >
             <Icon fontSize="lg" name="chevron-down" />
           </InputAction>
         )}

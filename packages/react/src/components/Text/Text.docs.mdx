@@ -1,5 +1,5 @@
 import { Meta, ArgTypes, Canvas, ArgsTable } from '@storybook/addon-docs';
-import Text, { Basic, Headings, Body, Elements } from './Text.stories';
+import Text, { Basic, Headings, Body, Elements, Labels } from './Text.stories';
 
 <Meta of={Text} />
 
@@ -21,8 +21,6 @@ and sections.
 - Links: Style hyperlink text for navigation and user interaction, including hover and active states.
 
 - Captions: Add captions to images, charts, or media elements with consistent typography for enhanced accessibility.
-
-- Buttons: Apply consistent typography to button text that matches the style defined in the design system.
 
 - Responsive Typography: Use responsive properties for font size and margins to ensure text scales appropriately across
 screen sizes.
@@ -47,9 +45,16 @@ users.
 
 <Canvas of={Body} />
 
+### Labels
+
+Labels are used to identify form elements, input fields, and other UI components. They are used to provide additional
+information and context to users.
+
+<Canvas of={Labels} />
+
 ### Elements
 
-Text can be used to style other elements, such as buttons, labels, and captions.
+Text can be used to style other elements, such as links and buttons.
 
 <Canvas of={Elements} />
 

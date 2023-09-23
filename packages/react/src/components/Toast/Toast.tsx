@@ -145,7 +145,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
             backgroundColor: 'white',
             boxShadow: 'md',
             transition: 'fade',
-            opacity: visible ? 1 : 0,
+            opacity: visible ? 100 : 0,
             overflow: 'hidden',
             pointerEvents: 'auto',
             py: 3,
@@ -176,7 +176,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
             size="sm"
             tabIndex={0}
             title=""
-            variant="tertiary"
+            variant="plain"
             onClick={onClose}
           >
             <Icon name="x" />

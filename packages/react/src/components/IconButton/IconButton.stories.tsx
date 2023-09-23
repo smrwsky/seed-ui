@@ -13,20 +13,12 @@ import {
 const variants: IconButtonVariant[] = [
   'primary',
   'secondary',
-  'tertiary',
+  'outline',
+  'plain',
   'success',
   'warning',
   'danger',
-  'light',
-  'dark',
-  'primary-outline',
-  'secondary-outline',
-  'tertiary-outline',
-  'success-outline',
-  'warning-outline',
-  'danger-outline',
-  'light-outline',
-  'dark-outline',
+  'ghost',
 ];
 
 const sizes: IconButtonSize[] = ['sm', 'md', 'lg'];

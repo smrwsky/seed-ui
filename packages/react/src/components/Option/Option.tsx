@@ -1,37 +1,35 @@
+import { atoms } from '@seed-ui/styles';
 import cx from 'classnames';
 import {
-  ComponentType,
+  cloneElement,
   forwardRef,
+  isValidElement,
   LiHTMLAttributes,
   ReactElement,
+  ReactNode,
 } from 'react';
 
-import * as S from './Option.css';
-import { OptionAction } from './OptionAction';
-import { OptionDescription } from './OptionDescription';
-import { OptionIcon } from './OptionIcon';
-import { OptionLabel } from './OptionLabel';
+import { IconProps } from '../Icon';
 
 export interface OptionProps
   extends Omit<LiHTMLAttributes<HTMLLIElement>, 'value'> {
-  ActionComponent?: ComponentType;
+  action?: ReactNode;
   highlighted?: boolean;
   description?: string;
   disabled?: boolean;
   icon?: ReactElement;
-  invalid?: boolean;
   selected?: boolean;
 }
 
-const OptionBase = forwardRef<HTMLLIElement, OptionProps>(
+const Option = forwardRef<HTMLLIElement, OptionProps>(
   (
     {
-      ActionComponent,
+      action,
+      className,
       highlighted,
       disabled,
       description,
       icon,
-      invalid,
       selected,
       children,
       ...props
@@ -41,37 +39,124 @@ const OptionBase = forwardRef<HTMLLIElement, OptionProps>(
     <li
       aria-disabled={disabled}
       aria-selected={selected}
-      className={cx(S.root, { highlighted, invalid })}
+      className={cx(
+        atoms({
+          position: 'relative',
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minWidth: 36,
+          borderRadius: 'md',
+          color: 'neutral900',
+          textDecoration: { default: 'none', hover: 'none' },
+          transition: 'base',
+          px: 1,
+          py: 0.5,
+          mx: 1,
+          my: 0.5,
+          cursor: 'pointer',
+
+          ...(highlighted && {
+            bg: 'dark50',
+          }),
+
+          ...(selected && {
+            bg: 'primary50',
+          }),
+
+          ...(disabled && {
+            bg: 'transparent',
+            pointerEvents: 'none',
+          }),
+        }),
+        className,
+      )}
       ref={ref}
       role="option"
       {...props}
     >
-      {icon}
+      {isValidElement<IconProps>(icon) &&
+        cloneElement(icon, {
+          fontSize: 'xl',
+          className: atoms({
+            color: 'neutral500',
+            mx: 1.5,
 
-      {typeof children === 'string' ? (
-        <OptionLabel>{children}</OptionLabel>
-      ) : (
-        children
-      )}
+            ...(selected && {
+              color: 'primary500',
+            }),
 
-      {description && <OptionDescription>{description}</OptionDescription>}
+            ...(disabled && {
+              color: 'neutral200',
+            }),
+          }),
+        })}
 
-      {ActionComponent && (
-        <OptionAction>
-          <ActionComponent />
-        </OptionAction>
+      <span
+        className={atoms({
+          flex: 1,
+          display: 'block',
+          mx: 1.5,
+        })}
+      >
+        <span
+          className={atoms({
+            display: 'block',
+            color: 'inherit',
+            fontSize: 'md',
+            lineHeight: 'normal',
+            textOverflow: 'ellipsis',
+            mx: 1.5,
+
+            ...(selected && {
+              fontWeight: 'semiBold',
+            }),
+
+            ...(disabled && {
+              color: 'neutral200',
+            }),
+          })}
+        >
+          {children}
+        </span>
+
+        {description && (
+          <span
+            className={atoms({
+              display: 'block',
+              color: 'neutral500',
+              fontSize: 'xs',
+              letterSpacing: 'wide',
+              lineHeight: 'snug',
+              textOverflow: 'ellipsis',
+
+              ...(disabled && {
+                color: 'neutral200',
+              }),
+            })}
+          >
+            {description}
+          </span>
+        )}
+      </span>
+
+      {action && (
+        <span
+          className={atoms({
+            display: 'block',
+            lineHeight: 'none',
+            overflow: 'hidden',
+            mx: 1.5,
+          })}
+        >
+          {action}
+        </span>
       )}
     </li>
   ),
 );
 
-OptionBase.displayName = 'Option';
+Option.displayName = 'Option';
 
-const Option = Object.assign(OptionBase, {
-  Action: OptionAction,
-  Description: OptionDescription,
-  Icon: OptionIcon,
-  Label: OptionLabel,
-});
-
-export { Option };
+export default Option;

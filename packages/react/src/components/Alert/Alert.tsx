@@ -1,76 +1,97 @@
+import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
 import { FC, HTMLAttributes, ReactNode } from 'react';
 
+import { Flex } from '../Flex';
 import { Icon } from '../Icon';
 import { Text } from '../Text';
 
-import * as S from './Alert.css';
+export type AlertVariant = 'primary' | 'danger' | 'warning' | 'success';
 
 export interface AlertProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
-  title?: string;
-  variant?: 'danger' | 'warning' | 'info' | 'success';
+  variant?: AlertVariant;
 }
 
-const getIconByVariant = (variant: AlertProps['variant']) =>
-  (variant === 'warning' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      fontSize="xl"
-      name="error"
-    />
-  )) ||
-  (variant === 'success' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      fontSize="xl"
-      name="check-circle"
-    />
-  )) ||
-  (variant === 'info' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      fontSize="xl"
-      name="info-circle"
-    />
-  )) ||
-  (variant === 'danger' && (
-    <Icon
-      className={cn(S.icon, S.iconVariant[variant])}
-      fontSize="xl"
-      name="error-circle"
-    />
-  )) ||
-  null;
+const rootVariantStyles: Record<AlertVariant, string> = {
+  primary: atoms({
+    borderColor: 'primary100',
+    color: 'primary600',
+    bg: 'primary50',
+  }),
+  success: atoms({
+    borderColor: 'success100',
+    color: 'success600',
+    bg: 'success50',
+  }),
+  warning: atoms({
+    borderColor: 'warning100',
+    color: 'warning600',
+    bg: 'warning50',
+  }),
+  danger: atoms({
+    borderColor: 'danger100',
+    color: 'danger600',
+    bg: 'danger50',
+  }),
+};
+
+const iconByVariant = {
+  primary: 'info-circle',
+  success: 'check-circle',
+  warning: 'error',
+  danger: 'error-circle',
+};
+
+const iconVariantStyles = {
+  primary: atoms({
+    color: 'primary400',
+  }),
+  success: atoms({
+    color: 'success400',
+  }),
+  warning: atoms({
+    color: 'warning400',
+  }),
+  danger: atoms({
+    color: 'danger400',
+  }),
+};
 
 const Alert: FC<AlertProps> = ({
-  title,
-  variant = 'danger',
+  variant = 'primary',
   children,
   className,
   role = 'alert',
   ...props
 }) => {
-  const icon = getIconByVariant(variant);
-
   return (
-    <div
-      className={cn(S.root, S.rootVariant[variant], className)}
+    <Flex
+      className={cn(
+        atoms({
+          border: 'thin',
+          borderRadius: 'lg',
+        }),
+        rootVariantStyles[variant],
+        className,
+      )}
+      p={3}
       role={role}
       {...props}
     >
-      {icon}
-
-      <Text as="div" className={S.content} fontSize="sm">
-        {title && (
-          <Text as="div" className={S.title} fontWeight="semiBold">
-            {title}
-          </Text>
+      <Icon
+        className={cn(
+          atoms({
+            mr: 3,
+          }),
+          iconVariantStyles[variant],
         )}
+        fontSize="2xl"
+        name={iconByVariant[variant]}
+      />
 
-        {children}
-      </Text>
-    </div>
+      <Text color="inherit">{children}</Text>
+    </Flex>
   );
 };
 

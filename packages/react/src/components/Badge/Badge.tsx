@@ -8,7 +8,7 @@ export interface BadgeProps {
   /**
    * Background color of the badge.
    */
-  backgroundColor?: Atoms['bg'];
+  bg?: Atoms['bg'];
 
   /**
    * The content to be displayed within the badge. Can be a numerical value, text, or any ReactNode.
@@ -76,7 +76,7 @@ const transformOriginStyle: Record<BadgePosition, string> = {
 };
 
 const Badge: FC<BadgeProps> = ({
-  backgroundColor = 'secondary400',
+  bg = 'secondary400',
   children,
   content,
   className,
@@ -148,7 +148,7 @@ const Badge: FC<BadgeProps> = ({
               width: 2,
               height: 2,
               borderRadius: 'full',
-              backgroundColor,
+              bg,
             })}
             data-testid="badge-dot"
             style={badgeStyle}
@@ -175,7 +175,7 @@ const Badge: FC<BadgeProps> = ({
               lineHeight: 'none',
               whiteSpace: 'nowrap',
               textAlign: 'center',
-              backgroundColor,
+              bg,
               overflow: 'hidden',
             })}
             style={badgeStyle}

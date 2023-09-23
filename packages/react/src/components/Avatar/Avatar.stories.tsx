@@ -25,7 +25,7 @@ export function Basic(args: AvatarProps): JSX.Element {
       </Box>
 
       <Box mr={2}>
-        <Avatar {...args} backgroundColor="secondary400" />
+        <Avatar {...args} bg="secondary400" />
       </Box>
 
       <Box>

@@ -6,6 +6,7 @@ import {
   useFloating,
   Placement,
 } from '@floating-ui/react-dom';
+import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
 import {
   CSSProperties,
@@ -17,8 +18,6 @@ import {
   useRef,
   useState,
 } from 'react';
-
-import * as S from './Popover.css';
 
 export type PopoverPlacement = Placement;
 
@@ -178,7 +177,14 @@ const Popover: FC<PopoverProps> = ({
 
   return (
     <div
-      className={cn(S.root, className)}
+      className={cn(
+        atoms({
+          width: 'max',
+          pointerEvents: 'auto',
+          zIndex: 10,
+        }),
+        className,
+      )}
       ref={floating}
       role={role}
       style={{
@@ -188,8 +194,29 @@ const Popover: FC<PopoverProps> = ({
         ...style,
       }}
     >
-      <div className={cn(S.content)}>{children}</div>
-      {arrow && <div className={S.arrow} ref={arrowRef} />}
+      <div
+        className={atoms({
+          bg: 'white',
+          border: 'thin',
+          borderColor: 'neutral50',
+          borderRadius: 'md',
+          boxShadow: 'md',
+          overflow: 'hidden',
+        })}
+      >
+        {children}
+      </div>
+
+      {arrow && (
+        <div
+          className={atoms({
+            position: 'absolute',
+            bg: 'white',
+            size: 1,
+          })}
+          ref={arrowRef}
+        />
+      )}
     </div>
   );
 };

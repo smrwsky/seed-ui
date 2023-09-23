@@ -3,11 +3,11 @@ import cn from 'classnames';
 import {
   AnchorHTMLAttributes,
   cloneElement,
-  ComponentType,
   forwardRef,
   isValidElement,
   memo,
   ReactElement,
+  ReactNode,
   useContext,
 } from 'react';
 
@@ -16,7 +16,7 @@ import { MenuContext } from '../Menu.context';
 import { MenuSize, MenuType, MenuVariant } from '../Menu.types';
 
 export interface MenuLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  ActionComponent?: ComponentType;
+  action?: ReactNode;
   description?: string;
   disabled?: boolean;
   highlighted?: boolean;
@@ -91,14 +91,11 @@ const rootHighlightedStyle = (type: MenuType, variant: MenuVariant): Atoms =>
 
 const rootVerticalSelectedVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {
-    color: { default: 'primary500', visited: 'primary500' },
     bg: 'primary50',
   },
-  secondary: {
-    color: { default: 'primary500', visited: 'primary500' },
-  },
+  secondary: {},
   dark: {
-    bg: { default: 'primary400', visited: 'primary400' },
+    bg: 'primary500',
   },
 };
 
@@ -106,7 +103,7 @@ const rootHorizontalSelectedVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {},
   secondary: {},
   dark: {
-    bg: 'primary400',
+    bg: 'primary500',
   },
 };
 
@@ -151,6 +148,18 @@ const iconSelectedVariantStyle: Record<MenuVariant, Atoms> = {
   },
 };
 
+const iconDisabledVariantStyle: Record<MenuVariant, Atoms> = {
+  primary: {
+    color: 'neutral200',
+  },
+  secondary: {
+    color: 'neutral200',
+  },
+  dark: {
+    color: 'light400',
+  },
+};
+
 const labelVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {
     color: 'neutral900',
@@ -165,12 +174,24 @@ const labelVariantStyle: Record<MenuVariant, Atoms> = {
 
 const labelSelectedVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {
-    color: 'primary500',
+    color: 'neutral900',
   },
   secondary: {
     color: 'primary500',
   },
   dark: {},
+};
+
+const labelDisabledVariantStyle: Record<MenuVariant, Atoms> = {
+  primary: {
+    color: 'neutral200',
+  },
+  secondary: {
+    color: 'neutral200',
+  },
+  dark: {
+    color: 'light400',
+  },
 };
 
 const labelCollapsedVariantStyle: Record<MenuVariant, Atoms> = {
@@ -188,7 +209,7 @@ const labelCollapsedVariantStyle: Record<MenuVariant, Atoms> = {
 let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
   (
     {
-      ActionComponent,
+      action,
       disabled,
       description,
       highlighted,
@@ -222,6 +243,7 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                   cursor: 'pointer',
                 }),
                 highlighted &&
+                  !disabled &&
                   atoms({ bg: variant === 'dark' ? 'light200' : 'dark50' }),
               ]
             : [
@@ -239,10 +261,16 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                   atoms({ borderRadius: 'md', mx: 1, my: 0.5 }),
                 rootSizeStyle(type, size),
                 atoms({
-                  ...(highlighted && rootHighlightedStyle(type, variant)),
-                  ...(selected && rootSelectedStyle(type, variant)),
+                  ...(highlighted &&
+                    !disabled &&
+                    rootHighlightedStyle(type, variant)),
+
+                  ...(selected &&
+                    !disabled &&
+                    rootSelectedStyle(type, variant)),
                 }),
               ],
+          disabled && atoms({ pointerEvents: 'none' }),
         )}
         href={href}
         ref={ref}
@@ -267,7 +295,10 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                     }),
                     atoms({
                       ...iconCollapsedVariantStyle[variant],
+
                       ...(selected && iconSelectedVariantStyle[variant]),
+
+                      ...(disabled && iconDisabledVariantStyle[variant]),
                     }),
                   ]
                 : [
@@ -276,7 +307,10 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                     }),
                     atoms({
                       ...iconVariantStyle[variant],
+
                       ...(selected && iconSelectedVariantStyle[variant]),
+
+                      ...(disabled && iconDisabledVariantStyle[variant]),
                     }),
                   ],
             ),
@@ -304,7 +338,10 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                     }),
                     atoms({
                       ...labelCollapsedVariantStyle[variant],
+
                       ...(selected && labelSelectedVariantStyle[variant]),
+
+                      ...(disabled && labelDisabledVariantStyle[variant]),
                     }),
                   ]
                 : [
@@ -313,13 +350,18 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
                       lineHeight: 'normal',
                       display: 'block',
                       textOverflow: 'ellipsis',
-                      ...(selected && {
-                        fontWeight: 'semiBold',
-                      }),
+
+                      ...(selected &&
+                        !disabled && {
+                          fontWeight: 'semiBold',
+                        }),
                     }),
                     atoms({
                       ...labelVariantStyle[variant],
+
                       ...(selected && labelSelectedVariantStyle[variant]),
+
+                      ...(disabled && labelDisabledVariantStyle[variant]),
                     }),
                   ],
             )}
@@ -331,15 +373,28 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
             <span
               className={cn(
                 atoms({
+                  display: 'block',
                   fontSize: 'xs',
                   letterSpacing: 'wide',
                   lineHeight: 'snug',
-                  display: 'block',
                   textOverflow: 'ellipsis',
                 }),
+
                 variant === 'dark'
-                  ? atoms({ color: 'white' })
-                  : atoms({ color: 'neutral500' }),
+                  ? atoms({
+                      color: 'white',
+
+                      ...(disabled && {
+                        color: 'light400',
+                      }),
+                    })
+                  : atoms({
+                      color: 'neutral500',
+
+                      ...(disabled && {
+                        color: 'neutral200',
+                      }),
+                    }),
               )}
             >
               {description}
@@ -347,7 +402,7 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
           )}
         </span>
 
-        {!collapsed && ActionComponent && (
+        {!collapsed && action && (
           <span
             className={cn(
               atoms({
@@ -358,7 +413,7 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
               }),
             )}
           >
-            <ActionComponent />
+            {action}
           </span>
         )}
 
@@ -374,13 +429,15 @@ let MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
               borderRadius: 'full',
               transition: 'base',
 
-              ...(highlighted && {
-                bg: 'primary100',
-              }),
+              ...(highlighted &&
+                !disabled && {
+                  bg: 'primary100',
+                }),
 
-              ...(selected && {
-                bg: 'primary400',
-              }),
+              ...(selected &&
+                !disabled && {
+                  bg: 'primary400',
+                }),
             })}
           />
         )}

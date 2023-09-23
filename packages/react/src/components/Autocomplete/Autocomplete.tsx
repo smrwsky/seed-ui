@@ -24,14 +24,10 @@ import { mergeRefs } from '../../utils/merge-refs';
 import { slug } from '../../utils/slug';
 import { Icon, IconProps } from '../Icon';
 import { IconButton } from '../IconButton';
-import {
-  InputAction,
-  InputBox,
-  InputBoxSize,
-  InputTag,
-  InputTags,
-  TextBox,
-} from '../InputGroup';
+import { InputAction } from '../InputAction';
+import { InputBox, InputBoxSize } from '../InputBox';
+import { InputTags } from '../InputTags';
+import { InputTag } from '../InputTags/InputTag';
 import { MenuList } from '../Menu';
 import { Option, OptionProps } from '../Option';
 import { Popover } from '../Popover';
@@ -158,11 +154,6 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   ref?: Ref<HTMLInputElement>;
 
   /**
-   * If `true`, input box has rounded corners.
-   */
-  rounded?: boolean;
-
-  /**
    * The amount of time to wait after the user stops typing before triggering
    * a search.
    */
@@ -257,7 +248,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       OptionComponent = Option,
       options,
       readOnly = false,
-      rounded = false,
       disableSearch = false,
       size = 'md',
       value,
@@ -322,7 +312,9 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     );
 
     const resetInputValue = useCallback(() => {
-      if (allowInputValue) return;
+      if (allowInputValue && !selectedOptions[0]) {
+        return;
+      }
 
       const nextValue =
         !multiple && selectedOptions[0] ? getLabel(selectedOptions[0]) : '';
@@ -402,7 +394,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         setSearchQuery(nextValue);
         setIsMenuOpened(true);
 
-        if (!allowInputValue && !multiple && !nextValue) {
+        if (allowInputValue || (!multiple && !nextValue)) {
           changeValue([]);
         }
       },
@@ -488,6 +480,8 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         e.preventDefault();
         e.stopPropagation();
         changeValue([]);
+        setInputValue('');
+        setSearchQuery('');
         setIsMenuOpened(false);
         setIsBackspacePressed(false);
       },
@@ -611,7 +605,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         const nextOptions = mapToSelectedOptions(value, multiple);
         setSelectedOptions(nextOptions);
       }
-    }, [allowInputValue, isUncontrolled, multiple, value]);
+    }, [isUncontrolled, multiple, value]);
 
     useEffect(() => {
       resetInputValue();
@@ -629,7 +623,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           invalid={invalid}
           readOnly={readOnly}
           ref={setAnchorElement}
-          rounded={rounded}
           size={size}
         >
           {isValidElement<IconProps>(icon) && (
@@ -640,11 +633,13 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
               selectedOptions.map((item, idx) => (
                 <InputTag key={idx}>
                   <Tag
+                    bg="neutral50"
+                    borderColor="neutral200"
+                    color="neutral700"
                     data-index={idx}
-                    deletable
+                    removable
                     role="button"
                     tabIndex={-1}
-                    variant="outline-tertiary"
                     onMouseDown={handleRemoveMouseDown}
                   >
                     {getLabel(item)}
@@ -652,33 +647,35 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                 </InputTag>
               ))}
 
-            <TextBox
-              aria-activedescendant={
-                highlightedIndex !== -1
-                  ? slug(id, OPTION_ID, highlightedIndex)
-                  : ''
-              }
-              aria-autocomplete="list"
-              aria-controls={isMenuOpened ? slug(id, LISTBOX_ID) : ''}
-              aria-expanded={isMenuOpened}
-              aria-haspopup="listbox"
-              aria-invalid={invalid}
-              aria-owns={isMenuOpened ? slug(id, LISTBOX_ID) : ''}
-              autoComplete="off"
-              disabled={disabled}
-              id={id}
-              readOnly={readOnly}
-              ref={mergedRefs}
-              role="combobox"
-              type="text"
-              value={inputValue}
-              onBlur={handleInputBlur}
-              onChange={handleInputChange}
-              onClick={handleInputClick}
-              onFocus={handleInputFocus}
-              onKeyDown={handleInputKeyDown}
-              {...inputProps}
-            />
+            <InputTag>
+              <input
+                aria-activedescendant={
+                  highlightedIndex !== -1
+                    ? slug(id, OPTION_ID, highlightedIndex)
+                    : ''
+                }
+                aria-autocomplete="list"
+                aria-controls={isMenuOpened ? slug(id, LISTBOX_ID) : ''}
+                aria-expanded={isMenuOpened}
+                aria-haspopup="listbox"
+                aria-invalid={invalid}
+                aria-owns={isMenuOpened ? slug(id, LISTBOX_ID) : ''}
+                autoComplete="off"
+                disabled={disabled}
+                id={id}
+                readOnly={readOnly}
+                ref={mergedRefs}
+                role="combobox"
+                type="text"
+                value={inputValue}
+                onBlur={handleInputBlur}
+                onChange={handleInputChange}
+                onClick={handleInputClick}
+                onFocus={handleInputFocus}
+                onKeyDown={handleInputKeyDown}
+                {...inputProps}
+              />
+            </InputTag>
           </InputTags>
 
           {!readOnly &&
@@ -689,7 +686,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                   aria-label={clearLabel}
                   size="sm"
                   tabIndex={-1}
-                  variant="tertiary"
+                  variant="plain"
                   onMouseDown={handleClearMouseDown}
                 >
                   <Icon name="x" />
@@ -708,6 +705,12 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           <MenuList id={slug(id, LISTBOX_ID)} ref={listboxRef} role="listbox">
             {optionsState.map((item, idx) => (
               <OptionComponent
+                action={
+                  multiple &&
+                  selectedOptions.includes(item) && (
+                    <Icon color="primary500" fontSize="lg" name="check" />
+                  )
+                }
                 data-index={idx}
                 highlighted={idx === highlightedIndex}
                 id={slug(id, OPTION_ID, idx)}
@@ -728,7 +731,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             )}
 
             {!loading && loadingError && (
-              <Option disabled invalid role="alert">
+              <Option disabled role="alert">
                 {loadingError}
               </Option>
             )}

@@ -11,7 +11,8 @@ import {
 } from 'react';
 
 import { IconProps } from '../Icon';
-import { InputAction, InputBox, TextBox } from '../InputGroup';
+import { InputAction } from '../InputAction';
+import { InputBox } from '../InputBox';
 
 export type TextInputSize = 'sm' | 'md' | 'lg';
 
@@ -22,7 +23,6 @@ export interface TextInputProps
   icon?: ReactElement;
   inputSize?: number;
   invalid?: boolean;
-  rounded?: boolean;
   size?: TextInputSize;
   value?: string;
 }
@@ -30,7 +30,6 @@ export interface TextInputProps
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
-      rounded,
       size,
       disabled,
       icon,
@@ -75,14 +74,13 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         focused={focused}
         invalid={invalid}
         readOnly={readOnly}
-        rounded={rounded}
         size={size}
       >
         {isValidElement<IconProps>(icon) && (
           <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
         )}
 
-        <TextBox
+        <input
           {...inputProps}
           disabled={disabled}
           readOnly={readOnly}

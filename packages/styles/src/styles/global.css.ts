@@ -52,8 +52,8 @@ globalStyle('a:hover', {
   textDecoration: 'underline',
 });
 
-globalStyle('button', {
-  WebkitTapHighlightColor: 'transparent',
+globalStyle('a:visited', {
+  color: vars.color.secondary500,
 });
 
 globalStyle('img', {
@@ -62,6 +62,27 @@ globalStyle('img', {
   letterSpacing: 'wide',
   lineHeight: 'snug',
 });
+
+globalStyle('button, [type="button"], [type="submit"]', {
+  border: 'none',
+  color: 'inherit',
+  fontFamily: 'inherit',
+  fontSize: 'inherit',
+  fontWeight: 'inherit',
+  letterSpacing: 'inherit',
+  lineHeight: 'inherit',
+  background: 'transparent',
+  WebkitTapHighlightColor: 'transparent',
+  padding: 0,
+  cursor: 'pointer',
+});
+
+globalStyle(
+  'button:disabled, [type="button"]:disabled, [type="submit"]:disabled',
+  {
+    cursor: 'not-allowed',
+  },
+);
 
 globalStyle('input, select, textarea', {
   outline: 'none',
@@ -95,6 +116,14 @@ globalStyle(
   },
 );
 
+globalStyle('select', {
+  appearance: 'none',
+});
+
+globalStyle('textarea', {
+  resize: 'none',
+});
+
 globalStyle('::placeholder', {
   color: vars.color.neutral100,
   opacity: 1,
@@ -103,4 +132,8 @@ globalStyle('::placeholder', {
 globalStyle(':focus-visible:not(input):not(select):not(textarea)', {
   outline: 'none',
   boxShadow: vars.boxShadow.focus,
+});
+
+globalStyle('label', {
+  display: 'block',
 });
