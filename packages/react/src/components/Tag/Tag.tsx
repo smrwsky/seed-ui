@@ -1,48 +1,65 @@
+import { Atoms, atoms, textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
-import { forwardRef, HTMLAttributes, KeyboardEvent, ReactNode } from 'react';
+import {
+  cloneElement,
+  forwardRef,
+  HTMLAttributes,
+  isValidElement,
+  KeyboardEvent,
+  ReactElement,
+  ReactNode,
+  useCallback,
+} from 'react';
 
 import { Icon } from '../Icon';
 
-import * as S from './Tag.css';
-
-export type TagVariant =
-  | 'primary'
-  | 'secondary'
-  | 'tertiary'
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'light'
-  | 'outline-primary'
-  | 'outline-secondary'
-  | 'outline-tertiary'
-  | 'outline-info'
-  | 'outline-success'
-  | 'outline-warning'
-  | 'outline-danger'
-  | 'outline-light';
-
 export type TagSize = 'sm' | 'md';
 
-export interface TagProps extends HTMLAttributes<HTMLSpanElement> {
-  deletable?: boolean;
-  disabled?: boolean;
-  rounded?: boolean;
+export interface TagProps
+  extends Omit<HTMLAttributes<HTMLSpanElement>, 'color'> {
+  bg?: Atoms['bg'];
+  borderColor?: Atoms['borderColor'];
+  color?: Atoms['color'];
+  removable?: boolean;
+  removeIcon?: ReactElement;
   size?: TagSize;
-  variant?: TagVariant;
   children?: ReactNode;
+  onRemove?: () => void;
 }
+
+const sizeStyles = {
+  sm: atoms({
+    py: 0.5,
+    px: 1,
+  }),
+  md: atoms({
+    py: 1,
+    px: 2,
+  }),
+};
+
+const iconStyles = atoms({
+  fontSize: 'sm',
+  transition: 'fade',
+  ml: 1,
+  cursor: 'pointer',
+  opacity: {
+    default: 45,
+    hover: 100,
+  },
+});
 
 const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
     {
-      disabled,
-      deletable,
-      rounded,
-      size = 'md',
-      variant = 'primary',
+      bg = 'primary100',
+      borderColor,
+      color = 'primary700',
+      className,
+      removable = false,
+      removeIcon,
       role,
+      size = 'md',
       tabIndex,
       onClick,
       onKeyDown,
@@ -51,24 +68,41 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
     },
     ref,
   ): JSX.Element => {
-    function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
-      if (deletable && e.code === 'Delete') {
-        e.currentTarget.click();
-      }
+    const handleKeyDown = useCallback(
+      (e: KeyboardEvent<HTMLDivElement>) => {
+        if (removable && e.code === 'Delete') {
+          e.currentTarget.click();
+        }
 
-      onKeyDown?.(e);
-    }
+        onKeyDown?.(e);
+      },
+      [removable, onKeyDown],
+    );
 
     return (
-      <div
-        aria-disabled={disabled}
+      <span
         className={cn(
-          S.root,
-          S.rootSize[size],
-          S.rootVariant[variant],
-          rounded && S.rootRounded,
+          atoms({
+            display: 'inline-flex',
+            alignItems: 'center',
+            maxWidth: 'full',
+            borderRadius: 'tag',
+            border: 'thin',
+            borderColor: borderColor || bg,
+            color,
+            fontFamily: 'primary',
+            fontSize: 'xs',
+            fontWeight: 'regular',
+            letterSpacing: 'widest',
+            lineHeight: 'snug',
+            bg,
+            transition: 'base',
+            overflow: 'hidden',
+            cursor: onClick ? 'pointer' : 'default',
+          }),
+          sizeStyles[size],
+          className,
         )}
-        data-deletable={deletable}
         ref={ref}
         role={onClick && !role ? 'button' : role}
         tabIndex={onClick && typeof tabIndex === 'undefined' ? 0 : tabIndex}
@@ -76,20 +110,25 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
         onKeyDown={handleKeyDown}
         {...props}
       >
-        <span className={S.text}>{children}</span>
+        <span
+          className={cn(
+            atoms({
+              display: 'inline-block',
+            }),
+            textTruncate,
+          )}
+        >
+          {children}
+        </span>
 
-        {deletable && (
-          <Icon
-            className={cn(
-              S.icon,
-              S.iconSize[size],
-              S.iconVariant[variant],
-              disabled && S.iconDisabled,
-            )}
-            name="x"
-          />
-        )}
-      </div>
+        {removable &&
+          isValidElement<HTMLAttributes<HTMLElement>>(removeIcon) &&
+          cloneElement(removeIcon, {
+            className: cn(iconStyles, removeIcon.props.className),
+          })}
+
+        {removable && !removeIcon && <Icon className={iconStyles} name="x" />}
+      </span>
     );
   },
 );

@@ -1,4 +1,3 @@
-import { atoms } from '@seed-ui/styles';
 import { StoryFn } from '@storybook/react';
 import type { Meta } from '@storybook/react';
 
@@ -213,7 +212,7 @@ export const Body: StoryFn = () => (
   </Flex>
 );
 
-export const Elements: StoryFn = () => (
+export const Labels: StoryFn = () => (
   <>
     <Text fontWeight="semiBold" letterSpacing="widest" lineHeight="snug" mb={8}>
       Medium Label
@@ -232,25 +231,28 @@ export const Elements: StoryFn = () => (
     <Text fontSize="xs" letterSpacing="widest" lineHeight="snug" mb={8}>
       Caption
     </Text>
-
-    <Text
-      fontSize="sm"
-      fontWeight="regular"
-      letterSpacing="widest"
-      lineHeight="snug"
-      mb={8}
-    >
-      Button
-    </Text>
-
-    <Text
-      className={atoms({ cursor: 'pointer' })}
-      color="primary500"
-      textDecoration={{ hover: 'underline' }}
-    >
-      Link
-    </Text>
   </>
+);
+
+export const Elements: StoryFn = () => (
+  <Flex>
+    <Box mr={8}>
+      <Text as="a" color="secondary500" mb={8}>
+        Link
+      </Text>
+    </Box>
+
+    <Box>
+      <Text
+        as="button"
+        color="primary500"
+        textDecoration={{ hover: 'underline' }}
+        type="button"
+      >
+        Button
+      </Text>
+    </Box>
+  </Flex>
 );
 
 export default meta;

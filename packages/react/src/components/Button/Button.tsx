@@ -18,28 +18,12 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 export type ButtonVariant =
   | 'secondary'
   | 'primary'
-  | 'tertiary'
+  | 'outline'
+  | 'plain'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'dark'
-  | 'light'
-  | 'secondary-outline'
-  | 'primary-outline'
-  | 'tertiary-outline'
-  | 'success-outline'
-  | 'warning-outline'
-  | 'danger-outline'
-  | 'dark-outline'
-  | 'light-outline'
-  | 'secondary-overlay'
-  | 'primary-overlay'
-  | 'tertiary-overlay'
-  | 'success-overlay'
-  | 'warning-overlay'
-  | 'danger-overlay'
-  | 'dark-overlay'
-  | 'light-overlay';
+  | 'ghost';
 
 export interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLElement>, 'type'>,
@@ -56,22 +40,25 @@ const buttonSizeStyles = {
   sm: atoms({
     minWidth: 24,
     height: 7,
-    px: 2.5,
+    py: 0.5,
+    px: 3,
   }),
   md: atoms({
     minWidth: 28,
     height: 9,
-    px: 3,
+    py: 1,
+    px: 4,
   }),
   lg: atoms({
     minWidth: 32,
     height: 11,
-    px: 3.5,
+    py: 3,
+    px: 6,
   }),
 };
 
 const buttonVariantStyles = {
-  'primary': atoms({
+  primary: atoms({
     borderColor: 'transparent',
     color: { default: 'white', visited: 'white' },
     backgroundColor: {
@@ -82,7 +69,7 @@ const buttonVariantStyles = {
     },
     boxShadow: { default: 'primary', disabled: 'sm' },
   }),
-  'secondary': atoms({
+  secondary: atoms({
     borderColor: 'transparent',
     color: { default: 'white', visited: 'white' },
     backgroundColor: {
@@ -93,18 +80,35 @@ const buttonVariantStyles = {
     },
     boxShadow: { default: 'secondary', disabled: 'sm' },
   }),
-  'tertiary': atoms({
-    borderColor: 'transparent',
-    color: { default: 'white', visited: 'white' },
-    backgroundColor: {
-      default: 'neutral500',
-      hover: 'neutral400',
-      active: 'neutral600',
+  outline: atoms({
+    borderColor: { default: 'primary200', disabled: 'neutral200' },
+    color: {
+      default: 'primary500',
+      visited: 'primary500',
       disabled: 'neutral200',
     },
-    boxShadow: 'sm',
+    backgroundColor: {
+      default: 'transparent',
+      hover: 'primary100',
+      active: 'primary200',
+      disabled: 'transparent',
+    },
   }),
-  'success': atoms({
+  plain: atoms({
+    borderColor: 'transparent',
+    color: {
+      default: 'neutral500',
+      visited: 'neutral500',
+      disabled: 'neutral200',
+    },
+    backgroundColor: {
+      default: 'transparent',
+      hover: 'neutral100',
+      active: 'neutral200',
+      disabled: 'transparent',
+    },
+  }),
+  success: atoms({
     borderColor: 'transparent',
     color: { default: 'white', visited: 'white' },
     backgroundColor: {
@@ -115,7 +119,7 @@ const buttonVariantStyles = {
     },
     boxShadow: { default: 'success', disabled: 'sm' },
   }),
-  'warning': atoms({
+  warning: atoms({
     borderColor: 'transparent',
     color: { default: 'white', visited: 'white' },
     backgroundColor: {
@@ -126,7 +130,7 @@ const buttonVariantStyles = {
     },
     boxShadow: { default: 'warning', disabled: 'sm' },
   }),
-  'danger': atoms({
+  danger: atoms({
     borderColor: 'transparent',
     color: { default: 'white', visited: 'white' },
     backgroundColor: {
@@ -137,245 +141,17 @@ const buttonVariantStyles = {
     },
     boxShadow: { default: 'danger', disabled: 'sm' },
   }),
-  'dark': atoms({
-    borderColor: 'transparent',
-    color: { default: 'white', visited: 'white' },
-    backgroundColor: {
-      default: 'neutral900',
-      hover: 'neutral600',
-      active: 'neutral800',
-      disabled: 'neutral200',
-    },
-    boxShadow: 'sm',
-  }),
-  'light': atoms({
-    borderColor: 'transparent',
-    color: { default: 'primary500', visited: 'primary500', disabled: 'white' },
-    backgroundColor: {
-      default: 'white',
-      hover: 'light900',
-      active: 'light700',
-      disabled: 'neutral200',
-    },
-    boxShadow: { default: 'light', disabled: 'sm' },
-  }),
-  'primary-outline': atoms({
-    borderColor: { default: 'primary200', disabled: 'neutral200' },
-    color: {
-      default: 'primary500',
-      visited: 'primary500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'primary50',
-      active: 'primary100',
-      disabled: 'transparent',
-    },
-  }),
-  'secondary-outline': atoms({
-    borderColor: { default: 'secondary200', disabled: 'neutral200' },
-    color: {
-      default: 'secondary500',
-      visited: 'secondary500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'secondary50',
-      active: 'secondary100',
-      disabled: 'transparent',
-    },
-  }),
-  'tertiary-outline': atoms({
-    borderColor: 'neutral200',
-    color: {
-      default: 'neutral500',
-      visited: 'neutral500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'neutral50',
-      active: 'neutral100',
-      disabled: 'transparent',
-    },
-  }),
-  'success-outline': atoms({
-    borderColor: { default: 'success200', disabled: 'neutral200' },
-    color: {
-      default: 'success500',
-      visited: 'success500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'success50',
-      active: 'success100',
-      disabled: 'transparent',
-    },
-  }),
-  'warning-outline': atoms({
-    borderColor: { default: 'warning200', disabled: 'neutral200' },
-    color: {
-      default: 'warning500',
-      visited: 'warning500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'warning50',
-      active: 'warning100',
-      disabled: 'transparent',
-    },
-  }),
-  'danger-outline': atoms({
-    borderColor: { default: 'danger200', disabled: 'neutral200' },
-    color: {
-      default: 'danger500',
-      visited: 'danger500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'danger50',
-      active: 'danger100',
-      disabled: 'transparent',
-    },
-  }),
-  'dark-outline': atoms({
-    borderColor: { default: 'neutral400', disabled: 'neutral200' },
-    color: {
-      default: 'neutral900',
-      visited: 'neutral900',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'neutral100',
-      active: 'neutral200',
-      disabled: 'transparent',
-    },
-  }),
-  'light-outline': atoms({
-    borderColor: { default: 'light600', disabled: 'neutral200' },
+  ghost: atoms({
+    borderColor: { default: 'light600', disabled: 'light400' },
     color: {
       default: 'white',
       visited: 'white',
-      disabled: 'neutral200',
+      disabled: 'light400',
     },
     backgroundColor: {
       default: 'transparent',
-      hover: 'light200',
-      active: 'light300',
-      disabled: 'transparent',
-    },
-  }),
-  'primary-overlay': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'primary500',
-      visited: 'primary500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'primary50',
-      active: 'primary100',
-      disabled: 'transparent',
-    },
-  }),
-  'secondary-overlay': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'secondary500',
-      visited: 'secondary500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'secondary50',
-      active: 'secondary100',
-      disabled: 'transparent',
-    },
-  }),
-  'tertiary-overlay': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'neutral500',
-      visited: 'neutral500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'neutral50',
-      active: 'neutral100',
-      disabled: 'transparent',
-    },
-  }),
-  'success-overlay': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'success500',
-      visited: 'success500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'success50',
-      active: 'success100',
-      disabled: 'transparent',
-    },
-  }),
-  'warning-overlay': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'warning500',
-      visited: 'warning500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'warning50',
-      active: 'warning100',
-      disabled: 'transparent',
-    },
-  }),
-  'danger-overlay': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'danger500',
-      visited: 'danger500',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'danger50',
-      active: 'danger100',
-      disabled: 'transparent',
-    },
-  }),
-  'dark-overlay': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'neutral900',
-      visited: 'neutral900',
-      disabled: 'neutral200',
-    },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'neutral100',
-      active: 'neutral200',
-      disabled: 'transparent',
-    },
-  }),
-  'light-overlay': atoms({
-    borderColor: 'transparent',
-    color: { default: 'white', visited: 'white', disabled: 'neutral200' },
-    backgroundColor: {
-      default: 'transparent',
-      hover: 'light200',
-      active: 'light300',
+      hover: 'light300',
+      active: 'light400',
       disabled: 'transparent',
     },
   }),
@@ -388,6 +164,7 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
       size = 'md',
       startIcon,
       endIcon,
+      type,
       variant = 'primary',
       loading,
       className,
@@ -414,21 +191,21 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
           textDecoration: { default: 'none', hover: 'none' },
           textTransform: 'uppercase',
           transition: { default: 'base', active: 'none' },
-          cursor: {
-            default: 'pointer',
-            disabled: 'not-allowed',
-          },
         }),
         buttonSizeStyles[size],
         buttonVariantStyles[variant],
         className,
       )}
       ref={ref}
+      type={As === 'button' && type == null ? 'button' : type}
       {...props}
     >
       {loading && (
         <Icon
           animation="spin"
+          className={atoms({
+            mr: 2,
+          })}
           color="currentColor"
           fontSize="lg"
           name="loader-alt"
@@ -439,6 +216,12 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
         isValidElement<IconProps>(startIcon) &&
         cloneElement(startIcon, {
           color: 'currentColor',
+          className: cn(
+            startIcon.props.className,
+            atoms({
+              mr: 2,
+            }),
+          ),
           fontSize: 'lg',
         })}
 
@@ -460,6 +243,12 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
         isValidElement<IconProps>(endIcon) &&
         cloneElement(endIcon, {
           color: 'currentColor',
+          className: cn(
+            endIcon.props.className,
+            atoms({
+              ml: 2,
+            }),
+          ),
           fontSize: 'lg',
         })}
     </As>

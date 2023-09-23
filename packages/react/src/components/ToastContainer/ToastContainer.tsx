@@ -1,7 +1,8 @@
+import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import React, { ForwardedRef } from 'react';
+import React, { Children, ForwardedRef } from 'react';
 
-import * as S from './ToastContainer.css';
+import { Box } from '../Box';
 
 export type ToastContainerPlacement =
   | 'top-left'
@@ -18,6 +19,63 @@ export interface ToastContainerProps
   children?: React.ReactNode;
 }
 
+const placementStyles = {
+  'top-left': atoms({
+    top: 0,
+    left: {
+      mobile: '1/2',
+      mobileLg: 0,
+    },
+    transform: {
+      mobile: 'translateMiddle',
+      mobileLg: 'none',
+    },
+  }),
+  'top-center': atoms({
+    top: 0,
+    left: '1/2',
+    transform: 'translateMiddle',
+  }),
+  'top-right': atoms({
+    top: 0,
+    right: {
+      mobile: '1/2',
+      mobileLg: 0,
+    },
+    transform: {
+      mobile: 'translateMiddle',
+      mobileLg: 'none',
+    },
+  }),
+  'bottom-left': atoms({
+    bottom: 0,
+    left: {
+      mobile: '1/2',
+      mobileLg: 0,
+    },
+    transform: {
+      mobile: 'translateMiddle',
+      mobileLg: 'none',
+    },
+  }),
+  'bottom-center': atoms({
+    bottom: 0,
+    left: '1/2',
+    transform: 'translateMiddle',
+  }),
+  'bottom-right': atoms({
+    bottom: 0,
+    right: {
+      mobile: '1/2',
+      mobileLg: 0,
+    },
+    transform: {
+      mobile: 'translateMiddle',
+      mobileLg: 'none',
+    },
+  }),
+};
+
 const ToastContainer = React.forwardRef(
   (
     {
@@ -29,11 +87,23 @@ const ToastContainer = React.forwardRef(
     ref: ForwardedRef<HTMLDivElement>,
   ) => (
     <div
-      className={cn(S.root, S.rootPlacement[placement], className)}
+      className={cn(
+        atoms({
+          position: 'absolute',
+          width: 'max',
+          maxWidth: 'full',
+          zIndex: 50,
+          pointerEvents: 'none',
+        }),
+        placementStyles[placement],
+        className,
+      )}
       ref={ref}
       {...props}
     >
-      {children}
+      {Children.map(children, (child, index) => (
+        <Box mt={index ? 2 : 0}>{child}</Box>
+      ))}
     </div>
   ),
 );

@@ -18,20 +18,12 @@ export type IconButtonSize = 'sm' | 'md' | 'lg';
 export type IconButtonVariant =
   | 'primary'
   | 'secondary'
-  | 'tertiary'
+  | 'outline'
+  | 'plain'
   | 'success'
   | 'warning'
   | 'danger'
-  | 'light'
-  | 'dark'
-  | 'primary-outline'
-  | 'secondary-outline'
-  | 'tertiary-outline'
-  | 'success-outline'
-  | 'warning-outline'
-  | 'danger-outline'
-  | 'light-outline'
-  | 'dark-outline';
+  | 'ghost';
 
 export interface IconButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLElement>, 'type'>,
@@ -42,7 +34,7 @@ export interface IconButtonProps
   as?: ElementType;
 
   /**
-   * If true, the IconButton is displayed as an avatar.
+   * If true, the IconButton will expect an Avatar as its child.
    */
   avatar?: boolean;
 
@@ -75,7 +67,7 @@ const buttonSizeStyle: Record<IconButtonSize, string> = {
 };
 
 const buttonVariantStyle: Record<IconButtonVariant, string> = {
-  'primary': atoms({
+  primary: atoms({
     borderColor: 'transparent',
     color: {
       default: 'primary500',
@@ -83,13 +75,13 @@ const buttonVariantStyle: Record<IconButtonVariant, string> = {
       disabled: 'neutral200',
     },
     bg: {
-      default: 'transparent',
-      hover: 'primary50',
-      active: 'primary100',
-      disabled: 'transparent',
+      default: 'primary50',
+      hover: 'primary100',
+      active: 'primary200',
+      disabled: 'neutral50',
     },
   }),
-  'secondary': atoms({
+  secondary: atoms({
     borderColor: 'transparent',
     color: {
       default: 'secondary500',
@@ -97,97 +89,13 @@ const buttonVariantStyle: Record<IconButtonVariant, string> = {
       disabled: 'neutral200',
     },
     bg: {
-      default: 'transparent',
-      hover: 'secondary50',
-      active: 'secondary100',
-      disabled: 'transparent',
+      default: 'secondary50',
+      hover: 'secondary100',
+      active: 'secondary200',
+      disabled: 'neutral50',
     },
   }),
-  'tertiary': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'neutral500',
-      visited: 'neutral500',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'neutral50',
-      active: 'neutral100',
-      disabled: 'transparent',
-    },
-  }),
-  'success': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'success500',
-      visited: 'success500',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'success50',
-      active: 'success100',
-      disabled: 'transparent',
-    },
-  }),
-  'warning': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'warning500',
-      visited: 'warning500',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'warning50',
-      active: 'warning100',
-      disabled: 'transparent',
-    },
-  }),
-  'danger': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'danger500',
-      visited: 'danger500',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'danger50',
-      active: 'danger100',
-      disabled: 'transparent',
-    },
-  }),
-  'dark': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'neutral900',
-      visited: 'neutral900',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'neutral100',
-      active: 'neutral200',
-      disabled: 'transparent',
-    },
-  }),
-  'light': atoms({
-    borderColor: 'transparent',
-    color: {
-      default: 'white',
-      visited: 'white',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'light200',
-      active: 'light300',
-      disabled: 'transparent',
-    },
-  }),
-  'primary-outline': atoms({
+  outline: atoms({
     borderColor: {
       default: 'primary200',
       disabled: 'neutral200',
@@ -199,101 +107,16 @@ const buttonVariantStyle: Record<IconButtonVariant, string> = {
     },
     bg: {
       default: 'transparent',
-      hover: 'primary50',
-      active: 'primary100',
+      hover: 'primary100',
+      active: 'primary200',
       disabled: 'transparent',
     },
   }),
-  'secondary-outline': atoms({
-    borderColor: {
-      default: 'secondary200',
-      disabled: 'neutral200',
-    },
-    color: {
-      default: 'secondary500',
-      visited: 'secondary500',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'secondary50',
-      active: 'secondary100',
-      disabled: 'transparent',
-    },
-  }),
-  'tertiary-outline': atoms({
-    borderColor: 'neutral200',
+  plain: atoms({
+    borderColor: 'transparent',
     color: {
       default: 'neutral500',
       visited: 'neutral500',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'neutral50',
-      active: 'neutral100',
-      disabled: 'transparent',
-    },
-  }),
-  'success-outline': atoms({
-    borderColor: {
-      default: 'success200',
-      disabled: 'neutral200',
-    },
-    color: {
-      default: 'success500',
-      visited: 'success500',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'success50',
-      active: 'success100',
-      disabled: 'transparent',
-    },
-  }),
-  'warning-outline': atoms({
-    borderColor: {
-      default: 'warning200',
-      disabled: 'neutral200',
-    },
-    color: {
-      default: 'warning500',
-      visited: 'warning500',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'warning50',
-      active: 'warning100',
-      disabled: 'transparent',
-    },
-  }),
-  'danger-outline': atoms({
-    borderColor: {
-      default: 'danger200',
-      disabled: 'neutral200',
-    },
-    color: {
-      default: 'danger500',
-      visited: 'danger500',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'danger50',
-      active: 'danger100',
-      disabled: 'transparent',
-    },
-  }),
-  'dark-outline': atoms({
-    borderColor: {
-      default: 'neutral400',
-      disabled: 'neutral200',
-    },
-    color: {
-      default: 'neutral900',
-      visited: 'neutral900',
       disabled: 'neutral200',
     },
     bg: {
@@ -303,20 +126,62 @@ const buttonVariantStyle: Record<IconButtonVariant, string> = {
       disabled: 'transparent',
     },
   }),
-  'light-outline': atoms({
+  success: atoms({
+    borderColor: 'transparent',
+    color: {
+      default: 'success500',
+      visited: 'success500',
+      disabled: 'neutral200',
+    },
+    bg: {
+      default: 'success50',
+      hover: 'success100',
+      active: 'success200',
+      disabled: 'neutral50',
+    },
+  }),
+  warning: atoms({
+    borderColor: 'transparent',
+    color: {
+      default: 'warning500',
+      visited: 'warning500',
+      disabled: 'neutral200',
+    },
+    bg: {
+      default: 'warning50',
+      hover: 'warning100',
+      active: 'warning200',
+      disabled: 'neutral50',
+    },
+  }),
+  danger: atoms({
+    borderColor: 'transparent',
+    color: {
+      default: 'danger500',
+      visited: 'danger500',
+      disabled: 'neutral200',
+    },
+    bg: {
+      default: 'danger50',
+      hover: 'danger100',
+      active: 'danger200',
+      disabled: 'neutral50',
+    },
+  }),
+  ghost: atoms({
     borderColor: {
       default: 'light600',
-      disabled: 'neutral200',
+      disabled: 'light400',
     },
     color: {
       default: 'white',
       visited: 'white',
-      disabled: 'neutral200',
+      disabled: 'light400',
     },
     bg: {
       default: 'transparent',
-      hover: 'light200',
-      active: 'light300',
+      hover: 'light300',
+      active: 'light400',
       disabled: 'transparent',
     },
   }),
@@ -357,11 +222,9 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>(
           alignItems: 'center',
           justifyContent: 'center',
           border: 'thin',
-          borderRadius: 'full',
+          borderRadius: 'iconButton',
           lineHeight: 'none',
           transition: { default: 'base', active: 'none' },
-          p: 0,
-          cursor: { default: 'pointer', disabled: 'not-allowed' },
         }),
         buttonSizeStyle[size],
         buttonVariantStyle[variant],

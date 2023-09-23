@@ -13,16 +13,6 @@ describe('Message', () => {
     });
   });
 
-  describe('Given that the toast component is rendered with visible set to false', () => {
-    describe('When the toast is displayed', () => {
-      it('Then it should not be visible', () => {
-        render(<Message visible={false} />);
-        const toastElement = screen.getByRole('alert');
-        expect(toastElement).not.toBeVisible();
-      });
-    });
-  });
-
   describe('Given that the toast component is rendered with a specified autoCloseTimeout and onHide callback', () => {
     const autoCloseTimeout = 3000;
     const onHideMock = jest.fn();

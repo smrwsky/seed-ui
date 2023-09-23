@@ -3,10 +3,10 @@ import cn from 'classnames';
 import { FC, HTMLAttributes, useEffect } from 'react';
 
 import { useTimeout } from '../../utils/use-timeout';
+import { Icon } from '../Icon';
 import { Text } from '../Text';
 
-import * as S from './Message.css';
-import { MessageIcon } from './MessageIcon';
+export type MessageVariant = 'primary' | 'danger' | 'warning' | 'success';
 
 export interface MessageProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -18,7 +18,7 @@ export interface MessageProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * The variant or type of the message.
    */
-  variant?: 'danger' | 'warning' | 'info' | 'success' | 'light';
+  variant?: MessageVariant;
 
   /**
    * Determines whether the message is visible or not.
@@ -36,12 +36,34 @@ export interface MessageProps extends HTMLAttributes<HTMLDivElement> {
   onAfterHide?: () => void;
 }
 
+const iconByVariant: Record<MessageVariant, string> = {
+  primary: 'info-circle',
+  success: 'check-circle',
+  warning: 'error',
+  danger: 'error-circle',
+};
+
+const iconVariantStyles = {
+  primary: atoms({
+    color: 'primary400',
+  }),
+  success: atoms({
+    color: 'success400',
+  }),
+  warning: atoms({
+    color: 'warning400',
+  }),
+  danger: atoms({
+    color: 'danger400',
+  }),
+};
+
 const Message: FC<MessageProps> = ({
   autoCloseTimeout,
   className,
   children,
   role = 'alert',
-  variant = 'light',
+  variant = 'primary',
   visible = true,
   onHide,
   onAfterHide,
@@ -68,27 +90,40 @@ const Message: FC<MessageProps> = ({
   return (
     <div
       className={cn(
-        S.root,
-        visible && S.rootVisible,
         atoms({
           display: 'inline-flex',
           justifyContent: 'center',
           alignItems: 'center',
           maxWidth: 'xs',
           minWidth: 40,
+          border: 'thin',
+          borderColor: 'neutral100',
           borderRadius: 'lg',
+          color: 'neutral900',
+          bg: 'white',
           boxShadow: 'md',
+          transition: 'fade',
           px: 3,
           py: 1.5,
+          opacity: visible ? 100 : 0,
         }),
         className,
       )}
       role={role}
       {...props}
     >
-      <MessageIcon variant={variant} />
+      <Icon
+        className={cn(
+          atoms({
+            mr: 1.5,
+          }),
+          iconVariantStyles[variant],
+        )}
+        fontSize="lg"
+        name={iconByVariant[variant]}
+      />
 
-      <Text className={atoms({ pt: 0.5 })} fontSize="sm" truncate>
+      <Text fontSize="sm" truncate>
         {children}
       </Text>
     </div>

@@ -7,18 +7,18 @@ import { IconButton } from '../IconButton';
 
 import { Badge, BadgeProps } from './Badge';
 
-export default {
+const meta: Meta = {
   title: 'Data Display/Badge',
   component: Badge,
   args: {
     content: 5,
     children: (
-      <IconButton title="Notifications" variant="primary-outline">
+      <IconButton title="Notifications" variant="outline">
         <Icon name="bell" />
       </IconButton>
     ),
   },
-} as Meta;
+};
 
 const Template: StoryFn<BadgeProps> = (args) => <Badge {...args} />;
 
@@ -27,7 +27,7 @@ export const Basic = Template.bind({});
 export const BackgroundColor = Template.bind({});
 
 BackgroundColor.args = {
-  backgroundColor: 'danger400',
+  bg: 'danger400',
 };
 
 export const Dot = Template.bind({});
@@ -85,4 +85,7 @@ export const Standalone = Template.bind({});
 
 Standalone.args = {
   content: 42,
+  children: null,
 };
+
+export default meta;

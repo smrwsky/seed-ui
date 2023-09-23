@@ -1,3 +1,4 @@
+import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
 import {
   ComponentPropsWithRef,
@@ -9,7 +10,6 @@ import {
 import ReactModal, { Aria, OnAfterOpenCallback } from 'react-modal';
 import { Transition, TransitionStatus } from 'react-transition-group';
 
-import * as S from './Modal.css';
 import { ModalBody } from './ModalBody';
 import { ModalFooter } from './ModalFooter';
 import { ModalHeader } from './ModalHeader';
@@ -54,6 +54,69 @@ const TRANSITION_TIMEOUT = {
   exit: 200,
 };
 
+const overlaySizeStyles = {
+  sm: atoms({
+    justifyContent: 'center',
+    overflowY: 'auto',
+    px: 2,
+    py: 4,
+  }),
+  md: atoms({
+    justifyContent: 'center',
+    overflowY: 'auto',
+    px: 2,
+    py: 4,
+  }),
+  lg: atoms({
+    justifyContent: 'flex-start',
+    overflowY: { mobile: 'hidden', tablet: 'auto' },
+    px: { mobile: 0, tablet: 2 },
+    py: { mobile: 0, tablet: 4 },
+  }),
+};
+
+const contentSizeStyles = {
+  sm: atoms({
+    borderRadius: 'lg',
+    boxShadow: 'md',
+    maxWidth: 'sm',
+  }),
+  md: atoms({
+    borderRadius: 'lg',
+    boxShadow: 'md',
+    maxWidth: 'lg',
+  }),
+  lg: atoms({
+    position: {
+      mobile: 'absolute',
+      tablet: 'static',
+    },
+    inset: 0,
+    width: 'full',
+    height: {
+      mobile: 'full',
+      tablet: 'auto',
+    },
+    maxWidth: {
+      mobile: 'full',
+      tablet: '4xl',
+    },
+    borderRadius: {
+      mobile: 'none',
+      tablet: 'lg',
+    },
+    boxShadow: 'md',
+    py: {
+      mobile: 7,
+      tablet: 0,
+    },
+    overflow: {
+      mobile: 'auto',
+      tablet: 'hidden',
+    },
+  }),
+};
+
 const Modal: FC<ModalProps> = ({
   open,
   size = 'md',
@@ -71,16 +134,30 @@ const Modal: FC<ModalProps> = ({
             {...modalProps}
             {...childProps}
             className={cn(
-              S.content,
-              S.contentSize[size],
-              status === 'entered' && S.contentEntered,
+              atoms({
+                width: 'full',
+                bg: 'white',
+                transition: 'base',
+                overflow: 'hidden',
+                opacity: status === 'entered' ? 100 : 0,
+              }),
+              contentSizeStyles[size],
             )}
             closeTimeoutMS={200}
             isOpen={status !== 'exited'}
             overlayClassName={cn(
-              S.overlay,
-              S.overlaySize[size],
-              status === 'entered' && S.overlayEntered,
+              atoms({
+                position: 'fixed',
+                inset: 0,
+                size: 'full',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                bg: 'dark500',
+                transition: 'fade',
+                opacity: status === 'entered' ? 100 : 0,
+              }),
+              overlaySizeStyles[size],
             )}
             onRequestClose={onClose}
           >

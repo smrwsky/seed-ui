@@ -4,7 +4,6 @@ import { theme } from './theme';
 import { FC } from 'react';
 
 import '@seed-ui/styles/css/styles.min.css';
-import '@seed-ui/react/css/elements.min.css';
 
 export const parameters = {
   layout: 'centered',

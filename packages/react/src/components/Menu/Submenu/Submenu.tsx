@@ -101,23 +101,6 @@ const Submenu: FC<SubMenuProps> = ({
     [anchorElement?.offsetWidth, type, x, y],
   );
 
-  const renderAction = useCallback(() => {
-    return type === 'vertical' ? (
-      <Icon
-        color={variant === 'dark' ? 'white' : 'neutral900'}
-        fontSize="lg"
-        name="chevron-right"
-      />
-    ) : (
-      <Icon
-        color={variant === 'dark' ? 'white' : 'neutral900'}
-        flip={type === 'horizontal' || !submenuOpened ? 'vertical' : 'none'}
-        fontSize="lg"
-        name="chevron-up"
-      />
-    );
-  }, [submenuOpened, type, variant]);
-
   const handleAutoFocusChange = useCallback((value: MenuAutoFocus) => {
     setAutoFocus(value);
   }, []);
@@ -252,7 +235,24 @@ const Submenu: FC<SubMenuProps> = ({
   return (
     <MenuListItem>
       <MenuLink
-        ActionComponent={renderAction}
+        action={
+          type === 'vertical' ? (
+            <Icon
+              color={variant === 'dark' ? 'white' : 'neutral900'}
+              fontSize="lg"
+              name="chevron-right"
+            />
+          ) : (
+            <Icon
+              color={variant === 'dark' ? 'white' : 'neutral900'}
+              flip={
+                type === 'horizontal' || !submenuOpened ? 'vertical' : 'none'
+              }
+              fontSize="lg"
+              name="chevron-up"
+            />
+          )
+        }
         aria-expanded={submenuOpened}
         aria-haspopup
         disabled={disabled}
@@ -320,17 +320,13 @@ const Submenu: FC<SubMenuProps> = ({
                   borderRadius: 'md',
                   border: 'thin',
                   boxShadow: 'lg',
-                  opacity: 0,
+                  opacity: status === 'entered' ? 100 : 0,
                   transition: 'fade',
                   zIndex: 10,
                 }),
                 variant === 'dark'
                   ? atoms({ borderColor: 'dark100' })
                   : atoms({ borderColor: 'neutral50' }),
-                status === 'entered' &&
-                  atoms({
-                    opacity: 1,
-                  }),
                 status === 'exited' &&
                   atoms({
                     display: 'none',

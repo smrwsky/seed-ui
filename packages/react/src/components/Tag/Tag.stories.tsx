@@ -1,26 +1,7 @@
 import { Box, Flex } from '@seed-ui/react';
-import { capitalize } from 'lodash';
+import { toUpper } from 'lodash';
 
-import Tag, { TagProps, TagSize, TagVariant } from './Tag';
-
-const variants: TagVariant[] = [
-  'primary',
-  'secondary',
-  'tertiary',
-  'info',
-  'success',
-  'warning',
-  'danger',
-  'light',
-  'outline-primary',
-  'outline-secondary',
-  'outline-tertiary',
-  'outline-info',
-  'outline-success',
-  'outline-warning',
-  'outline-danger',
-  'outline-light',
-];
+import Tag, { TagProps, TagSize } from './Tag';
 
 const sizes: TagSize[] = ['sm', 'md'];
 
@@ -43,7 +24,7 @@ export function Sizes(args: TagProps): JSX.Element {
       {sizes.map((size, i) => (
         <Box key={i} mt={2} px={1}>
           <Tag {...args} size={size}>
-            {capitalize(size)}
+            {toUpper(size)}
           </Tag>
         </Box>
       ))}
@@ -51,31 +32,44 @@ export function Sizes(args: TagProps): JSX.Element {
   );
 }
 
-export function Variants(args: TagProps): JSX.Element {
+export function Colors(args: TagProps): JSX.Element {
   return (
     <Flex alignItems="center" flexWrap="wrap" mt="-2" mx="-1">
-      {variants.map((variant, i) => (
-        <Box key={i} mt={2} px={1}>
-          <Tag {...args} variant={variant}>
-            {capitalize(variant)}
-          </Tag>
-        </Box>
-      ))}
-    </Flex>
-  );
-}
+      <Box mt={2} px={1}>
+        <Tag {...args}>Default</Tag>
+      </Box>
 
-export function Rounded(args: TagProps): JSX.Element {
-  return (
-    <Tag {...args} rounded>
-      Rounded tag
-    </Tag>
+      <Box mt={2} px={1}>
+        <Tag {...args} bg="secondary100" color="secondary700">
+          Secondary
+        </Tag>
+      </Box>
+
+      <Box mt={2} px={1}>
+        <Tag
+          {...args}
+          bg="neutral50"
+          borderColor="neutral200"
+          color="neutral700"
+        >
+          Outlined
+        </Tag>
+      </Box>
+    </Flex>
   );
 }
 
 export function Clickable(args: TagProps): JSX.Element {
   return (
-    <Tag {...args} onClick={() => console.log('Tag clicked')}>
+    <Tag
+      {...args}
+      bg={{
+        default: 'primary100',
+        hover: 'primary50',
+        active: 'primary200',
+      }}
+      onClick={() => console.log('Tag clicked')}
+    >
       Clickable tag
     </Tag>
   );
@@ -83,16 +77,8 @@ export function Clickable(args: TagProps): JSX.Element {
 
 export function Removable(args: TagProps): JSX.Element {
   return (
-    <Tag {...args} deletable onClick={() => console.log('Tag clicked')}>
+    <Tag {...args} removable onRemove={() => console.log('Remove clicked')}>
       Removable tag
-    </Tag>
-  );
-}
-
-export function Disabled(args: TagProps): JSX.Element {
-  return (
-    <Tag {...args} disabled>
-      Disabled tag
     </Tag>
   );
 }

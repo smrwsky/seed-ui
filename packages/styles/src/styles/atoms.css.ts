@@ -35,6 +35,7 @@ import {
   TEXT_DECORATION,
   TEXT_OVERFLOW,
   TEXT_TRANSFORM,
+  TRANSFORM,
   TRANSITION,
   VERTICAL_ALIGN,
   WHITE_SPACE,
@@ -52,15 +53,10 @@ const baseProperties = defineProperties({
     lineHeight: { ...LINE_HEIGHT, ...vars.lineHeight },
     textTransform: TEXT_TRANSFORM,
     objectFit: OBJECT_FIT,
-    overflowX: OVERFLOW,
-    overflowY: OVERFLOW,
     pointerEvents: POINTER_EVENTS,
     textOverflow: TEXT_OVERFLOW,
     verticalAlign: VERTICAL_ALIGN,
     whiteSpace: WHITE_SPACE,
-  },
-  shorthands: {
-    overflow: ['overflowX', 'overflowY'],
   },
 });
 
@@ -130,6 +126,11 @@ const responsiveProperties = defineProperties({
     paddingRight: SPACING,
     paddingTop: SPACING,
 
+    overflowX: OVERFLOW,
+    overflowY: OVERFLOW,
+
+    transform: TRANSFORM,
+
     zIndex: Z_INDEX,
   },
 
@@ -153,6 +154,7 @@ const responsiveProperties = defineProperties({
     px: ['paddingLeft', 'paddingRight'],
     py: ['paddingBottom', 'paddingTop'],
     size: ['height', 'width'],
+    overflow: ['overflowX', 'overflowY'],
   },
 });
 

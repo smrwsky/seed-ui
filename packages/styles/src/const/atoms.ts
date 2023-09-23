@@ -76,7 +76,29 @@ export const LINE_HEIGHT = {
   none: '1',
 };
 
-export const OPACITY = [0, 1] as const;
+export const OPACITY = {
+  0: '0',
+  5: '0.05',
+  10: '0.1',
+  15: '0.15',
+  20: '0.2',
+  25: '0.25',
+  30: '0.3',
+  35: '0.35',
+  40: '0.4',
+  45: '0.45',
+  50: '0.5',
+  55: '0.55',
+  60: '0.6',
+  65: '0.65',
+  70: '0.7',
+  75: '0.75',
+  80: '0.8',
+  85: '0.85',
+  90: '0.9',
+  95: '0.95',
+  100: '1',
+};
 
 export const OBJECT_FIT = ['contain', 'cover'] as const;
 
@@ -111,6 +133,7 @@ export const POSITION = [
 ] as const;
 
 export const SPACING = {
+  px: '1px',
   0: '0',
   0.5: '0.125rem', // 2px
   1: '0.25rem', // 4px
@@ -193,7 +216,6 @@ export const MARGIN = {
   '-3': '-0.75rem', // -12px
   '-3.5': '-0.875rem', // -14px
   '-4': '-1rem', // -16px
-  '-4.5': '-1.125rem', // -18px
   '-5': '-1.25rem', // -20px
   '-5.5': '-1.375rem', // -22px
   '-6': '-1.5rem', // -24px
@@ -269,7 +291,7 @@ export const MAX_WIDTH = {
 };
 
 export const MIN_HEIGHT = {
-  0: '0px',
+  ...SPACING,
   full: '100%',
   screen: '100vh',
   svh: '100svh',
@@ -342,6 +364,13 @@ export const TEXT_DECORATION = [
 ] as const;
 
 export const TEXT_OVERFLOW = ['ellipsis', 'clip'] as const;
+
+export const TRANSFORM = {
+  none: 'none',
+  translateMiddle: 'translate(-50%, -50%)',
+  translateXMiddle: 'translateX(-50%)',
+  translateYMiddle: 'translateY(-50%)',
+};
 
 export const TRANSITION = {
   none: 'none',

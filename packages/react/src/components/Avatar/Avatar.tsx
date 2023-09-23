@@ -19,7 +19,7 @@ export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   /**
    * Background color for the avatar.
    */
-  backgroundColor?: Atoms['backgroundColor'];
+  bg?: Atoms['backgroundColor'];
 
   /**
    * Image element to be rendered within the avatar.
@@ -82,7 +82,7 @@ function formatText(str = ''): string {
 const Avatar: FC<AvatarProps> = forwardRef<HTMLDivElement, AvatarProps>(
   (
     {
-      backgroundColor = 'primary400',
+      bg = 'primary400',
       icon,
       placeholder,
       size = 'md',
@@ -101,7 +101,7 @@ const Avatar: FC<AvatarProps> = forwardRef<HTMLDivElement, AvatarProps>(
           justifyContent: 'center',
           borderRadius: 'full',
           overflow: 'hidden',
-          backgroundColor,
+          bg,
         }),
         rootSizeStyle[size],
         className,

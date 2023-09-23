@@ -19,6 +19,9 @@ export type Theme = {
   fontFamily: { secondary: string; primary: string };
   borderRadius: {
     button: string;
+    iconButton: string;
+    input: string;
+    tag: string;
     xl: string;
     md: string;
     sm: string;

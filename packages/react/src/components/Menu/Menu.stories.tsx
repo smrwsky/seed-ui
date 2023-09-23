@@ -1,6 +1,6 @@
 import { atoms } from '@seed-ui/styles';
 import { capitalize } from 'lodash';
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
@@ -23,18 +23,6 @@ export default {
 };
 
 export function Base(args: MenuProps): JSX.Element {
-  const renderAction = useCallback(
-    () => (
-      <Icon
-        color={args.variant === 'dark' ? 'white' : 'secondary500'}
-        fontSize="lg"
-        name="crown"
-        type="solid"
-      />
-    ),
-    [args.variant],
-  );
-
   return (
     <div
       className={atoms({
@@ -51,7 +39,14 @@ export function Base(args: MenuProps): JSX.Element {
         })}
       >
         <MenuItem
-          ActionComponent={renderAction}
+          action={
+            <Icon
+              color={args.variant === 'dark' ? 'white' : 'secondary500'}
+              fontSize="lg"
+              name="crown"
+              type="solid"
+            />
+          }
           icon={<Icon name="home" />}
           selected
         >
@@ -60,7 +55,11 @@ export function Base(args: MenuProps): JSX.Element {
 
         <MenuItem icon={<Icon name="envelope" />}>Option 2</MenuItem>
 
-        <MenuItem description="Description" icon={<Icon name="grid-alt" />}>
+        <MenuItem
+          description="Description"
+          disabled
+          icon={<Icon name="grid-alt" />}
+        >
           Option 3
         </MenuItem>
 
@@ -162,11 +161,6 @@ export function Variant(args: MenuProps): JSX.Element {
 export function StandalonePopupMenu(): JSX.Element {
   const [buttonElement, setButtonElement] = useState<HTMLElement | null>(null);
 
-  const renderAction = useCallback(
-    () => <Icon color="secondary500" fontSize="lg" name="crown" type="solid" />,
-    [],
-  );
-
   return (
     <div
       style={{
@@ -174,23 +168,32 @@ export function StandalonePopupMenu(): JSX.Element {
         minHeight: '50vh',
       }}
     >
-      <IconButton
-        ref={setButtonElement}
-        size="sm"
-        title="Show menu"
-        variant="dark"
-      >
+      <IconButton ref={setButtonElement} size="sm" title="Show menu">
         <Icon name="dots-vertical-rounded" />
       </IconButton>
 
       <PopupMenu anchorElement={buttonElement}>
-        <MenuItem ActionComponent={renderAction} icon={<Icon name="home" />}>
+        <MenuItem
+          action={
+            <Icon
+              color="secondary500"
+              fontSize="lg"
+              name="crown"
+              type="solid"
+            />
+          }
+          icon={<Icon name="home" />}
+        >
           Option 1
         </MenuItem>
 
         <MenuItem icon={<Icon name="envelope" />}>Option 2</MenuItem>
 
-        <MenuItem description="Description" icon={<Icon name="grid-alt" />}>
+        <MenuItem
+          description="Description"
+          disabled
+          icon={<Icon name="grid-alt" />}
+        >
           Option 3
         </MenuItem>
 
@@ -210,6 +213,8 @@ export function StandalonePopupMenu(): JSX.Element {
             <MenuItem>Option 5-3-3</MenuItem>
           </Submenu>
         </Submenu>
+
+        <MenuItem icon={<Icon name="support" />}>Option 6</MenuItem>
       </PopupMenu>
     </div>
   );

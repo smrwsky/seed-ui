@@ -8,9 +8,7 @@ import {
   useState,
 } from 'react';
 
-import { InputBox, InputBoxSize } from '../InputGroup';
-
-import * as S from './Textarea.css';
+import { InputBox, InputBoxSize } from '../InputBox';
 
 export type TextareaSize = InputBoxSize;
 
@@ -20,7 +18,6 @@ export interface TextareaProps
   disabled?: boolean;
   invalid?: boolean;
   readOnly?: boolean;
-  rounded?: boolean;
   size?: TextareaSize;
   value?: string;
 }
@@ -30,17 +27,7 @@ const Textarea: FC<TextareaProps> = forwardRef<
   TextareaProps
 >(
   (
-    {
-      rounded,
-      size,
-      disabled,
-      invalid,
-      readOnly,
-      id,
-      onFocus,
-      onBlur,
-      ...inputProps
-    },
+    { size, disabled, invalid, readOnly, id, onFocus, onBlur, ...inputProps },
     ref,
   ) => {
     const [focused, setFocused] = useState(false);
@@ -68,11 +55,9 @@ const Textarea: FC<TextareaProps> = forwardRef<
         focused={focused}
         invalid={invalid}
         readOnly={readOnly}
-        rounded={rounded}
         size={size}
       >
         <textarea
-          className={S.textarea}
           disabled={disabled}
           id={id}
           readOnly={readOnly}

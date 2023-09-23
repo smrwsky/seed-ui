@@ -1,24 +1,30 @@
 import { Atoms, atoms, textBreak, textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
-import { ElementType, forwardRef, HTMLAttributes } from 'react';
+import { AllHTMLAttributes, ElementType, forwardRef } from 'react';
 
-export interface TextProps extends Omit<HTMLAttributes<HTMLElement>, 'color'> {
+export interface TextProps
+  extends Partial<
+      Pick<
+        Atoms,
+        | 'color'
+        | 'fontFamily'
+        | 'fontSize'
+        | 'fontWeight'
+        | 'letterSpacing'
+        | 'lineHeight'
+        | 'm'
+        | 'mt'
+        | 'mb'
+        | 'ml'
+        | 'mr'
+        | 'mx'
+        | 'my'
+        | 'textAlign'
+        | 'textDecoration'
+      >
+    >,
+    Omit<AllHTMLAttributes<HTMLElement>, 'as' | 'color'> {
   as?: ElementType;
-  color?: Atoms['color'];
-  fontFamily?: Atoms['fontFamily'];
-  fontSize?: Atoms['fontSize'];
-  fontWeight?: Atoms['fontWeight'];
-  letterSpacing?: Atoms['letterSpacing'];
-  lineHeight?: Atoms['lineHeight'];
-  m?: Atoms['m'];
-  mt?: Atoms['mt'];
-  mb?: Atoms['mb'];
-  ml?: Atoms['ml'];
-  mr?: Atoms['mr'];
-  mx?: Atoms['mx'];
-  my?: Atoms['my'];
-  textAlign?: Atoms['textAlign'];
-  textDecoration?: Atoms['textDecoration'];
   breakWord?: boolean;
   truncate?: boolean;
 }
@@ -46,7 +52,7 @@ const Text = forwardRef<HTMLElement, TextProps>(
       textDecoration,
       truncate,
       children,
-      ...elemProps
+      ...props
     }: TextProps,
     ref,
   ) => (
@@ -74,7 +80,7 @@ const Text = forwardRef<HTMLElement, TextProps>(
         className,
       )}
       ref={ref}
-      {...elemProps}
+      {...props}
     >
       {children}
     </As>
