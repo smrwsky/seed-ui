@@ -44,4 +44,4 @@ const Flex = forwardRef<HTMLElement, FlexProps>(
 
 Flex.displayName = 'Flex';
 
-export { Flex };
+export default Flex;

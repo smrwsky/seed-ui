@@ -1,6 +1,6 @@
 import { render } from '../../utils/test-utils';
 
-import { Icon } from './Icon';
+import Icon from './Icon';
 
 describe('Icon', () => {
   describe('Given check icon', () => {

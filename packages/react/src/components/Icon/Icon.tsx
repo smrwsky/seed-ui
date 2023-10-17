@@ -42,7 +42,7 @@ export type IconProps = HTMLAttributes<HTMLElement> & {
   type?: IconType;
 };
 
-let Icon = forwardRef<HTMLElement, IconProps>(
+const Icon = forwardRef<HTMLElement, IconProps>(
   (
     {
       animation = 'none',
@@ -83,8 +83,6 @@ let Icon = forwardRef<HTMLElement, IconProps>(
   },
 );
 
-Icon = memo(Icon);
-
 Icon.displayName = 'Icon';
 
-export { Icon };
+export default memo(Icon);

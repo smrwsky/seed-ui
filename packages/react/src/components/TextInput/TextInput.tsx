@@ -23,6 +23,7 @@ export interface TextInputProps
   icon?: ReactElement;
   inputSize?: number;
   invalid?: boolean;
+  readOnly?: boolean;
   size?: TextInputSize;
   value?: string;
 }

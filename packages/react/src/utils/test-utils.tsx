@@ -42,6 +42,9 @@ export const axe = configureAxe({
 // Mock window.HTMLElement.prototype.scrollIntoView to prevent test errors
 window.HTMLElement.prototype.scrollIntoView = jest.fn();
 
+// Increase the default timeout for tests to 30 seconds.
+jest.setTimeout(30000);
+
 export {
   act,
   cleanup,

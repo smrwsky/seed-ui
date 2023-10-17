@@ -3,8 +3,7 @@ import { Box, Flex } from '@seed-ui/react';
 import { Avatar } from '../Avatar';
 import { Icon } from '../Icon';
 
-import {
-  IconButton,
+import IconButton, {
   IconButtonProps,
   IconButtonSize,
   IconButtonVariant,

@@ -1,6 +1,6 @@
-import type { StorybookConfig } from '@storybook/react-vite';
-const { vanillaExtractPlugin } = require('@vanilla-extract/vite-plugin');
-const { mergeConfig } = require('vite');
+import { StorybookConfig } from '@storybook/react-vite';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
+import { mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
   framework: {
@@ -20,9 +20,7 @@ const config: StorybookConfig = {
   stories: ['../packages/**/*.mdx', '../packages/**/*.stories.tsx'],
   async viteFinal(config) {
     return mergeConfig(config, {
-      plugins: [
-        vanillaExtractPlugin(),
-      ],
+      plugins: [vanillaExtractPlugin()],
     });
   },
 };

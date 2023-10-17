@@ -157,4 +157,4 @@ const Avatar: FC<AvatarProps> = forwardRef<HTMLDivElement, AvatarProps>(
 
 Avatar.displayName = 'Avatar';
 
-export { Avatar };
+export default Avatar;

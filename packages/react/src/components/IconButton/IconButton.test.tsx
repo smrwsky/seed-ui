@@ -2,7 +2,7 @@ import { render, screen, userEvent } from '../../utils/test-utils';
 import { Avatar } from '../Avatar';
 import { Icon } from '../Icon';
 
-import { IconButton } from './IconButton';
+import IconButton from './IconButton';
 
 describe('IconButton', () => {
   describe('Given that the button component is rendered with an onClick callback', () => {

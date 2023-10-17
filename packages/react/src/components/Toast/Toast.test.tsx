@@ -1,6 +1,6 @@
 import { render, screen, userEvent } from '../../utils/test-utils';
 
-import { Toast } from './Toast';
+import Toast from './Toast';
 
 describe('Toast', () => {
   describe('Given that the toast component is rendered with text content', () => {

@@ -1,354 +1,240 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 import {
+  autoUpdate,
+  FloatingNode,
   flip,
+  offset,
+  safePolygon,
   shift,
+  useClick,
+  useDismiss,
   useFloating,
-  offset as offsetMiddleware,
-} from '@floating-ui/react-dom';
-import { atoms } from '@seed-ui/styles';
-import cn from 'classnames';
+  useFloatingNodeId,
+  useFloatingParentNodeId,
+  useFloatingTree,
+  useHover,
+  useInteractions,
+  useListItem,
+  useListNavigation,
+  useRole,
+  useTypeahead,
+  useMergeRefs,
+} from '@floating-ui/react';
 import {
-  CSSProperties,
   FC,
-  KeyboardEvent,
-  MouseEvent as ReactMouseEvent,
   ReactElement,
   ReactNode,
   useCallback,
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
-import { Transition } from 'react-transition-group';
 
 import { Icon } from '../../Icon';
-import { Menu, MenuAutoFocus } from '../Menu';
-import { MenuContext } from '../Menu.context';
-import { MenuLink, MenuLinkProps } from '../MenuLink';
-import { MenuListItem } from '../MenuListItem';
+import { MenuContext, MenuContextType } from '../Menu.context';
+import { MenuButton } from '../MenuButton';
+import { MenuItems } from '../MenuItems';
 
-export interface SubMenuProps extends MenuLinkProps {
-  icon?: ReactElement;
-  label?: string;
+export interface SubMenuProps {
   children?: ReactNode;
+  disabled?: boolean;
+  icon?: ReactElement;
+  label: string;
+  selected?: boolean;
 }
 
-const INLINE_TRANSITION_TIMEOUT = {
-  appear: 0,
-  enter: 0,
-  exit: 200,
-};
+const Submenu: FC<SubMenuProps> = ({ icon, label, children, ...props }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [hasFocusInside, setHasFocusInside] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const elementsRef = useRef<Array<HTMLButtonElement | null>>([]);
+  const labelsRef = useRef<Array<string>>([]);
+  const parent = useContext(MenuContext);
+  const tree = useFloatingTree();
+  const nodeId = useFloatingNodeId();
+  const parentId = useFloatingParentNodeId();
+  const item = useListItem();
 
-const FLYOUT_TRANSITION_TIMEOUT = {
-  appear: 0,
-  enter: 200,
-  exit: 200,
-};
-
-const MOUSEMOVE_HANDLER_DELAY = 20;
-
-const Submenu: FC<SubMenuProps> = ({
-  disabled,
-  icon,
-  label,
-  onClick,
-  onKeyDown,
-  children,
-  ...props
-}) => {
-  const { collapsed, indent, size, type, variant } = useContext(MenuContext);
-
-  const { floating, reference, refs, x, y, update } = useFloating({
-    strategy: 'absolute',
-    placement: type === 'vertical' ? 'right-start' : 'bottom-start',
+  const { floatingStyles, refs, context } = useFloating<HTMLButtonElement>({
+    nodeId,
+    open: isOpen,
+    strategy: 'fixed',
+    onOpenChange: setIsOpen,
+    placement: parent.type === 'horizontal' ? 'bottom-start' : 'right-start',
     middleware: [
-      flip(),
-      shift(),
-      offsetMiddleware(
-        type === 'vertical'
+      offset(
+        parent.type === 'horizontal'
           ? {
-              mainAxis: 8,
-              alignmentAxis: -5,
+              mainAxis: 4,
             }
           : {
-              mainAxis: 4,
+              mainAxis: 8,
+              alignmentAxis: -5,
             },
       ),
+      flip(),
+      shift(),
     ],
+    whileElementsMounted: autoUpdate,
   });
 
-  const [submenuOpened, setSubmenuOpened] = useState(false);
-  const [autoFocus, setAutoFocus] = useState<MenuAutoFocus>('off');
-  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const buttonRef = useMergeRefs([refs.setReference, item.ref]);
 
-  const [anchorElement, setAnchorElement] = useState<HTMLAnchorElement | null>(
-    null,
+  const role = useRole(context, { role: 'menu' });
+
+  const hover = useHover(context, {
+    enabled: parent.type !== 'inline',
+    handleClose: safePolygon({ blockPointerEvents: true }),
+  });
+
+  const click = useClick(context, {
+    event: 'mousedown',
+    toggle: parent.type === 'inline',
+    ignoreMouse: parent.type !== 'inline',
+    keyboardHandlers: true,
+  });
+
+  const dismiss = useDismiss(context);
+
+  const listNavigation = useListNavigation(context, {
+    listRef: elementsRef,
+    activeIndex,
+    nested: true,
+    loop: true,
+    focusItemOnHover: hasFocusInside,
+    orientation:
+      parent.type === 'horizontal' && !hasFocusInside
+        ? 'horizontal'
+        : 'vertical',
+    onNavigate: setActiveIndex,
+  });
+
+  const typeahead = useTypeahead(context, {
+    listRef: labelsRef,
+    onMatch: setActiveIndex,
+    activeIndex,
+  });
+
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
+    [hover, click, role, dismiss, listNavigation, typeahead],
   );
 
-  const popupMenuStyle: CSSProperties = useMemo(
-    () =>
-      type === 'horizontal'
-        ? {
-            top: y ? `${y}px` : 0,
-            left: x ? `${x}px` : 0,
-            minWidth: anchorElement?.offsetWidth,
-          }
-        : {
-            top: y ? `${y}px` : 0,
-            left: x ? `${x}px` : 0,
-          },
-    [anchorElement?.offsetWidth, type, x, y],
+  const menuCtx = useMemo<MenuContextType>(
+    () => ({
+      activeIndex,
+      collapsed: false,
+      context,
+      elementsRef,
+      floatingStyles,
+      getFloatingProps,
+      getItemProps,
+      getReferenceProps,
+      hasFocusInside,
+      indent: parent.type === 'inline' ? parent.indent + 1 : 0,
+      isOpen,
+      labelsRef,
+      refs,
+      setActiveIndex,
+      setHasFocusInside,
+      size: parent.type === 'inline' ? parent.size : 'sm',
+      type: parent.type === 'inline' ? 'inline' : 'vertical',
+      variant: parent.variant,
+    }),
+    [
+      activeIndex,
+      context,
+      floatingStyles,
+      getFloatingProps,
+      getItemProps,
+      getReferenceProps,
+      hasFocusInside,
+      isOpen,
+      parent.indent,
+      parent.size,
+      parent.type,
+      parent.variant,
+      refs,
+    ],
   );
 
-  const handleAutoFocusChange = useCallback((value: MenuAutoFocus) => {
-    setAutoFocus(value);
-  }, []);
-
-  const handleHighlightedIndexChange = useCallback((value: number) => {
-    setHighlightedIndex(value);
-  }, []);
-
-  const handleMenuItemClick = useCallback(
-    (e: ReactMouseEvent<HTMLAnchorElement>) => {
-      if (e.currentTarget.dataset.autofocus === 'true') {
-        e.currentTarget.removeAttribute('data-autofocus');
-        setAutoFocus('on');
-      }
-
-      setSubmenuOpened((prevState) => !prevState);
-      onClick?.(e);
-    },
-    [onClick],
-  );
-
-  const handleMenuItemKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLAnchorElement>) => {
-      switch (e.code) {
-        case 'Enter':
-        case 'Space': {
-          e.preventDefault();
-
-          if (type === 'inline') {
-            setSubmenuOpened((prevState) => !prevState);
-          } else {
-            setSubmenuOpened((prevState) => {
-              if ((prevState && highlightedIndex === -1) || !prevState) {
-                setAutoFocus('on');
-                return true;
-              }
-
-              return !prevState;
-            });
-          }
-
-          break;
-        }
-
-        case 'ArrowRight': {
-          if (type === 'vertical') {
-            e.preventDefault();
-            setSubmenuOpened(true);
-            setAutoFocus('on');
-          }
-
-          break;
-        }
-
-        case 'ArrowDown': {
-          if (type === 'horizontal') {
-            e.preventDefault();
-            setSubmenuOpened(true);
-            setAutoFocus('on');
-          }
-
-          break;
-        }
-
-        case 'ArrowUp': {
-          if (type === 'horizontal') {
-            e.preventDefault();
-            setSubmenuOpened(true);
-            setAutoFocus('reversed');
-          }
-
-          break;
-        }
-
-        default: {
-          break;
-        }
-      }
-
-      onKeyDown?.(e);
-    },
-    [highlightedIndex, onKeyDown, type],
-  );
+  const handleFocus = useCallback(() => {
+    setHasFocusInside(false);
+    parent.setHasFocusInside(true);
+  }, [parent]);
 
   useEffect(() => {
-    reference(anchorElement);
-  }, [anchorElement, reference]);
+    if (!tree) return;
 
-  useEffect(() => {
-    if (submenuOpened) {
-      update();
-      return;
+    function handleTreeClick() {
+      setIsOpen(false);
     }
+
+    function onSubMenuOpen(event: { nodeId: string; parentId: string }) {
+      if (event.nodeId !== nodeId && event.parentId === parentId) {
+        setIsOpen(false);
+      }
+    }
+
+    tree.events.on('click', handleTreeClick);
+    tree.events.on('menuopen', onSubMenuOpen);
 
     return () => {
-      setHighlightedIndex(-1);
+      tree.events.off('click', handleTreeClick);
+      tree.events.off('menuopen', onSubMenuOpen);
     };
-  }, [submenuOpened, update]);
+  }, [tree, nodeId, parentId]);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
-
-    function handler(e: MouseEvent) {
-      clearTimeout(timeout);
-
-      timeout = setTimeout(() => {
-        if (
-          !anchorElement?.contains(e.target as Node) &&
-          !refs.floating.current?.contains(e.target as Node)
-        ) {
-          setSubmenuOpened(false);
-        }
-      }, MOUSEMOVE_HANDLER_DELAY);
+    if (isOpen && tree) {
+      tree.events.emit('menuopen', { parentId, nodeId });
     }
+  }, [tree, isOpen, nodeId, parentId]);
 
-    if (submenuOpened && type !== 'inline' && !disabled) {
-      document.addEventListener('click', handler);
-      document.addEventListener('mousemove', handler);
-    }
-
-    return () => {
-      clearTimeout(timeout);
-      document.removeEventListener('click', handler);
-      document.removeEventListener('mousemove', handler);
-    };
-  }, [anchorElement, disabled, refs.floating, submenuOpened, type]);
-
-  if (collapsed) {
-    return null;
-  }
+  const isActive = parent.activeIndex === item.index;
 
   return (
-    <MenuListItem>
-      <MenuLink
-        action={
-          type === 'vertical' ? (
-            <Icon
-              color={variant === 'dark' ? 'white' : 'neutral900'}
-              fontSize="lg"
-              name="chevron-right"
-            />
+    <FloatingNode id={nodeId}>
+      <MenuButton
+        {...props}
+        active={isActive}
+        collapsed={parent.collapsed}
+        endIcon={
+          parent.type === 'vertical' ? (
+            <Icon name="chevron-right" />
           ) : (
             <Icon
-              color={variant === 'dark' ? 'white' : 'neutral900'}
               flip={
-                type === 'horizontal' || !submenuOpened ? 'vertical' : 'none'
+                parent.type === 'horizontal' || !isOpen ? 'vertical' : 'none'
               }
-              fontSize="lg"
               name="chevron-up"
             />
           )
         }
-        aria-expanded={submenuOpened}
-        aria-haspopup
-        disabled={disabled}
-        icon={icon}
-        ref={setAnchorElement}
-        onClick={handleMenuItemClick}
-        onKeyDown={handleMenuItemKeyDown}
-        {...props}
+        indent={parent.indent}
+        ref={buttonRef}
+        role="menuitem"
+        size={parent.size}
+        startIcon={icon}
+        tabIndex={isActive ? 0 : -1}
+        type={parent.type}
+        variant={parent.variant}
+        {...getReferenceProps(
+          parent.getItemProps({
+            onFocus: handleFocus,
+          }),
+        )}
       >
         {label}
-      </MenuLink>
+      </MenuButton>
 
-      {type === 'inline' ? (
-        <Transition
-          in={submenuOpened}
-          mountOnEnter
-          timeout={INLINE_TRANSITION_TIMEOUT}
-          unmountOnExit
-        >
-          {(status) => (
-            <Menu
-              anchorElement={anchorElement}
-              autoFocus={autoFocus}
-              className={cn(
-                atoms({
-                  transition: 'collapse',
-                  maxHeight: 0,
-                  overflow: 'hidden',
-                }),
-                status === 'entered' &&
-                  atoms({
-                    maxHeight: 96,
-                  }),
-                status === 'exited' &&
-                  atoms({
-                    display: 'none',
-                  }),
-              )}
-              indent={indent + 1}
-              size={size}
-              type="inline"
-              variant={variant}
-              onAutoFocusChange={handleAutoFocusChange}
-            >
-              {children}
-            </Menu>
-          )}
-        </Transition>
-      ) : (
-        <Transition
-          in={submenuOpened}
-          mountOnEnter
-          timeout={FLYOUT_TRANSITION_TIMEOUT}
-          unmountOnExit
-        >
-          {(status) => (
-            <Menu
-              anchorElement={anchorElement}
-              autoFocus={autoFocus}
-              className={cn(
-                atoms({
-                  position: 'absolute',
-                  maxWidth: 'xs',
-                  maxHeight: 80,
-                  borderRadius: 'md',
-                  border: 'thin',
-                  boxShadow: 'lg',
-                  opacity: status === 'entered' ? 100 : 0,
-                  transition: 'fade',
-                  zIndex: 10,
-                }),
-                variant === 'dark'
-                  ? atoms({ borderColor: 'dark100' })
-                  : atoms({ borderColor: 'neutral50' }),
-                status === 'exited' &&
-                  atoms({
-                    display: 'none',
-                  }),
-              )}
-              highlightedIndex={highlightedIndex}
-              ref={floating}
-              size="sm"
-              style={popupMenuStyle}
-              variant={variant}
-              onAutoFocusChange={handleAutoFocusChange}
-              onHighlightedIndexChange={handleHighlightedIndexChange}
-            >
-              {children}
-            </Menu>
-          )}
-        </Transition>
-      )}
-    </MenuListItem>
+      <MenuContext.Provider value={menuCtx}>
+        <MenuItems initialFocus={-1}>{children}</MenuItems>
+      </MenuContext.Provider>
+    </FloatingNode>
   );
 };
 
 Submenu.displayName = 'Submenu';
 
-export { Submenu };
+export default Submenu;

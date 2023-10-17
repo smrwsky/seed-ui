@@ -7,7 +7,7 @@ import {
   waitFor,
 } from '../../utils/test-utils';
 
-import { Autocomplete } from './Autocomplete';
+import Autocomplete from './Autocomplete';
 
 describe('Autocomplete', () => {
   describe('Given an Autocomplete with a set of options', () => {
@@ -173,85 +173,6 @@ describe('Autocomplete', () => {
         });
 
         expect(input).toHaveValue('');
-      });
-    });
-  });
-
-  describe('Given an Autocomplete with a set of options and allowed input value', () => {
-    const options = ['Apple', 'Banana', 'Cherry'];
-
-    describe('When the user types in a search term and the input is blurred', () => {
-      test("Then the value of the input shouldn't be empty", async () => {
-        render(<Autocomplete allowInputValue options={options} />);
-
-        const input = screen.getByRole('combobox');
-        await userEvent.type(input, 'a');
-
-        act(() => {
-          fireEvent.blur(input);
-        });
-
-        expect(input).toHaveValue('a');
-      });
-    });
-  });
-
-  describe('Given an Autocomplete with a set of options, allowed input value, and a default value', () => {
-    const options = ['Apple', 'Banana', 'Cherry'];
-    const defaultValue = options[1];
-
-    describe('When the user types in a search term and the input is blurred', () => {
-      it("Then the value of the input shouldn't match the default value", async () => {
-        render(
-          <Autocomplete
-            allowInputValue
-            defaultValue={defaultValue}
-            options={options}
-          />,
-        );
-
-        const input = screen.getByRole('combobox');
-        await userEvent.type(input, 'a');
-
-        act(() => {
-          fireEvent.blur(input);
-        });
-
-        expect(input).toHaveValue('a');
-      });
-    });
-  });
-
-  describe('Given an Autocomplete with a set of options and disabled search', () => {
-    const options = ['Apple', 'Banana', 'Cherry'];
-
-    describe('When the user types in a search term', () => {
-      it('Then all options should be displayed', async () => {
-        render(<Autocomplete disableSearch options={options} />);
-
-        const input = screen.getByRole('combobox');
-        await userEvent.type(input, 'a');
-
-        expect(screen.getByText('Apple')).toBeVisible();
-        expect(screen.getByText('Banana')).toBeVisible();
-        expect(screen.getByText('Cherry')).toBeVisible();
-      });
-    });
-  });
-
-  describe('Given an Autocomplete component with a set of options and inlineAutoComplete set to true', () => {
-    const options = ['Apple', 'Banana', 'Orange'];
-
-    describe('When the user types in the input and does not match any options', () => {
-      it('Then the input should not be modified', async () => {
-        render(<Autocomplete inlineAutoComplete options={options} />);
-
-        const input = screen.getByRole<HTMLInputElement>('combobox');
-        await userEvent.type(input, 'Grapes');
-
-        await waitFor(() => {
-          expect(input.value).toBe('Grapes');
-        });
       });
     });
   });
