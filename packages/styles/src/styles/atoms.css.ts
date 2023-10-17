@@ -169,6 +169,7 @@ const statefulProperties = defineProperties({
     hover: { selector: '&:hover' },
     active: { selector: '&:active' },
     focus: { selector: '&:focus' },
+    focusVisible: { selector: '&:focus-visible' },
     visited: { selector: '&:visited' },
     disabled: { selector: '&:disabled' },
   },
