@@ -1,6 +1,6 @@
 {
   "name": "@seed-ui/react",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "React components based on Seed UI styles",
   "files": [
     "dist",
@@ -35,12 +35,12 @@
   "author": "Sergey Murawsky",
   "license": "MIT",
   "peerDependencies": {
-    "@seed-ui/styles": "^0.1.1",
+    "@seed-ui/styles": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@seed-ui/styles": "^0.1.1",
+    "@seed-ui/styles": "^1.0.0",
     "@types/lodash": "^4.14.182",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.10",
