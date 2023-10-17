@@ -1,4 +1,4 @@
-import { StorybookConfig } from '@storybook/react-vite';
+import type { StorybookConfig } from '@storybook/react-vite';
 const { vanillaExtractPlugin } = require('@vanilla-extract/vite-plugin');
 const { mergeConfig } = require('vite');
 

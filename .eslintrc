@@ -11,9 +11,7 @@
       ],
       "rules": {
         "@typescript-eslint/quotes": "off",
-        "react-perf/jsx-no-jsx-as-prop": "off",
-        "react/prop-types": "off",
-        "jsx-a11y/no-autofocus": "off",
+        "react-perf/jsx-no-jsx-as-prop": "off"
       },
       "parserOptions": {
         "tsconfigRootDir": ".",

@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@seed-ui/react';
+import {  ThemeProvider } from '@seed-ui/react';
 import { colors, defaultTheme } from '@seed-ui/styles';
 import { theme } from './theme';
 import { FC } from 'react';
