@@ -4,7 +4,7 @@ import { StoryFn } from '@storybook/react';
 import { Avatar } from '../Avatar';
 import { Icon } from '../Icon';
 
-import { Toast, ToastProps } from './Toast';
+import Toast, { ToastProps } from './Toast';
 
 const variants: ToastProps['variant'][] = [
   'primary',

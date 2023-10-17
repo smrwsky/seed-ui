@@ -1,8 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
+import {
+  autoUpdate,
+  size as sizeFn,
+  flip,
+  useDismiss,
+  useFloating,
+  useInteractions,
+  useListNavigation,
+  useRole,
+  FloatingFocusManager,
+  useMergeRefs,
+  useClick,
+  shift,
+} from '@floating-ui/react';
 import { useDebounceCallback } from '@react-hook/debounce';
+import { atoms } from '@seed-ui/styles';
 import {
   ChangeEvent,
   cloneElement,
   ComponentType,
+  ForwardedRef,
   FocusEvent,
   FocusEventHandler,
   forwardRef,
@@ -11,47 +28,38 @@ import {
   MouseEvent,
   ReactElement,
   Ref,
-  RefAttributes,
   useCallback,
   useEffect,
-  useLayoutEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
+import { Transition } from 'react-transition-group';
 
-import { mergeRefs } from '../../utils/merge-refs';
+import { Maybe } from '../../types';
 import { slug } from '../../utils/slug';
+import { Box } from '../Box';
+import { Flex } from '../Flex';
 import { Icon, IconProps } from '../Icon';
-import { IconButton } from '../IconButton';
 import { InputAction } from '../InputAction';
 import { InputBox, InputBoxSize } from '../InputBox';
-import { InputTags } from '../InputTags';
-import { InputTag } from '../InputTags/InputTag';
-import { MenuList } from '../Menu';
 import { Option, OptionProps } from '../Option';
-import { Popover } from '../Popover';
 import { Tag } from '../Tag';
 
 export type AutocompleteSize = InputBoxSize;
 
-export interface OptionComponentProps<Option> extends OptionProps {
-  option: Option;
+export interface OptionComponentProps<OptionType> extends OptionProps {
+  option: OptionType;
 }
 
-export interface AutocompleteProps<Option = unknown, Value = Option> {
-  /**
-   * If `true`, allows using input value as primary value and fires `onChange`
-   * callback with this value, when it changes. Implements
-   * Editable Combobox With List Autocomplete pattern.
-   */
-  allowInputValue?: boolean;
+export type MaybeMultiValue<
+  Value,
+  IsMulti extends boolean,
+> = IsMulti extends true ? Value[] : Value | null;
 
-  /**
-   * If `true`, automatically highlights the first option in the dropdown list.
-   */
-  autoHighlight?: boolean;
-
+export interface AutocompleteProps<
+  Value = unknown,
+  IsMulti extends boolean = false,
+> {
   /**
    * If `true`, the input element will be isFocused when the component is mounted.
    */
@@ -65,7 +73,7 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
    * Default value of the input element.
    */
-  defaultValue?: Value;
+  defaultValue?: MaybeMultiValue<Value, IsMulti>;
 
   /**
    * If `true`, the input element is disabled and can't be interacted with.
@@ -73,15 +81,10 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   disabled?: boolean;
 
   /**
-   * If `true`, search functionality is disabled.
-   */
-  disableSearch?: boolean;
-
-  /**
    * A function that takes an `Option` and returns a string to use as the label
    * for that option.
    */
-  getLabel?: (option: Option) => string;
+  getLabel?: (option: Value) => string;
 
   /**
    * Icon to display in the input element.
@@ -92,11 +95,6 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
    * ID attribute for the input element.
    */
   id?: string;
-
-  /**
-   * If `true`, enables inline auto-complete behavior in the input element.
-   */
-  inlineAutoComplete?: boolean;
 
   /**
    * If `true`, the input element will have a validation error style.
@@ -121,7 +119,7 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
    * If `true`, the component allows multiple values to be selected.
    */
-  multiple?: boolean;
+  multiple?: IsMulti;
 
   /**
    * Name attribute for input element.
@@ -136,12 +134,18 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
    * A component to render each option in the dropdown list.
    */
-  OptionComponent?: ComponentType<OptionComponentProps<Option>>;
+  OptionComponent?: ComponentType<OptionComponentProps<Value>>;
 
   /**
    * Array of options to display in the dropdown list.
    */
-  options?: Option[];
+  options?: Value[];
+
+  /**
+   * Placeholder text to display in input element.
+   */
+
+  placeholder?: string;
 
   /**
    * If `true`, the input element is read-only and can't be interacted with.
@@ -167,7 +171,7 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
    * The current value of Autocomplete component.
    */
-  value?: Value;
+  value?: MaybeMultiValue<Value, IsMulti>;
 
   /**
    * Callback function fired when the input element loses focus.
@@ -177,7 +181,7 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   /**
    * Callback function fired when the value of Autocomplete component changes.
    */
-  onChange?: (value: Value) => void;
+  onChange?: (value: MaybeMultiValue<Value, IsMulti>) => void;
 
   /**
    * Callback function fired when the input element receives focus.
@@ -190,138 +194,180 @@ export interface AutocompleteProps<Option = unknown, Value = Option> {
   onSearch?: (query: string) => void | Promise<void>;
 }
 
-export interface AutocompleteFn {
-  <Option = unknown, Value = Option>(
-    props: AutocompleteProps<Option, Value> & RefAttributes<HTMLInputElement>,
-  ): ReactElement;
-  displayName: 'Autocomplete';
-}
+type AutocompleteFn = <Value, IsMulti extends boolean = false>(
+  props: AutocompleteProps<Value, IsMulti> & { ref?: Ref<HTMLInputElement> },
+) => ReactElement;
 
 export const LISTBOX_ID = 'listbox';
 
 export const OPTION_ID = 'option';
 
-function getInitialInputValue(
-  defaultValue: unknown,
-  getLabel: (value: unknown) => string,
-) {
-  return !defaultValue || Array.isArray(defaultValue)
-    ? ''
-    : getLabel(defaultValue);
+const TRANSITION_TIMEOUT = {
+  appear: 0,
+  enter: 200,
+  exit: 200,
+};
+
+function toInputValue<Value, IsMulti extends boolean>(
+  value: Maybe<MaybeMultiValue<Value, IsMulti>>,
+  getLabel: (value: Value) => string,
+): string {
+  if (value == null || Array.isArray(value)) {
+    return '';
+  }
+
+  return getLabel(value as Value);
 }
 
-function mapToSelectedOptions(value: unknown, isMultiple: boolean) {
-  return ((isMultiple && Array.isArray(value) && value) ||
-    (value && [value]) ||
-    []) as unknown[];
+function toSelectedOptions<Value, IsMulti extends boolean>(
+  value: MaybeMultiValue<Value, IsMulti> | undefined,
+): Value[] {
+  if (value == null) {
+    return [];
+  }
+
+  if (Array.isArray(value)) {
+    return value as Value[];
+  }
+
+  return [value] as Value[];
 }
 
-function mapToValue(options: unknown[], isMultiple: boolean) {
-  return isMultiple ? options : options[0] ?? null;
+function toValue<Value, IsMulti extends boolean>(
+  selectedOptions: Value[],
+  multiple: IsMulti,
+): MaybeMultiValue<Value, IsMulti> {
+  return (
+    multiple ? selectedOptions : selectedOptions[0] ?? null
+  ) as MaybeMultiValue<Value, IsMulti>;
 }
 
-function toggleOption(value: unknown, items: unknown[]): unknown[] {
+function toggleOption<Value>(value: Value, items: Value[]): Value[] {
   return items.includes(value)
     ? items.filter((item) => item !== value)
     : [...items, value];
 }
 
 const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
-  (
+  <Value extends unknown = unknown, IsMulti extends boolean = false>(
     {
-      autoHighlight = false,
-      allowInputValue = false,
+      autoFocus = false,
       clearLabel = 'Clear',
       defaultValue,
-      searchTimeout = 500,
       disabled = false,
       getLabel = String,
       icon,
       id,
-      inlineAutoComplete = false,
       invalid = false,
       loading = false,
       loadingError,
       loadingLabel = 'Searching...',
-      multiple = false,
+      multiple = false as IsMulti,
+      name,
       noResultLabel = 'No result',
-      OptionComponent = Option,
+      OptionComponent = Option as ComponentType<OptionComponentProps<Value>>,
       options,
+      placeholder,
       readOnly = false,
-      disableSearch = false,
+      searchTimeout = 500,
       size = 'md',
       value,
       onBlur,
       onChange,
       onFocus,
       onSearch,
-      ...inputProps
-    },
-    ref,
+    }: AutocompleteProps<Value, IsMulti>,
+    ref: ForwardedRef<HTMLInputElement>,
   ) => {
-    const [anchorElement, setAnchorElement] = useState<HTMLDivElement | null>(
-      null,
-    );
-
-    const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
-    const [isBackspacePressed, setIsBackspacePressed] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null);
     const [isFocused, setIsFocused] = useState(false);
-    const [isMenuOpened, setIsMenuOpened] = useState(false);
 
     const [inputValue, setInputValue] = useState(() =>
-      getInitialInputValue(defaultValue, getLabel),
+      toInputValue(value ?? defaultValue, getLabel),
     );
 
-    const [optionsState, setOptionsState] = useState<unknown[]>(
+    const [optionsState, setOptionsState] = useState<Value[]>(
       () => options ?? [],
     );
 
-    const [selectedOptions, setSelectedOptions] = useState(
-      mapToSelectedOptions(value ?? defaultValue, multiple),
+    const [selectedOptions, setSelectedOptions] = useState<Value[]>(() =>
+      toSelectedOptions(value ?? defaultValue),
     );
 
-    const [searchQuery, setSearchQuery] = useState(() =>
-      getInitialInputValue(defaultValue, getLabel),
-    );
+    const containerRef = useRef<HTMLDivElement>(null);
+    const listRef = useRef<Array<HTMLElement | null>>([]);
+    const isControlled = typeof value !== 'undefined';
 
-    const inputRef = useRef<HTMLInputElement>(null);
-    const listboxRef = useRef<HTMLUListElement>(null);
-    const mergedRefs = mergeRefs(inputRef, ref);
+    const { refs, floatingStyles, context } = useFloating<HTMLInputElement>({
+      whileElementsMounted: autoUpdate,
+      open: isOpen,
+      onOpenChange: setIsOpen,
+      transform: false,
+      strategy: 'fixed',
+      middleware: [
+        flip(),
+        shift(),
+        sizeFn({
+          apply({ availableHeight, elements }) {
+            const {
+              offsetLeft = 0,
+              offsetTop = 0,
+              offsetWidth = 0,
+              offsetHeight = 0,
+            } = containerRef.current ?? {};
 
-    const isUncontrolled = typeof value === 'undefined';
+            Object.assign(elements.floating.style, {
+              top: `${offsetTop + offsetHeight}px`,
+              left: `${offsetLeft}px`,
+              width: `${offsetWidth ?? 0}px`,
+              maxHeight: `${availableHeight}px`,
+            });
+          },
+          padding: 10,
+        }),
+      ],
+    });
 
-    const popoverStyle = useMemo(
-      () => ({
-        width: anchorElement ? `${anchorElement.offsetWidth}px` : undefined,
-        maxWidth: '100%',
-        margin: 0,
-      }),
-      [anchorElement],
-    );
+    const role = useRole(context, { role: 'listbox' });
+
+    const click = useClick(context, {
+      enabled: !disabled && !readOnly,
+    });
+
+    const dismiss = useDismiss(context);
+
+    const listNav = useListNavigation(context, {
+      enabled: !disabled && !readOnly,
+      listRef,
+      activeIndex,
+      onNavigate: setActiveIndex,
+      virtual: true,
+      loop: true,
+    });
+
+    const { getReferenceProps, getFloatingProps, getItemProps } =
+      useInteractions([role, click, dismiss, listNav]);
+
+    const mergedRefs = useMergeRefs([refs.setReference, ref]);
 
     const changeValue = useCallback(
-      (options: unknown[]): void => {
-        if (!isUncontrolled && onChange) {
-          const nextOptions = mapToValue(options, multiple);
+      (options: Value[]) => {
+        if (isControlled && onChange) {
+          const nextOptions = toValue(options, multiple);
           onChange(nextOptions);
         } else {
           setSelectedOptions(options);
         }
       },
-      [isUncontrolled, multiple, onChange],
+      [isControlled, multiple, onChange],
     );
 
     const resetInputValue = useCallback(() => {
-      if (allowInputValue && !selectedOptions[0]) {
-        return;
-      }
-
-      const nextValue =
-        !multiple && selectedOptions[0] ? getLabel(selectedOptions[0]) : '';
-
+      const selectedValue = multiple ? selectedOptions : selectedOptions[0];
+      const nextValue = toInputValue(selectedValue, getLabel);
       setInputValue(nextValue);
-      setSearchQuery(nextValue);
-    }, [allowInputValue, getLabel, multiple, selectedOptions]);
+    }, [getLabel, multiple, selectedOptions]);
 
     const selectOption = useCallback(
       (index: number): void => {
@@ -334,19 +380,25 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           : [option];
 
         changeValue(nextOptions);
-        setIsMenuOpened(false);
-        setIsBackspacePressed(false);
+        setIsOpen(false);
+
+        const element = refs.domReference.current;
+
+        if (element) {
+          element.focus();
+          element.setSelectionRange(element.value.length, element.value.length);
+        }
       },
-      [changeValue, multiple, optionsState, selectedOptions],
+      [changeValue, multiple, optionsState, refs.domReference, selectedOptions],
     );
 
     const filterOptions = useCallback(
-      (query: string) => {
+      (nextQuery: string) => {
         if (!options) return;
 
-        const filtered = query
+        const filtered = nextQuery
           ? options.filter((item) =>
-              getLabel(item).toLowerCase().includes(query.toLowerCase()),
+              getLabel(item).toLowerCase().includes(nextQuery.toLowerCase()),
             )
           : options;
 
@@ -355,10 +407,12 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       [getLabel, options],
     );
 
-    const updateOptions = useDebounceCallback((query: string) => {
-      if (disableSearch) return;
-      if (onSearch) return onSearch(query);
-      filterOptions(query);
+    const updateOptions = useDebounceCallback(async (nextQuery: string) => {
+      if (onSearch) {
+        await onSearch(nextQuery);
+      } else {
+        filterOptions(nextQuery);
+      }
     }, searchTimeout);
 
     const handleInputFocus = useCallback(
@@ -369,108 +423,52 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       [onFocus],
     );
 
-    const handleInputClick = useCallback(
-      (e: MouseEvent<HTMLInputElement>) => {
-        e.currentTarget.select();
-
-        if (disabled || readOnly) return;
-
-        if (isMenuOpened && !inputValue) {
-          setIsMenuOpened(false);
-          setIsBackspacePressed(false);
-        }
-
-        if (!isMenuOpened) {
-          setIsMenuOpened(true);
-        }
-      },
-      [disabled, inputValue, isMenuOpened, readOnly],
-    );
-
     const handleInputChange = useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
         const nextValue = e.target.value;
         setInputValue(nextValue);
-        setSearchQuery(nextValue);
-        setIsMenuOpened(true);
 
-        if (allowInputValue || (!multiple && !nextValue)) {
+        if (nextValue) {
+          setIsOpen(true);
+          setActiveIndex(0);
+        } else {
           changeValue([]);
         }
       },
-      [allowInputValue, changeValue, multiple],
+      [changeValue],
     );
 
     const handleInputKeyDown = useCallback(
       (e: KeyboardEvent<HTMLInputElement>) => {
-        if (!e.altKey && e.key === 'ArrowDown') {
-          e.preventDefault();
-          setIsMenuOpened(true);
-
-          setHighlightedIndex((prevState) =>
-            prevState >= optionsState.length - 1 ? 0 : prevState + 1,
-          );
+        if (
+          e.key === 'Enter' &&
+          activeIndex != null &&
+          optionsState[activeIndex]
+        ) {
+          selectOption(activeIndex);
+          setActiveIndex(null);
         }
-
-        if (e.altKey && e.key === 'ArrowDown') {
-          e.preventDefault();
-          setIsMenuOpened(true);
-        }
-
-        if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          setIsMenuOpened(true);
-
-          setHighlightedIndex((prevState) =>
-            prevState <= 0 ? optionsState.length - 1 : prevState - 1,
-          );
-        }
-
-        if (e.key === 'Enter' && isMenuOpened) {
-          e.preventDefault();
-          selectOption(highlightedIndex);
-        }
-
-        if (e.key === 'Escape') {
-          setIsMenuOpened(false);
-        }
-
-        setIsBackspacePressed(e.key === 'Backspace');
       },
-      [highlightedIndex, isMenuOpened, optionsState.length, selectOption],
+      [activeIndex, optionsState, selectOption],
     );
 
     const handleInputBlur = useCallback(
       (e: FocusEvent<HTMLInputElement>) => {
-        resetInputValue();
         setIsFocused(false);
-        setIsMenuOpened(false);
-        setIsBackspacePressed(false);
+        resetInputValue();
         onBlur?.(e);
       },
       [onBlur, resetInputValue],
     );
 
-    const handleOptionMouseEnter = useCallback(
-      (e: MouseEvent<HTMLLIElement>) => {
-        const index = Number(e.currentTarget.dataset.index);
-
-        if (Number.isNaN(index)) return;
-
-        setHighlightedIndex(index);
-      },
-      [],
-    );
-
-    const handleOptionMouseDown = useCallback(
+    const handleOptionClick = useCallback(
       (e: MouseEvent<HTMLLIElement>) => {
         e.preventDefault();
-
         const index = Number(e.currentTarget.dataset.index);
 
-        if (Number.isNaN(index)) return;
-
-        selectOption(index);
+        if (!Number.isNaN(index)) {
+          selectOption(index);
+        }
       },
       [selectOption],
     );
@@ -481,9 +479,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
         e.stopPropagation();
         changeValue([]);
         setInputValue('');
-        setSearchQuery('');
-        setIsMenuOpened(false);
-        setIsBackspacePressed(false);
       },
       [changeValue],
     );
@@ -492,10 +487,11 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       (e: MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
-
         const index = Number(e.currentTarget.dataset.index);
 
-        if (Number.isNaN(index)) return;
+        if (Number.isNaN(index)) {
+          return;
+        }
 
         const nextVal = [...selectedOptions];
         nextVal.splice(index, 1);
@@ -504,116 +500,20 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       [changeValue, selectedOptions],
     );
 
-    useLayoutEffect(() => {
-      if (inlineAutoComplete) return;
-
-      const initialIndex = autoHighlight && !inlineAutoComplete ? 0 : -1;
-
-      if (!isMenuOpened) {
-        let nextIndex = initialIndex;
-
-        if (!isMenuOpened && !multiple && selectedOptions[0]) {
-          const selectedIndex = optionsState?.findIndex(
-            (item) => getLabel(item) === getLabel(selectedOptions[0]),
-          );
-
-          nextIndex = Math.max(nextIndex, selectedIndex);
-        }
-
-        setHighlightedIndex(nextIndex);
-      } else {
-        setHighlightedIndex((prevState) =>
-          prevState < initialIndex || prevState > optionsState.length - 1
-            ? initialIndex
-            : prevState,
-        );
-      }
-    }, [
-      autoHighlight,
-      getLabel,
-      inlineAutoComplete,
-      isMenuOpened,
-      multiple,
-      optionsState,
-      selectedOptions,
-    ]);
-
-    useLayoutEffect(() => {
-      if (!isMenuOpened || !inlineAutoComplete) {
-        return;
-      }
-
-      const option = optionsState[0];
-      const label = option ? getLabel(option) : '';
-
-      if (
-        searchQuery &&
-        label.toLowerCase().startsWith(searchQuery.toLowerCase())
-      ) {
-        setHighlightedIndex(0);
-      } else {
-        setHighlightedIndex(-1);
-      }
-    }, [getLabel, inlineAutoComplete, isMenuOpened, optionsState, searchQuery]);
-
-    useLayoutEffect(() => {
-      if (
-        !isMenuOpened ||
-        !inlineAutoComplete ||
-        isBackspacePressed ||
-        highlightedIndex === -1
-      ) {
-        return;
-      }
-
-      const option = optionsState[highlightedIndex];
-      const label = option ? getLabel(option) : '';
-
-      if (!label) return;
-
-      setInputValue(label);
-
-      if (!label.toLowerCase().startsWith(searchQuery.toLowerCase())) {
-        setSearchQuery(label);
-      }
-    }, [
-      getLabel,
-      highlightedIndex,
-      inlineAutoComplete,
-      isBackspacePressed,
-      isMenuOpened,
-      optionsState,
-      searchQuery,
-    ]);
-
-    useLayoutEffect(() => {
-      if (
-        isMenuOpened &&
-        searchQuery &&
-        searchQuery !== inputValue &&
-        inputValue.toLowerCase().startsWith(searchQuery.toLowerCase())
-      ) {
-        inputRef.current?.setSelectionRange(
-          searchQuery.length,
-          inputValue.length,
-        );
-      }
-    }, [inputValue, isMenuOpened, searchQuery]);
-
-    useLayoutEffect(() => {
-      if (!isUncontrolled) {
-        const nextOptions = mapToSelectedOptions(value, multiple);
+    useEffect(() => {
+      if (typeof value !== 'undefined') {
+        const nextOptions = toSelectedOptions(value);
         setSelectedOptions(nextOptions);
       }
-    }, [isUncontrolled, multiple, value]);
+    }, [value]);
+
+    useEffect(() => {
+      updateOptions(inputValue);
+    }, [inputValue, updateOptions]);
 
     useEffect(() => {
       resetInputValue();
     }, [resetInputValue]);
-
-    useEffect(() => {
-      updateOptions(searchQuery);
-    }, [searchQuery, updateOptions]);
 
     return (
       <>
@@ -622,16 +522,26 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           focused={isFocused}
           invalid={invalid}
           readOnly={readOnly}
-          ref={setAnchorElement}
+          ref={containerRef}
           size={size}
         >
           {isValidElement<IconProps>(icon) && (
             <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
           )}
-          <InputTags>
+
+          <Flex as="span" flex={1} flexWrap="wrap" mt="-1" mx="-0.5">
             {multiple &&
               selectedOptions.map((item, idx) => (
-                <InputTag key={idx}>
+                <Box
+                  as="span"
+                  display="block"
+                  key={idx}
+                  lineHeight="none"
+                  maxWidth="full"
+                  minWidth={0}
+                  mt={1}
+                  px={0.5}
+                >
                   <Tag
                     bg="neutral50"
                     borderColor="neutral200"
@@ -644,110 +554,159 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                   >
                     {getLabel(item)}
                   </Tag>
-                </InputTag>
+                </Box>
               ))}
 
-            <InputTag>
+            <Box
+              as="span"
+              display="block"
+              lineHeight="none"
+              maxWidth="full"
+              minWidth={0}
+              mt={1}
+              px={0.5}
+            >
               <input
                 aria-activedescendant={
-                  highlightedIndex !== -1
-                    ? slug(id, OPTION_ID, highlightedIndex)
-                    : ''
+                  activeIndex != null ? slug(id, OPTION_ID, activeIndex) : ''
                 }
                 aria-autocomplete="list"
-                aria-controls={isMenuOpened ? slug(id, LISTBOX_ID) : ''}
-                aria-expanded={isMenuOpened}
-                aria-haspopup="listbox"
+                aria-controls={isOpen ? slug(id, LISTBOX_ID) : ''}
                 aria-invalid={invalid}
-                aria-owns={isMenuOpened ? slug(id, LISTBOX_ID) : ''}
+                aria-owns={isOpen ? slug(id, LISTBOX_ID) : ''}
                 autoComplete="off"
+                autoFocus={autoFocus}
                 disabled={disabled}
                 id={id}
+                name={name}
+                placeholder={placeholder}
                 readOnly={readOnly}
-                ref={mergedRefs}
-                role="combobox"
                 type="text"
-                value={inputValue}
-                onBlur={handleInputBlur}
-                onChange={handleInputChange}
-                onClick={handleInputClick}
-                onFocus={handleInputFocus}
-                onKeyDown={handleInputKeyDown}
-                {...inputProps}
+                {...getReferenceProps({
+                  ref: mergedRefs,
+                  value: inputValue,
+                  onFocus: handleInputFocus,
+                  onBlur: handleInputBlur,
+                  onChange: handleInputChange,
+                  onKeyDown: handleInputKeyDown,
+                })}
               />
-            </InputTag>
-          </InputTags>
+            </Box>
+          </Flex>
 
-          {!readOnly &&
-            !disabled &&
+          {isFocused &&
             (inputValue.length > 0 || selectedOptions.length > 0) && (
               <InputAction>
-                <IconButton
+                <Icon
                   aria-label={clearLabel}
-                  size="sm"
+                  className={atoms({
+                    color: 'neutral700',
+                    opacity: {
+                      default: 65,
+                      hover: 100,
+                    },
+                    transition: 'fade',
+                    cursor: 'pointer',
+                  })}
+                  fontSize="xl"
+                  name="x"
+                  role="button"
                   tabIndex={-1}
-                  variant="plain"
                   onMouseDown={handleClearMouseDown}
-                >
-                  <Icon name="x" />
-                </IconButton>
+                />
               </InputAction>
             )}
         </InputBox>
 
-        <Popover
-          anchorElement={anchorElement}
-          open={isMenuOpened}
-          placement="bottom-start"
-          strategy="absolute"
-          style={popoverStyle}
+        <Transition
+          in={isOpen}
+          mountOnEnter
+          timeout={TRANSITION_TIMEOUT}
+          unmountOnExit
         >
-          <MenuList id={slug(id, LISTBOX_ID)} ref={listboxRef} role="listbox">
-            {optionsState.map((item, idx) => (
-              <OptionComponent
-                action={
-                  multiple &&
-                  selectedOptions.includes(item) && (
-                    <Icon color="primary500" fontSize="lg" name="check" />
-                  )
-                }
-                data-index={idx}
-                highlighted={idx === highlightedIndex}
-                id={slug(id, OPTION_ID, idx)}
-                key={idx}
-                option={item}
-                selected={selectedOptions.includes(item)}
-                onMouseDown={handleOptionMouseDown}
-                onMouseEnter={handleOptionMouseEnter}
+          {(status) => (
+            <FloatingFocusManager
+              context={context}
+              initialFocus={-1}
+              modal={false}
+            >
+              <ul
+                className={atoms({
+                  display: 'flex',
+                  flexDirection: 'column',
+                  maxWidth: 'xs',
+                  borderRadius: 'md',
+                  border: 'thin',
+                  boxShadow: {
+                    default: 'lg',
+                    focusVisible: 'lg',
+                  },
+                  bg: 'white',
+                  borderColor: 'neutral50',
+                  opacity: status === 'entered' ? 100 : 0,
+                  transition: 'fade',
+                  overflowX: 'hidden',
+                  overflowY: 'auto',
+                  px: 0,
+                  py: 0.5,
+                  m: 0,
+                  zIndex: 10,
+                })}
+                id={slug(id, LISTBOX_ID)}
+                ref={refs.setFloating}
+                style={floatingStyles}
+                {...getFloatingProps()}
               >
-                {getLabel(item)}
-              </OptionComponent>
-            ))}
+                {optionsState.map((item, idx) => (
+                  <OptionComponent
+                    active={idx === activeIndex}
+                    data-index={idx}
+                    endIcon={
+                      multiple && selectedOptions.includes(item) ? (
+                        <Icon color="primary500" fontSize="lg" name="check" />
+                      ) : undefined
+                    }
+                    id={slug(id, OPTION_ID, idx)}
+                    key={idx}
+                    option={item}
+                    selected={selectedOptions.includes(item)}
+                    {...getItemProps({
+                      ref: (node) => {
+                        listRef.current[idx] = node;
+                      },
+                      onClick: handleOptionClick,
+                    })}
+                  >
+                    {getLabel(item)}
+                  </OptionComponent>
+                ))}
 
-            {loading && (
-              <Option disabled role="presentation">
-                {loadingLabel}
-              </Option>
-            )}
+                {loading && (
+                  <Option disabled role="none">
+                    {loadingLabel}
+                  </Option>
+                )}
 
-            {!loading && loadingError && (
-              <Option disabled role="alert">
-                {loadingError}
-              </Option>
-            )}
+                {!loading && loadingError && (
+                  <Option disabled role="alert">
+                    {loadingError}
+                  </Option>
+                )}
 
-            {!loading && !loadingError && optionsState.length === 0 && (
-              <Option disabled role="presentation">
-                {noResultLabel}
-              </Option>
-            )}
-          </MenuList>
-        </Popover>
+                {!loading && !loadingError && optionsState.length === 0 && (
+                  <Option disabled role="none">
+                    {noResultLabel}
+                  </Option>
+                )}
+              </ul>
+            </FloatingFocusManager>
+          )}
+        </Transition>
       </>
     );
   },
-) as AutocompleteFn;
+);
 
 Autocomplete.displayName = 'Autocomplete';
 
-export { Autocomplete };
+export default Autocomplete as AutocompleteFn;

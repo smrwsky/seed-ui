@@ -3,9 +3,7 @@ import Autocomplete, {
   Basic,
   Sizes,
   Invalid,
-  Multiple,
-  AutoHighlight,
-  InlineAutoComplete, AllowInputValue,
+  Multiple, Disabled, ReadOnly,
 } from './Autocomplete.stories';
 
 <Meta of={Autocomplete} />
@@ -52,31 +50,24 @@ to `true`, clear error feedback should be provided using the ErrorMessage compon
 
 <Canvas of={Invalid} />
 
+### Disabled
+
+Disabled input
+
+<Canvas of={Disabled} />
+
+### Read Only
+
+Readonly input
+
+<Canvas of={ReadOnly} />
+
+
 ### Sizes
 
 The `size` property can be used to specify the size of the input box. Available values are `sm`, `md`, and `lg`.
 
 <Canvas of={Sizes} />
-
-### Allow Input Value
-
-The `allowInputValue` property allows using the input value as the primary value and triggers the `onChange` callback
-when the input value changes.
-
-<Canvas of={AllowInputValue} />
-
-### Auto Highlight
-
-The `autoHighlight` property automatically highlights the first option in the dropdown list.
-
-<Canvas of={AutoHighlight} />
-
-### Inline Auto Complete
-
-The `inlineAutoComplete` property enables inline auto-completion, where the matched portion of the option is highlighted
-in the input as the user types.
-
-<Canvas of={InlineAutoComplete} />
 
 ## Guidelines
 

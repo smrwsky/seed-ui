@@ -19,7 +19,7 @@ const sizeStyles = {
   sm: atoms({
     minHeight: 7,
     px: 1,
-    py: 0.5,
+    py: 0,
   }),
   md: atoms({
     minHeight: 9,
@@ -51,40 +51,41 @@ const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
       alignItems="center"
       className={cn(
         atoms({
-          border: 'thin',
-          borderColor: 'neutral100',
           borderRadius: 'input',
+          border: 'thin',
+          borderColor: {
+            default: 'neutral200',
+            hover: 'primary400',
+          },
           bg: 'white',
           transition: 'base',
           overflow: 'hidden',
           cursor: 'text',
 
-          ...(!disabled &&
-            !readOnly &&
-            focused && {
-              borderColor: 'primary400',
-              boxShadow: 'focus',
-            }),
+          ...(focused && {
+            borderColor: 'primary400',
+            boxShadow: 'focus',
+          }),
 
-          ...(!readOnly &&
-            invalid && {
-              borderColor: 'danger400',
-            }),
+          ...(invalid && {
+            borderColor: 'danger400',
+          }),
 
-          ...(!disabled &&
-            !readOnly &&
-            focused &&
+          ...(focused &&
             invalid && {
               boxShadow: 'focusDanger',
             }),
 
           ...(disabled && {
-            borderColor: 'neutral50',
+            borderColor: 'neutral100',
+            bg: 'neutral50',
+            boxShadow: 'none',
             cursor: 'not-allowed',
           }),
 
           ...(readOnly && {
-            borderColor: 'neutral50',
+            borderColor: 'neutral100',
+            boxShadow: 'none',
           }),
         }),
         sizeStyles[size],

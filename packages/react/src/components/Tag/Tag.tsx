@@ -44,7 +44,7 @@ const iconStyles = atoms({
   ml: 1,
   cursor: 'pointer',
   opacity: {
-    default: 45,
+    default: 65,
     hover: 100,
   },
 });

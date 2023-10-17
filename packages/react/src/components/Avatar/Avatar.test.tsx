@@ -1,7 +1,7 @@
 import { render } from '../../utils/test-utils';
 import { Icon } from '../Icon';
 
-import { Avatar } from './Avatar';
+import Avatar from './Avatar';
 
 describe('Avatar', () => {
   describe('Given an Avatar without props', () => {

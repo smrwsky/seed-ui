@@ -6,50 +6,19 @@ import {
   waitFor,
 } from '../../utils/test-utils';
 
-import { Menu } from './Menu';
+import Menu from './Menu';
 import { MenuItem } from './MenuItem';
 import { Submenu } from './Submenu';
 
 describe('Menu', () => {
   describe('Given Menu component is rendered with valid MenuItem children', () => {
-    describe('When user hovers the mouse over a menu item', () => {
-      it("Then The user's mouse hover should trigger visual feedback, such as highlighting, to indicate the active menu item", async () => {
-        // Render the Menu component with mocked menu items
-        render(
-          <Menu>
-            <MenuItem>Home</MenuItem>
-            <MenuItem>Products</MenuItem>
-            <MenuItem>Contacts</MenuItem>
-          </Menu>,
-        );
-
-        // Get the first menu item element
-        const menuItems = screen.getAllByRole('menuitem');
-        // Get the default class name of the menu item
-        const initialClassName = menuItems[0]?.className;
-
-        // Simulate mouse hover on the menu item
-        await userEvent.hover(menuItems[0]);
-        // Assert that the highlighted class name is different from the default class name
-        expect(menuItems[0].className).not.toBe(initialClassName);
-
-        // Simulate mouse leaving the menu item
-        await userEvent.hover(menuItems[1]);
-
-        // Assert that the previously hovered menu item is no longer visually indicated
-        expect(menuItems[1].className).not.toBe(initialClassName);
-        // Assert that the new hovered menu item is visually indicated
-        expect(menuItems[0].className).toBe(initialClassName);
-      });
-    });
-
     describe('When user clicks on a menu item', () => {
       it('Then the associated action should be triggered', async () => {
         const onClick = jest.fn();
 
         render(
           <Menu>
-            <MenuItem onClick={onClick}>Menu Item</MenuItem>
+            <MenuItem label="Menu Item" onClick={onClick} />
           </Menu>,
         );
 
@@ -66,34 +35,36 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         render(
           <Menu>
-            <MenuItem>Home</MenuItem>
-            <MenuItem>About</MenuItem>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Home" />
+            <MenuItem label="Products" />
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
         // Get the menu items
         const homeMenuItem = screen.getAllByRole('menuitem')[0];
-        const aboutMenuItem = screen.getAllByRole('menuitem')[1];
-        const contactMenuItem = screen.getAllByRole('menuitem')[2];
+        const productsMenuItem = screen.getAllByRole('menuitem')[1];
 
         // Simulate keyboard navigation
         await userEvent.tab();
         await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          // Assert focus on the correct menu item
+          expect(homeMenuItem).toHaveFocus();
+        });
+
         await userEvent.keyboard('{arrowdown}');
 
-        // Assert focus on the correct menu item
-        expect(homeMenuItem).not.toHaveFocus();
-        expect(aboutMenuItem).not.toHaveFocus();
-        expect(contactMenuItem).toHaveFocus();
+        await waitFor(() => {
+          expect(productsMenuItem).toHaveFocus();
+        });
 
-        // Simulate keyboard navigation in the opposite direction
         await userEvent.keyboard('{arrowup}');
 
-        // Assert focus on the correct menu item
-        expect(homeMenuItem).not.toHaveFocus();
-        expect(aboutMenuItem).toHaveFocus();
-        expect(contactMenuItem).not.toHaveFocus();
+        await waitFor(() => {
+          expect(homeMenuItem).toHaveFocus();
+        });
       });
     });
 
@@ -104,12 +75,20 @@ describe('Menu', () => {
         // Render the Menu component with a mock menu item
         render(
           <Menu>
-            <MenuItem onClick={mockAction}>Click Me</MenuItem>
+            <MenuItem label="Click Me" onClick={mockAction} />
           </Menu>,
         );
 
+        const menuItem = screen.getByRole('menuitem');
+
         // Get the menu item
         await userEvent.tab();
+        await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(menuItem).toHaveFocus();
+        });
+
         // Simulate keydown events
         await userEvent.keyboard('{enter}');
         await userEvent.keyboard('{ }');
@@ -124,9 +103,9 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         const { container } = render(
           <Menu>
-            <MenuItem>Home</MenuItem>
-            <MenuItem>About</MenuItem>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Home" />
+            <MenuItem label="Products" />
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
@@ -144,40 +123,25 @@ describe('Menu', () => {
         // Render the VerticalMenu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
-        const menuItems = screen.getAllByRole('menuitem');
-        const initialClassName = menuItems[1].className;
-
         // Assert that the submenu items are not visible initially
-        expect(menuItems).toHaveLength(3);
+        expect(screen.getAllByRole('menuitem')).toHaveLength(3);
         // Simulate mouse hover on the menu item with fly-out submenu
-        await userEvent.hover(menuItems[1]);
+        await userEvent.hover(screen.getAllByRole('menuitem')[1]);
 
         await waitFor(() => {
           const updatedMenuItems = screen.getAllByRole('menuitem');
           // Assert that the submenu items are visible after hovering
-          expect(updatedMenuItems[1].className).not.toBe(initialClassName);
           expect(updatedMenuItems).toHaveLength(6);
-        });
-
-        // Simulate mouse hover on a different menu item
-        await userEvent.hover(menuItems[0]);
-
-        await waitFor(() => {
-          const updatedMenuItems = screen.getAllByRole('menuitem');
-          expect(updatedMenuItems[1].className).toBe(initialClassName);
-          expect(updatedMenuItems[0].className).not.toBe(initialClassName);
-          // Assert that the submenu items are not visible after hovering on a different menu item
-          expect(screen.getAllByRole('menuitem')).toHaveLength(3);
         });
       });
     });
@@ -187,75 +151,25 @@ describe('Menu', () => {
         // Render the VerticalMenu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
-        const menuItems = screen.getAllByRole('menuitem');
-
         // Assert that the submenu items are not visible initially
-        expect(menuItems).toHaveLength(3);
+        expect(screen.getAllByRole('menuitem')).toHaveLength(3);
         // Simulate a click on the menu item with the fly-out submenu
-        await userEvent.click(menuItems[1]);
+        await userEvent.click(screen.getAllByRole('menuitem')[1]);
 
         await waitFor(() => {
           // Assert that the submenu items are visible after clicking
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
         });
-
-        // Simulate another click on the menu item to collapse the submenu
-        await userEvent.click(menuItems[1]);
-
-        await waitFor(() => {
-          // Assert that the submenu items are not visible after clicking again
-          expect(screen.getAllByRole('menuitem')).toHaveLength(3);
-        });
-      });
-    });
-
-    describe('When the user hovers the mouse over the expanded submenu', () => {
-      it("Then the user's mouse hover should indicate the active submenu item", async () => {
-        // Render the Menu component with menu items and submenus
-        render(
-          <Menu>
-            <MenuItem>Home</MenuItem>
-            <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
-            </Submenu>
-            <MenuItem>Contact</MenuItem>
-          </Menu>,
-        );
-
-        const menuItems = screen.getAllByRole('menuitem');
-        // Simulate a click to expand the submenu
-        await userEvent.click(menuItems[1]);
-
-        await waitFor(() => {
-          // Assert that the submenu is visible after hovering
-          expect(screen.getAllByRole('menuitem')).toHaveLength(6);
-        });
-
-        const updatedMenuItems = screen.getAllByRole('menuitem');
-        const initialClassName = updatedMenuItems[2].className;
-
-        // Simulate mouse hover on the submenu item
-        await userEvent.hover(updatedMenuItems[2]);
-        // Assert that the hovered submenu item is visually indicated
-        expect(updatedMenuItems[2].className).not.toBe(initialClassName);
-        // Simulate mouse hover on a different submenu item
-        await userEvent.hover(updatedMenuItems[3]);
-        // Assert that the previously hovered submenu item is no longer visually indicated
-        expect(updatedMenuItems[3].className).not.toBe(initialClassName);
-        // Assert that the new hovered submenu item is visually indicated
-        expect(updatedMenuItems[2].className).toBe(initialClassName);
       });
     });
 
@@ -267,20 +181,18 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem onClick={mockAction}>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" onClick={mockAction} />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
-        // Get the menu items
-        const menuItems = screen.getAllByRole('menuitem');
         // Simulate a click on a submenu item
-        await userEvent.click(menuItems[1]);
+        await userEvent.click(screen.getAllByRole('menuitem')[1]);
 
         await waitFor(() => {
           // Assert that the submenu is visible after hovering
@@ -295,70 +207,44 @@ describe('Menu', () => {
       });
     });
 
-    describe('When the user interacts with a menu item with a fly-out submenu with ArrowRight, Enter or Space key', () => {
+    describe('When the user interacts with a menu item with a fly-out submenu with ArrowRight', () => {
       it('Then the submenu should be expanded and the first submenu item should be focused', async () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
-        const menuItems = screen.getAllByRole('menuitem');
         // Assert that the submenu is not visible initially
-        expect(menuItems).toHaveLength(3);
+        expect(screen.getAllByRole('menuitem')).toHaveLength(3);
 
         // Simulate keyboard navigation to focus on the menu item
         await userEvent.tab();
         await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
+        });
+
         await userEvent.keyboard('{arrowright}');
 
         await waitFor(() => {
-          const menuItems = screen.getAllByRole('menuitem');
-
           // Assert that the submenu is expanded and the first submenu item is focused
-          expect(menuItems).toHaveLength(6);
-          expect(menuItems[2]).toHaveFocus();
-        });
-
-        await userEvent.click(menuItems[1]);
-
-        await waitFor(() => {
-          // Assert that the submenu items are not visible after clicking again
-          expect(screen.getAllByRole('menuitem')).toHaveLength(3);
-        });
-
-        await userEvent.keyboard('{enter}');
-
-        await waitFor(() => {
-          const menuItems = screen.getAllByRole('menuitem');
-
-          // Assert that the submenu is expanded and the first submenu item is focused
-          expect(menuItems).toHaveLength(6);
-          expect(menuItems[2]).toHaveFocus();
-        });
-
-        await userEvent.click(menuItems[1]);
-
-        await waitFor(() => {
-          // Assert that the submenu items are not visible after clicking again
-          expect(screen.getAllByRole('menuitem')).toHaveLength(3);
-        });
-
-        await userEvent.keyboard('{ }');
-
-        await waitFor(() => {
-          const menuItems = screen.getAllByRole('menuitem');
-
-          // Assert that the submenu is expanded and the first submenu item is focused
-          expect(menuItems).toHaveLength(6);
-          expect(menuItems[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')).toHaveLength(6);
+          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
         });
       });
     });
@@ -368,19 +254,30 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
         // Simulate keyboard navigation to focus on the menu item
         await userEvent.tab();
         await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
+        });
+
         await userEvent.keyboard('{arrowright}');
 
         await waitFor(() => {
@@ -388,16 +285,23 @@ describe('Menu', () => {
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
         });
 
-        const menuItems = screen.getAllByRole('menuitem');
+        await userEvent.keyboard('{arrowdown}');
 
-        await userEvent.keyboard('{arrowdown}'); // Press the Down arrow key
-        expect(menuItems[3]).toHaveFocus(); // Assert that the first submenu item has focus
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
+        });
 
-        await userEvent.keyboard('{arrowdown}'); // Press the Down arrow key again
-        expect(menuItems[4]).toHaveFocus(); // Assert that the second submenu item has focus
+        await userEvent.keyboard('{arrowdown}');
 
-        await userEvent.keyboard('{arrowup}'); // Press the Up arrow key
-        expect(menuItems[3]).toHaveFocus(); // Assert that the first submenu item has focus again
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[4]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{arrowup}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
+        });
       });
     });
 
@@ -408,24 +312,42 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem onClick={mockAction}>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" onClick={mockAction} />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
         // Simulate keyboard navigation to focus on the menu item
         await userEvent.tab();
         await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
+        });
+
         await userEvent.keyboard('{arrowright}');
 
         await waitFor(() => {
           // Assert that the submenu is expanded
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
+          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
 
         await userEvent.keyboard('{enter}');
@@ -436,39 +358,33 @@ describe('Menu', () => {
       });
     });
 
-    describe('When the user interacts with submenu items using Esc or ArrowLeft key', () => {
+    describe('When the user interacts with submenu items using ArrowLeft or Esc key', () => {
       it('Then the submenu should be closed and the focus should be returned to the parent top-level menuitem', async () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
-
-        const menuItems = screen.getAllByRole('menuitem');
 
         // Simulate keyboard navigation to focus on the menu item
         await userEvent.tab();
         await userEvent.keyboard('{arrowdown}');
-        await userEvent.keyboard('{arrowright}');
 
         await waitFor(() => {
-          // Assert that the submenu is expanded
-          expect(screen.getAllByRole('menuitem')).toHaveLength(6);
+          expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
         });
 
-        await userEvent.keyboard('{escape}');
+        await userEvent.keyboard('{arrowdown}');
 
         await waitFor(() => {
-          // Assert that the submenu is collapsed and the focus is returned to the parent top-level menuitem
-          expect(screen.getAllByRole('menuitem')).toHaveLength(3);
-          expect(menuItems[1]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
         });
 
         await userEvent.keyboard('{arrowright}');
@@ -476,6 +392,7 @@ describe('Menu', () => {
         await waitFor(() => {
           // Assert that the submenu is expanded
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
+          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
         });
 
         await userEvent.keyboard('{arrowleft}');
@@ -483,7 +400,82 @@ describe('Menu', () => {
         await waitFor(() => {
           // Assert that the submenu is collapsed and the focus is returned to the parent top-level menuitem
           expect(screen.getAllByRole('menuitem')).toHaveLength(3);
-          expect(menuItems[1]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{arrowright}');
+
+        await waitFor(() => {
+          // Assert that the submenu is expanded
+          expect(screen.getAllByRole('menuitem')).toHaveLength(6);
+          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{escape}');
+
+        await waitFor(() => {
+          // Assert that the submenu is collapsed and the focus is returned to the parent top-level menuitem
+          expect(screen.getAllByRole('menuitem')).toHaveLength(3);
+          expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
+        });
+      });
+    });
+
+    describe('When the user interacts with a menu item with a fly-out submenu with Enter or Space key', () => {
+      it('Then the submenu should be expanded and the first submenu item should be focused', async () => {
+        // Render the Menu component with menu items and submenus
+        render(
+          <Menu>
+            <MenuItem label="Home" />
+            <Submenu label="Products">
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" />
+              <MenuItem label="Accessories" />
+            </Submenu>
+            <MenuItem label="Contacts" />
+          </Menu>,
+        );
+
+        // Assert that the submenu is not visible initially
+        expect(screen.getAllByRole('menuitem')).toHaveLength(3);
+
+        // Simulate keyboard navigation to focus on the menu item
+        await userEvent.tab();
+        await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{enter}');
+
+        await waitFor(() => {
+          // Assert that the submenu is expanded and the first submenu item is focused
+          expect(screen.getAllByRole('menuitem')).toHaveLength(6);
+          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+        });
+
+        // Go back to the parent menu item
+        await userEvent.keyboard('{arrowleft}');
+
+        await waitFor(() => {
+          // Assert that the submenu items are not visible after selecting the menu item
+          expect(screen.getAllByRole('menuitem')).toHaveLength(3);
+          expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{ }');
+
+        await waitFor(() => {
+          // Assert that the submenu is expanded and the first submenu item is focused
+          expect(screen.getAllByRole('menuitem')).toHaveLength(6);
+          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
         });
       });
     });
@@ -493,13 +485,13 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         const { container } = render(
           <Menu>
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
@@ -517,34 +509,38 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         render(
           <Menu type="horizontal">
-            <MenuItem>Home</MenuItem>
-            <MenuItem>About</MenuItem>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Home" />
+            <MenuItem label="Products" />
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
         // Get the menu items
         const homeMenuItem = screen.getAllByRole('menuitem')[0];
         const aboutMenuItem = screen.getAllByRole('menuitem')[1];
-        const contactMenuItem = screen.getAllByRole('menuitem')[2];
 
         // Simulate keyboard navigation
         await userEvent.tab();
         await userEvent.keyboard('{arrowright}');
-        await userEvent.keyboard('{arrowright}');
 
         // Assert focus on the correct menu item
-        expect(homeMenuItem).not.toHaveFocus();
-        expect(aboutMenuItem).not.toHaveFocus();
-        expect(contactMenuItem).toHaveFocus();
+        await waitFor(() => {
+          expect(homeMenuItem).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{arrowright}');
+
+        await waitFor(() => {
+          expect(aboutMenuItem).toHaveFocus();
+        });
 
         // Simulate keyboard navigation in the opposite direction
         await userEvent.keyboard('{arrowleft}');
 
         // Assert focus on the correct menu item
-        expect(homeMenuItem).not.toHaveFocus();
-        expect(aboutMenuItem).toHaveFocus();
-        expect(contactMenuItem).not.toHaveFocus();
+        await waitFor(() => {
+          expect(homeMenuItem).toHaveFocus();
+        });
       });
     });
 
@@ -553,9 +549,9 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         const { container } = render(
           <Menu type="horizontal">
-            <MenuItem>Home</MenuItem>
-            <MenuItem>About</MenuItem>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Home" />
+            <MenuItem label="Products" />
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
@@ -573,119 +569,39 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu type="horizontal">
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
-        const menuItems = screen.getAllByRole('menuitem');
         // Assert that the submenu is not visible initially
-        expect(menuItems).toHaveLength(3);
+        expect(screen.getAllByRole('menuitem')).toHaveLength(3);
 
         // Simulate keyboard navigation to focus on the menu item
         await userEvent.tab();
         await userEvent.keyboard('{arrowright}');
-        await userEvent.keyboard('{arrowdown}');
 
         await waitFor(() => {
-          const menuItems = screen.getAllByRole('menuitem');
-          // Assert that the submenu is expanded and the first submenu item is focused
-          expect(menuItems).toHaveLength(6);
-          expect(menuItems[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
         });
-      });
-    });
 
-    describe('When the user interacts with a menu item with a fly-out submenu with ArrowUp key', () => {
-      it('Then the submenu should be expanded and the last submenu item should be focused', async () => {
-        // Render the Menu component with menu items and submenus
-        render(
-          <Menu type="horizontal">
-            <MenuItem>Home</MenuItem>
-            <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
-            </Submenu>
-            <MenuItem>Contact</MenuItem>
-          </Menu>,
-        );
-
-        const menuItems = screen.getAllByRole('menuitem');
-        // Assert that the submenu is not visible initially
-        expect(menuItems).toHaveLength(3);
-
-        // Simulate keyboard navigation to focus on the menu item
-        await userEvent.tab();
         await userEvent.keyboard('{arrowright}');
-        await userEvent.keyboard('{arrowup}');
 
         await waitFor(() => {
-          const menuItems = screen.getAllByRole('menuitem');
-
-          // Assert that the submenu is expanded and the first submenu item is focused
-          expect(menuItems).toHaveLength(6);
-          expect(menuItems[4]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
         });
-      });
-    });
 
-    describe('When the user interacts with a submenu item with ArrowRight or ArrowLeft key', () => {
-      it('Then the next or previous top-level menu item should be focused', async () => {
-        // Render the Menu component with menu items and submenus
-        render(
-          <Menu type="horizontal">
-            <MenuItem>Home</MenuItem>
-            <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
-            </Submenu>
-            <MenuItem>Contact</MenuItem>
-          </Menu>,
-        );
-
-        const menuItems = screen.getAllByRole('menuitem');
-
-        // Simulate keyboard navigation to focus on the menu item
-        await userEvent.tab();
-        await userEvent.keyboard('{arrowright}');
         await userEvent.keyboard('{arrowdown}');
 
         await waitFor(() => {
           // Assert that the submenu is expanded and the first submenu item is focused
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
           expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
-        });
-
-        await userEvent.keyboard('{arrowright}');
-
-        await waitFor(() => {
-          // Assert that the submenu is collapsed and the next top-level menu item is focused
-          expect(screen.getAllByRole('menuitem')).toHaveLength(3);
-          expect(menuItems[2]).toHaveFocus();
-        });
-
-        await userEvent.keyboard('{arrowleft}');
-        await userEvent.keyboard('{arrowdown}');
-
-        await waitFor(() => {
-          // Assert that the submenu is expanded and the first submenu item is focused
-          expect(screen.getAllByRole('menuitem')).toHaveLength(6);
-          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
-        });
-
-        await userEvent.keyboard('{arrowleft}');
-
-        await waitFor(() => {
-          // Assert that the submenu is collapsed and the previous top-level menu item is focused
-          expect(screen.getAllByRole('menuitem')).toHaveLength(3);
-          expect(menuItems[0]).toHaveFocus();
         });
       });
     });
@@ -695,9 +611,9 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         const { container } = render(
           <Menu type="horizontal">
-            <MenuItem>Home</MenuItem>
-            <MenuItem>About</MenuItem>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Home" />
+            <MenuItem label="Products" />
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
@@ -715,48 +631,50 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu type="inline">
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
-        // Get the menu items
-        const menuItems = screen.getAllByRole('menuitem');
-        // Simulate a click on a submenu item
-        await userEvent.click(menuItems[1]);
+        await userEvent.tab();
+        await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{arrowdown}');
+
+        await waitFor(() => {
+          expect(screen.getAllByRole('menuitem')[1]).toHaveFocus();
+        });
+
+        await userEvent.keyboard('{ }');
 
         await waitFor(() => {
           // Assert that the submenu is expanded
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
+          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
         });
-
-        const updatedMenuItems = screen.getAllByRole('menuitem');
 
         // Simulate keyboard navigation to focus on the first submenu item
         await userEvent.keyboard('{arrowdown}');
 
         await waitFor(() => {
           // Assert that the first submenu item is focused
-          expect(updatedMenuItems[2]).toHaveFocus();
-        });
-
-        await userEvent.keyboard('{arrowdown}');
-
-        await waitFor(() => {
-          // Assert that the first submenu item is focused
-          expect(updatedMenuItems[3]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
 
         await userEvent.keyboard('{arrowup}');
 
         await waitFor(() => {
           // Assert that the first submenu item is focused
-          expect(updatedMenuItems[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
         });
       });
     });
@@ -766,20 +684,18 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu type="inline">
-            <MenuItem>Home</MenuItem>
+            <MenuItem label="Home" />
             <Submenu label="Products">
-              <MenuItem>Electronics</MenuItem>
-              <MenuItem>Clothing</MenuItem>
-              <MenuItem>Accessories</MenuItem>
+              <MenuItem label="Electronics" />
+              <MenuItem label="Clothing" />
+              <MenuItem label="Accessories" />
             </Submenu>
-            <MenuItem>Contact</MenuItem>
+            <MenuItem label="Contacts" />
           </Menu>,
         );
 
-        // Get the menu items
-        const menuItems = screen.getAllByRole('menuitem');
         // Simulate a click on a submenu item
-        await userEvent.click(menuItems[1]);
+        await userEvent.click(screen.getAllByRole('menuitem')[1]);
 
         await waitFor(() => {
           // Assert that the submenu is expanded

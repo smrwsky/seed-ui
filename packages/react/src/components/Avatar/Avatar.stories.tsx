@@ -2,7 +2,7 @@ import { Box, Flex } from '@seed-ui/react';
 
 import { Icon } from '../Icon';
 
-import { Avatar, AvatarProps, AvatarSize } from './Avatar';
+import Avatar, { AvatarProps, AvatarSize } from './Avatar';
 
 const sizes: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 

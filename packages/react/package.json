@@ -35,16 +35,15 @@
   "author": "Sergey Murawsky",
   "license": "MIT",
   "peerDependencies": {
-    "@seed-ui/styles": "^0.1.1",
+    "@seed-ui/styles": "^0.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@seed-ui/styles": "^0.1.1",
+    "@seed-ui/styles": "^0.1.2",
     "@types/lodash": "^4.14.182",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.10",
-    "@types/react-modal": "^3.13.1",
     "@types/react-transition-group": "^4.4.6",
     "@vanilla-extract/css": "^1.10.0",
     "react": "^18.2.0",
@@ -52,12 +51,11 @@
     "typescript": "4.7.4"
   },
   "dependencies": {
-    "@floating-ui/react-dom": "^1.0.1",
+    "@floating-ui/react": "^0.26.0",
     "@react-hook/debounce": "^4.0.0",
     "@vanilla-extract/dynamic": "^2.0.2",
     "classnames": "^2.3.1",
     "lodash": "^4.17.21",
-    "react-modal": "^3.15.1",
     "react-transition-group": "^4.4.5"
   }
 }

@@ -1,6 +1,6 @@
 import { render } from '../../utils/test-utils';
 
-import { Badge } from './Badge';
+import Badge from './Badge';
 
 describe('Badge', () => {
   describe('Given a badge with content prop', () => {

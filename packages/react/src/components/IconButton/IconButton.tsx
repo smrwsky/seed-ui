@@ -250,4 +250,4 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>(
 
 IconButton.displayName = 'IconButton';
 
-export { IconButton };
+export default IconButton;

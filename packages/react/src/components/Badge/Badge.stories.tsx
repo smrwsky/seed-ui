@@ -5,7 +5,7 @@ import { Avatar } from '../Avatar';
 import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
 
-import { Badge, BadgeProps } from './Badge';
+import Badge, { BadgeProps } from './Badge';
 
 const meta: Meta = {
   title: 'Data Display/Badge',

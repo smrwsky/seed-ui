@@ -1,5 +1,7 @@
 import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
 import Badge, {
+  Basic,
+  Dot,
   BackgroundColor,
   OverflowCount,
   ZeroCount,
@@ -8,13 +10,12 @@ import Badge, {
   CustomContent,
   Standalone,
 } from './Badge.stories';
-import { Basic, Dot } from './Badge.stories';
 
 <Meta of={Badge} />
 
 # Badge
 
-Badges are used to display counts, labels, or statuses for items in a user interface. They are often used to indicate.
+Badges are used to display counts, labels, or statuses for items in a user interface.
 
 ## When to use
 
@@ -83,16 +84,11 @@ You can use a badge without children.
 
 ## Guidelines
 
-- Use as Supplement: Use badges as a supplementary element, not as a primary means of conveying crucial information.
-
 - Use Color Meaningfully: Choose colors that align with your UI's color scheme and have appropriate meaning.
 For example, red for alerts or green for success.
 
 - Positioning: Position badges logically to indicate relevance. Top-right corners are often used, but consider the
 context and user flow.
-
-- Avoid Redundancy: Don't use badges to repeat information that's already visible. They should provide additional
-context or interactions.
 
 ## Accessibility
 
