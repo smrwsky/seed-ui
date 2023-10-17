@@ -1,11 +1,14 @@
 # @seed-ui/styles
 
-## 0.1.2
+## 0.2.0
+
+### Minor Changes
+
+- b0e1e04: Added focus-visible selector to atoms.
 
 ### Patch Changes
 
-- 1dfbcbd: Added focus-visible selector to atoms.
-- 16bdc1c: Fixed placeholder styles.
+- 1f456a1: Fixed disabled and placeholder global styles.
 
 ## 0.1.1
 
