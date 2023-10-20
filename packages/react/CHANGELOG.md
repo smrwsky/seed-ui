@@ -1,5 +1,11 @@
 # @seed-ui/react
 
+## 0.2.1
+
+### Patch Changes
+
+- 20a3e9d: Fixed MenuButton styles.
+
 ## 0.2.0
 
 ### Patch Changes
