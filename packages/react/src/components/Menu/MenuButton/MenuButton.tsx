@@ -243,7 +243,6 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuLinkProps>(
       <button
         className={cn(
           atoms({
-            flex: 1,
             display: 'flex',
             alignItems: 'center',
             transition: 'base',
@@ -253,6 +252,7 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuLinkProps>(
           collapsed
             ? [
                 atoms({
+                  flex: 1,
                   justifyContent: 'center',
                   flexDirection: 'column',
                   minWidth: 0,
