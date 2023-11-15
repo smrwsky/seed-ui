@@ -1,5 +1,12 @@
 # @seed-ui/styles
 
+## 0.3.0
+
+### Minor Changes
+
+- 76ff3a0: Created new input components (Checkbox, Radio, Range, NumericInput).
+- 76ff3a0: Updated buttons variants.
+
 ## 0.2.0
 
 ### Minor Changes

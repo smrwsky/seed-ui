@@ -1,5 +1,19 @@
 # @seed-ui/react
 
+## 0.3.0
+
+### Minor Changes
+
+- 76ff3a0: Created new input components (Checkbox, Radio, Range, NumericInput).
+- 76ff3a0: Updated buttons variants.
+
+### Patch Changes
+
+- 76ff3a0: Added rounded prop to buttons components.
+- Updated dependencies [76ff3a0]
+- Updated dependencies [76ff3a0]
+  - @seed-ui/styles@0.3.0
+
 ## 0.2.1
 
 ### Patch Changes
