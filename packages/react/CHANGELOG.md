@@ -1,6 +1,6 @@
 # @seed-ui/react
 
-## 0.3.0
+## 1.0.0
 
 ### Minor Changes
 
