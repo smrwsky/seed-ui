@@ -15,7 +15,7 @@ export default {
   },
 };
 
-export function Basic(args: AvatarProps): JSX.Element {
+export function Basic(args: AvatarProps) {
   return (
     <Flex>
       <Box mr={2}>
@@ -25,7 +25,7 @@ export function Basic(args: AvatarProps): JSX.Element {
       </Box>
 
       <Box mr={2}>
-        <Avatar {...args} bg="secondary400" />
+        <Avatar {...args} bg="accent400" />
       </Box>
 
       <Box>
@@ -35,7 +35,7 @@ export function Basic(args: AvatarProps): JSX.Element {
   );
 }
 
-export function Sizes(args: AvatarProps): JSX.Element {
+export function Sizes(args: AvatarProps) {
   return (
     <Flex alignItems="center">
       {sizes.map((size, i) => (
@@ -45,6 +45,22 @@ export function Sizes(args: AvatarProps): JSX.Element {
           </Avatar>
         </Box>
       ))}
+    </Flex>
+  );
+}
+
+export function Rounded(args: AvatarProps) {
+  return (
+    <Flex>
+      <Box mr={2}>
+        <Avatar {...args} rounded>
+          <img alt="Profile" src="https://i.pravatar.cc/300" />
+        </Avatar>
+      </Box>
+
+      <Box>
+        <Avatar {...args} icon={<Icon name="user" />} rounded />
+      </Box>
     </Flex>
   );
 }

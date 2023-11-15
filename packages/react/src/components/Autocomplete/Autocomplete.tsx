@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
+'use client';
+
 import {
   autoUpdate,
   size as sizeFn,
@@ -9,25 +11,15 @@ import {
   useListNavigation,
   useRole,
   FloatingFocusManager,
-  useMergeRefs,
   useClick,
   shift,
 } from '@floating-ui/react';
 import { useDebounceCallback } from '@react-hook/debounce';
 import { atoms } from '@seed-ui/styles';
-import {
-  ChangeEvent,
+import React, {
   cloneElement,
-  ComponentType,
-  ForwardedRef,
-  FocusEvent,
-  FocusEventHandler,
   forwardRef,
   isValidElement,
-  KeyboardEvent,
-  MouseEvent,
-  ReactElement,
-  Ref,
   useCallback,
   useEffect,
   useRef,
@@ -37,7 +29,9 @@ import { Transition } from 'react-transition-group';
 
 import { Maybe } from '../../types';
 import { slug } from '../../utils/slug';
+import { useMergeRefs } from '../../utils/use-merge-refs';
 import { Box } from '../Box';
+import { ClearIcon } from '../ClearIcon';
 import { Flex } from '../Flex';
 import { Icon, IconProps } from '../Icon';
 import { InputAction } from '../InputAction';
@@ -87,11 +81,6 @@ export interface AutocompleteProps<
   getLabel?: (option: Value) => string;
 
   /**
-   * Icon to display in the input element.
-   */
-  icon?: ReactElement;
-
-  /**
    * ID attribute for the input element.
    */
   id?: string;
@@ -134,7 +123,7 @@ export interface AutocompleteProps<
   /**
    * A component to render each option in the dropdown list.
    */
-  OptionComponent?: ComponentType<OptionComponentProps<Value>>;
+  OptionComponent?: React.ComponentType<OptionComponentProps<Value>>;
 
   /**
    * Array of options to display in the dropdown list.
@@ -155,7 +144,7 @@ export interface AutocompleteProps<
   /**
    * Ref passed to the input element.
    */
-  ref?: Ref<HTMLInputElement>;
+  ref?: React.Ref<HTMLInputElement>;
 
   /**
    * The amount of time to wait after the user stops typing before triggering
@@ -169,6 +158,16 @@ export interface AutocompleteProps<
   size?: AutocompleteSize;
 
   /**
+   * Icon to display at the start of the input element.
+   */
+  startIcon?: React.ReactElement;
+
+  /**
+   * Icon to display at the end of the input element.
+   */
+  endIcon?: React.ReactElement;
+
+  /**
    * The current value of Autocomplete component.
    */
   value?: MaybeMultiValue<Value, IsMulti>;
@@ -176,7 +175,7 @@ export interface AutocompleteProps<
   /**
    * Callback function fired when the input element loses focus.
    */
-  onBlur?: FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 
   /**
    * Callback function fired when the value of Autocomplete component changes.
@@ -186,7 +185,7 @@ export interface AutocompleteProps<
   /**
    * Callback function fired when the input element receives focus.
    */
-  onFocus?: FocusEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
 
   /**
    * Callback function fired when the search query changes.
@@ -195,8 +194,10 @@ export interface AutocompleteProps<
 }
 
 type AutocompleteFn = <Value, IsMulti extends boolean = false>(
-  props: AutocompleteProps<Value, IsMulti> & { ref?: Ref<HTMLInputElement> },
-) => ReactElement;
+  props: AutocompleteProps<Value, IsMulti> & {
+    ref?: React.Ref<HTMLInputElement>;
+  },
+) => React.ReactElement;
 
 export const LISTBOX_ID = 'listbox';
 
@@ -256,7 +257,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       defaultValue,
       disabled = false,
       getLabel = String,
-      icon,
       id,
       invalid = false,
       loading = false,
@@ -265,19 +265,23 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       multiple = false as IsMulti,
       name,
       noResultLabel = 'No result',
-      OptionComponent = Option as ComponentType<OptionComponentProps<Value>>,
+      OptionComponent = Option as React.ComponentType<
+        OptionComponentProps<Value>
+      >,
       options,
       placeholder,
       readOnly = false,
       searchTimeout = 500,
       size = 'md',
+      startIcon,
+      endIcon,
       value,
       onBlur,
       onChange,
       onFocus,
       onSearch,
     }: AutocompleteProps<Value, IsMulti>,
-    ref: ForwardedRef<HTMLInputElement>,
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -349,7 +353,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     const { getReferenceProps, getFloatingProps, getItemProps } =
       useInteractions([role, click, dismiss, listNav]);
 
-    const mergedRefs = useMergeRefs([refs.setReference, ref]);
+    const mergedRefs = useMergeRefs(refs.setReference, ref);
 
     const changeValue = useCallback(
       (options: Value[]) => {
@@ -416,7 +420,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     }, searchTimeout);
 
     const handleInputFocus = useCallback(
-      (e: FocusEvent<HTMLInputElement>) => {
+      (e: React.FocusEvent<HTMLInputElement>) => {
         setIsFocused(true);
         onFocus?.(e);
       },
@@ -424,7 +428,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     );
 
     const handleInputChange = useCallback(
-      (e: ChangeEvent<HTMLInputElement>) => {
+      (e: React.ChangeEvent<HTMLInputElement>) => {
         const nextValue = e.target.value;
         setInputValue(nextValue);
 
@@ -439,12 +443,13 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     );
 
     const handleInputKeyDown = useCallback(
-      (e: KeyboardEvent<HTMLInputElement>) => {
+      (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (
           e.key === 'Enter' &&
           activeIndex != null &&
           optionsState[activeIndex]
         ) {
+          e.preventDefault();
           selectOption(activeIndex);
           setActiveIndex(null);
         }
@@ -453,7 +458,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     );
 
     const handleInputBlur = useCallback(
-      (e: FocusEvent<HTMLInputElement>) => {
+      (e: React.FocusEvent<HTMLInputElement>) => {
         setIsFocused(false);
         resetInputValue();
         onBlur?.(e);
@@ -462,7 +467,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     );
 
     const handleOptionClick = useCallback(
-      (e: MouseEvent<HTMLLIElement>) => {
+      (e: React.MouseEvent<HTMLLIElement>) => {
         e.preventDefault();
         const index = Number(e.currentTarget.dataset.index);
 
@@ -474,7 +479,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     );
 
     const handleClearMouseDown = useCallback(
-      (e: MouseEvent<HTMLButtonElement>) => {
+      (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         e.stopPropagation();
         changeValue([]);
@@ -484,7 +489,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     );
 
     const handleRemoveMouseDown = useCallback(
-      (e: MouseEvent<HTMLDivElement>) => {
+      (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
         const index = Number(e.currentTarget.dataset.index);
@@ -508,6 +513,12 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     }, [value]);
 
     useEffect(() => {
+      if (options) {
+        setOptionsState(options);
+      }
+    }, [options]);
+
+    useEffect(() => {
       updateOptions(inputValue);
     }, [inputValue, updateOptions]);
 
@@ -525,30 +536,23 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           ref={containerRef}
           size={size}
         >
-          {isValidElement<IconProps>(icon) && (
-            <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
+          {isValidElement<IconProps>(startIcon) && (
+            <InputAction>
+              {cloneElement(startIcon, { fontSize: 'lg' })}
+            </InputAction>
           )}
 
           <Flex as="span" flex={1} flexWrap="wrap" mt="-1" mx="-0.5">
             {multiple &&
               selectedOptions.map((item, idx) => (
-                <Box
-                  as="span"
-                  display="block"
-                  key={idx}
-                  lineHeight="none"
-                  maxWidth="full"
-                  minWidth={0}
-                  mt={1}
-                  px={0.5}
-                >
+                <Box as="span" display="block" key={idx} mt={1} px={0.5}>
                   <Tag
-                    bg="neutral50"
-                    borderColor="neutral200"
-                    color="neutral700"
+                    bg={disabled ? 'neutral100' : 'primary100'}
+                    borderColor={disabled ? 'neutral200' : 'primary300'}
+                    color={disabled ? 'neutral300' : 'neutral900'}
                     data-index={idx}
+                    disabled={disabled || readOnly}
                     removable
-                    role="button"
                     tabIndex={-1}
                     onMouseDown={handleRemoveMouseDown}
                   >
@@ -557,65 +561,60 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                 </Box>
               ))}
 
-            <Box
-              as="span"
-              display="block"
-              lineHeight="none"
-              maxWidth="full"
-              minWidth={0}
-              mt={1}
-              px={0.5}
-            >
-              <input
-                aria-activedescendant={
-                  activeIndex != null ? slug(id, OPTION_ID, activeIndex) : ''
-                }
-                aria-autocomplete="list"
-                aria-controls={isOpen ? slug(id, LISTBOX_ID) : ''}
-                aria-invalid={invalid}
-                aria-owns={isOpen ? slug(id, LISTBOX_ID) : ''}
-                autoComplete="off"
-                autoFocus={autoFocus}
-                disabled={disabled}
-                id={id}
-                name={name}
-                placeholder={placeholder}
-                readOnly={readOnly}
-                type="text"
-                {...getReferenceProps({
-                  ref: mergedRefs,
-                  value: inputValue,
-                  onFocus: handleInputFocus,
-                  onBlur: handleInputBlur,
-                  onChange: handleInputChange,
-                  onKeyDown: handleInputKeyDown,
-                })}
-              />
-            </Box>
+            {(!multiple ||
+              selectedOptions.length === 0 ||
+              (!disabled && !readOnly)) && (
+              <Box as="span" display="block" mt={1} px={0.5} width="full">
+                <input
+                  aria-activedescendant={
+                    activeIndex != null ? slug(id, OPTION_ID, activeIndex) : ''
+                  }
+                  aria-autocomplete="list"
+                  aria-controls={isOpen ? slug(id, LISTBOX_ID) : ''}
+                  aria-invalid={invalid}
+                  aria-owns={isOpen ? slug(id, LISTBOX_ID) : ''}
+                  autoComplete="off"
+                  autoFocus={autoFocus}
+                  disabled={disabled}
+                  id={id}
+                  name={name}
+                  placeholder={placeholder}
+                  readOnly={readOnly}
+                  type="text"
+                  {...getReferenceProps({
+                    ref: mergedRefs,
+                    value: inputValue,
+                    onFocus: handleInputFocus,
+                    onBlur: handleInputBlur,
+                    onChange: handleInputChange,
+                    onKeyDown: handleInputKeyDown,
+                  })}
+                />
+              </Box>
+            )}
           </Flex>
 
-          {isFocused &&
+          {!disabled &&
+            !readOnly &&
+            isFocused &&
             (inputValue.length > 0 || selectedOptions.length > 0) && (
               <InputAction>
-                <Icon
+                <ClearIcon
                   aria-label={clearLabel}
-                  className={atoms({
-                    color: 'neutral700',
-                    opacity: {
-                      default: 65,
-                      hover: 100,
-                    },
-                    transition: 'fade',
-                    cursor: 'pointer',
-                  })}
+                  color="neutral700"
                   fontSize="xl"
-                  name="x"
                   role="button"
                   tabIndex={-1}
                   onMouseDown={handleClearMouseDown}
                 />
               </InputAction>
             )}
+
+          {isValidElement<IconProps>(endIcon) && (
+            <InputAction>
+              {cloneElement(endIcon, { fontSize: 'lg' })}
+            </InputAction>
+          )}
         </InputBox>
 
         <Transition
@@ -634,7 +633,6 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                 className={atoms({
                   display: 'flex',
                   flexDirection: 'column',
-                  maxWidth: 'xs',
                   borderRadius: 'md',
                   border: 'thin',
                   boxShadow: {

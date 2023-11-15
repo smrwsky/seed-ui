@@ -24,7 +24,7 @@ export default {
   },
 };
 
-export function Basic(args: SelectProps): JSX.Element {
+export function Basic(args: SelectProps) {
   return (
     <>
       <Text
@@ -49,7 +49,7 @@ export function Basic(args: SelectProps): JSX.Element {
   );
 }
 
-export function Invalid(args: SelectProps): JSX.Element {
+export function Invalid(args: SelectProps) {
   return (
     <>
       <Text
@@ -74,7 +74,7 @@ export function Invalid(args: SelectProps): JSX.Element {
   );
 }
 
-export function Disabled(args: SelectProps): JSX.Element {
+export function Disabled(args: SelectProps) {
   return (
     <>
       <Text
@@ -99,7 +99,7 @@ export function Disabled(args: SelectProps): JSX.Element {
   );
 }
 
-export function Multiple(args: SelectProps): JSX.Element {
+export function Multiple(args: SelectProps<true>) {
   return (
     <>
       <Text
@@ -124,7 +124,7 @@ export function Multiple(args: SelectProps): JSX.Element {
   );
 }
 
-export function Sizes(args: SelectProps): JSX.Element {
+export function Sizes(args: SelectProps) {
   return (
     <Flex flexDirection="column">
       {SIZE_OPTIONS.map((size, i) => (

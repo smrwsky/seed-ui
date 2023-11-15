@@ -36,39 +36,42 @@ const Template: StoryFn<MenuProps> = (args) => (
     <MenuItem
       endIcon={
         <Icon
-          color={args.variant === 'dark' ? 'white' : 'secondary500'}
+          color={args.variant === 'dark' ? 'white' : 'accent500'}
           fontSize="lg"
           name="crown"
           type="solid"
         />
       }
-      label="Option 1"
       selected
       startIcon={<Icon name="home" />}
-    />
+    >
+      Option 1
+    </MenuItem>
 
-    <MenuItem label="Option 2" startIcon={<Icon name="envelope" />} />
+    <MenuItem startIcon={<Icon name="envelope" />}>Option 2</MenuItem>
 
-    <MenuItem disabled label="Option 3" startIcon={<Icon name="grid-alt" />} />
+    <MenuItem disabled startIcon={<Icon name="grid-alt" />}>
+      Option 3
+    </MenuItem>
 
     <Submenu icon={<Icon name="stats" />} label="Option 4">
-      <MenuItem label="Option 4-1" />
-      <MenuItem label="Option 4-1" />
-      <MenuItem label="Option 4-3" />
+      <MenuItem>Option 4-1</MenuItem>
+      <MenuItem>Option 4-2</MenuItem>
+      <MenuItem>Option 4-3</MenuItem>
     </Submenu>
 
     <Submenu icon={<Icon name="cog" />} label="Option 5">
-      <MenuItem label="Option 5-1" />
-      <MenuItem label="Option 5-2" />
+      <MenuItem>Option 5-1</MenuItem>
+      <MenuItem>Option 5-2</MenuItem>
 
       <Submenu label="Option 5-3">
-        <MenuItem label="Option 5-3-1" />
-        <MenuItem label="Option 5-3-2" />
-        <MenuItem label="Option 5-3-3" />
+        <MenuItem>Option 5-3-1</MenuItem>
+        <MenuItem>Option 5-3-2</MenuItem>
+        <MenuItem>Option 5-3-3</MenuItem>
       </Submenu>
     </Submenu>
 
-    <MenuItem label="Option 6" startIcon={<Icon name="support" />} />
+    <MenuItem startIcon={<Icon name="support" />}>Option 6</MenuItem>
   </Menu>
 );
 
@@ -151,30 +154,30 @@ export const Dropdown: StoryFn<DropdownMenuProps> = (args) => (
     </DropdownMenu.Trigger>
 
     <DropdownMenu.Items>
-      <MenuItem label="Option 1" />
+      <MenuItem>Option 1</MenuItem>
 
-      <MenuItem label="Option 2" />
+      <MenuItem>Option 2</MenuItem>
 
-      <MenuItem disabled label="Option 3" />
+      <MenuItem disabled>Option 3</MenuItem>
 
       <Submenu label="Option 4">
-        <MenuItem label="Option 4-1" />
-        <MenuItem label="Option 4-1" />
-        <MenuItem label="Option 4-3" />
+        <MenuItem>Option 4-1</MenuItem>
+        <MenuItem>Option 4-2</MenuItem>
+        <MenuItem>Option 4-3</MenuItem>
       </Submenu>
 
       <Submenu label="Option 5">
-        <MenuItem label="Option 5-1" />
-        <MenuItem label="Option 5-2" />
+        <MenuItem>Option 5-1</MenuItem>
+        <MenuItem>Option 5-2</MenuItem>
 
         <Submenu label="Option 5-3">
-          <MenuItem label="Option 5-3-1" />
-          <MenuItem label="Option 5-3-2" />
-          <MenuItem label="Option 5-3-3" />
+          <MenuItem>Option 5-3-1</MenuItem>
+          <MenuItem>Option 5-3-2</MenuItem>
+          <MenuItem>Option 5-3-3</MenuItem>
         </Submenu>
       </Submenu>
 
-      <MenuItem label="Option 6" />
+      <MenuItem>Option 6</MenuItem>
     </DropdownMenu.Items>
   </DropdownMenu>
 );

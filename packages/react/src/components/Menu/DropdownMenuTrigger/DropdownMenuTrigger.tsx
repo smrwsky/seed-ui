@@ -1,9 +1,8 @@
-import {
+'use client';
+
+import React, {
   cloneElement,
-  FC,
-  HTMLProps,
   isValidElement,
-  ReactElement,
   useCallback,
   useContext,
 } from 'react';
@@ -11,10 +10,10 @@ import {
 import { MenuContext } from '../Menu.context';
 
 export interface DropdownMenuTriggerProps {
-  children: ReactElement;
+  children: React.ReactElement;
 }
 
-const DropdownMenuTrigger: FC<DropdownMenuTriggerProps> = ({
+const DropdownMenuTrigger: React.FC<DropdownMenuTriggerProps> = ({
   children,
 }: DropdownMenuTriggerProps) => {
   const { refs, getReferenceProps, setHasFocusInside } =
@@ -24,7 +23,7 @@ const DropdownMenuTrigger: FC<DropdownMenuTriggerProps> = ({
     setHasFocusInside(false);
   }, [setHasFocusInside]);
 
-  return isValidElement<HTMLProps<HTMLButtonElement>>(children)
+  return isValidElement<React.HTMLProps<HTMLButtonElement>>(children)
     ? cloneElement(children, {
         ...children.props,
         ref: refs.setReference,
@@ -34,5 +33,7 @@ const DropdownMenuTrigger: FC<DropdownMenuTriggerProps> = ({
       })
     : null;
 };
+
+DropdownMenuTrigger.displayName = 'DropdownMenuTrigger';
 
 export default DropdownMenuTrigger;

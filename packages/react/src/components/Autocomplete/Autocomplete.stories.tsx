@@ -1,6 +1,7 @@
 import { Box, Flex } from '@seed-ui/react';
 import { StoryFn } from '@storybook/react';
 
+import { Icon } from '../Icon';
 import { Text } from '../Text';
 
 import Autocomplete, {
@@ -73,28 +74,78 @@ ReadOnly.args = {
   readOnly: true,
 };
 
-export const Sizes: StoryFn = (args) => (
-  <Flex flexDirection="column" style={{ minHeight: '384px' }} width={80}>
-    {SIZE_OPTIONS.map((size, i) => (
-      <Box key={i} mt={i && 4}>
+export function Sizes(args: AutocompleteProps) {
+  return (
+    <Flex flexDirection="column" style={{ minHeight: '384px' }} width={80}>
+      {SIZE_OPTIONS.map((size, i) => (
+        <Box key={i} mt={i && 4}>
+          <Text
+            as="label"
+            fontSize="sm"
+            fontWeight="semiBold"
+            htmlFor={`autocomplete-size-${size}`}
+            letterSpacing="widest"
+            lineHeight="snug"
+            mb={1}
+          >
+            Character
+          </Text>
+          <Autocomplete
+            {...args}
+            id={`autocomplete-size-${size}`}
+            options={OPTIONS_LIST}
+            size={size}
+          />
+        </Box>
+      ))}
+    </Flex>
+  );
+}
+
+export function WithIcon(args: AutocompleteProps) {
+  return (
+    <Flex flexDirection="column" style={{ minHeight: '384px' }}>
+      <Box mt={4}>
         <Text
           as="label"
           fontSize="sm"
           fontWeight="semiBold"
-          htmlFor={`autocomplete-size-${size}`}
+          htmlFor="autocomplete-with-start-icon"
           letterSpacing="widest"
           lineHeight="snug"
           mb={1}
         >
-          Character
+          With Start Icon
         </Text>
+
         <Autocomplete
           {...args}
-          id={`autocomplete-size-${size}`}
+          id="autocomplete-with-start-icon"
           options={OPTIONS_LIST}
-          size={size}
+          startIcon={<Icon color="neutral400" name="search" />}
         />
       </Box>
-    ))}
-  </Flex>
-);
+
+      <Box mt={4}>
+        <Text
+          as="label"
+          fontSize="sm"
+          fontWeight="semiBold"
+          htmlFor="autocomplete-with-end-icon"
+          letterSpacing="widest"
+          lineHeight="snug"
+          mb={1}
+        >
+          With End Icon
+        </Text>
+
+        <Autocomplete
+          {...args}
+          endIcon={<Icon color="success500" name="check-circle" />}
+          id="autocomplete-with-end-icon"
+          options={OPTIONS_LIST}
+        />
+      </Box>
+    </Flex>
+  );
+}

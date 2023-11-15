@@ -1,29 +1,26 @@
+'use client';
+
 import { useFloatingTree, useListItem } from '@floating-ui/react';
-import {
-  FocusEvent,
-  MouseEvent,
-  ReactElement,
-  useCallback,
-  useContext,
-  FC,
-  ButtonHTMLAttributes,
-} from 'react';
+import React, { memo, useCallback, useContext } from 'react';
 
 import { MenuContext } from '../Menu.context';
 import { MenuButton } from '../MenuButton';
 
-export interface MenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface MenuItemProps
+  extends Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    'children' | 'type'
+  > {
   disabled?: boolean;
-  label: string;
   selected?: boolean;
-  startIcon?: ReactElement;
-  endIcon?: ReactElement;
+  startIcon?: React.ReactElement;
+  endIcon?: React.ReactElement;
+  children: string;
 }
 
-const MenuItem: FC<MenuItemProps> = ({
-  disabled,
-  label,
+const MenuItem: React.FC<MenuItemProps> = ({
   children,
+  disabled,
   onClick,
   onFocus,
   ...props
@@ -39,12 +36,12 @@ const MenuItem: FC<MenuItemProps> = ({
     variant,
   } = useContext(MenuContext);
 
-  const item = useListItem({ label: disabled ? null : label });
+  const item = useListItem({ label: disabled ? null : children });
   const tree = useFloatingTree();
   const isActive = item.index === activeIndex;
 
   const handleClick = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
+    (e: React.MouseEvent<HTMLButtonElement>) => {
       onClick?.(e);
       tree?.events.emit('click');
     },
@@ -52,7 +49,7 @@ const MenuItem: FC<MenuItemProps> = ({
   );
 
   const handleFocus = useCallback(
-    (e: FocusEvent<HTMLButtonElement>) => {
+    (e: React.FocusEvent<HTMLButtonElement>) => {
       onFocus?.(e);
       setHasFocusInside(true);
     },
@@ -76,11 +73,11 @@ const MenuItem: FC<MenuItemProps> = ({
         onFocus: handleFocus,
       })}
     >
-      {children ?? label}
+      {children}
     </MenuButton>
   );
 };
 
 MenuItem.displayName = 'MenuItem';
 
-export default MenuItem;
+export default memo(MenuItem);

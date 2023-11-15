@@ -11,9 +11,9 @@ import IconButton, {
 
 const variants: IconButtonVariant[] = [
   'primary',
+  'accent',
   'secondary',
-  'outline',
-  'plain',
+  'tertiary',
   'success',
   'warning',
   'danger',
@@ -31,11 +31,11 @@ export default {
   },
 };
 
-export function Basic(args: IconButtonProps): JSX.Element {
+export function Basic(args: IconButtonProps) {
   return <IconButton {...args} />;
 }
 
-export function Variants(args: IconButtonProps): JSX.Element {
+export function Variants(args: IconButtonProps) {
   return (
     <Flex flexWrap="wrap" mt="-4" mx="-2">
       {variants.map((variant, i) => (
@@ -51,7 +51,7 @@ export function Variants(args: IconButtonProps): JSX.Element {
   );
 }
 
-export function Sizes(args: IconButtonProps): JSX.Element {
+export function Sizes(args: IconButtonProps) {
   return (
     <Flex alignItems="center" flexWrap="wrap" mt="-4" mx="-2">
       {sizes.map((size, i) => (
@@ -63,12 +63,19 @@ export function Sizes(args: IconButtonProps): JSX.Element {
   );
 }
 
-export function WithAvatar(args: IconButtonProps): JSX.Element {
+export function Rounded(args: IconButtonProps) {
+  return <IconButton {...args} rounded />;
+}
+
+export function WithAvatar(args: IconButtonProps) {
   return (
-    <IconButton avatar {...args}>
-      <Avatar>
-        <img alt="Profile" src="https://i.pravatar.cc/300" />
-      </Avatar>
-    </IconButton>
+    <IconButton
+      avatar={
+        <Avatar>
+          <img alt="Profile" src="https://i.pravatar.cc/300" />
+        </Avatar>
+      }
+      {...args}
+    />
   );
 }

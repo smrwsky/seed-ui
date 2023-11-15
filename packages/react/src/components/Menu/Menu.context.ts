@@ -8,7 +8,7 @@ import {
   SetStateAction,
 } from 'react';
 
-import { MenuSize, MenuType, MenuVariant } from './Menu.types';
+import { MenuSize, MenuType, MenuVariant } from './types';
 
 export type MenuContextType = {
   activeIndex: number | null;

@@ -50,7 +50,7 @@ const baseProperties = defineProperties({
     fontFamily: vars.fontFamily,
     fontWeight: vars.fontWeight,
     letterSpacing: vars.letterSpacing,
-    lineHeight: { ...LINE_HEIGHT, ...vars.lineHeight },
+    lineHeight: { ...vars.lineHeight, ...LINE_HEIGHT },
     textTransform: TEXT_TRANSFORM,
     objectFit: OBJECT_FIT,
     pointerEvents: POINTER_EVENTS,
@@ -114,7 +114,11 @@ const responsiveProperties = defineProperties({
     borderLeft: vars.border,
     borderRight: vars.border,
     borderTop: vars.border,
-    borderRadius: vars.borderRadius,
+
+    borderTopLeftRadius: vars.borderRadius,
+    borderTopRightRadius: vars.borderRadius,
+    borderBottomLeftRadius: vars.borderRadius,
+    borderBottomRightRadius: vars.borderRadius,
 
     marginBottom: MARGIN,
     marginLeft: MARGIN,
@@ -139,6 +143,14 @@ const responsiveProperties = defineProperties({
     border: ['borderBottom', 'borderLeft', 'borderRight', 'borderTop'],
     borderX: ['borderLeft', 'borderRight'],
     borderY: ['borderBottom', 'borderTop'],
+    borderRadius: [
+      'borderTopLeftRadius',
+      'borderTopRightRadius',
+      'borderBottomLeftRadius',
+      'borderBottomRightRadius',
+    ],
+    borderRadiusTop: ['borderTopLeftRadius', 'borderTopRightRadius'],
+    borderRadiusBottom: ['borderBottomLeftRadius', 'borderBottomRightRadius'],
     m: ['marginBottom', 'marginLeft', 'marginRight', 'marginTop'],
     mb: ['marginBottom'],
     ml: ['marginLeft'],
@@ -159,18 +171,17 @@ const responsiveProperties = defineProperties({
 });
 
 const colorProperties = {
-  ...COLOR,
   ...vars.color,
+  ...COLOR,
 };
 
 const statefulProperties = defineProperties({
   conditions: {
     default: {},
-    hover: { selector: '&:hover' },
-    active: { selector: '&:active' },
+    hover: { selector: '&:hover:not(:disabled)' },
+    active: { selector: '&:hover:not(:disabled):active' },
     focus: { selector: '&:focus' },
     focusVisible: { selector: '&:focus-visible' },
-    visited: { selector: '&:visited' },
     disabled: { selector: '&:disabled' },
   },
   defaultCondition: 'default',
@@ -182,7 +193,7 @@ const statefulProperties = defineProperties({
     cursor: CURSOR,
     opacity: OPACITY,
     textDecoration: TEXT_DECORATION,
-    transition: { ...TRANSITION, ...vars.transition },
+    transition: { ...vars.transition, ...TRANSITION },
   },
   shorthands: {
     bg: ['backgroundColor'],

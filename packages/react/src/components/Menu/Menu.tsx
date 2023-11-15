@@ -1,3 +1,5 @@
+'use client';
+
 import {
   autoUpdate,
   FloatingList,
@@ -10,26 +12,21 @@ import {
 } from '@floating-ui/react';
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
-  FC,
-  HTMLAttributes,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { MenuContext, MenuContextType } from './Menu.context';
-import { MenuSize, MenuType, MenuVariant } from './Menu.types';
+import { MenuSize, MenuType, MenuVariant } from './types';
 
-export interface MenuProps extends HTMLAttributes<HTMLDivElement> {
+export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
+  block?: boolean;
   collapsed?: boolean;
   type?: MenuType;
   size?: MenuSize;
   variant?: MenuVariant;
 }
 
-const Menu: FC<MenuProps> = ({
+const Menu: React.FC<MenuProps> = ({
+  block = false,
   collapsed = false,
   type = 'vertical',
   size = 'md',
@@ -131,16 +128,16 @@ const Menu: FC<MenuProps> = ({
             {...props}
             className={cn(
               atoms({
-                display: 'flex',
+                display: block ? 'flex' : 'inline-flex',
                 bg: variant === 'dark' ? 'primary700' : 'white',
                 boxShadow: {
                   focusVisible: hasFocusInside ? 'none' : 'focus',
                 },
-                m: 0,
               }),
               type === 'horizontal'
                 ? atoms({
-                    p: 0,
+                    px: 0.5,
+                    py: 0,
                   })
                 : atoms({
                     flexDirection: 'column',

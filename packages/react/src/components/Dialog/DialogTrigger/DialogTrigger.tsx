@@ -1,19 +1,18 @@
-import {
-  ButtonHTMLAttributes,
-  cloneElement,
-  FC,
-  isValidElement,
-  useContext,
-} from 'react';
+'use client';
+
+import React, { cloneElement, isValidElement, useContext } from 'react';
 
 import { DialogContext } from '../Dialog.context';
 
-export type DialogTriggerProps = ButtonHTMLAttributes<HTMLButtonElement>;
+export type DialogTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const DialogTrigger: FC<DialogTriggerProps> = ({ children, ...props }) => {
+const DialogTrigger: React.FC<DialogTriggerProps> = ({
+  children,
+  ...props
+}) => {
   const { getReferenceProps, refs } = useContext(DialogContext);
 
-  if (isValidElement(children)) {
+  if (isValidElement<React.HTMLProps<Element>>(children)) {
     return cloneElement(children, {
       ...props,
       ref: refs.setReference,
@@ -21,11 +20,7 @@ const DialogTrigger: FC<DialogTriggerProps> = ({ children, ...props }) => {
     });
   }
 
-  return (
-    <button {...props} ref={refs.setReference} {...getReferenceProps()}>
-      {children}
-    </button>
-  );
+  return null;
 };
 
 export default DialogTrigger;

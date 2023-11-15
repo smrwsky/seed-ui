@@ -31,7 +31,7 @@ export type IconAnimation =
   | 'fade-down-hover'
   | 'none';
 
-export type IconProps = HTMLAttributes<HTMLElement> & {
+export interface IconProps extends Omit<HTMLAttributes<HTMLElement>, 'color'> {
   animation?: IconAnimation;
   color?: Atoms['color'];
   fontSize?: Atoms['fontSize'];
@@ -40,7 +40,7 @@ export type IconProps = HTMLAttributes<HTMLElement> & {
   pull?: IconPull;
   rotate?: IconRotate;
   type?: IconType;
-};
+}
 
 const Icon = forwardRef<HTMLElement, IconProps>(
   (

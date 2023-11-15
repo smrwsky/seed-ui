@@ -104,6 +104,20 @@ describe('Autocomplete', () => {
         expect(input).toHaveValue('');
       });
     });
+
+    describe('When options are updated', () => {
+      it('Then the new options should be displayed', async () => {
+        const { rerender } = render(<Autocomplete options={options} />);
+
+        const input = screen.getByRole('combobox');
+        await userEvent.click(input);
+
+        rerender(<Autocomplete options={['Cucumber', 'Pineapple']} />);
+
+        expect(screen.getByText('Cucumber')).toBeInTheDocument();
+        expect(screen.getByText('Pineapple')).toBeInTheDocument();
+      });
+    });
   });
 
   describe('Given an Autocomplete with a set of options and a default value', () => {

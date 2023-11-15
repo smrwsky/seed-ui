@@ -1,73 +1,120 @@
-import {
+import React, {
   cloneElement,
-  FocusEvent,
   forwardRef,
-  InputHTMLAttributes,
   isValidElement,
   memo,
-  ReactElement,
   useCallback,
+  useEffect,
+  useRef,
   useState,
 } from 'react';
 
+import { useMergeRefs } from '../../utils/use-merge-refs';
+import { ClearIcon } from '../ClearIcon';
 import { IconProps } from '../Icon';
 import { InputAction } from '../InputAction';
-import { InputBox } from '../InputBox';
+import { InputBox, InputBoxSize } from '../InputBox';
 
-export type TextInputSize = 'sm' | 'md' | 'lg';
+export type TextInputSize = InputBoxSize;
 
 export interface TextInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'size' | 'onChange'
+  > {
+  clearable?: boolean;
+  clearLabel?: string;
   defaultValue?: string;
   disabled?: boolean;
-  icon?: ReactElement;
   inputSize?: number;
   invalid?: boolean;
   readOnly?: boolean;
   size?: TextInputSize;
+  startIcon?: React.ReactElement;
+  endIcon?: React.ReactElement;
   value?: string;
+  onChange?: (value: string) => void;
 }
 
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
-      size,
+      clearable,
+      clearLabel = 'Clear',
+      defaultValue,
       disabled,
-      icon,
       inputSize,
       invalid,
       readOnly,
+      size,
+      startIcon,
+      endIcon,
+      value,
+      onChange,
       onFocus,
       onBlur,
-      ...inputProps
+      ...props
     },
     ref,
   ) => {
+    const [valueState, setValueState] = useState(defaultValue ?? value ?? '');
     const [focused, setFocused] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const mergedRefs = useMergeRefs(ref, inputRef);
+
+    const isClearable =
+      clearable && focused && valueState.length > 0 && !disabled && !readOnly;
+
+    const changeValue = useCallback(
+      (nextValue: string) => {
+        setValueState(nextValue);
+        onChange?.(nextValue);
+      },
+      [onChange],
+    );
+
+    const handleChange = useCallback(
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value: nextValue } = e.target;
+        setValueState(nextValue);
+        changeValue(nextValue);
+      },
+      [changeValue],
+    );
+
+    const handleClear = useCallback(
+      (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        inputRef.current?.focus();
+        changeValue('');
+      },
+      [changeValue],
+    );
 
     const handleFocus = useCallback(
-      (e: FocusEvent<HTMLInputElement>) => {
+      (e: React.FocusEvent<HTMLInputElement>) => {
         e.persist();
         setFocused(true);
-
-        if (onFocus) {
-          onFocus(e);
-        }
+        onFocus?.(e);
       },
       [onFocus],
     );
 
     const handleBlur = useCallback(
-      (e: FocusEvent<HTMLInputElement>) => {
+      (e: React.FocusEvent<HTMLInputElement>) => {
         e.persist();
         setFocused(false);
-
-        if (onBlur) {
-          onBlur(e);
-        }
+        onBlur?.(e);
       },
       [onBlur],
     );
+
+    useEffect(() => {
+      if (typeof value !== 'undefined') {
+        setValueState(value);
+      }
+    }, [value]);
 
     return (
       <InputBox
@@ -77,20 +124,42 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         readOnly={readOnly}
         size={size}
       >
-        {isValidElement<IconProps>(icon) && (
-          <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
+        {isValidElement<IconProps>(startIcon) && (
+          <InputAction>
+            {cloneElement(startIcon, { fontSize: 'lg' })}
+          </InputAction>
         )}
 
         <input
-          {...inputProps}
+          {...props}
           disabled={disabled}
           readOnly={readOnly}
-          ref={ref}
+          ref={mergedRefs}
           size={inputSize}
           type="text"
+          value={valueState}
           onBlur={handleBlur}
+          onChange={handleChange}
           onFocus={handleFocus}
         />
+
+        {isClearable && (
+          <InputAction>
+            <ClearIcon
+              aria-label={clearLabel}
+              color="neutral700"
+              data-testid="clear-icon"
+              fontSize="xl"
+              role="button"
+              tabIndex={-1}
+              onMouseDown={handleClear}
+            />
+          </InputAction>
+        )}
+
+        {isValidElement<IconProps>(endIcon) && (
+          <InputAction>{cloneElement(endIcon, { fontSize: 'lg' })}</InputAction>
+        )}
       </InputBox>
     );
   },

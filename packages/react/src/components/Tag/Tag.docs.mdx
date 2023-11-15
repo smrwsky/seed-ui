@@ -1,0 +1,73 @@
+import { Meta, ArgTypes, Canvas } from '@storybook/addon-docs';
+import Tag, { Basic, Sizes, Color, Rounded, Clickable, Removable } from './Tag.stories';
+
+<Meta of={Tag} />
+
+# Tag
+
+A visual element designed to represent a discrete piece of information or a user-selected category. A Tag typically
+displays a small area that conveys a specific label or tag associated with an item, attribute, or action in the user
+interface.
+
+## When to use
+
+- Filtering Content: Tags are often used in interfaces where content needs to be filtered based on specific criteria or
+  categories. Users can click on tags representing different attributes, characteristics, or topics to filter and view
+  content that matches those tags.
+
+- User Profile Skills/Interests: Tags are frequently employed in user profile settings to represent a user's skills,
+  interests, or expertise. Users can add tags to their profiles to showcase their areas of expertise, hobbies, or
+  professional skills. his helps in creating a more detailed and personalized user profile.
+
+- Content Tagging in Blogging or CMS: Tags are often used in blogging or content management systems to tag content with
+  specific topics, categories, or keywords. This helps in organizing content and making it easier for users to find
+  content that matches their interests.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### Sizes
+
+Use the `size` prop to change the size of the tag. Available sizes are `sm` and `md`.
+
+<Canvas of={Sizes} />
+
+### Color
+
+Use the `color`, `borderColor`, and `bg` props to change colors of the tag. This values supports all the colors from
+the theme.
+
+<Canvas of={Color} />
+
+### Rounded
+
+Use the `rounded` prop to change the shape of the tag to rounded.
+
+<Canvas of={Rounded} />
+
+### Clickable
+
+Use the `onClick` prop to make the tag clickable and add an `onClick` handler.
+
+<Canvas of={Clickable} />
+
+### Removable
+
+Use the `removable` prop to make the tag removable. In this case, the `onClick` prop will be used to handle the remove
+action. Also, `Del` key will trigger click event on the tag.
+
+<Canvas of={Removable} />
+
+## Guidelines
+
+- Ensure that colors provided in `color`, `borderColor`, and `bg` props have sufficient contrast ratio.
+
+- When `onClick` or `removable` prop is provided, the role is automatically set to `button` and `tabindex` is set to
+  `0`. So you don't need to provide these props manually if there is no other use case.
+
+## API
+
+<ArgTypes />

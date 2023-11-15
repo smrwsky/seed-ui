@@ -237,7 +237,7 @@ export const Labels: StoryFn = () => (
 export const Elements: StoryFn = () => (
   <Flex>
     <Box mr={8}>
-      <Text as="a" color="secondary500" mb={8}>
+      <Text as="a" color="accent500" mb={8}>
         Link
       </Text>
     </Box>

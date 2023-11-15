@@ -14,11 +14,11 @@ export default {
   },
 };
 
-export function Base(args: TagProps): JSX.Element {
+export function Basic(args: TagProps) {
   return <Tag {...args} />;
 }
 
-export function Sizes(args: TagProps): JSX.Element {
+export function Sizes(args: TagProps) {
   return (
     <Flex alignItems="center" flexWrap="wrap" mt="-2" mx="-1">
       {sizes.map((size, i) => (
@@ -32,7 +32,7 @@ export function Sizes(args: TagProps): JSX.Element {
   );
 }
 
-export function Colors(args: TagProps): JSX.Element {
+export function Color(args: TagProps) {
   return (
     <Flex alignItems="center" flexWrap="wrap" mt="-2" mx="-1">
       <Box mt={2} px={1}>
@@ -40,8 +40,8 @@ export function Colors(args: TagProps): JSX.Element {
       </Box>
 
       <Box mt={2} px={1}>
-        <Tag {...args} bg="secondary100" color="secondary700">
-          Secondary
+        <Tag {...args} bg="accent100" color="accent700">
+          Accent
         </Tag>
       </Box>
 
@@ -52,14 +52,22 @@ export function Colors(args: TagProps): JSX.Element {
           borderColor="neutral200"
           color="neutral700"
         >
-          Outlined
+          Secondary
         </Tag>
       </Box>
     </Flex>
   );
 }
 
-export function Clickable(args: TagProps): JSX.Element {
+export function Rounded(args: TagProps) {
+  return (
+    <Tag {...args} rounded>
+      Rounded tag
+    </Tag>
+  );
+}
+
+export function Clickable(args: TagProps) {
   return (
     <Tag
       {...args}
@@ -75,9 +83,9 @@ export function Clickable(args: TagProps): JSX.Element {
   );
 }
 
-export function Removable(args: TagProps): JSX.Element {
+export function Removable(args: TagProps) {
   return (
-    <Tag {...args} removable onRemove={() => console.log('Remove clicked')}>
+    <Tag {...args} removable onClick={() => console.log('Remove')}>
       Removable tag
     </Tag>
   );

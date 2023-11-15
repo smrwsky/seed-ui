@@ -1,0 +1,105 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+
+import Button, {
+  Basic,
+  Disabled,
+  Loading,
+  Sizes,
+  Variants,
+  WithIcon,
+  Rounded,
+  AsLink,
+} from './Button.stories';
+
+<Meta of={Button} />
+
+# Button
+
+A clickable element designed for user interaction, facilitating actions such as form submissions, navigation, or other
+user-triggered events within the application's interface.
+
+
+## When to use
+
+- Form submission: Use the button component to create a "Submit" button within forms, allowing users to submit input
+  data.
+
+- Call-to-Action (CTA): Use the button component to create a CTA button, which is a button that prompts users to take a
+  specific action.
+
+- Navigation: Utilize the button for navigation purposes, linking to different sections or pages within the application,
+  providing a clear and interactive user interface.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### Disabled
+
+Use `disabled` prop to disable the button, preventing user interaction.
+
+<Canvas of={Disabled} />
+
+### Loading
+
+Use `loading` prop to indicate that the button is in a loading state.
+
+<Canvas of={Loading} />
+
+### Sizes
+
+Use `size` prop to change the size of the button.
+
+<Canvas of={Sizes} />
+
+### Variants
+
+Use `variant` prop to change the variant of the button.
+
+<Canvas of={Variants} />
+
+### With Icon
+
+Use `startIcon` and `endIcon` props to add icons to the button.
+
+<Canvas of={WithIcon} />
+
+### Rounded
+
+Use `rounded` prop to change the shape of the button.
+
+<Canvas of={Rounded} />
+
+### As Link
+
+Use `as` prop to set custom element type.
+
+<Canvas of={AsLink} />
+
+## Guidelines
+
+- Use `loading` prop to indicate that the button is in a loading state. It will disable the button and show a spinner
+  inside it.
+
+- Use Icon component to add icons to the button.
+
+
+## Accessibility
+
+- Provide a meaningful text for the button, which describes the action that will be performed when the button is
+  clicked.
+
+- If `as` prop is set to `a`, ensure having all required attributes for an anchor element (`href`, `rel`, `target`).
+
+- If `as` prop is set to a non-interactive element, do not use any interactive props (`onClick`, `disabled`, `href`).
+
+More details about accessibility of the Button component can be found [here](https://www.w3.org/TR/wai-aria-practices-1.2/#button).
+
+## API
+
+<ArgTypes />
+
+
+

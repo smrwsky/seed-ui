@@ -1,12 +1,14 @@
+'use client';
+
 import { useId } from '@floating-ui/react';
-import { FC, useContext, useLayoutEffect } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 
 import { Text, TextProps } from '../../Text';
 import { DialogContext } from '../Dialog.context';
 
 export type DialogDescriptionProps = Omit<TextProps, 'id'>;
 
-const DialogDescription: FC<DialogDescriptionProps> = ({
+const DialogDescription: React.FC<DialogDescriptionProps> = ({
   children,
   ...props
 }) => {
@@ -27,5 +29,7 @@ const DialogDescription: FC<DialogDescriptionProps> = ({
     </Text>
   );
 };
+
+DialogDescription.displayName = 'DialogDescription';
 
 export default DialogDescription;

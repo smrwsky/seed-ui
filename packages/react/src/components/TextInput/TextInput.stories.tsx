@@ -1,5 +1,6 @@
 import { Box, Flex } from '@seed-ui/react';
 
+import { Icon } from '../Icon';
 import { Text } from '../Text';
 
 import TextInput, { TextInputProps, TextInputSize } from './TextInput';
@@ -16,7 +17,7 @@ export default {
   },
 };
 
-export function Basic(args: TextInputProps): JSX.Element {
+export function Basic(args: TextInputProps) {
   return (
     <>
       <Text
@@ -35,7 +36,7 @@ export function Basic(args: TextInputProps): JSX.Element {
   );
 }
 
-export function Invalid(args: TextInputProps): JSX.Element {
+export function Invalid(args: TextInputProps) {
   return (
     <>
       <Text
@@ -54,7 +55,7 @@ export function Invalid(args: TextInputProps): JSX.Element {
   );
 }
 
-export function Disabled(args: TextInputProps): JSX.Element {
+export function Disabled(args: TextInputProps) {
   return (
     <>
       <Text
@@ -78,7 +79,7 @@ export function Disabled(args: TextInputProps): JSX.Element {
   );
 }
 
-export function ReadOnly(args: TextInputProps): JSX.Element {
+export function ReadOnly(args: TextInputProps) {
   return (
     <>
       <Text
@@ -102,7 +103,7 @@ export function ReadOnly(args: TextInputProps): JSX.Element {
   );
 }
 
-export function Sizes(args: TextInputProps): JSX.Element {
+export function Sizes(args: TextInputProps) {
   return (
     <Flex flexDirection="column">
       {sizes.map((size, i) => (
@@ -122,5 +123,70 @@ export function Sizes(args: TextInputProps): JSX.Element {
         </Box>
       ))}
     </Flex>
+  );
+}
+
+export function WithIcon(args: TextInputProps) {
+  return (
+    <Flex flexDirection="column">
+      <Box mt={4}>
+        <Text
+          as="label"
+          fontSize="sm"
+          fontWeight="semiBold"
+          htmlFor="text-input-with-start-icon"
+          letterSpacing="widest"
+          lineHeight="snug"
+          mb={1}
+        >
+          With Start Icon
+        </Text>
+
+        <TextInput
+          {...args}
+          id="text-input-with-start-icon"
+          startIcon={<Icon color="neutral400" name="search" />}
+        />
+      </Box>
+
+      <Box mt={4}>
+        <Text
+          as="label"
+          fontSize="sm"
+          fontWeight="semiBold"
+          htmlFor="text-input-with-end-icon"
+          letterSpacing="widest"
+          lineHeight="snug"
+          mb={1}
+        >
+          With End Icon
+        </Text>
+
+        <TextInput
+          {...args}
+          endIcon={<Icon color="success500" name="check-circle" />}
+          id="text-input-with-end-icon"
+        />
+      </Box>
+    </Flex>
+  );
+}
+
+export function Clearable(args: TextInputProps) {
+  return (
+    <>
+      <Text
+        as="label"
+        fontSize="sm"
+        fontWeight="semiBold"
+        htmlFor="text-input-clearable"
+        letterSpacing="widest"
+        lineHeight="snug"
+        mb={1}
+      >
+        First Name
+      </Text>
+      <TextInput {...args} clearable id="text-input-clearable" />
+    </>
   );
 }

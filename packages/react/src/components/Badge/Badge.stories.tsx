@@ -13,7 +13,7 @@ const meta: Meta = {
   args: {
     content: 5,
     children: (
-      <IconButton title="Notifications" variant="outline">
+      <IconButton title="Notifications" variant="secondary">
         <Icon name="bell" />
       </IconButton>
     ),
@@ -62,11 +62,15 @@ Offset.args = {
   offsetX: -5,
   offsetY: -5,
   children: (
-    <IconButton avatar size="lg" title="Profile">
-      <Avatar>
-        <img alt="Profile" src="https://i.pravatar.cc/300" />
-      </Avatar>
-    </IconButton>
+    <IconButton
+      avatar={
+        <Avatar>
+          <img alt="Profile" src="https://i.pravatar.cc/300" />
+        </Avatar>
+      }
+      size="lg"
+      title="Profile"
+    />
   ),
 };
 

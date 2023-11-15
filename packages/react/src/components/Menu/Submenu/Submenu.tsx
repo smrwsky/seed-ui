@@ -1,3 +1,5 @@
+'use client';
+
 import {
   autoUpdate,
   FloatingNode,
@@ -19,10 +21,7 @@ import {
   useTypeahead,
   useMergeRefs,
 } from '@floating-ui/react';
-import {
-  FC,
-  ReactElement,
-  ReactNode,
+import React, {
   useCallback,
   useContext,
   useEffect,
@@ -37,14 +36,19 @@ import { MenuButton } from '../MenuButton';
 import { MenuItems } from '../MenuItems';
 
 export interface SubMenuProps {
-  children?: ReactNode;
+  children?: React.ReactNode;
   disabled?: boolean;
-  icon?: ReactElement;
+  icon?: React.ReactElement;
   label: string;
   selected?: boolean;
 }
 
-const Submenu: FC<SubMenuProps> = ({ icon, label, children, ...props }) => {
+const Submenu: React.FC<SubMenuProps> = ({
+  icon,
+  label,
+  children,
+  ...props
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasFocusInside, setHasFocusInside] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
