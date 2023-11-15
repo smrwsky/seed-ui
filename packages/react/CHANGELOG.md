@@ -12,7 +12,7 @@
 - 76ff3a0: Added rounded prop to buttons components.
 - Updated dependencies [76ff3a0]
 - Updated dependencies [76ff3a0]
-  - @seed-ui/styles@0.3.0
+  - @seed-ui/styles@1.3.0
 
 ## 0.2.1
 
