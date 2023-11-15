@@ -1,26 +1,26 @@
-import { Atoms, atoms } from '@seed-ui/styles';
+'use client';
+
+import { Atoms, atoms, textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
-  ButtonHTMLAttributes,
-  cloneElement,
-  forwardRef,
-  isValidElement,
-  ReactElement,
-} from 'react';
+import React, { cloneElement, forwardRef, isValidElement, memo } from 'react';
 
 import { IconProps } from '../../Icon';
-import { MenuSize, MenuType, MenuVariant } from '../Menu.types';
+import { MenuSize, MenuType, MenuVariant } from '../types';
 
 export interface MenuLinkProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
+  extends Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    'children' | 'type'
+  > {
   active: boolean;
+  children: string;
   collapsed: boolean;
   disabled?: boolean;
   indent?: number;
   selected?: boolean;
   size: MenuSize;
-  startIcon?: ReactElement;
-  endIcon?: ReactElement;
+  startIcon?: React.ReactElement;
+  endIcon?: React.ReactElement;
   type: MenuType;
   variant: MenuVariant;
 }
@@ -28,9 +28,12 @@ export interface MenuLinkProps
 const INDENT_BASE = 1.625;
 
 const rootTypeStyle = (type: MenuType) =>
-  type !== 'horizontal'
-    ? atoms({ borderRadius: 'md', mx: 1, my: 0.5 })
-    : undefined;
+  type === 'horizontal'
+    ? atoms({ justifyContent: 'center', mx: 0.5, my: 1 })
+    : atoms({ mx: 1, my: 0.5 });
+
+const rootCollapsedTypeStyle = (type: MenuType) =>
+  type === 'horizontal' ? atoms({ mx: 0.5, my: 1 }) : atoms({ mx: 1, my: 0.5 });
 
 const rootVerticalSizeStyle: Record<MenuSize, string> = {
   sm: atoms({
@@ -50,14 +53,16 @@ const rootVerticalSizeStyle: Record<MenuSize, string> = {
 
 const rootHorizontalSizeStyle: Record<MenuSize, string> = {
   sm: atoms({
-    px: 1,
+    px: 0,
     py: 0.5,
   }),
   md: atoms({
-    p: 1.5,
+    py: 0.5,
+    px: 2.5,
   }),
   lg: atoms({
-    p: 2.5,
+    py: 1.5,
+    px: 3.5,
   }),
 };
 
@@ -128,7 +133,7 @@ const rootSelectedStyle = (type: MenuType, variant: MenuVariant): Atoms =>
 
 const rootCollapsedVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {
-    color: 'neutral900',
+    color: 'neutral500',
     bg: { hover: 'dark50' },
   },
   secondary: {
@@ -141,21 +146,10 @@ const rootCollapsedVariantStyle: Record<MenuVariant, Atoms> = {
   },
 };
 
-const rootCollapsedActiveVariantStyle: Record<MenuVariant, Atoms> = {
-  primary: {
-    bg: 'dark50',
-  },
-  secondary: {
-    bg: 'dark50',
-  },
-  dark: {
-    bg: 'light200',
-  },
-};
-
 const rootCollapsedSelectedVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {
     color: 'primary500',
+    bg: 'primary50',
   },
   secondary: {
     color: 'primary500',
@@ -198,7 +192,7 @@ const iconCollapsedVariantStyle: Record<MenuVariant, Atoms> = {
     color: 'neutral900',
   },
   secondary: {
-    color: 'neutral500',
+    color: 'neutral900',
   },
   dark: {
     color: 'white',
@@ -208,6 +202,7 @@ const iconCollapsedVariantStyle: Record<MenuVariant, Atoms> = {
 const iconSelectedVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {
     color: 'primary500',
+    bg: 'primary50',
   },
   secondary: {
     color: 'primary500',
@@ -238,157 +233,155 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuLinkProps>(
       ...props
     },
     ref,
-  ) => {
-    return (
-      <button
-        className={cn(
-          atoms({
-            display: 'flex',
-            alignItems: 'center',
-            transition: 'base',
-            textAlign: 'start',
-            pointerEvents: disabled ? 'none' : 'auto',
-          }),
-          collapsed
-            ? [
-                atoms({
-                  flex: 1,
-                  justifyContent: 'center',
-                  flexDirection: 'column',
-                  minWidth: 0,
-                  transition: 'base',
-                  px: 2,
-                  py: 1,
-                  ...rootCollapsedVariantStyle[variant],
-                  ...(selected && rootCollapsedSelectedVariantStyle[variant]),
-                  ...(active && rootCollapsedActiveVariantStyle[variant]),
-                  ...(disabled && rootDisabledVariantStyle[variant]),
-                }),
-              ]
-            : [
-                atoms({
-                  position: 'relative',
-                }),
-                rootTypeStyle(type),
-                rootSizeStyle(type, size),
-                atoms({
-                  ...rootVariantStyle[variant],
-                  ...(active && rootActiveVariantStyle[variant]),
-                  ...(selected && rootSelectedStyle(type, variant)),
-                  ...(disabled && rootDisabledVariantStyle[variant]),
-                }),
-              ],
-        )}
-        disabled={disabled}
-        ref={ref}
-        role="menuitem"
-        {...props}
-      >
-        {indent > 0 && (
-          <span
-            className={atoms({ display: 'block' })}
-            style={{ width: `${indent * INDENT_BASE}rem` }}
-          />
-        )}
-
-        {isValidElement<IconProps>(startIcon) &&
-          cloneElement(startIcon, {
-            className: cn(
-              collapsed
-                ? [
-                    atoms({
-                      fontSize: '2xl',
-                      mb: 1,
-                    }),
-                    atoms({
-                      ...iconCollapsedVariantStyle[variant],
-                      ...(selected && iconSelectedVariantStyle[variant]),
-                      ...(disabled && iconDisabledVariantStyle),
-                    }),
-                  ]
-                : [
-                    atoms({
-                      fontSize: 'xl',
-                      mx: 1.5,
-                    }),
-                    atoms({
-                      ...iconVariantStyle[variant],
-                      ...(selected && iconSelectedVariantStyle[variant]),
-                      ...(disabled && iconDisabledVariantStyle),
-                    }),
-                  ],
-            ),
-          })}
-
+  ) => (
+    <button
+      className={cn(
+        atoms({
+          position: 'relative',
+          flex: 1,
+          display: 'flex',
+          borderRadius: 'md',
+          alignItems: 'center',
+          transition: 'base',
+          textAlign: 'start',
+        }),
+        collapsed
+          ? [
+              atoms({
+                justifyContent: 'center',
+                flexDirection: 'column',
+                minWidth: 0,
+                transition: 'base',
+                px: 2,
+                py: 1,
+                ...rootCollapsedVariantStyle[variant],
+                ...(active && rootActiveVariantStyle[variant]),
+                ...(selected && rootCollapsedSelectedVariantStyle[variant]),
+                ...(disabled && rootDisabledVariantStyle[variant]),
+              }),
+              rootCollapsedTypeStyle(type),
+            ]
+          : [
+              rootTypeStyle(type),
+              rootSizeStyle(type, size),
+              atoms({
+                ...rootVariantStyle[variant],
+                ...(active && rootActiveVariantStyle[variant]),
+                ...(selected && rootSelectedStyle(type, variant)),
+                ...(disabled && rootDisabledVariantStyle[variant]),
+              }),
+            ],
+      )}
+      disabled={disabled}
+      ref={ref}
+      role="menuitem"
+      {...props}
+    >
+      {indent > 0 && (
         <span
-          className={cn(
-            atoms({
-              flex: 1,
-              display: 'block',
-            }),
+          className={atoms({ display: 'block' })}
+          style={{ width: `${indent * INDENT_BASE}rem` }}
+        />
+      )}
+
+      {isValidElement<IconProps>(startIcon) &&
+        cloneElement(startIcon, {
+          className: cn(
             collapsed
               ? [
                   atoms({
-                    fontSize: 'xs',
-                    letterSpacing: 'wide',
-                    lineHeight: 'snug',
-                    display: 'block',
-                    textAlign: 'center',
-                    mx: 1.5,
+                    fontSize: '2xl',
+                    mb: 1,
+                  }),
+                  atoms({
+                    ...iconCollapsedVariantStyle[variant],
+                    ...(selected && iconSelectedVariantStyle[variant]),
+                    ...(disabled && iconDisabledVariantStyle),
                   }),
                 ]
               : [
                   atoms({
-                    fontSize: 'md',
-                    lineHeight: 'normal',
-                    textOverflow: 'ellipsis',
-
-                    ...(selected && {
-                      fontWeight: 'semiBold',
-                    }),
+                    fontSize: 'xl',
+                    mx: 1,
+                  }),
+                  atoms({
+                    ...iconVariantStyle[variant],
+                    ...(selected && iconSelectedVariantStyle[variant]),
+                    ...(disabled && iconDisabledVariantStyle),
                   }),
                 ],
-          )}
-        >
-          {children}
-        </span>
+          ),
+        })}
 
-        {!collapsed &&
-          isValidElement<IconProps>(endIcon) &&
-          cloneElement(endIcon, {
-            className: cn(
-              atoms({
-                fontSize: 'xl',
-                mx: 1.5,
-              }),
-              endIcon.props.className,
-            ),
-          })}
-
-        {!collapsed && type === 'horizontal' && variant === 'primary' && (
-          <span
-            className={atoms({
-              position: 'absolute',
-              bottom: '-0.5',
-              left: 1,
-              right: 1,
-              display: 'block',
-              height: 1,
-              borderRadius: 'full',
-              transition: 'base',
-
-              ...(selected &&
-                !disabled && {
-                  bg: 'primary400',
+      <span
+        className={cn(
+          atoms({
+            display: 'block',
+          }),
+          textTruncate,
+          collapsed
+            ? [
+                atoms({
+                  fontSize: 'xs',
+                  letterSpacing: 'wide',
+                  lineHeight: 'snug',
+                  display: 'block',
+                  textAlign: 'center',
+                  mx: 1.5,
                 }),
-            })}
-          />
+              ]
+            : [
+                atoms({
+                  flex: type !== 'horizontal' ? 1 : undefined,
+                  fontSize: 'md',
+                  lineHeight: 'normal',
+                  mx: 1,
+
+                  ...(selected && {
+                    fontWeight: 'semiBold',
+                  }),
+                }),
+              ],
         )}
-      </button>
-    );
-  },
+      >
+        {children}
+      </span>
+
+      {!collapsed &&
+        isValidElement<IconProps>(endIcon) &&
+        cloneElement(endIcon, {
+          className: cn(
+            atoms({
+              fontSize: 'xl',
+              mx: 1,
+            }),
+            endIcon.props.className,
+          ),
+        })}
+
+      {!collapsed && type === 'horizontal' && variant === 'primary' && (
+        <span
+          className={atoms({
+            position: 'absolute',
+            bottom: '-1.5',
+            left: 0,
+            right: 0,
+            display: 'block',
+            height: 1,
+            borderRadius: 'full',
+            transition: 'base',
+
+            ...(selected &&
+              !disabled && {
+                bg: 'primary400',
+              }),
+          })}
+        />
+      )}
+    </button>
+  ),
 );
 
 MenuButton.displayName = 'MenuButton';
 
-export default MenuButton;
+export default memo(MenuButton);

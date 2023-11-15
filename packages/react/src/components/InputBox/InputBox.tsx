@@ -51,13 +51,13 @@ const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
       alignItems="center"
       className={cn(
         atoms({
-          borderRadius: 'input',
+          borderRadius: 'md',
           border: 'thin',
           borderColor: {
-            default: 'neutral200',
+            default: 'transparent',
             hover: 'primary400',
           },
-          bg: 'white',
+          bg: 'neutral100',
           transition: 'base',
           overflow: 'hidden',
           cursor: 'text',
@@ -77,14 +77,14 @@ const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
             }),
 
           ...(disabled && {
-            borderColor: 'neutral100',
             bg: 'neutral50',
+            borderColor: 'transparent',
             boxShadow: 'none',
             cursor: 'not-allowed',
           }),
 
           ...(readOnly && {
-            borderColor: 'neutral100',
+            borderColor: 'transparent',
             boxShadow: 'none',
           }),
         }),

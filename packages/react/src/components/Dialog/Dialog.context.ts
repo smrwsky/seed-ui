@@ -1,17 +1,17 @@
 import { ExtendedRefs, FloatingContext } from '@floating-ui/react';
-import React, { HTMLAttributes } from 'react';
+import React, { createContext } from 'react';
 
-export type DialogSize = 'sm' | 'md' | 'lg';
+import { DialogSize } from './types';
 
-export type DialogContextType = {
+export interface DialogContextType {
   context: FloatingContext;
+  closeDialog: () => void;
   getFloatingProps: (
-    userProps?: HTMLAttributes<Element>,
+    userProps?: React.HTMLAttributes<Element>,
   ) => Record<string, unknown>;
   getReferenceProps: (
-    userProps?: HTMLAttributes<Element>,
+    userProps?: React.HTMLAttributes<Element>,
   ) => Record<string, unknown>;
-  handleClose: () => void;
   open: boolean;
   refs: ExtendedRefs<Element>;
   setTitleId: (titleId: string | undefined) => void;
@@ -19,15 +19,15 @@ export type DialogContextType = {
   size: DialogSize;
   titleId: string | undefined;
   descriptionId: string | undefined;
-};
+}
 
-export const DialogContext = React.createContext<DialogContextType>({
+export const DialogContext = createContext<DialogContextType>({
   context: {} as FloatingContext,
-  getFloatingProps: () => ({}),
-  getReferenceProps: () => ({}),
-  handleClose: () => {
+  closeDialog: () => {
     // Do nothing
   },
+  getFloatingProps: () => ({}),
+  getReferenceProps: () => ({}),
   open: false,
   refs: {} as ExtendedRefs<Element>,
   size: 'md',

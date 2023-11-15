@@ -1,3 +1,5 @@
+'use client';
+
 import {
   autoUpdate,
   FloatingTree,
@@ -14,32 +16,32 @@ import {
   Placement,
   useFloatingTree,
 } from '@floating-ui/react';
-import { FC, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { DropdownMenuTrigger } from '../DropdownMenuTrigger';
 import { MenuContext, MenuContextType } from '../Menu.context';
-import { MenuVariant } from '../Menu.types';
 import { MenuItems } from '../MenuItems';
+import { MenuVariant } from '../types';
 
 type DropdownMenuPlacement = Placement;
 
 type DropdownMenuStrategy = 'fixed' | 'absolute';
 
-type DropdownMenuOffsetOptions = {
+interface DropdownMenuOffsetOptions {
   mainAxis?: number;
   crossAxis?: number;
   alignmentAxis?: number | null;
-};
+}
 
 export interface DropdownMenuProps {
-  children?: ReactNode;
+  children?: React.ReactNode;
   offset?: number | DropdownMenuOffsetOptions;
   placement?: DropdownMenuPlacement;
   strategy?: DropdownMenuStrategy;
   variant?: MenuVariant;
 }
 
-const DropdownMenuBase: FC<DropdownMenuProps> = ({
+const DropdownMenuBase: React.FC<DropdownMenuProps> = ({
   children,
   offset = 0,
   placement = 'bottom-start',
@@ -148,11 +150,13 @@ const DropdownMenuBase: FC<DropdownMenuProps> = ({
   );
 };
 
-const DropdownMenu: FC<DropdownMenuProps> = (props) => (
+const DropdownMenu: React.FC<DropdownMenuProps> = (props) => (
   <FloatingTree>
     <DropdownMenuBase {...props} />
   </FloatingTree>
 );
+
+DropdownMenu.displayName = 'DropdownMenu';
 
 export default Object.assign(DropdownMenu, {
   Trigger: DropdownMenuTrigger,

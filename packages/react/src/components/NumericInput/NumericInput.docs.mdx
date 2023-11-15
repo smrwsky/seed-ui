@@ -1,0 +1,76 @@
+import { Meta, ArgTypes, Canvas } from '@storybook/addon-docs';
+import NumericInput, { Basic, Invalid, Disabled, ReadOnly, Sizes, WithIcon } from './NumericInput.stories';
+
+<Meta of={NumericInput} />
+
+# NumericInput
+
+Input component for collecting a number value from the user.
+
+## When To Use
+
+- When the user needs to enter a number value.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### Invalid
+
+Setting the `invalid` property to `true` indicates an error or issue with the input value.
+
+<Canvas of={Invalid} />
+
+### Disabled
+
+Disabled input
+
+<Canvas of={Disabled} />
+
+### Read Only
+
+Readonly input
+
+<Canvas of={ReadOnly} />
+
+### Sizes
+
+The `size` property can be used to specify the size of the input box. Available values are `sm`, `md`, and `lg`.
+
+<Canvas of={Sizes} />
+
+### Clearable
+
+### With Icon
+
+Use `startIcon` and `endIcon` props to add icons to the button.
+
+<Canvas of={WithIcon} />
+
+The `clearable` property can be used to add a clear button to the input box. Clicking the clear button will clear the input value.
+
+## Guidelines
+
+- Use Text component for providing a label that accurately describes
+the purpose of the input. Text component should be associated
+with the Autocomplete component using the "htmlFor" and "id" properties.
+
+- Use ErrorMessage component for providing error feedback to indicate
+that the input value is invalid.
+
+- Provide placeholder text that contains a brief description of what the input
+field is for and what type of information is expected using `placeholder`
+property.
+
+- If necessary, add help text that provides additional information or guidance
+using InputMessage component.
+
+## Accessibility
+
+See [Accessibility Guidelines](https://developer.microsoft.com/en-us/fluentui#/controls/web/textinput#accessibility)
+
+## API
+
+<ArgTypes />

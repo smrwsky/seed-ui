@@ -1,55 +1,41 @@
+'use client';
+
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import { FC, HTMLAttributes, ReactNode, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { DialogContext } from '../Dialog.context';
+import { DialogSize } from '../types';
 
-export interface DialogHeaderProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
+export interface DialogHeaderProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
   title?: string;
 }
 
-const sizeStyles = {
-  sm: atoms({
-    px: 5,
-    py: 4,
-  }),
+const sizeStyles = (size: DialogSize) =>
+  size === 'sm'
+    ? atoms({
+        px: 5,
+        py: 4,
+      })
+    : atoms({
+        borderBottom: {
+          mobile: 'thin',
+          tablet: 'none',
+        },
+        borderColor: 'neutral100',
+        px: {
+          mobile: 4,
+          tablet: 5,
+        },
+        py: {
+          mobile: 2,
+          tablet: 4,
+        },
+      });
 
-  md: atoms({
-    px: 5,
-    py: 4,
-  }),
-
-  lg: atoms({
-    position: {
-      mobile: 'fixed',
-      tablet: 'static',
-    },
-    top: 0,
-    left: 0,
-    width: 'full',
-    minHeight: {
-      mobile: 14,
-      tablet: 0,
-    },
-    borderBottom: {
-      mobile: 'thin',
-      tablet: 'none',
-    },
-    borderColor: 'neutral100',
-    px: {
-      mobile: 3,
-      tablet: 5,
-    },
-    py: {
-      mobile: 2,
-      tablet: 4,
-    },
-    zIndex: 20,
-  }),
-};
-
-const DialogHeader: FC<DialogHeaderProps> = ({
+const DialogHeader: React.FC<DialogHeaderProps> = ({
   children,
   className,
   ...props
@@ -58,12 +44,27 @@ const DialogHeader: FC<DialogHeaderProps> = ({
 
   return (
     <div
-      className={cn(atoms({ bg: 'white' }), sizeStyles[size], className)}
+      className={cn(
+        atoms({
+          position: 'sticky',
+          top: 0,
+          minHeight: 14,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          bg: 'white',
+          zIndex: 20,
+        }),
+        sizeStyles(size),
+        className,
+      )}
       {...props}
     >
       {children}
     </div>
   );
 };
+
+DialogHeader.displayName = 'DialogHeader';
 
 export default DialogHeader;

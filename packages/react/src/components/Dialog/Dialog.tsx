@@ -1,3 +1,5 @@
+'use client';
+
 import {
   useClick,
   useDismiss,
@@ -5,16 +7,9 @@ import {
   useInteractions,
   useRole,
 } from '@floating-ui/react';
-import {
-  FC,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { DialogContext, DialogContextType, DialogSize } from './Dialog.context';
+import { DialogContext, DialogContextType } from './Dialog.context';
 import { DialogBody } from './DialogBody';
 import { DialogClose } from './DialogClose';
 import { DialogContent } from './DialogContent';
@@ -23,18 +18,19 @@ import { DialogFooter } from './DialogFooter';
 import { DialogHeader } from './DialogHeader';
 import { DialogTitle } from './DialogTitle';
 import { DialogTrigger } from './DialogTrigger';
+import { DialogSize } from './types';
 
 export interface DialogProps {
+  children: React.ReactNode;
   open?: boolean;
   size?: DialogSize;
-  children: ReactNode;
   onOpenChange?: (open: boolean) => void;
 }
 
-const Dialog: FC<DialogProps> = ({
+const Dialog: React.FC<DialogProps> = ({
+  children,
   open,
   size = 'md',
-  children,
   onOpenChange,
 }) => {
   const [openState, setOpenState] = useState(() => open ?? false);
@@ -71,16 +67,16 @@ const Dialog: FC<DialogProps> = ({
     role,
   ]);
 
-  const handleClose = useCallback(() => {
+  const closeDialog = useCallback(() => {
     setOpen(false);
   }, [setOpen]);
 
-  const DialogCxt = useMemo<DialogContextType>(
+  const dialogCxt = useMemo<DialogContextType>(
     () => ({
       context,
+      closeDialog,
       getReferenceProps,
       getFloatingProps,
-      handleClose,
       open: openState,
       refs,
       size,
@@ -91,14 +87,14 @@ const Dialog: FC<DialogProps> = ({
     }),
     [
       context,
-      descriptionId,
-      getFloatingProps,
+      closeDialog,
       getReferenceProps,
-      handleClose,
+      getFloatingProps,
       openState,
       refs,
       size,
       titleId,
+      descriptionId,
     ],
   );
 
@@ -109,11 +105,13 @@ const Dialog: FC<DialogProps> = ({
   }, [isControlled, open]);
 
   return (
-    <DialogContext.Provider value={DialogCxt}>
+    <DialogContext.Provider value={dialogCxt}>
       {children}
     </DialogContext.Provider>
   );
 };
+
+Dialog.displayName = 'Dialog';
 
 export default Object.assign(Dialog, {
   Trigger: DialogTrigger,

@@ -6,7 +6,7 @@ import { Icon } from '../Icon';
 import { IconButton } from '../IconButton';
 
 import Dialog, { DialogProps } from './Dialog';
-import { DialogSize } from './Dialog.context';
+import { DialogSize } from './types';
 
 export default {
   title: 'Feedback/Dialog',
@@ -25,7 +25,7 @@ export function Base(args: DialogProps): JSX.Element {
           <Flex alignItems="baseline" justifyContent="space-between">
             <Dialog.Title>Basic Dialog</Dialog.Title>
             <Dialog.Close>
-              <IconButton variant="plain">
+              <IconButton variant="tertiary">
                 <Icon name="x" />
               </IconButton>
             </Dialog.Close>
@@ -40,7 +40,7 @@ export function Base(args: DialogProps): JSX.Element {
         <Dialog.Footer>
           <Flex justifyContent="space-between">
             <Dialog.Close>
-              <Button variant="plain">Cancel</Button>
+              <Button variant="tertiary">Cancel</Button>
             </Dialog.Close>
             <Dialog.Close>
               <Button>OK</Button>
@@ -79,19 +79,19 @@ export function Sizes(args: DialogProps): JSX.Element {
     <>
       <Flex>
         <Box mr={4}>
-          <Button variant="outline" onClick={handleOpenSmallDialog}>
+          <Button variant="secondary" onClick={handleOpenSmallDialog}>
             Open small Dialog
           </Button>
         </Box>
 
         <Box mr={4}>
-          <Button variant="outline" onClick={handleOpenMediumDialog}>
+          <Button variant="secondary" onClick={handleOpenMediumDialog}>
             Open medium Dialog
           </Button>
         </Box>
 
         <Box>
-          <Button variant="outline" onClick={handleOpenLargeDialog}>
+          <Button variant="secondary" onClick={handleOpenLargeDialog}>
             Open large Dialog
           </Button>
         </Box>
@@ -107,7 +107,7 @@ export function Sizes(args: DialogProps): JSX.Element {
           <Dialog.Header>
             <Flex alignItems="baseline" justifyContent="space-between">
               <Dialog.Title>Small Dialog</Dialog.Title>
-              <IconButton variant="plain" onClick={handleClose}>
+              <IconButton variant="tertiary" onClick={handleClose}>
                 <Icon name="x" />
               </IconButton>
             </Flex>
@@ -137,7 +137,7 @@ export function Sizes(args: DialogProps): JSX.Element {
           <Dialog.Header>
             <Flex alignItems="baseline" justifyContent="space-between">
               <Dialog.Title>Medium Dialog</Dialog.Title>
-              <IconButton variant="plain" onClick={handleClose}>
+              <IconButton variant="tertiary" onClick={handleClose}>
                 <Icon name="x" />
               </IconButton>
             </Flex>
@@ -150,7 +150,7 @@ export function Sizes(args: DialogProps): JSX.Element {
           <Dialog.Footer>
             <Flex justifyContent="space-between">
               <Box mr={3}>
-                <Button variant="plain" onClick={handleClose}>
+                <Button variant="tertiary" onClick={handleClose}>
                   Cancel
                 </Button>
               </Box>
@@ -175,7 +175,7 @@ export function Sizes(args: DialogProps): JSX.Element {
           <Dialog.Header>
             <Flex alignItems="baseline" justifyContent="space-between">
               <Dialog.Title>Large Dialog</Dialog.Title>
-              <IconButton variant="plain" onClick={handleClose}>
+              <IconButton variant="tertiary" onClick={handleClose}>
                 <Icon name="x" />
               </IconButton>
             </Flex>
@@ -189,7 +189,7 @@ export function Sizes(args: DialogProps): JSX.Element {
           <Dialog.Footer>
             <Flex justifyContent="space-between">
               <Box mr={3}>
-                <Button variant="plain" onClick={handleClose}>
+                <Button variant="tertiary" onClick={handleClose}>
                   Cancel
                 </Button>
               </Box>

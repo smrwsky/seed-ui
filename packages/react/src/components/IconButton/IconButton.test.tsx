@@ -39,17 +39,19 @@ describe('IconButton', () => {
     });
   });
 
-  describe('Given an IconButton component with an avatar prop set to true', () => {
+  describe('Given an IconButton component with a valid avatar component', () => {
     describe('When the component is rendered', () => {
       it('Then it should render the avatar element', () => {
         const testId = 'icon-button-avatar';
 
         render(
-          <IconButton avatar>
-            <Avatar data-testid={testId}>
-              <img alt="Profile" src="https://i.pravatar.cc/300" />
-            </Avatar>
-          </IconButton>,
+          <IconButton
+            avatar={
+              <Avatar data-testid={testId}>
+                <img alt="Profile" src="https://i.pravatar.cc/300" />
+              </Avatar>
+            }
+          />,
         );
 
         expect(screen.getByTestId(testId)).toBeInTheDocument();

@@ -76,7 +76,7 @@ const transformOriginStyle: Record<BadgePosition, string> = {
 };
 
 const Badge: FC<BadgeProps> = ({
-  bg = 'secondary400',
+  bg = 'primary400',
   children,
   content,
   className,

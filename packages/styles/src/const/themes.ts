@@ -13,16 +13,15 @@ export const DEFAULT_THEME: Theme = {
   },
 
   borderRadius: {
-    button: '0.25rem',
-    iconButton: '9999px',
-    input: '0.25rem',
-    tag: '0.25rem',
-    sm: '0.125rem', // 2px - rectangles, banners etc.
-    md: '0.25rem', // 4px - inputs, buttons, popups etc.
-    lg: '0.5rem', // 8px - modals, small cards etc.
-    xl: '0.75rem', // 12px - large cards
-    full: '9999px',
-    none: 'none',
+    'xs': '0.125rem', // 2px
+    'sm': '0.25rem', // 4px
+    'md': '0.375rem', // 6px
+    'lg': '0.5rem', // 8px
+    'xl': '0.75rem', // 12px
+    '2xl': '1rem', // 16px
+    '3xl': '1.5rem', // 24px
+    'full': '9999px',
+    'none': 'none',
   },
 
   boxShadow: {
@@ -35,30 +34,10 @@ export const DEFAULT_THEME: Theme = {
       0.2,
     )}, 0 1px 2px 0 ${hexToRgba(colors.blue500, 0.1)}`,
 
-    secondary: `0 1px 3px 0 ${hexToRgba(
+    accent: `0 1px 3px 0 ${hexToRgba(
       colors.purple500,
       0.2,
     )}, 0 1px 2px 0 ${hexToRgba(colors.purple500, 0.1)}`,
-
-    info: `0 1px 3px 0 ${hexToRgba(
-      colors.cian500,
-      0.2,
-    )}, 0 1px 2px 0 ${hexToRgba(colors.cian500, 0.1)}`,
-
-    success: `0 1px 3px 0 ${hexToRgba(
-      colors.green500,
-      0.2,
-    )}, 0 1px 2px 0 ${hexToRgba(colors.green500, 0.1)}`,
-
-    warning: `0 1px 3px 0 ${hexToRgba(
-      colors.orange500,
-      0.2,
-    )}, 0 1px 2px 0 ${hexToRgba(colors.orange500, 0.1)}`,
-
-    danger: `0 1px 3px 0 ${hexToRgba(
-      colors.red500,
-      0.2,
-    )}, 0 1px 2px 0 ${hexToRgba(colors.red500, 0.1)}`,
 
     light:
       '0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06)',
@@ -84,16 +63,16 @@ export const DEFAULT_THEME: Theme = {
     primary100: colors.blue100,
     primary50: colors.blue50,
 
-    secondary900: colors.purple900,
-    secondary800: colors.purple800,
-    secondary700: colors.purple700,
-    secondary600: colors.purple600,
-    secondary500: colors.purple500,
-    secondary400: colors.purple400,
-    secondary300: colors.purple300,
-    secondary200: colors.purple200,
-    secondary100: colors.purple100,
-    secondary50: colors.purple50,
+    accent900: colors.purple900,
+    accent800: colors.purple800,
+    accent700: colors.purple700,
+    accent600: colors.purple600,
+    accent500: colors.purple500,
+    accent400: colors.purple400,
+    accent300: colors.purple300,
+    accent200: colors.purple200,
+    accent100: colors.purple100,
+    accent50: colors.purple50,
 
     info900: colors.cian900,
     info800: colors.cian800,
@@ -222,7 +201,7 @@ export const DEFAULT_THEME: Theme = {
   },
 
   transition: {
-    base: 'all 0.15s ease-in-out',
+    base: 'color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out, fill 0.15s ease-in-out, stroke 0.15s ease-in-out, opacity 0.15s ease-in-out, box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out, filter 0.15s ease-in-out, backdrop-filter 0.15s ease-in-out',
     fade: 'opacity 0.15s linear',
     collapse: 'max-height 0.3s ease',
   },

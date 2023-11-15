@@ -1,12 +1,9 @@
-import {
-  ChangeEventHandler,
+import React, {
   cloneElement,
-  FocusEvent,
-  FocusEventHandler,
   forwardRef,
   isValidElement,
   memo,
-  ReactElement,
+  useCallback,
   useState,
 } from 'react';
 
@@ -16,32 +13,40 @@ import { InputBox, InputBoxSize } from '../InputBox';
 
 export type DateInputSize = InputBoxSize;
 
-export interface DateInputProps {
+export interface DateInputProps
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'size' | 'min' | 'max'
+  > {
   autoFocus?: boolean;
   className?: string;
   disabled?: boolean;
-  icon?: ReactElement;
   id?: string;
   invalid?: boolean;
+  min?: string;
+  max?: string;
   name?: string;
-  onBlur?: FocusEventHandler<HTMLInputElement>;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  onFocus?: FocusEventHandler<HTMLInputElement>;
   readOnly?: boolean;
   size?: DateInputSize;
+  startIcon?: React.ReactElement;
+  endIcon?: React.ReactElement;
   value?: string;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
   (
     {
+      className,
       disabled,
-      icon,
+      id,
       invalid,
       readOnly,
       size = 'md',
-      className,
-      id,
+      startIcon,
+      endIcon,
       onFocus,
       onBlur,
       ...inputProps
@@ -50,23 +55,27 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
   ) => {
     const [focused, setFocused] = useState(false);
 
-    function handleFocus(e: FocusEvent<HTMLInputElement>): void {
-      e.persist();
-      setFocused(true);
+    const handleFocus = useCallback(
+      (e: React.FocusEvent<HTMLInputElement>) => {
+        setFocused(true);
 
-      if (onFocus) {
-        onFocus(e);
-      }
-    }
+        if (onFocus) {
+          onFocus(e);
+        }
+      },
+      [onFocus],
+    );
 
-    function handleBlur(e: FocusEvent<HTMLInputElement>): void {
-      e.persist();
-      setFocused(false);
+    const handleBlur = useCallback(
+      (e: React.FocusEvent<HTMLInputElement>) => {
+        setFocused(false);
 
-      if (onBlur) {
-        onBlur(e);
-      }
-    }
+        if (onBlur) {
+          onBlur(e);
+        }
+      },
+      [onBlur],
+    );
 
     return (
       <InputBox
@@ -77,8 +86,10 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
         readOnly={readOnly}
         size={size}
       >
-        {isValidElement<IconProps>(icon) && (
-          <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
+        {isValidElement<IconProps>(startIcon) && (
+          <InputAction>
+            {cloneElement(startIcon, { fontSize: 'lg' })}
+          </InputAction>
         )}
 
         <input
@@ -91,6 +102,10 @@ const DateInput = forwardRef<HTMLInputElement, DateInputProps>(
           onBlur={handleBlur}
           onFocus={handleFocus}
         />
+
+        {isValidElement<IconProps>(endIcon) && (
+          <InputAction>{cloneElement(endIcon, { fontSize: 'lg' })}</InputAction>
+        )}
       </InputBox>
     );
   },

@@ -1,5 +1,5 @@
 import { Meta, ArgTypes, Canvas } from '@storybook/addon-docs';
-import IconButton, { Basic, Sizes, Variants, WithAvatar } from './IconButton.stories';
+import IconButton, { Basic, Rounded, Sizes, Variants, WithAvatar } from './IconButton.stories';
 
 <Meta of={IconButton} />
 
@@ -47,15 +47,23 @@ Use the `avatar` prop if you want to add an avatar to the icon button.
 
 <Canvas of={WithAvatar} />
 
+### Rounded
+
+Use the `rounded` prop to make the icon button rounded.
+
+<Canvas of={Rounded} />
+
 ## Guidelines
 
-- Icon Elements: Use Icon compoenent to render icons within IconButton.
+- Use Icon compoenent as children to render icons within IconButton.
 
-- Avatars: Use Avatar component and avatar property set to `true` to render avatars within IconButton.
+- Set Avatar component to the avatar prop to render avatar within IconButton.
 
 ## Accessibility
 
 Use descriptive title or aria-label attribute to provide context for the icon button.
+
+See more details in [WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/#button).
 
 ## API
 

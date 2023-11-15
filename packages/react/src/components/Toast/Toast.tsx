@@ -176,7 +176,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
             size="sm"
             tabIndex={0}
             title=""
-            variant="plain"
+            variant="tertiary"
             onClick={onClose}
           >
             <Icon name="x" />

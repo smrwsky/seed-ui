@@ -18,7 +18,7 @@ describe('Menu', () => {
 
         render(
           <Menu>
-            <MenuItem label="Menu Item" onClick={onClick} />
+            <MenuItem onClick={onClick}>Menu Item</MenuItem>
           </Menu>,
         );
 
@@ -35,9 +35,9 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         render(
           <Menu>
-            <MenuItem label="Home" />
-            <MenuItem label="Products" />
-            <MenuItem label="Contacts" />
+            <MenuItem>Home</MenuItem>
+            <MenuItem>Products</MenuItem>
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -75,7 +75,7 @@ describe('Menu', () => {
         // Render the Menu component with a mock menu item
         render(
           <Menu>
-            <MenuItem label="Click Me" onClick={mockAction} />
+            <MenuItem onClick={mockAction}>Click Me</MenuItem>
           </Menu>,
         );
 
@@ -103,9 +103,9 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         const { container } = render(
           <Menu>
-            <MenuItem label="Home" />
-            <MenuItem label="Products" />
-            <MenuItem label="Contacts" />
+            <MenuItem>Home</MenuItem>
+            <MenuItem>Products</MenuItem>
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -123,13 +123,13 @@ describe('Menu', () => {
         // Render the VerticalMenu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -151,13 +151,13 @@ describe('Menu', () => {
         // Render the VerticalMenu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -181,13 +181,13 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" onClick={mockAction} />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem onClick={mockAction}>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -212,13 +212,13 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -254,13 +254,13 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -285,22 +285,22 @@ describe('Menu', () => {
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
         });
 
-        await userEvent.keyboard('{arrowdown}');
+        await userEvent.keyboard('{arrowright}');
 
         await waitFor(() => {
-          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
         });
 
         await userEvent.keyboard('{arrowdown}');
 
         await waitFor(() => {
-          expect(screen.getAllByRole('menuitem')[4]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
 
         await userEvent.keyboard('{arrowup}');
 
         await waitFor(() => {
-          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
         });
       });
     });
@@ -312,13 +312,13 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" onClick={mockAction} />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem onClick={mockAction}>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -363,13 +363,13 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -426,13 +426,13 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu>
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -485,13 +485,13 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         const { container } = render(
           <Menu>
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -509,9 +509,9 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         render(
           <Menu type="horizontal">
-            <MenuItem label="Home" />
-            <MenuItem label="Products" />
-            <MenuItem label="Contacts" />
+            <MenuItem>Home</MenuItem>
+            <MenuItem>Products</MenuItem>
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -549,9 +549,9 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         const { container } = render(
           <Menu type="horizontal">
-            <MenuItem label="Home" />
-            <MenuItem label="Products" />
-            <MenuItem label="Contacts" />
+            <MenuItem>Home</MenuItem>
+            <MenuItem>Products</MenuItem>
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -569,13 +569,13 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu type="horizontal">
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -611,9 +611,9 @@ describe('Menu', () => {
         // Render the Menu component with multiple menu items
         const { container } = render(
           <Menu type="horizontal">
-            <MenuItem label="Home" />
-            <MenuItem label="Products" />
-            <MenuItem label="Contacts" />
+            <MenuItem>Home</MenuItem>
+            <MenuItem>Products</MenuItem>
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -631,13 +631,13 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu type="inline">
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 
@@ -684,13 +684,13 @@ describe('Menu', () => {
         // Render the Menu component with menu items and submenus
         render(
           <Menu type="inline">
-            <MenuItem label="Home" />
+            <MenuItem>Home</MenuItem>
             <Submenu label="Products">
-              <MenuItem label="Electronics" />
-              <MenuItem label="Clothing" />
-              <MenuItem label="Accessories" />
+              <MenuItem>Electronics</MenuItem>
+              <MenuItem>Clothing</MenuItem>
+              <MenuItem>Accessories</MenuItem>
             </Submenu>
-            <MenuItem label="Contacts" />
+            <MenuItem>Contacts</MenuItem>
           </Menu>,
         );
 

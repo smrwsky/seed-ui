@@ -1,15 +1,9 @@
 import { atoms } from '@seed-ui/styles';
-import {
-  ChangeEvent,
+import React, {
   cloneElement,
-  FocusEvent,
-  FocusEventHandler,
   forwardRef,
   isValidElement,
   memo,
-  ReactElement,
-  ReactNode,
-  RefAttributes,
   useEffect,
   useState,
 } from 'react';
@@ -20,54 +14,58 @@ import { InputBox, InputBoxSize } from '../InputBox';
 
 export type SelectSize = InputBoxSize;
 
-export type SelectValue = string | string[];
+export type SelectValue<IsMulti extends boolean> = IsMulti extends true
+  ? readonly string[]
+  : string | undefined;
 
-export interface SelectProps<TValue extends SelectValue = SelectValue> {
+export interface SelectProps<IsMulti extends boolean = false> {
   autoFocus?: boolean;
-  defaultValue?: TValue;
+  children?: React.ReactNode;
+  defaultValue?: SelectValue<IsMulti>;
   disabled?: boolean;
-  icon?: ReactElement;
   id?: string;
   invalid?: boolean;
   maxRows?: number;
-  multiple?: boolean;
+  multiple?: IsMulti;
   name?: string;
-  onBlur?: FocusEventHandler<HTMLSelectElement>;
-  onChange?: (value: TValue) => void;
-  onFocus?: FocusEventHandler<HTMLSelectElement>;
   size?: SelectSize;
-  value?: TValue;
-  children?: ReactNode;
+  startIcon?: React.ReactElement;
+  endIcon?: React.ReactElement;
+  value?: SelectValue<IsMulti>;
+  onBlur?: React.FocusEventHandler<HTMLSelectElement>;
+  onChange?: (value: SelectValue<IsMulti>) => void;
+  onFocus?: React.FocusEventHandler<HTMLSelectElement>;
 }
 
 export interface SelectFn {
-  <TValue extends SelectValue = SelectValue>(
-    props: SelectProps<TValue> & RefAttributes<HTMLSelectElement>,
-  ): ReactElement;
+  <IsMulti extends boolean = false>(
+    props: SelectProps<IsMulti> & React.RefAttributes<HTMLSelectElement>,
+  ): React.ReactElement;
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  (
+  <IsMulti extends boolean = false>(
     {
+      children,
       defaultValue,
       disabled,
-      icon,
+      id = 'select',
       invalid,
       maxRows,
       multiple,
       size = 'md',
-      id = 'select',
+      startIcon,
+      endIcon,
       value,
       onChange,
       onFocus,
       onBlur,
-      children,
       ...inputProps
-    },
-    ref,
+    }: SelectProps<IsMulti>,
+    ref: React.ForwardedRef<HTMLSelectElement>,
   ) => {
     const [valueState, setValueState] = useState<
-      string | number | readonly string[] | undefined
+      SelectValue<IsMulti> | undefined
     >(defaultValue);
 
     const [focused, setFocused] = useState(false);
@@ -78,19 +76,19 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       }
     }, [value]);
 
-    function handleChange(e: ChangeEvent<HTMLSelectElement>) {
+    function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
       const nextValue = multiple
         ? Array.from(e.target.selectedOptions, (v) => v.value)
         : e.target.value;
 
       if (typeof value === 'undefined' && !onChange) {
-        setValueState(nextValue);
+        setValueState(nextValue as SelectValue<IsMulti>);
       } else {
-        onChange?.(nextValue);
+        onChange?.(nextValue as SelectValue<IsMulti>);
       }
     }
 
-    function handleFocus(e: FocusEvent<HTMLSelectElement>): void {
+    function handleFocus(e: React.FocusEvent<HTMLSelectElement>): void {
       e.persist();
       setFocused(true);
 
@@ -99,7 +97,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       }
     }
 
-    function handleBlur(e: FocusEvent<HTMLSelectElement>): void {
+    function handleBlur(e: React.FocusEvent<HTMLSelectElement>): void {
       e.persist();
       setFocused(false);
 
@@ -118,14 +116,16 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         invalid={invalid}
         size={size}
       >
-        {isValidElement<IconProps>(icon) && (
-          <InputAction>{cloneElement(icon, { fontSize: 'lg' })}</InputAction>
+        {isValidElement<IconProps>(startIcon) && (
+          <InputAction>
+            {cloneElement(startIcon, { fontSize: 'lg' })}
+          </InputAction>
         )}
 
         <select
           {...inputProps}
           className={atoms({
-            paddingRight: multiple ? 0 : 7,
+            paddingRight: multiple ? 4 : 8,
             zIndex: 10,
           })}
           disabled={disabled}
@@ -141,7 +141,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           {children}
         </select>
 
-        {!multiple && !disabled && (
+        {!multiple && (
           <InputAction
             className={atoms({
               position: 'absolute',
@@ -151,8 +151,18 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
               my: 'auto',
             })}
           >
-            <Icon fontSize="lg" name="chevron-down" />
+            <Icon
+              className={atoms({
+                opacity: disabled ? 40 : 100,
+              })}
+              fontSize="lg"
+              name="chevron-down"
+            />
           </InputAction>
+        )}
+
+        {isValidElement<IconProps>(endIcon) && (
+          <InputAction>{cloneElement(endIcon, { fontSize: 'lg' })}</InputAction>
         )}
       </InputBox>
     );

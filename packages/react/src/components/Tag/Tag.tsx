@@ -1,30 +1,22 @@
 import { Atoms, atoms, textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
-  cloneElement,
-  forwardRef,
-  HTMLAttributes,
-  isValidElement,
-  KeyboardEvent,
-  ReactElement,
-  ReactNode,
-  useCallback,
-} from 'react';
+import React, { forwardRef, memo, useCallback } from 'react';
 
-import { Icon } from '../Icon';
+import { ClearIcon } from '../ClearIcon';
 
 export type TagSize = 'sm' | 'md';
 
 export interface TagProps
-  extends Omit<HTMLAttributes<HTMLSpanElement>, 'color'> {
+  extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'color'> {
   bg?: Atoms['bg'];
   borderColor?: Atoms['borderColor'];
   color?: Atoms['color'];
+  disabled?: boolean;
   removable?: boolean;
-  removeIcon?: ReactElement;
+  rounded?: boolean;
   size?: TagSize;
-  children?: ReactNode;
-  onRemove?: () => void;
+  children?: React.ReactNode;
+  onClick?: React.MouseEventHandler;
 }
 
 const sizeStyles = {
@@ -38,26 +30,16 @@ const sizeStyles = {
   }),
 };
 
-const iconStyles = atoms({
-  fontSize: 'sm',
-  transition: 'fade',
-  ml: 1,
-  cursor: 'pointer',
-  opacity: {
-    default: 65,
-    hover: 100,
-  },
-});
-
 const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
     {
       bg = 'primary100',
-      borderColor,
+      borderColor = 'transparent',
       color = 'primary700',
       className,
-      removable = false,
-      removeIcon,
+      disabled,
+      removable,
+      rounded,
       role,
       size = 'md',
       tabIndex,
@@ -68,15 +50,24 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
     },
     ref,
   ): JSX.Element => {
+    const isInteractive = (removable || Boolean(onClick)) && !disabled;
+
     const handleKeyDown = useCallback(
-      (e: KeyboardEvent<HTMLDivElement>) => {
-        if (removable && e.code === 'Delete') {
+      (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (disabled) {
+          return;
+        }
+
+        if (
+          (e.code === 'Delete' && removable) ||
+          ((e.code === 'Enter' || e.code === 'Space') && !removable)
+        ) {
           e.currentTarget.click();
         }
 
         onKeyDown?.(e);
       },
-      [removable, onKeyDown],
+      [disabled, removable, onKeyDown],
     );
 
     return (
@@ -86,9 +77,9 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
             display: 'inline-flex',
             alignItems: 'center',
             maxWidth: 'full',
-            borderRadius: 'tag',
+            borderRadius: rounded ? 'full' : 'sm',
             border: 'thin',
-            borderColor: borderColor || bg,
+            borderColor,
             color,
             fontFamily: 'primary',
             fontSize: 'xs',
@@ -98,14 +89,22 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
             bg,
             transition: 'base',
             overflow: 'hidden',
-            cursor: onClick ? 'pointer' : 'default',
+            pointerEvents: removable ? 'none' : 'auto',
+
+            ...(onClick && { cursor: 'pointer' }),
+
+            ...(disabled && {
+              cursor: 'not-allowed',
+            }),
           }),
           sizeStyles[size],
           className,
         )}
         ref={ref}
-        role={onClick && !role ? 'button' : role}
-        tabIndex={onClick && typeof tabIndex === 'undefined' ? 0 : tabIndex}
+        role={isInteractive && !role ? 'button' : role}
+        tabIndex={
+          isInteractive && typeof tabIndex === 'undefined' ? 0 : tabIndex
+        }
         onClick={onClick}
         onKeyDown={handleKeyDown}
         {...props}
@@ -121,13 +120,16 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
           {children}
         </span>
 
-        {removable &&
-          isValidElement<HTMLAttributes<HTMLElement>>(removeIcon) &&
-          cloneElement(removeIcon, {
-            className: cn(iconStyles, removeIcon.props.className),
-          })}
-
-        {removable && !removeIcon && <Icon className={iconStyles} name="x" />}
+        {removable && !disabled && (
+          <ClearIcon
+            className={atoms({
+              ml: 1,
+              pointerEvents: 'auto',
+            })}
+            data-testid="clear-icon"
+            fontSize="sm"
+          />
+        )}
       </span>
     );
   },
@@ -135,4 +137,4 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
 
 Tag.displayName = 'Tag';
 
-export default Tag;
+export default memo(Tag);

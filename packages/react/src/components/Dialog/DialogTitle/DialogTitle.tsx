@@ -1,12 +1,20 @@
+'use client';
+
 import { useId } from '@floating-ui/react';
-import { FC, useContext, useLayoutEffect } from 'react';
+import { atoms } from '@seed-ui/styles';
+import cn from 'classnames';
+import React, { useContext, useLayoutEffect } from 'react';
 
 import { Text, TextProps } from '../../Text';
 import { DialogContext } from '../Dialog.context';
 
 export type DialogTitleProps = Omit<TextProps, 'id'>;
 
-const DialogTitle: FC<DialogTitleProps> = ({ children, ...props }) => {
+const DialogTitle: React.FC<DialogTitleProps> = ({
+  children,
+  className,
+  ...props
+}) => {
   const id = useId();
   const { setTitleId } = useContext(DialogContext);
 
@@ -21,11 +29,16 @@ const DialogTitle: FC<DialogTitleProps> = ({ children, ...props }) => {
   return (
     <Text
       as="h1"
-      fontSize="xl"
-      fontWeight="bold"
+      className={cn(
+        atoms({
+          flex: 1,
+        }),
+        className,
+      )}
+      fontWeight="semiBold"
       id={id}
-      letterSpacing="tight"
-      lineHeight="tight"
+      letterSpacing="widest"
+      lineHeight="snug"
       {...props}
     >
       {children}

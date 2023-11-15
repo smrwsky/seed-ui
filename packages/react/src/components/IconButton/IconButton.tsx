@@ -1,13 +1,11 @@
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
+import React, {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
   cloneElement,
-  ElementType,
   forwardRef,
   isValidElement,
-  ReactElement,
 } from 'react';
 
 import { AvatarProps } from '../Avatar';
@@ -17,9 +15,9 @@ export type IconButtonSize = 'sm' | 'md' | 'lg';
 
 export type IconButtonVariant =
   | 'primary'
+  | 'accent'
   | 'secondary'
-  | 'outline'
-  | 'plain'
+  | 'tertiary'
   | 'success'
   | 'warning'
   | 'danger'
@@ -31,17 +29,22 @@ export interface IconButtonProps
   /**
    * Specifies the element type to be used for rendering the IconButton.
    */
-  as?: ElementType;
+  as?: React.ElementType;
 
   /**
-   * If true, the IconButton will expect an Avatar as its child.
+   * Specifies the avatar element to be rendered within the IconButton.
    */
-  avatar?: boolean;
+  avatar?: React.ReactElement;
 
   /**
-   * The content to be rendered inside the IconButton.
+   * If true, the IconButton will be disabled.
    */
-  children?: ReactElement;
+  disabled?: boolean;
+
+  /**
+   * If true, the IconButton will have a circle shape.
+   */
+  rounded?: boolean;
 
   /**
    * The size of the IconButton.
@@ -52,6 +55,11 @@ export interface IconButtonProps
    * The visual variant of the IconButton.
    */
   variant?: IconButtonVariant;
+
+  /**
+   * The content to be rendered inside the IconButton.
+   */
+  children?: React.ReactElement;
 }
 
 const buttonSizeStyle: Record<IconButtonSize, string> = {
@@ -71,53 +79,46 @@ const buttonVariantStyle: Record<IconButtonVariant, string> = {
     borderColor: 'transparent',
     color: {
       default: 'primary500',
-      visited: 'primary500',
-      disabled: 'neutral200',
+      disabled: 'neutral300',
     },
     bg: {
-      default: 'primary50',
-      hover: 'primary100',
-      active: 'primary200',
+      default: 'primary100',
+      hover: 'primary200',
+      active: 'primary300',
+      disabled: 'neutral50',
+    },
+  }),
+  accent: atoms({
+    borderColor: 'transparent',
+    color: {
+      default: 'accent500',
+      disabled: 'neutral300',
+    },
+    bg: {
+      default: 'accent100',
+      hover: 'accent200',
+      active: 'accent300',
       disabled: 'neutral50',
     },
   }),
   secondary: atoms({
     borderColor: 'transparent',
     color: {
-      default: 'secondary500',
-      visited: 'secondary500',
-      disabled: 'neutral200',
+      default: 'neutral900',
+      disabled: 'neutral300',
     },
     bg: {
-      default: 'secondary50',
-      hover: 'secondary100',
-      active: 'secondary200',
+      default: 'neutral100',
+      hover: 'neutral200',
+      active: 'neutral300',
       disabled: 'neutral50',
     },
   }),
-  outline: atoms({
-    borderColor: {
-      default: 'primary200',
-      disabled: 'neutral200',
-    },
-    color: {
-      default: 'primary500',
-      visited: 'primary500',
-      disabled: 'neutral200',
-    },
-    bg: {
-      default: 'transparent',
-      hover: 'primary100',
-      active: 'primary200',
-      disabled: 'transparent',
-    },
-  }),
-  plain: atoms({
+  tertiary: atoms({
     borderColor: 'transparent',
     color: {
-      default: 'neutral500',
-      visited: 'neutral500',
-      disabled: 'neutral200',
+      default: 'neutral900',
+      disabled: 'neutral300',
     },
     bg: {
       default: 'transparent',
@@ -130,13 +131,12 @@ const buttonVariantStyle: Record<IconButtonVariant, string> = {
     borderColor: 'transparent',
     color: {
       default: 'success500',
-      visited: 'success500',
-      disabled: 'neutral200',
+      disabled: 'neutral300',
     },
     bg: {
-      default: 'success50',
-      hover: 'success100',
-      active: 'success200',
+      default: 'success100',
+      hover: 'success200',
+      active: 'success300',
       disabled: 'neutral50',
     },
   }),
@@ -144,13 +144,12 @@ const buttonVariantStyle: Record<IconButtonVariant, string> = {
     borderColor: 'transparent',
     color: {
       default: 'warning500',
-      visited: 'warning500',
-      disabled: 'neutral200',
+      disabled: 'neutral300',
     },
     bg: {
-      default: 'warning50',
-      hover: 'warning100',
-      active: 'warning200',
+      default: 'warning100',
+      hover: 'warning200',
+      active: 'warning300',
       disabled: 'neutral50',
     },
   }),
@@ -158,13 +157,12 @@ const buttonVariantStyle: Record<IconButtonVariant, string> = {
     borderColor: 'transparent',
     color: {
       default: 'danger500',
-      visited: 'danger500',
-      disabled: 'neutral200',
+      disabled: 'neutral300',
     },
     bg: {
-      default: 'danger50',
-      hover: 'danger100',
-      active: 'danger200',
+      default: 'danger100',
+      hover: 'danger200',
+      active: 'danger300',
       disabled: 'neutral50',
     },
   }),
@@ -175,7 +173,6 @@ const buttonVariantStyle: Record<IconButtonVariant, string> = {
     },
     color: {
       default: 'white',
-      visited: 'white',
       disabled: 'light400',
     },
     bg: {
@@ -203,7 +200,8 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>(
   (
     {
       as: As = 'button',
-      avatar = false,
+      avatar,
+      rounded,
       size = 'md',
       type,
       variant = 'primary',
@@ -222,7 +220,7 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>(
           alignItems: 'center',
           justifyContent: 'center',
           border: 'thin',
-          borderRadius: 'iconButton',
+          borderRadius: rounded ? 'full' : 'md',
           lineHeight: 'none',
           transition: { default: 'base', active: 'none' },
         }),
@@ -234,8 +232,9 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>(
       type={As === 'button' && type == null ? 'button' : type}
     >
       {avatar &&
-        isValidElement<AvatarProps>(children) &&
-        cloneElement(children, {
+        isValidElement<AvatarProps>(avatar) &&
+        cloneElement(avatar, {
+          rounded,
           size: avatarSize[size],
         })}
 

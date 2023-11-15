@@ -1,13 +1,16 @@
+'use client';
+
 import { FloatingFocusManager, FloatingList } from '@floating-ui/react';
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import { FC, HTMLAttributes, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Transition } from 'react-transition-group';
 
 import { MenuContext } from '../Menu.context';
-import { MenuType, MenuVariant } from '../Menu.types';
+import { MenuType, MenuVariant } from '../types';
 
-export interface DropdownMenuItemsProps extends HTMLAttributes<HTMLDivElement> {
+export interface DropdownMenuItemsProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   initialFocus?: number;
 }
 
@@ -57,7 +60,7 @@ const variantStyles = (variant: MenuVariant) =>
         borderColor: 'neutral50',
       });
 
-const MenuItems: FC<DropdownMenuItemsProps> = ({
+const MenuItems: React.FC<DropdownMenuItemsProps> = ({
   children,
   className,
   initialFocus = 0,

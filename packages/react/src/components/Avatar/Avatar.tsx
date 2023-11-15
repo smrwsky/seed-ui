@@ -24,7 +24,7 @@ export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   /**
    * Image element to be rendered within the avatar.
    */
-  children?: ReactElement;
+  children?: ReactElement | null;
 
   /**
    * Additional class name(s) to apply to the avatar component.
@@ -42,31 +42,36 @@ export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   placeholder?: string;
 
   /**
+   * Sets the border-radius of the avatar to round.
+   */
+  rounded?: boolean;
+
+  /**
    * Size of the avatar.
    */
   size?: AvatarSize;
 }
 
-const rootSizeStyle: Record<AvatarSize, string> = {
-  xs: atoms({ size: 5 }),
-  sm: atoms({ size: 6 }),
-  md: atoms({ size: 8 }),
-  lg: atoms({ size: 12 }),
-  xl: atoms({ size: 16 }),
+const rootSizeStyle: Record<AvatarSize, Atoms> = {
+  xs: { size: 5, borderRadius: 'sm' },
+  sm: { size: 6, borderRadius: 'sm' },
+  md: { size: 8, borderRadius: 'sm' },
+  lg: { size: 12, borderRadius: 'md' },
+  xl: { size: 16, borderRadius: 'lg' },
 };
 
 const iconSizeStyle: Record<AvatarSize, string> = {
   xs: atoms({ fontSize: 'sm' }),
   sm: atoms({ fontSize: 'md' }),
-  md: atoms({ fontSize: '2xl' }),
-  lg: atoms({ fontSize: '4xl' }),
-  xl: atoms({ fontSize: '6xl' }),
+  md: atoms({ fontSize: 'xl' }),
+  lg: atoms({ fontSize: '3xl' }),
+  xl: atoms({ fontSize: '5xl' }),
 };
 
 const textSizeStyle: Record<AvatarSize, string> = {
   xs: atoms({ fontSize: 'xs' }),
   sm: atoms({ fontSize: 'xs' }),
-  md: atoms({ fontSize: 'md' }),
+  md: atoms({ fontSize: 'sm' }),
   lg: atoms({ fontSize: '2xl' }),
   xl: atoms({ fontSize: '4xl' }),
 };
@@ -85,6 +90,7 @@ const Avatar: FC<AvatarProps> = forwardRef<HTMLDivElement, AvatarProps>(
       bg = 'primary400',
       icon,
       placeholder,
+      rounded = false,
       size = 'md',
       className,
       children,
@@ -99,11 +105,11 @@ const Avatar: FC<AvatarProps> = forwardRef<HTMLDivElement, AvatarProps>(
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: 'full',
           overflow: 'hidden',
           bg,
+          ...rootSizeStyle[size],
+          ...(rounded && { borderRadius: 'full' }),
         }),
-        rootSizeStyle[size],
         className,
       )}
       ref={ref}

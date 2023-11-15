@@ -1,0 +1,43 @@
+import { Meta, ArgTypes, Canvas } from '@storybook/addon-docs';
+import Range, { Basic, Invalid, Disabled } from './Range.stories';
+
+<Meta of={Range} />
+
+# Range
+
+Input of type range
+
+## When To Use
+
+- When user needs to select a value from a range.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### Invalid
+
+Setting the `invalid` property to `true` indicates an error or issue with the input value.
+
+<Canvas of={Invalid} />
+
+### Disabled
+
+Disabled input
+
+<Canvas of={Disabled} />
+
+## Guidelines
+
+- Use Text component for providing a label that accurately describes
+the purpose of the input. Text component should be associated
+with the Autocomplete component using the "htmlFor" and "id" properties.
+
+- Use ErrorMessage component for providing error feedback to indicate
+that the input value is invalid.
+
+## API
+
+<ArgTypes />

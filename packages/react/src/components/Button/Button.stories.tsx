@@ -6,9 +6,9 @@ import Button, { ButtonProps, ButtonSize, ButtonVariant } from './Button';
 
 const variants: ButtonVariant[] = [
   'primary',
+  'accent',
   'secondary',
-  'outline',
-  'plain',
+  'tertiary',
   'success',
   'warning',
   'danger',
@@ -26,11 +26,11 @@ export default {
   },
 };
 
-export function Base(args: ButtonProps): JSX.Element {
+export function Basic(args: ButtonProps) {
   return <Button {...args} />;
 }
 
-export function Variants(args: ButtonProps): JSX.Element {
+export function Variants(args: ButtonProps) {
   return (
     <Flex flexWrap="wrap" mt="-4" mx="-2">
       {variants.map((variant, i) => (
@@ -44,7 +44,7 @@ export function Variants(args: ButtonProps): JSX.Element {
   );
 }
 
-export function Sizes(args: ButtonProps): JSX.Element {
+export function Sizes(args: ButtonProps) {
   return (
     <Flex alignItems="center" flexWrap="wrap" mt="-4" mx="-2">
       {sizes.map((size, i) => (
@@ -58,7 +58,7 @@ export function Sizes(args: ButtonProps): JSX.Element {
   );
 }
 
-export function WithIcon(args: ButtonProps): JSX.Element {
+export function WithIcon(args: ButtonProps) {
   return (
     <Flex flexWrap="wrap" mt="-4" mx="-2">
       <Box mt={4} px={2}>
@@ -74,4 +74,20 @@ export function WithIcon(args: ButtonProps): JSX.Element {
       </Box>
     </Flex>
   );
+}
+
+export function Loading(args: ButtonProps) {
+  return <Button {...args} loading />;
+}
+
+export function Disabled(args: ButtonProps) {
+  return <Button {...args} disabled />;
+}
+
+export function AsLink(args: ButtonProps) {
+  return <Button {...args} as="a" href="#" />;
+}
+
+export function Rounded(args: ButtonProps) {
+  return <Button {...args} rounded />;
 }

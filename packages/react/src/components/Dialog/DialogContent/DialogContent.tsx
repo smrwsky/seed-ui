@@ -1,3 +1,5 @@
+'use client';
+
 import {
   FloatingFocusManager,
   FloatingOverlay,
@@ -5,12 +7,12 @@ import {
 } from '@floating-ui/react';
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import { FC, HTMLAttributes, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Transition } from 'react-transition-group';
 
 import { DialogContext } from '../Dialog.context';
 
-export type DialogContentProps = HTMLAttributes<HTMLDivElement>;
+export type DialogContentProps = React.HTMLAttributes<HTMLDivElement>;
 
 const TRANSITION_TIMEOUT = {
   appear: 0,
@@ -20,34 +22,60 @@ const TRANSITION_TIMEOUT = {
 
 const overlaySizeStyles = {
   sm: atoms({
-    justifyContent: 'center',
+    justifyContent: {
+      mobile: 'flex-end',
+      mobileLg: 'center',
+    },
     overflowY: 'auto',
-    px: 2,
-    py: 4,
   }),
   md: atoms({
     justifyContent: 'center',
-    overflowY: 'auto',
-    px: 2,
-    py: 4,
+    overflowY: { mobile: 'hidden', tablet: 'auto' },
   }),
   lg: atoms({
     justifyContent: 'flex-start',
     overflowY: { mobile: 'hidden', tablet: 'auto' },
-    p: { mobile: 0, tablet: 4 },
   }),
 };
 
 const contentSizeStyles = {
   sm: atoms({
-    borderRadius: 'lg',
+    borderRadiusTop: 'lg',
+    borderRadiusBottom: {
+      mobile: 'none',
+      mobileLg: 'lg',
+    },
     boxShadow: 'md',
-    maxWidth: 'sm',
+    maxWidth: {
+      mobile: 'full',
+      mobileLg: 'sm',
+    },
+    overflow: 'hidden',
   }),
   md: atoms({
-    borderRadius: 'lg',
+    position: {
+      mobile: 'absolute',
+      tablet: 'static',
+    },
+    inset: 0,
+    width: 'full',
+    height: {
+      mobile: 'full',
+      tablet: 'auto',
+    },
+    borderRadius: {
+      mobile: 'none',
+      tablet: 'lg',
+    },
     boxShadow: 'md',
-    maxWidth: 'lg',
+    maxWidth: {
+      mobile: 'full',
+      tablet: 'lg',
+    },
+    overflow: {
+      mobile: 'auto',
+      tablet: 'hidden',
+    },
   }),
   lg: atoms({
     position: {
@@ -69,10 +97,6 @@ const contentSizeStyles = {
       tablet: 'lg',
     },
     boxShadow: 'md',
-    py: {
-      mobile: 14,
-      tablet: 0,
-    },
     overflow: {
       mobile: 'auto',
       tablet: 'hidden',
@@ -80,7 +104,7 @@ const contentSizeStyles = {
   }),
 };
 
-const DialogContent: FC<DialogContentProps> = ({
+const DialogContent: React.FC<DialogContentProps> = ({
   children,
   className,
   ...props
@@ -116,6 +140,8 @@ const DialogContent: FC<DialogContentProps> = ({
                 bg: 'dark500',
                 transition: 'fade',
                 opacity: status === 'entered' ? 100 : 0,
+                px: { mobile: 0, tablet: 4 },
+                py: { mobile: 0, tablet: 6 },
                 zIndex: 40,
               }),
               overlaySizeStyles[size],
@@ -129,10 +155,12 @@ const DialogContent: FC<DialogContentProps> = ({
                 aria-labelledby={titleId}
                 className={cn(
                   atoms({
+                    flex: 'none',
+                    display: 'flex',
+                    flexDirection: 'column',
                     width: 'full',
                     bg: 'white',
                     transition: 'base',
-                    overflow: 'hidden',
                     opacity: status === 'entered' ? 100 : 0,
                   }),
                   contentSizeStyles[size],
@@ -150,5 +178,7 @@ const DialogContent: FC<DialogContentProps> = ({
     </Transition>
   );
 };
+
+DialogContent.displayName = 'DialogContent';
 
 export default DialogContent;
