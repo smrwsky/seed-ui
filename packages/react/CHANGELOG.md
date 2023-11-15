@@ -1,6 +1,6 @@
 # @seed-ui/react
 
-## 1.0.0
+## 1.3.0
 
 ### Minor Changes
 
@@ -27,7 +27,7 @@
 - bf73179: Implemented Dialog, Menu and DropdownMenu components using @floating-ui/react.
 - Updated dependencies [b0e1e04]
 - Updated dependencies [1f456a1]
-  - @seed-ui/styles@1.0.0
+  - @seed-ui/styles@1.3.0
 
 ## 0.1.1
 
