@@ -108,7 +108,7 @@ if (process.env.NODE_ENV !== 'development') {
   );
 
   globalStyle('::placeholder', {
-    color: vars.color.neutral300,
+    color: vars.color.neutral400,
     opacity: 1,
   });
 
