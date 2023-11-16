@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 1.3.1
+
+### Patch Changes
+
+- d42e507: Updated neutral colors.
+
 ## 1.3.0
 
 ### Minor Changes
