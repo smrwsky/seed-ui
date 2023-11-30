@@ -1,5 +1,11 @@
 # @seed-ui/react
 
+## 1.3.4
+
+### Patch Changes
+
+- 85c8400: Updated Dropdown Menu border radius.
+
 ## 1.3.3
 
 ### Patch Changes
