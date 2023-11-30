@@ -15,8 +15,7 @@ export interface DialogFooterProps
 const sizeStyles = (size: DialogSize) =>
   size === 'sm'
     ? atoms({
-        px: 5,
-        py: 4,
+        p: 4,
       })
     : atoms({
         borderTop: {
@@ -24,10 +23,7 @@ const sizeStyles = (size: DialogSize) =>
           tablet: 'none',
         },
         borderColor: 'neutral100',
-        px: {
-          mobile: 4,
-          tablet: 5,
-        },
+        px: 4,
         py: {
           mobile: 2,
           tablet: 4,
@@ -50,6 +46,7 @@ const DialogFooter: React.FC<DialogFooterProps> = ({
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          minHeight: 14,
           bg: 'white',
           zIndex: 20,
         }),

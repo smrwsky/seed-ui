@@ -42,7 +42,7 @@ const typeStyles = (type: MenuType) =>
     : atoms({
         maxWidth: 'xs',
         maxHeight: 80,
-        borderRadius: 'md',
+        borderRadius: 'lg',
         border: 'thin',
         boxShadow: {
           default: 'lg',
