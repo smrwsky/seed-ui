@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 1.3.2
+
+### Patch Changes
+
+- 7537716: Updated grey colors.
+
 ## 1.3.1
 
 ### Patch Changes
