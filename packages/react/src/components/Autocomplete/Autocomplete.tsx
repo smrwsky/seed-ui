@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
 'use client';
 
 import {
@@ -11,8 +10,9 @@ import {
   useListNavigation,
   useRole,
   FloatingFocusManager,
+  FloatingPortal,
   useClick,
-  shift,
+  offset,
 } from '@floating-ui/react';
 import { useDebounceCallback } from '@react-hook/debounce';
 import { atoms } from '@seed-ui/styles';
@@ -33,7 +33,7 @@ import { useMergeRefs } from '../../utils/use-merge-refs';
 import { Box } from '../Box';
 import { ClearIcon } from '../ClearIcon';
 import { Flex } from '../Flex';
-import { Icon, IconProps } from '../Icon';
+import { IconProps } from '../Icon';
 import { InputAction } from '../InputAction';
 import { InputBox, InputBoxSize } from '../InputBox';
 import { Option, OptionProps } from '../Option';
@@ -209,6 +209,18 @@ const TRANSITION_TIMEOUT = {
   exit: 200,
 };
 
+const offsetXBySizeMap: Record<AutocompleteSize, number> = {
+  sm: -11,
+  md: -11,
+  lg: -15,
+};
+
+const offsetYBySizeMap: Record<AutocompleteSize, number> = {
+  sm: 6,
+  md: 10,
+  lg: 14,
+};
+
 function toInputValue<Value, IsMulti extends boolean>(
   value: Maybe<MaybeMultiValue<Value, IsMulti>>,
   getLabel: (value: Value) => string,
@@ -250,6 +262,7 @@ function toggleOption<Value>(value: Value, items: Value[]): Value[] {
 }
 
 const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
   <Value extends unknown = unknown, IsMulti extends boolean = false>(
     {
       autoFocus = false,
@@ -304,33 +317,32 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     const isControlled = typeof value !== 'undefined';
 
     const { refs, floatingStyles, context } = useFloating<HTMLInputElement>({
-      whileElementsMounted: autoUpdate,
-      open: isOpen,
-      onOpenChange: setIsOpen,
-      transform: false,
-      strategy: 'fixed',
       middleware: [
-        flip(),
-        shift(),
+        flip({ padding: 4 }),
+        offset({
+          mainAxis: offsetYBySizeMap[size],
+          alignmentAxis: startIcon
+            ? offsetXBySizeMap[size] - 24
+            : offsetXBySizeMap[size],
+        }),
         sizeFn({
           apply({ availableHeight, elements }) {
-            const {
-              offsetLeft = 0,
-              offsetTop = 0,
-              offsetWidth = 0,
-              offsetHeight = 0,
-            } = containerRef.current ?? {};
+            const { offsetWidth = 0 } = containerRef.current ?? {};
 
             Object.assign(elements.floating.style, {
-              top: `${offsetTop + offsetHeight}px`,
-              left: `${offsetLeft}px`,
-              width: `${offsetWidth ?? 0}px`,
+              width: `${offsetWidth + 4}px`,
               maxHeight: `${availableHeight}px`,
             });
           },
           padding: 10,
         }),
       ],
+      open: isOpen,
+      placement: 'bottom-start',
+      strategy: 'fixed',
+      transform: false,
+      whileElementsMounted: autoUpdate,
+      onOpenChange: setIsOpen,
     });
 
     const role = useRole(context, { role: 'listbox' });
@@ -537,7 +549,11 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           size={size}
         >
           {isValidElement<IconProps>(startIcon) && (
-            <InputAction>
+            <InputAction
+              className={atoms({
+                mr: 1,
+              })}
+            >
               {cloneElement(startIcon, { fontSize: 'lg' })}
             </InputAction>
           )}
@@ -598,7 +614,11 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             !readOnly &&
             isFocused &&
             (inputValue.length > 0 || selectedOptions.length > 0) && (
-              <InputAction>
+              <InputAction
+                className={atoms({
+                  ml: 1,
+                })}
+              >
                 <ClearIcon
                   aria-label={clearLabel}
                   color="neutral700"
@@ -611,7 +631,11 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             )}
 
           {isValidElement<IconProps>(endIcon) && (
-            <InputAction>
+            <InputAction
+              className={atoms({
+                ml: 1,
+              })}
+            >
               {cloneElement(endIcon, { fontSize: 'lg' })}
             </InputAction>
           )}
@@ -624,80 +648,78 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           unmountOnExit
         >
           {(status) => (
-            <FloatingFocusManager
-              context={context}
-              initialFocus={-1}
-              modal={false}
-            >
-              <ul
-                className={atoms({
-                  display: 'flex',
-                  flexDirection: 'column',
-                  borderRadius: 'md',
-                  border: 'thin',
-                  boxShadow: {
-                    default: 'lg',
-                    focusVisible: 'lg',
-                  },
-                  bg: 'white',
-                  borderColor: 'neutral50',
-                  opacity: status === 'entered' ? 100 : 0,
-                  transition: 'fade',
-                  overflowX: 'hidden',
-                  overflowY: 'auto',
-                  px: 0,
-                  py: 0.5,
-                  m: 0,
-                  zIndex: 10,
-                })}
-                id={slug(id, LISTBOX_ID)}
-                ref={refs.setFloating}
-                style={floatingStyles}
-                {...getFloatingProps()}
+            <FloatingPortal>
+              <FloatingFocusManager
+                context={context}
+                initialFocus={-1}
+                modal={false}
               >
-                {optionsState.map((item, idx) => (
-                  <OptionComponent
-                    active={idx === activeIndex}
-                    data-index={idx}
-                    endIcon={
-                      multiple && selectedOptions.includes(item) ? (
-                        <Icon color="primary500" fontSize="lg" name="check" />
-                      ) : undefined
-                    }
-                    id={slug(id, OPTION_ID, idx)}
-                    key={idx}
-                    option={item}
-                    selected={selectedOptions.includes(item)}
-                    {...getItemProps({
-                      ref: (node) => {
-                        listRef.current[idx] = node;
-                      },
-                      onClick: handleOptionClick,
-                    })}
-                  >
-                    {getLabel(item)}
-                  </OptionComponent>
-                ))}
+                <ul
+                  className={atoms({
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: 'lg',
+                    border: 'thin',
+                    boxShadow: {
+                      default: 'lg',
+                      focusVisible: 'lg',
+                    },
+                    bg: 'white',
+                    borderColor: 'neutral100',
+                    opacity: status === 'entered' ? 100 : 0,
+                    transition: 'fade',
+                    overflowX: 'hidden',
+                    overflowY: 'auto',
+                    px: 0,
+                    py: 0.5,
+                    m: 0,
+                    zIndex: 10,
+                  })}
+                  id={slug(id, LISTBOX_ID)}
+                  ref={refs.setFloating}
+                  style={floatingStyles}
+                  {...getFloatingProps()}
+                >
+                  {optionsState.map((item, idx) => (
+                    <OptionComponent
+                      active={idx === activeIndex}
+                      data-index={idx}
+                      id={slug(id, OPTION_ID, idx)}
+                      key={idx}
+                      multiple={multiple}
+                      option={item}
+                      selected={selectedOptions.includes(item)}
+                      {...getItemProps({
+                        ref: (node) => {
+                          listRef.current[idx] = node;
+                        },
+                        onClick: handleOptionClick,
+                      })}
+                    >
+                      {getLabel(item)}
+                    </OptionComponent>
+                  ))}
 
-                {loading && (
-                  <Option disabled role="none">
-                    {loadingLabel}
-                  </Option>
-                )}
+                  {loading && (
+                    <Option disabled role="none">
+                      {loadingLabel}
+                    </Option>
+                  )}
 
-                {!loading && loadingError && (
-                  <Option disabled role="alert">
-                    {loadingError}
-                  </Option>
-                )}
+                  {!loading && loadingError && (
+                    <Option disabled role="alert">
+                      {loadingError}
+                    </Option>
+                  )}
 
-                {!loading && !loadingError && optionsState.length === 0 && (
-                  <Option disabled role="none">
-                    {noResultLabel}
-                  </Option>
-                )}
-              </ul>
-            </FloatingFocusManager>
+                  {!loading && !loadingError && optionsState.length === 0 && (
+                    <Option disabled role="none">
+                      {noResultLabel}
+                    </Option>
+                  )}
+                </ul>
+              </FloatingFocusManager>
+            </FloatingPortal>
           )}
         </Transition>
       </>

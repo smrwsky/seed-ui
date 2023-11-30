@@ -21,6 +21,9 @@ const sizes: MenuProps['size'][] = ['sm', 'md', 'lg'];
 export default {
   title: 'Navigation/Menu',
   component: Menu,
+  args: {
+    variant: 'primary',
+  },
 };
 
 const Template: StoryFn<MenuProps> = (args) => (
@@ -36,7 +39,11 @@ const Template: StoryFn<MenuProps> = (args) => (
     <MenuItem
       endIcon={
         <Icon
-          color={args.variant === 'dark' ? 'white' : 'accent500'}
+          color={
+            args.variant === 'primary' || args.type === 'horizontal'
+              ? 'accent500'
+              : 'white'
+          }
           fontSize="lg"
           name="crown"
           type="solid"

@@ -34,7 +34,7 @@ const Dialog: React.FC<DialogProps> = ({
   onOpenChange,
 }) => {
   const [openState, setOpenState] = useState(() => open ?? false);
-  const [titleId, setTitleId] = useState<string | undefined>();
+  const [labelId, setLabelId] = useState<string | undefined>();
   const [descriptionId, setDescriptionId] = useState<string | undefined>();
   const isControlled = open !== undefined;
 
@@ -74,16 +74,16 @@ const Dialog: React.FC<DialogProps> = ({
   const dialogCxt = useMemo<DialogContextType>(
     () => ({
       context,
-      closeDialog,
-      getReferenceProps,
-      getFloatingProps,
+      descriptionId,
       open: openState,
+      labelId,
       refs,
       size,
-      titleId,
-      setTitleId,
-      descriptionId,
+      closeDialog,
+      getFloatingProps,
+      getReferenceProps,
       setDescriptionId,
+      setLabelId,
     }),
     [
       context,
@@ -93,7 +93,7 @@ const Dialog: React.FC<DialogProps> = ({
       openState,
       refs,
       size,
-      titleId,
+      labelId,
       descriptionId,
     ],
   );

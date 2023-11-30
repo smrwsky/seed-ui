@@ -41,6 +41,7 @@ const Menu: React.FC<MenuProps> = ({
 
   const { refs, context, floatingStyles } = useFloating<HTMLButtonElement>({
     open: true,
+    strategy: 'absolute',
     whileElementsMounted: autoUpdate,
   });
 

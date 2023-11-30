@@ -1,22 +1,22 @@
 import { useContext } from 'react';
 
-import { DialogContext } from './Dialog.context';
+import { PopoverContext } from './Popover.context';
 
-export function useDialog() {
+export function usePopover() {
   const {
-    closeDialog,
     descriptionId,
+    labelId,
     open,
+    closePopover,
     setDescriptionId,
     setLabelId,
-    labelId,
-  } = useContext(DialogContext);
+  } = useContext(PopoverContext);
 
   return {
     descriptionId,
     labelId,
     open,
-    closeDialog,
+    closePopover,
     setDescriptionId,
     setLabelId,
   };

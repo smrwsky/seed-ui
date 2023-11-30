@@ -21,7 +21,6 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DropdownMenuTrigger } from '../DropdownMenuTrigger';
 import { MenuContext, MenuContextType } from '../Menu.context';
 import { MenuItems } from '../MenuItems';
-import { MenuVariant } from '../types';
 
 type DropdownMenuPlacement = Placement;
 
@@ -38,15 +37,13 @@ export interface DropdownMenuProps {
   offset?: number | DropdownMenuOffsetOptions;
   placement?: DropdownMenuPlacement;
   strategy?: DropdownMenuStrategy;
-  variant?: MenuVariant;
 }
 
 const DropdownMenuBase: React.FC<DropdownMenuProps> = ({
   children,
-  offset = 0,
+  offset = 4,
   placement = 'bottom-start',
   strategy = 'fixed',
-  variant = 'primary',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasFocusInside, setHasFocusInside] = useState(false);
@@ -115,7 +112,7 @@ const DropdownMenuBase: React.FC<DropdownMenuProps> = ({
       setHasFocusInside,
       size: 'sm',
       type: 'vertical',
-      variant,
+      variant: 'secondary',
     }),
     [
       activeIndex,
@@ -127,7 +124,6 @@ const DropdownMenuBase: React.FC<DropdownMenuProps> = ({
       hasFocusInside,
       isOpen,
       refs,
-      variant,
     ],
   );
 

@@ -149,7 +149,7 @@ export function WithIcon(args: NumericInputProps) {
           {...args}
           id="numeric-input-with-start-icon"
           startIcon={
-            <Icon color="neutral400" name="purchase-tag" type="solid" />
+            <Icon color="neutral500" name="purchase-tag" type="solid" />
           }
         />
       </Box>

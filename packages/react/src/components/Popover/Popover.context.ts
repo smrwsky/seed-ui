@@ -1,16 +1,15 @@
 import { ExtendedRefs, FloatingContext } from '@floating-ui/react';
-import React, { createContext } from 'react';
+import React from 'react';
 
-import { DialogSize } from './types';
-
-export interface DialogContextType {
+export interface PopoverContextType {
   context: FloatingContext;
   descriptionId: string | undefined;
-  labelId: string | undefined;
+  floatingStyles: React.CSSProperties;
   open: boolean;
+  labelId: string | undefined;
+  modal: boolean;
   refs: ExtendedRefs<Element>;
-  size: DialogSize;
-  closeDialog: () => void;
+  closePopover: () => void;
   getFloatingProps: (
     userProps?: React.HTMLAttributes<Element>,
   ) => Record<string, unknown>;
@@ -21,22 +20,23 @@ export interface DialogContextType {
   setLabelId: (titleId: string | undefined) => void;
 }
 
-export const DialogContext = createContext<DialogContextType>({
+export const PopoverContext = React.createContext<PopoverContextType>({
   context: {} as FloatingContext,
   descriptionId: undefined,
-  labelId: undefined,
+  floatingStyles: {},
   open: false,
   refs: {} as ExtendedRefs<Element>,
-  size: 'md',
-  closeDialog: () => {
+  labelId: undefined,
+  modal: false,
+  closePopover: () => {
     // Do nothing
   },
   getFloatingProps: () => ({}),
   getReferenceProps: () => ({}),
-  setLabelId: () => {
+  setDescriptionId: () => {
     // Do nothing
   },
-  setDescriptionId: () => {
+  setLabelId: () => {
     // Do nothing
   },
 });

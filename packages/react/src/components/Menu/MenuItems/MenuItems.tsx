@@ -1,10 +1,14 @@
 'use client';
 
-import { FloatingFocusManager, FloatingList } from '@floating-ui/react';
+import {
+  FloatingFocusManager,
+  FloatingList,
+  FloatingPortal,
+} from '@floating-ui/react';
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
 import React, { useContext } from 'react';
-import { Transition } from 'react-transition-group';
+import { Transition, TransitionStatus } from 'react-transition-group';
 
 import { MenuContext } from '../Menu.context';
 import { MenuType, MenuVariant } from '../types';
@@ -57,7 +61,7 @@ const variantStyles = (variant: MenuVariant) =>
       })
     : atoms({
         bg: 'white',
-        borderColor: 'neutral50',
+        borderColor: 'neutral100',
       });
 
 const MenuItems: React.FC<DropdownMenuItemsProps> = ({
@@ -78,6 +82,44 @@ const MenuItems: React.FC<DropdownMenuItemsProps> = ({
     variant,
   } = useContext(MenuContext);
 
+  const renderContent = (status: TransitionStatus) => (
+    <FloatingFocusManager
+      context={context}
+      initialFocus={initialFocus}
+      modal={false}
+    >
+      <div
+        {...props}
+        className={cn(
+          atoms({
+            display: 'flex',
+            flexDirection: 'column',
+            m: 0,
+            zIndex: 10,
+          }),
+          typeStyles(type),
+          variantStyles(variant),
+          type === 'inline'
+            ? atoms({
+                transition: 'collapse',
+                maxHeight: status === 'entered' ? 96 : 0,
+                overflow: 'hidden',
+              })
+            : atoms({
+                opacity: status === 'entered' ? 100 : 0,
+                transition: 'fade',
+              }),
+          className,
+        )}
+        ref={refs.setFloating}
+        style={type === 'inline' ? undefined : floatingStyles}
+        {...getFloatingProps()}
+      >
+        {children}
+      </div>
+    </FloatingFocusManager>
+  );
+
   return (
     <FloatingList elementsRef={elementsRef} labelsRef={labelsRef}>
       <Transition
@@ -90,42 +132,13 @@ const MenuItems: React.FC<DropdownMenuItemsProps> = ({
         }
         unmountOnExit
       >
-        {(status) => (
-          <FloatingFocusManager
-            context={context}
-            initialFocus={initialFocus}
-            modal={false}
-          >
-            <div
-              {...props}
-              className={cn(
-                atoms({
-                  display: 'flex',
-                  flexDirection: 'column',
-                  m: 0,
-                }),
-                typeStyles(type),
-                variantStyles(variant),
-                type === 'inline'
-                  ? atoms({
-                      transition: 'collapse',
-                      maxHeight: status === 'entered' ? 96 : 0,
-                      overflow: 'hidden',
-                    })
-                  : atoms({
-                      opacity: status === 'entered' ? 100 : 0,
-                      transition: 'fade',
-                    }),
-                className,
-              )}
-              ref={refs.setFloating}
-              style={type === 'inline' ? undefined : floatingStyles}
-              {...getFloatingProps()}
-            >
-              {children}
-            </div>
-          </FloatingFocusManager>
-        )}
+        {(status) =>
+          type === 'inline' ? (
+            renderContent(status)
+          ) : (
+            <FloatingPortal>{renderContent(status)}</FloatingPortal>
+          )
+        }
       </Transition>
     </FloatingList>
   );

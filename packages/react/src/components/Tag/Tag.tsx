@@ -1,3 +1,5 @@
+'use client';
+
 import { Atoms, atoms, textTruncate } from '@seed-ui/styles';
 import cn from 'classnames';
 import React, { forwardRef, memo, useCallback } from 'react';
