@@ -24,6 +24,7 @@ export * from './components/Message';
 export * from './components/NumericInput';
 export * from './components/OList';
 export * from './components/Option';
+export * from './components/Popover';
 export * from './components/Quote';
 export * from './components/Radio';
 export * from './components/Range';

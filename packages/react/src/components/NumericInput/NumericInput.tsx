@@ -1,5 +1,6 @@
 'use client';
 
+import { atoms } from '@seed-ui/styles';
 import React, {
   cloneElement,
   forwardRef,
@@ -106,7 +107,11 @@ const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
         size={size}
       >
         {isValidElement<IconProps>(startIcon) && (
-          <InputAction>
+          <InputAction
+            className={atoms({
+              mr: 1,
+            })}
+          >
             {cloneElement(startIcon, { fontSize: 'lg' })}
           </InputAction>
         )}
@@ -123,7 +128,13 @@ const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
         />
 
         {isValidElement<IconProps>(endIcon) && (
-          <InputAction>{cloneElement(endIcon, { fontSize: 'lg' })}</InputAction>
+          <InputAction
+            className={atoms({
+              ml: 1,
+            })}
+          >
+            {cloneElement(endIcon, { fontSize: 'lg' })}
+          </InputAction>
         )}
       </InputBox>
     );

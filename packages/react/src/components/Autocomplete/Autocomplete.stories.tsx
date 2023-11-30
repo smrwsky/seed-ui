@@ -122,7 +122,7 @@ export function WithIcon(args: AutocompleteProps) {
           {...args}
           id="autocomplete-with-start-icon"
           options={OPTIONS_LIST}
-          startIcon={<Icon color="neutral400" name="search" />}
+          startIcon={<Icon color="neutral500" name="search" />}
         />
       </Box>
 

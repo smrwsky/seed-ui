@@ -1,3 +1,5 @@
+'use client';
+
 import { defaultTheme } from '@seed-ui/styles';
 import { FC, ReactNode, useLayoutEffect } from 'react';
 

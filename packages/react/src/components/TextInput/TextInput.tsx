@@ -1,3 +1,6 @@
+'use client';
+
+import { atoms } from '@seed-ui/styles';
 import React, {
   cloneElement,
   forwardRef,
@@ -125,7 +128,11 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         size={size}
       >
         {isValidElement<IconProps>(startIcon) && (
-          <InputAction>
+          <InputAction
+            className={atoms({
+              mr: 1,
+            })}
+          >
             {cloneElement(startIcon, { fontSize: 'lg' })}
           </InputAction>
         )}
@@ -144,7 +151,11 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         />
 
         {isClearable && (
-          <InputAction>
+          <InputAction
+            className={atoms({
+              ml: 1,
+            })}
+          >
             <ClearIcon
               aria-label={clearLabel}
               color="neutral700"
@@ -158,7 +169,13 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         )}
 
         {isValidElement<IconProps>(endIcon) && (
-          <InputAction>{cloneElement(endIcon, { fontSize: 'lg' })}</InputAction>
+          <InputAction
+            className={atoms({
+              ml: 1,
+            })}
+          >
+            {cloneElement(endIcon, { fontSize: 'lg' })}
+          </InputAction>
         )}
       </InputBox>
     );

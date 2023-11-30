@@ -215,7 +215,6 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>(
       {...elemProps}
       className={cn(
         atoms({
-          position: 'relative',
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',

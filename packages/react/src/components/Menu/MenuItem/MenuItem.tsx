@@ -59,7 +59,6 @@ const MenuItem: React.FC<MenuItemProps> = ({
   return (
     <MenuButton
       {...props}
-      active={isActive}
       collapsed={collapsed}
       indent={indent}
       ref={item.ref}

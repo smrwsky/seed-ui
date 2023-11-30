@@ -1,3 +1,5 @@
+'use client';
+
 import { atoms } from '@seed-ui/styles';
 import React, {
   cloneElement,
@@ -117,7 +119,11 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         size={size}
       >
         {isValidElement<IconProps>(startIcon) && (
-          <InputAction>
+          <InputAction
+            className={atoms({
+              mr: 1,
+            })}
+          >
             {cloneElement(startIcon, { fontSize: 'lg' })}
           </InputAction>
         )}

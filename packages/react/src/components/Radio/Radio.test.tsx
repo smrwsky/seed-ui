@@ -32,10 +32,10 @@ describe('Radio', () => {
     });
   });
 
-  describe('Given the Radio component with the `checked` prop', () => {
+  describe('Given the Radio component with `checked` and `readOnly` props', () => {
     describe('When it is rendered', () => {
       it('Then it should be checked', () => {
-        render(<Radio checked />);
+        render(<Radio checked readOnly />);
         expect(screen.getByRole('radio')).toBeChecked();
       });
     });

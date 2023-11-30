@@ -145,7 +145,7 @@ export function WithIcon(args: TextInputProps) {
         <TextInput
           {...args}
           id="text-input-with-start-icon"
-          startIcon={<Icon color="neutral400" name="search" />}
+          startIcon={<Icon color="neutral500" name="search" />}
         />
       </Box>
 

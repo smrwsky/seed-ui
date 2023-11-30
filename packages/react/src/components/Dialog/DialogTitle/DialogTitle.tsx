@@ -16,15 +16,15 @@ const DialogTitle: React.FC<DialogTitleProps> = ({
   ...props
 }) => {
   const id = useId();
-  const { setTitleId } = useContext(DialogContext);
+  const { setLabelId } = useContext(DialogContext);
 
   useLayoutEffect(() => {
-    setTitleId(id);
+    setLabelId(id);
 
     return () => {
-      setTitleId(undefined);
+      setLabelId(undefined);
     };
-  }, [id, setTitleId]);
+  }, [id, setLabelId]);
 
   return (
     <Text
@@ -37,8 +37,6 @@ const DialogTitle: React.FC<DialogTitleProps> = ({
       )}
       fontWeight="semiBold"
       id={id}
-      letterSpacing="widest"
-      lineHeight="snug"
       {...props}
     >
       {children}

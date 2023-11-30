@@ -115,7 +115,7 @@ const DialogContent: React.FC<DialogContentProps> = ({
     open,
     refs,
     size,
-    titleId,
+    labelId,
     descriptionId,
   } = useContext(DialogContext);
 
@@ -142,7 +142,7 @@ const DialogContent: React.FC<DialogContentProps> = ({
                 opacity: status === 'entered' ? 100 : 0,
                 px: { mobile: 0, tablet: 4 },
                 py: { mobile: 0, tablet: 6 },
-                zIndex: 40,
+                zIndex: 30,
               }),
               overlaySizeStyles[size],
             )}
@@ -152,7 +152,7 @@ const DialogContent: React.FC<DialogContentProps> = ({
               <div
                 {...props}
                 aria-describedby={descriptionId}
-                aria-labelledby={titleId}
+                aria-labelledby={labelId}
                 className={cn(
                   atoms({
                     flex: 'none',

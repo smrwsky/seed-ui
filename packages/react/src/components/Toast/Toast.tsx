@@ -1,3 +1,5 @@
+'use client';
+
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
 import {

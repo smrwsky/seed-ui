@@ -1,7 +1,7 @@
 import React, { forwardRef, memo } from 'react';
 
 export interface RadioProps
-  extends Omit<React.HTMLAttributes<HTMLInputElement>, 'type'> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;

@@ -192,16 +192,14 @@ describe('Menu', () => {
         );
 
         // Simulate a click on a submenu item
-        await userEvent.click(screen.getAllByRole('menuitem')[1]);
+        await userEvent.click(screen.getByText('Products'));
 
         await waitFor(() => {
           // Assert that the submenu is visible after hovering
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
         });
 
-        const updatedMenuItems = screen.getAllByRole('menuitem');
-
-        await userEvent.click(updatedMenuItems[3]);
+        await userEvent.click(screen.getByText('Clothing'));
         // Assert that the associated action has been triggered
         expect(mockAction).toHaveBeenCalledTimes(1);
       });
@@ -244,7 +242,7 @@ describe('Menu', () => {
         await waitFor(() => {
           // Assert that the submenu is expanded and the first submenu item is focused
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
-          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
       });
     });
@@ -288,7 +286,7 @@ describe('Menu', () => {
         await userEvent.keyboard('{arrowright}');
 
         await waitFor(() => {
-          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
 
         await userEvent.keyboard('{arrowdown}');
@@ -300,7 +298,7 @@ describe('Menu', () => {
         await userEvent.keyboard('{arrowup}');
 
         await waitFor(() => {
-          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
       });
     });
@@ -341,13 +339,13 @@ describe('Menu', () => {
         await waitFor(() => {
           // Assert that the submenu is expanded
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
-          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
 
         await userEvent.keyboard('{arrowdown}');
 
         await waitFor(() => {
-          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[4]).toHaveFocus();
         });
 
         await userEvent.keyboard('{enter}');
@@ -392,7 +390,7 @@ describe('Menu', () => {
         await waitFor(() => {
           // Assert that the submenu is expanded
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
-          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
 
         await userEvent.keyboard('{arrowleft}');
@@ -408,7 +406,7 @@ describe('Menu', () => {
         await waitFor(() => {
           // Assert that the submenu is expanded
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
-          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
 
         await userEvent.keyboard('{escape}');
@@ -458,7 +456,7 @@ describe('Menu', () => {
         await waitFor(() => {
           // Assert that the submenu is expanded and the first submenu item is focused
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
-          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
 
         // Go back to the parent menu item
@@ -475,7 +473,7 @@ describe('Menu', () => {
         await waitFor(() => {
           // Assert that the submenu is expanded and the first submenu item is focused
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
-          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
       });
     });
@@ -601,7 +599,7 @@ describe('Menu', () => {
         await waitFor(() => {
           // Assert that the submenu is expanded and the first submenu item is focused
           expect(screen.getAllByRole('menuitem')).toHaveLength(6);
-          expect(screen.getAllByRole('menuitem')[2]).toHaveFocus();
+          expect(screen.getAllByRole('menuitem')[3]).toHaveFocus();
         });
       });
     });

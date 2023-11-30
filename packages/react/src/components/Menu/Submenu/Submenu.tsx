@@ -143,7 +143,7 @@ const Submenu: React.FC<SubMenuProps> = ({
       setHasFocusInside,
       size: parent.type === 'inline' ? parent.size : 'sm',
       type: parent.type === 'inline' ? 'inline' : 'vertical',
-      variant: parent.variant,
+      variant: parent.variant === 'dark' ? 'dark' : 'secondary',
     }),
     [
       activeIndex,
@@ -201,7 +201,6 @@ const Submenu: React.FC<SubMenuProps> = ({
     <FloatingNode id={nodeId}>
       <MenuButton
         {...props}
-        active={isActive}
         collapsed={parent.collapsed}
         endIcon={
           parent.type === 'vertical' ? (

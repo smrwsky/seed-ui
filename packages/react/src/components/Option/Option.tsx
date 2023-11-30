@@ -1,6 +1,6 @@
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import {
+import React, {
   cloneElement,
   forwardRef,
   isValidElement,
@@ -8,16 +8,16 @@ import {
   ReactElement,
 } from 'react';
 
-import { IconProps } from '../Icon';
+import { Icon, IconProps } from '../Icon';
 
 export interface OptionProps extends LiHTMLAttributes<HTMLLIElement> {
   active?: boolean;
   description?: string;
   disabled?: boolean;
+  icon?: ReactElement;
   option?: unknown;
+  multiple?: boolean;
   selected?: boolean;
-  startIcon?: ReactElement;
-  endIcon?: ReactElement;
 }
 
 const Option = forwardRef<HTMLLIElement, OptionProps>(
@@ -26,12 +26,12 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
       active,
       children,
       className,
+      icon,
       disabled,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       option,
+      multiple,
       selected,
-      startIcon,
-      endIcon,
       ...props
     },
     ref,
@@ -47,25 +47,39 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            minWidth: 36,
+            minWidth: 40,
             borderRadius: 'md',
             color: 'neutral900',
             textDecoration: { default: 'none', hover: 'none' },
             bg: { hover: 'dark50' },
             transition: 'base',
-            px: 1,
-            py: 0.5,
+            p: 1.5,
             mx: 1,
             my: 0.5,
             cursor: 'pointer',
 
             ...(active && {
-              bg: 'dark50',
+              bg: 'neutral100',
             }),
 
-            ...(selected && {
-              bg: 'primary50',
-            }),
+            ...(selected &&
+              multiple && {
+                bg: {
+                  default: active ? 'primary200' : 'primary100',
+                  hover: 'primary200',
+                  active: 'primary300',
+                },
+              }),
+
+            ...(selected &&
+              !multiple && {
+                color: 'white',
+                bg: {
+                  default: active ? 'primary400' : 'primary500',
+                  hover: 'primary400',
+                  active: 'primary600',
+                },
+              }),
 
             ...(disabled && {
               color: 'neutral200',
@@ -79,15 +93,15 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
         role="option"
         {...props}
       >
-        {isValidElement<IconProps>(startIcon) &&
-          cloneElement(startIcon, {
+        {isValidElement<IconProps>(icon) &&
+          cloneElement(icon, {
             className: atoms({
               color: 'neutral500',
               fontSize: 'xl',
               mx: 1.5,
 
               ...(selected && {
-                color: 'primary500',
+                color: multiple ? 'primary500' : 'white',
               }),
 
               ...(disabled && {
@@ -113,16 +127,16 @@ const Option = forwardRef<HTMLLIElement, OptionProps>(
           {children}
         </span>
 
-        {isValidElement<IconProps>(endIcon) &&
-          cloneElement(endIcon, {
-            className: cn(
-              atoms({
-                fontSize: 'xl',
-                mx: 1.5,
-              }),
-              endIcon.props.className,
-            ),
-          })}
+        {selected && multiple && (
+          <Icon
+            className={atoms({
+              mx: 1.5,
+            })}
+            color="primary500"
+            fontSize="xl"
+            name="check"
+          />
+        )}
       </li>
     );
   },

@@ -30,6 +30,7 @@ export interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLElement>, 'type'>,
     AnchorHTMLAttributes<HTMLElement> {
   as?: ElementType;
+  block?: boolean;
   disabled?: boolean;
   loading?: boolean;
   rounded?: boolean;
@@ -167,6 +168,7 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
   (
     {
       as: As = 'button',
+      block = false,
       rounded = false,
       size = 'md',
       startIcon,
@@ -184,7 +186,7 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
       className={cn(
         atoms({
           position: 'relative',
-          display: 'inline-flex',
+          display: block ? 'flex' : 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: rounded ? 'full' : 'md',

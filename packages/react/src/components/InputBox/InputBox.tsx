@@ -2,8 +2,6 @@ import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 
-import { Flex } from '../Flex';
-
 export type InputBoxSize = 'sm' | 'md' | 'lg';
 
 export interface InputBoxProps extends HTMLAttributes<HTMLDivElement> {
@@ -17,19 +15,16 @@ export interface InputBoxProps extends HTMLAttributes<HTMLDivElement> {
 
 const sizeStyles = {
   sm: atoms({
-    minHeight: 7,
-    px: 1,
-    py: 0,
-  }),
-  md: atoms({
-    minHeight: 9,
-    px: 1,
+    px: 2,
     py: 0.5,
   }),
-  lg: atoms({
-    minHeight: 11,
+  md: atoms({
     px: 2,
-    py: 1,
+    py: 1.5,
+  }),
+  lg: atoms({
+    px: 3,
+    py: 2.5,
   }),
 };
 
@@ -47,10 +42,11 @@ const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
     },
     ref,
   ) => (
-    <Flex
-      alignItems="center"
+    <div
       className={cn(
         atoms({
+          display: 'flex',
+          alignItems: 'center',
           borderRadius: 'md',
           border: 'thin',
           borderColor: {
@@ -95,7 +91,7 @@ const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
       {...elementProps}
     >
       {children}
-    </Flex>
+    </div>
   ),
 );
 

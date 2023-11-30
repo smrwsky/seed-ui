@@ -75,19 +75,19 @@ describe('Range', () => {
     });
   });
 
-  describe('Given the Range component with the `value` prop', () => {
+  describe('Given the Range component with the `value` and `readOnly` props', () => {
     describe('When it is rendered', () => {
       it('Then it should render with the value', () => {
-        render(<Range value={100} />);
+        render(<Range readOnly value={100} />);
         expect(screen.getByRole('slider')).toHaveValue('100');
       });
     });
 
     describe('When the `value` prop changes', () => {
       it('Then it should render with the new value', () => {
-        const { rerender } = render(<Range value={80} />);
+        const { rerender } = render(<Range readOnly value={80} />);
         expect(screen.getByRole('slider')).toHaveValue('80');
-        rerender(<Range value={100} />);
+        rerender(<Range readOnly value={100} />);
         expect(screen.getByRole('slider')).toHaveValue('100');
       });
     });

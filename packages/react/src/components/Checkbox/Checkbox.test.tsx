@@ -32,19 +32,19 @@ describe('Checkbox', () => {
     });
   });
 
-  describe('Given the Checkbox component with the `checked` prop', () => {
+  describe('Given the Checkbox component with the `checked` and `readOnly` props', () => {
     describe('When it is rendered', () => {
       it('Then it should be checked', () => {
-        render(<Checkbox checked />);
+        render(<Checkbox checked readOnly />);
         expect(screen.getByRole('checkbox')).toBeChecked();
       });
     });
 
     describe('When the `checked` prop changes', () => {
       it('Then it should render with the new value', () => {
-        const { rerender } = render(<Checkbox checked />);
+        const { rerender } = render(<Checkbox checked readOnly />);
         expect(screen.getByRole('checkbox')).toBeChecked();
-        rerender(<Checkbox checked={false} />);
+        rerender(<Checkbox checked={false} readOnly />);
         expect(screen.getByRole('checkbox')).not.toBeChecked();
       });
     });
