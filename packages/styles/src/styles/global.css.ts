@@ -102,8 +102,7 @@ if (process.env.NODE_ENV !== 'development') {
       letterSpacing: vars.letterSpacing.wider,
       lineHeight: vars.lineHeight.normal,
       background: 'transparent',
-      padding: '0 0.25rem',
-      cursor: 'pointer',
+      cursor: 'text',
     },
   );
 
@@ -120,6 +119,7 @@ if (process.env.NODE_ENV !== 'development') {
       color: vars.color.neutral900,
       opacity: 0.4,
       WebkitTextFillColor: vars.color.neutral900,
+      cursor: 'not-allowed',
     },
   );
 
@@ -134,6 +134,11 @@ if (process.env.NODE_ENV !== 'development') {
 
   globalStyle('select', {
     appearance: 'none',
+  });
+
+  globalStyle('::placeholder', {
+    color: vars.color.neutral500,
+    opacity: 1,
   });
 
   globalStyle(':focus-visible:not(input):not(select):not(textarea)', {
