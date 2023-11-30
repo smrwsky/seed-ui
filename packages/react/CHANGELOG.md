@@ -1,5 +1,14 @@
 # @seed-ui/react
 
+## 1.3.3
+
+### Patch Changes
+
+- 9da2a64: Updated Menu component styles.
+- 9da2a64: Added `block` property for Button component.
+- 9da2a64: Created Popover component.
+- 9da2a64: Updated Autocomplete component styles.
+
 ## 1.3.0
 
 ### Minor Changes
