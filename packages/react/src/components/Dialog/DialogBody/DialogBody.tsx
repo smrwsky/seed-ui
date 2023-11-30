@@ -14,13 +14,10 @@ export interface DialogBodyProps extends HTMLAttributes<HTMLDivElement> {
 const sizeStyles = (size: DialogSize) =>
   size === 'sm'
     ? atoms({
-        px: 5,
+        px: 4,
       })
     : atoms({
-        px: {
-          mobile: 4,
-          tablet: 5,
-        },
+        px: 4,
         py: {
           mobile: 4,
           tablet: 0,

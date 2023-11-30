@@ -32,7 +32,7 @@ const Popover: React.FC<PopoverProps> = ({
   initialOpen = false,
   offset = 4,
   open,
-  overflowPadding = 8,
+  overflowPadding = 4,
   modal = false,
   placement = 'bottom',
   onOpenChange,

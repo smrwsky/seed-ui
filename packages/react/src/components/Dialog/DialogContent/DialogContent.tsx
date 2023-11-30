@@ -40,10 +40,10 @@ const overlaySizeStyles = {
 
 const contentSizeStyles = {
   sm: atoms({
-    borderRadiusTop: 'lg',
+    borderRadiusTop: 'xl',
     borderRadiusBottom: {
       mobile: 'none',
-      mobileLg: 'lg',
+      mobileLg: 'xl',
     },
     boxShadow: 'md',
     maxWidth: {
@@ -65,7 +65,7 @@ const contentSizeStyles = {
     },
     borderRadius: {
       mobile: 'none',
-      tablet: 'lg',
+      tablet: 'xl',
     },
     boxShadow: 'md',
     maxWidth: {
@@ -94,7 +94,7 @@ const contentSizeStyles = {
     },
     borderRadius: {
       mobile: 'none',
-      tablet: 'lg',
+      tablet: 'xl',
     },
     boxShadow: 'md',
     overflow: {
