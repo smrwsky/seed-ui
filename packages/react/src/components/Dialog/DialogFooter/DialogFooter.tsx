@@ -18,10 +18,13 @@ const sizeStyles = (size: DialogSize) =>
         p: 4,
       })
     : atoms({
+        borderStyle: 'solid',
         borderTop: {
-          mobile: 'thin',
-          tablet: 'none',
+          mobile: 1,
+          tablet: 0,
         },
+        borderBottom: 0,
+        borderX: 0,
         borderColor: 'neutral100',
         px: 4,
         py: {

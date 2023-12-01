@@ -48,8 +48,9 @@ const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
           display: 'flex',
           alignItems: 'center',
           borderRadius: 'md',
-          border: 'thin',
-          borderColor: {
+          outlineStyle: 'solid',
+          outlineWidth: 1,
+          outlineColor: {
             default: 'transparent',
             hover: 'primary400',
           },
@@ -59,12 +60,12 @@ const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
           cursor: 'text',
 
           ...(focused && {
-            borderColor: 'primary400',
+            outlineColor: 'primary400',
             boxShadow: 'focus',
           }),
 
           ...(invalid && {
-            borderColor: 'danger400',
+            outlineColor: 'danger400',
           }),
 
           ...(focused &&
@@ -74,13 +75,13 @@ const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
 
           ...(disabled && {
             bg: 'neutral50',
-            borderColor: 'transparent',
+            outlineColor: 'transparent',
             boxShadow: 'none',
             cursor: 'not-allowed',
           }),
 
           ...(readOnly && {
-            borderColor: 'transparent',
+            outlineColor: 'transparent',
             boxShadow: 'none',
           }),
         }),

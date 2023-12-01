@@ -63,11 +63,11 @@ if (process.env.NODE_ENV !== 'development') {
     lineHeight: 'snug',
   });
 
-  globalStyle('label', {
-    display: 'block',
-  });
-
   // button styles
+
+  globalStyle('label', {
+    display: 'inline-block',
+  });
 
   globalStyle('button, [type="button"], [type="submit"]', {
     border: 'none',
@@ -102,7 +102,7 @@ if (process.env.NODE_ENV !== 'development') {
       letterSpacing: vars.letterSpacing.wider,
       lineHeight: vars.lineHeight.normal,
       background: 'transparent',
-      cursor: 'text',
+      padding: 0,
     },
   );
 
@@ -119,7 +119,6 @@ if (process.env.NODE_ENV !== 'development') {
       color: vars.color.neutral900,
       opacity: 0.4,
       WebkitTextFillColor: vars.color.neutral900,
-      cursor: 'not-allowed',
     },
   );
 
@@ -158,7 +157,7 @@ if (process.env.NODE_ENV !== 'development') {
     border: `1px solid ${vars.color.neutral300}`,
     color: vars.color.primary500,
     lineHeight: '100%',
-    verticalAlign: 'middle',
+    verticalAlign: 'text-top',
     backgroundColor: vars.color.neutral100,
     backgroundOrigin: 'border-box',
     transition: vars.transition.base,
@@ -167,7 +166,6 @@ if (process.env.NODE_ENV !== 'development') {
     WebkitUserSelect: 'none',
     MozUserSelect: 'none',
     userSelect: 'none',
-    margin: '0.25em',
     cursor: 'pointer',
   });
 

@@ -1,5 +1,4 @@
 export type Theme = {
-  border: { medium: string; none: string; thick: string; thin: string };
   boxShadow: {
     focusDanger: string;
     inset: string;

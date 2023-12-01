@@ -8,6 +8,8 @@ import mapValues from 'lodash/mapValues';
 import {
   ALIGN_ITEMS,
   ALIGN_SELF,
+  BORDER_STYLE,
+  BORDER_WIDTH,
   BREAKPOINT,
   COLOR,
   CURSOR,
@@ -27,6 +29,8 @@ import {
   OBJECT_FIT,
   OPACITY,
   ORDER,
+  OUTLINE_STYLE,
+  OUTLINE_WIDTH,
   OVERFLOW,
   POINTER_EVENTS,
   POSITION,
@@ -47,12 +51,14 @@ import { vars } from './global.css';
 
 const baseProperties = defineProperties({
   properties: {
+    borderStyle: BORDER_STYLE,
     fontFamily: vars.fontFamily,
     fontWeight: vars.fontWeight,
     letterSpacing: vars.letterSpacing,
     lineHeight: { ...vars.lineHeight, ...LINE_HEIGHT },
     textTransform: TEXT_TRANSFORM,
     objectFit: OBJECT_FIT,
+    outlineStyle: OUTLINE_STYLE,
     pointerEvents: POINTER_EVENTS,
     textOverflow: TEXT_OVERFLOW,
     verticalAlign: VERTICAL_ALIGN,
@@ -110,10 +116,10 @@ const responsiveProperties = defineProperties({
     maxHeight: MAX_HEIGHT,
     minHeight: MIN_HEIGHT,
 
-    borderBottom: vars.border,
-    borderLeft: vars.border,
-    borderRight: vars.border,
-    borderTop: vars.border,
+    borderBottomWidth: BORDER_WIDTH,
+    borderLeftWidth: BORDER_WIDTH,
+    borderRightWidth: BORDER_WIDTH,
+    borderTopWidth: BORDER_WIDTH,
 
     borderTopLeftRadius: vars.borderRadius,
     borderTopRightRadius: vars.borderRadius,
@@ -130,6 +136,8 @@ const responsiveProperties = defineProperties({
     paddingRight: SPACING,
     paddingTop: SPACING,
 
+    outlineWidth: OUTLINE_WIDTH,
+
     overflowX: OVERFLOW,
     overflowY: OVERFLOW,
 
@@ -140,9 +148,18 @@ const responsiveProperties = defineProperties({
 
   shorthands: {
     inset: ['top', 'right', 'bottom', 'left'],
-    border: ['borderBottom', 'borderLeft', 'borderRight', 'borderTop'],
-    borderX: ['borderLeft', 'borderRight'],
-    borderY: ['borderBottom', 'borderTop'],
+    border: [
+      'borderBottomWidth',
+      'borderLeftWidth',
+      'borderRightWidth',
+      'borderTopWidth',
+    ],
+    borderLeft: ['borderLeftWidth'],
+    borderRight: ['borderRightWidth'],
+    borderTop: ['borderTopWidth'],
+    borderBottom: ['borderBottomWidth'],
+    borderX: ['borderLeftWidth', 'borderRightWidth'],
+    borderY: ['borderBottomWidth', 'borderTopWidth'],
     borderRadius: [
       'borderTopLeftRadius',
       'borderTopRightRadius',
@@ -166,6 +183,7 @@ const responsiveProperties = defineProperties({
     px: ['paddingLeft', 'paddingRight'],
     py: ['paddingBottom', 'paddingTop'],
     size: ['height', 'width'],
+    outline: ['outlineWidth'],
     overflow: ['overflowX', 'overflowY'],
   },
 });
@@ -192,6 +210,7 @@ const statefulProperties = defineProperties({
     color: colorProperties,
     cursor: CURSOR,
     opacity: OPACITY,
+    outlineColor: colorProperties,
     textDecoration: TEXT_DECORATION,
     transition: { ...vars.transition, ...TRANSITION },
   },

@@ -5,5 +5,5 @@
   "linked": [["@seed-ui/react", "@seed-ui/styles"]],
   "access": "public",
   "baseBranch": "main",
-  "updateInternalDependencies": "patch"
+  "updateInternalDependencies": "minor"
 }

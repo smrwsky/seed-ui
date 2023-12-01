@@ -210,9 +210,9 @@ const TRANSITION_TIMEOUT = {
 };
 
 const offsetXBySizeMap: Record<AutocompleteSize, number> = {
-  sm: -11,
-  md: -11,
-  lg: -15,
+  sm: -12,
+  md: -12,
+  lg: -14,
 };
 
 const offsetYBySizeMap: Record<AutocompleteSize, number> = {
@@ -330,11 +330,11 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
             const { offsetWidth = 0 } = containerRef.current ?? {};
 
             Object.assign(elements.floating.style, {
-              width: `${offsetWidth + 4}px`,
+              width: `${offsetWidth + 8}px`,
               maxHeight: `${availableHeight}px`,
             });
           },
-          padding: 10,
+          padding: 4,
         }),
       ],
       open: isOpen,
@@ -659,13 +659,14 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                     display: 'flex',
                     flexDirection: 'column',
                     borderRadius: 'lg',
-                    border: 'thin',
+                    outlineStyle: 'solid',
+                    outlineColor: 'neutral100',
+                    outline: 1,
                     boxShadow: {
                       default: 'lg',
                       focusVisible: 'lg',
                     },
                     bg: 'white',
-                    borderColor: 'neutral100',
                     opacity: status === 'entered' ? 100 : 0,
                     transition: 'fade',
                     overflowX: 'hidden',
