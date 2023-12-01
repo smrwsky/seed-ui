@@ -1,5 +1,13 @@
 # @seed-ui/react
 
+## 1.4.1
+
+### Patch Changes
+
+- 31dc148: Updated Menu component styles.
+- Updated dependencies [31dc148]
+  - @seed-ui/styles@1.4.1
+
 ## 1.4.0
 
 ### Minor Changes

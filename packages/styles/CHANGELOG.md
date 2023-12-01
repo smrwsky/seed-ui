@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 1.4.1
+
+### Patch Changes
+
+- 31dc148: Updated Menu component styles.
+
 ## 1.4.0
 
 ### Minor Changes
