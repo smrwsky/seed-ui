@@ -1,3 +1,4 @@
+import { Flex } from '../Flex';
 import { Text } from '../Text';
 
 import Checkbox, { CheckboxProps } from './Checkbox';
@@ -14,38 +15,56 @@ export default {
 
 export function Basic(args: CheckboxProps) {
   return (
-    <div>
+    <Flex>
       <Checkbox {...args} id="checkbox-basic" />
-      <Text as="label" htmlFor="checkbox-basic" ml={2}>
+      <Text
+        as="label"
+        htmlFor="checkbox-basic"
+        letterSpacing="widest"
+        lineHeight="snug"
+        ml={2}
+      >
         I agree to the terms and conditions
       </Text>
-    </div>
+    </Flex>
   );
 }
 
 export function Invalid(args: CheckboxProps) {
   return (
-    <div>
+    <Flex>
       <Checkbox {...args} id="checkbox-invalid" invalid />
-      <Text as="label" htmlFor="checkbox-invalid" ml={2}>
+      <Text
+        as="label"
+        htmlFor="checkbox-invalid"
+        letterSpacing="widest"
+        lineHeight="snug"
+        ml={2}
+      >
         I agree to the terms and conditions
       </Text>
-    </div>
+    </Flex>
   );
 }
 
 export function Disabled(args: CheckboxProps) {
   return (
-    <div>
+    <Flex>
       <Checkbox
         {...args}
         disabled
         id="checkbox-disabled"
         value="Disabled value"
       />
-      <Text as="label" htmlFor="checkbox-disabled" ml={2}>
+      <Text
+        as="label"
+        htmlFor="checkbox-disabled"
+        letterSpacing="widest"
+        lineHeight="snug"
+        ml={2}
+      >
         I agree to the terms and conditions
       </Text>
-    </div>
+    </Flex>
   );
 }
