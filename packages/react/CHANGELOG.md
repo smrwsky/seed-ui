@@ -1,5 +1,16 @@
 # @seed-ui/react
 
+## 1.4.0
+
+### Minor Changes
+
+- 151a62c: Fixed input sizes.
+
+### Patch Changes
+
+- Updated dependencies [151a62c]
+  - @seed-ui/styles@1.4.0
+
 ## 1.3.4
 
 ### Patch Changes

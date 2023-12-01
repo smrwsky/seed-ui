@@ -1,5 +1,11 @@
 # @seed-ui/styles
 
+## 1.4.0
+
+### Minor Changes
+
+- 151a62c: Fixed input sizes.
+
 ## 1.3.2
 
 ### Patch Changes
