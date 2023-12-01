@@ -11,8 +11,8 @@ import {
 } from 'react';
 
 import { useTimeout } from '../../utils/use-timeout';
+import { ClearIcon } from '../ClearIcon';
 import { Icon } from '../Icon';
-import { IconButton } from '../IconButton';
 import { Text } from '../Text';
 
 export type ToastVariant = 'primary' | 'danger' | 'warning' | 'success';
@@ -142,7 +142,8 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
             width: 'full',
             maxWidth: 'sm',
             borderRadius: 'lg',
-            border: 'thin',
+            borderStyle: 'solid',
+            border: 1,
             borderColor: 'neutral100',
             backgroundColor: 'white',
             boxShadow: 'md',
@@ -166,24 +167,17 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
           {children}
         </Text>
 
-        <div
+        <ClearIcon
+          aria-label={closeLabel}
           className={atoms({
             position: 'absolute',
-            top: 1,
-            right: 1,
+            top: 2,
+            right: 2,
           })}
-        >
-          <IconButton
-            aria-label={closeLabel}
-            size="sm"
-            tabIndex={0}
-            title=""
-            variant="tertiary"
-            onClick={onClose}
-          >
-            <Icon name="x" />
-          </IconButton>
-        </div>
+          role="button"
+          tabIndex={0}
+          onMouseDown={onClose}
+        />
       </div>
     );
   },

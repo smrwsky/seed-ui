@@ -16,6 +16,17 @@ export const ALIGN_ITEMS = [
 
 export const ALIGN_SELF = [...ALIGN_ITEMS, 'self-end', 'self-start'] as const;
 
+export const BORDER_STYLE = [
+  'solid',
+  'dashed',
+  'dotted',
+  'double',
+  'hidden',
+  'none',
+] as const;
+
+export const BORDER_WIDTH = [0, 1, 2, 4, 8] as const;
+
 export const BREAKPOINT = {
   mobile: 0,
   mobileLg: 576,
@@ -76,6 +87,8 @@ export const LINE_HEIGHT = {
   none: '1',
 };
 
+export const OBJECT_FIT = ['contain', 'cover'] as const;
+
 export const OPACITY = {
   0: '0',
   5: '0.05',
@@ -100,8 +113,6 @@ export const OPACITY = {
   100: '1',
 };
 
-export const OBJECT_FIT = ['contain', 'cover'] as const;
-
 export const ORDER = {
   0: 0,
   1: 1,
@@ -119,6 +130,18 @@ export const ORDER = {
   first: -9999,
   last: 9999,
 };
+
+export const OUTLINE_STYLE = [
+  'solid',
+  'dashed',
+  'dotted',
+  'double',
+  'none',
+] as const;
+
+export const OUTLINE_WIDTH = [0, 1, 2, 4, 8] as const;
+
+export const OUTLINE_OFFSET = [0, 1, 2, 4, 8] as const;
 
 export const OVERFLOW = ['visible', 'hidden', 'scroll', 'auto'] as const;
 
@@ -208,6 +231,7 @@ export const HEIGHT = {
 export const MARGIN = {
   'auto': 'auto',
   ...SPACING,
+  '-px': '-1px',
   '-0.5': '-0.125rem', // -2px
   '-1': '-0.25rem', // -4px
   '-1.5': '-0.375rem', // -6px

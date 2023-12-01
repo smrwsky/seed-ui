@@ -15,6 +15,7 @@ import {
   useTypeahead,
   Placement,
   useFloatingTree,
+  OffsetOptions,
 } from '@floating-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -26,22 +27,21 @@ type DropdownMenuPlacement = Placement;
 
 type DropdownMenuStrategy = 'fixed' | 'absolute';
 
-interface DropdownMenuOffsetOptions {
-  mainAxis?: number;
-  crossAxis?: number;
-  alignmentAxis?: number | null;
-}
-
 export interface DropdownMenuProps {
   children?: React.ReactNode;
-  offset?: number | DropdownMenuOffsetOptions;
+  offset?: number | OffsetOptions;
   placement?: DropdownMenuPlacement;
   strategy?: DropdownMenuStrategy;
 }
 
+const DEFAULT_OFFSET: OffsetOptions = {
+  mainAxis: 4,
+  alignmentAxis: -4,
+};
+
 const DropdownMenuBase: React.FC<DropdownMenuProps> = ({
   children,
-  offset = 4,
+  offset = DEFAULT_OFFSET,
   placement = 'bottom-start',
   strategy = 'fixed',
 }) => {
@@ -57,7 +57,7 @@ const DropdownMenuBase: React.FC<DropdownMenuProps> = ({
     strategy,
     onOpenChange: setIsOpen,
     placement,
-    middleware: [offsetFn(offset), flip(), shift()],
+    middleware: [offsetFn(offset), flip({ padding: 4 }), shift({ padding: 4 })],
     whileElementsMounted: autoUpdate,
   });
 

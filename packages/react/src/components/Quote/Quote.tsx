@@ -10,7 +10,10 @@ const Quote = forwardRef<HTMLQuoteElement, QuoteProps>(
       {...props}
       className={cn(
         atoms({
-          borderLeft: 'thick',
+          borderStyle: 'solid',
+          borderLeft: 4,
+          borderRight: 0,
+          borderY: 0,
           borderColor: 'primary500',
           pl: 3,
         }),

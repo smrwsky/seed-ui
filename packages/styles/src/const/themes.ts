@@ -5,13 +5,6 @@ import { Theme } from '../types';
 import { colors } from './colors';
 
 export const DEFAULT_THEME: Theme = {
-  border: {
-    thin: '1px solid',
-    medium: '2px solid',
-    thick: '4px solid',
-    none: 'none',
-  },
-
   borderRadius: {
     'xs': '0.125rem', // 2px
     'sm': '0.25rem', // 4px
@@ -42,8 +35,8 @@ export const DEFAULT_THEME: Theme = {
     light:
       '0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06)',
 
-    focus: `0 0 0 3px ${hexToRgba(colors.blue400, 0.5)}`,
-    focusDanger: `0 0 0 3px ${hexToRgba(colors.red400, 0.5)}`,
+    focus: `0 0 0 4px ${hexToRgba(colors.blue400, 0.5)}`,
+    focusDanger: `0 0 0 4px ${hexToRgba(colors.red400, 0.5)}`,
     inset: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
     none: 'none',
   },
@@ -201,7 +194,7 @@ export const DEFAULT_THEME: Theme = {
   },
 
   transition: {
-    base: 'color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out, fill 0.15s ease-in-out, stroke 0.15s ease-in-out, opacity 0.15s ease-in-out, box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out, filter 0.15s ease-in-out, backdrop-filter 0.15s ease-in-out',
+    base: 'color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, outline-color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out, fill 0.15s ease-in-out, stroke 0.15s ease-in-out, opacity 0.15s ease-in-out, box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out, filter 0.15s ease-in-out, backdrop-filter 0.15s ease-in-out',
     fade: 'opacity 0.15s linear',
     collapse: 'max-height 0.3s ease',
   },

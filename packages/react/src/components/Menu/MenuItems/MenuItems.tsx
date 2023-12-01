@@ -43,7 +43,8 @@ const typeStyles = (type: MenuType) =>
         maxWidth: 'xs',
         maxHeight: 80,
         borderRadius: 'lg',
-        border: 'thin',
+        outlineStyle: 'solid',
+        outline: 1,
         boxShadow: {
           default: 'lg',
           focusVisible: 'lg',
@@ -57,11 +58,11 @@ const variantStyles = (variant: MenuVariant) =>
   variant === 'dark'
     ? atoms({
         bg: 'primary700',
-        borderColor: 'dark100',
+        outlineColor: 'primary800',
       })
     : atoms({
         bg: 'white',
-        borderColor: 'neutral100',
+        outlineColor: 'neutral100',
       });
 
 const MenuItems: React.FC<DropdownMenuItemsProps> = ({

@@ -28,9 +28,14 @@ export interface PopoverProps {
   children?: React.ReactNode;
 }
 
+const DEFAULT_OFFSET: OffsetOptions = {
+  mainAxis: 4,
+  alignmentAxis: -4,
+};
+
 const Popover: React.FC<PopoverProps> = ({
   initialOpen = false,
-  offset = 4,
+  offset = DEFAULT_OFFSET,
   open,
   overflowPadding = 4,
   modal = false,
