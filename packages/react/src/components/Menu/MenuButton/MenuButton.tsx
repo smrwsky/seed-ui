@@ -122,12 +122,12 @@ const rootVerticalSelectedVariantStyle: Record<MenuVariant, Atoms> = {
     },
   },
   secondary: {
-    color: { default: 'white', disabled: 'neutral300' },
+    color: { default: 'primary500', disabled: 'neutral300' },
     bg: {
-      default: 'primary500',
-      hover: 'primary400',
-      active: 'primary600',
-      disabled: 'transparent',
+      default: 'primary100',
+      hover: 'primary200',
+      active: 'primary300',
+      disabled: 'neutral50',
     },
   },
   dark: {
@@ -232,19 +232,7 @@ const iconVariantStyle = (type: MenuType, variant: MenuVariant): Atoms =>
     ? iconHorizontalVariantStyle[variant]
     : iconVerticalVariantStyle[variant];
 
-const iconSelectedVerticalVariantStyle: Record<MenuVariant, Atoms> = {
-  primary: {
-    color: 'primary500',
-  },
-  secondary: {
-    color: 'white',
-  },
-  dark: {
-    color: 'white',
-  },
-};
-
-const iconSelectedHorizontalVariantStyle: Record<MenuVariant, Atoms> = {
+const iconSelectedVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {
     color: 'primary500',
   },
@@ -255,14 +243,6 @@ const iconSelectedHorizontalVariantStyle: Record<MenuVariant, Atoms> = {
     color: 'white',
   },
 };
-
-const iconSelectedVariantStyle = (
-  type: MenuType,
-  variant: MenuVariant,
-): Atoms =>
-  type === 'horizontal'
-    ? iconSelectedHorizontalVariantStyle[variant]
-    : iconSelectedVerticalVariantStyle[variant];
 
 const iconCollapsedVariantStyle: Record<MenuVariant, Atoms> = {
   primary: {
@@ -377,7 +357,7 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuLinkProps>(
                   }),
                   atoms({
                     ...iconVariantStyle(type, variant),
-                    ...(selected && iconSelectedVariantStyle(type, variant)),
+                    ...(selected && iconSelectedVariantStyle[variant]),
                     ...(disabled && iconDisabledVariantStyle),
                   }),
                 ],

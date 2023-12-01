@@ -39,11 +39,7 @@ const Template: StoryFn<MenuProps> = (args) => (
     <MenuItem
       endIcon={
         <Icon
-          color={
-            args.variant === 'primary' || args.type === 'horizontal'
-              ? 'accent500'
-              : 'white'
-          }
+          color={args.variant === 'dark' ? 'white' : 'accent400'}
           fontSize="lg"
           name="crown"
           type="solid"

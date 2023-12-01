@@ -157,7 +157,7 @@ if (process.env.NODE_ENV !== 'development') {
     border: `1px solid ${vars.color.neutral300}`,
     color: vars.color.primary500,
     lineHeight: '100%',
-    verticalAlign: 'text-top',
+    verticalAlign: 'baseline',
     backgroundColor: vars.color.neutral100,
     backgroundOrigin: 'border-box',
     transition: vars.transition.base,
