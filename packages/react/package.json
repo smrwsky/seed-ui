@@ -1,6 +1,6 @@
 {
   "name": "@seed-ui/react",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "React components based on Seed UI styles",
   "files": [
     "dist",
@@ -35,7 +35,7 @@
   "author": "Sergey Murawsky",
   "license": "MIT",
   "peerDependencies": {
-    "@seed-ui/styles": "^1.4.0",
+    "@seed-ui/styles": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
