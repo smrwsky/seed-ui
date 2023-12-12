@@ -1,6 +1,6 @@
 # @seed-ui/react
 
-## 2.0.0
+## 1.5.0
 
 ### Minor Changes
 
@@ -11,7 +11,7 @@
 
 - Updated dependencies [eb3e002]
 - Updated dependencies [eb3e002]
-  - @seed-ui/styles@2.0.0
+  - @seed-ui/styles@1.5.0
 
 ## 1.4.1
 
