@@ -1,5 +1,12 @@
 # @seed-ui/styles
 
+## 2.0.0
+
+### Minor Changes
+
+- eb3e002: Decomposed Menu component into Menu, MenuBar, and DropdownMenu.
+- eb3e002: Added `success` property for input components.
+
 ## 1.4.1
 
 ### Patch Changes
