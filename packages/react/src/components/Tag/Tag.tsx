@@ -74,6 +74,7 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
 
     return (
       <span
+        ref={ref}
         className={cn(
           atoms({
             display: 'inline-flex',
@@ -103,7 +104,6 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
           sizeStyles[size],
           className,
         )}
-        ref={ref}
         role={isInteractive && !role ? 'button' : role}
         tabIndex={
           isInteractive && typeof tabIndex === 'undefined' ? 0 : tabIndex

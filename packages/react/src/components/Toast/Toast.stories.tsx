@@ -32,7 +32,7 @@ export const Basic: StoryFn<ToastProps> = (args) => <Toast {...args} />;
 export const Variants: StoryFn<ToastProps> = (args) => (
   <>
     {variants.map((variant, i) => (
-      <Toast {...args} className={atoms({ mb: 2 })} key={i} variant={variant}>
+      <Toast {...args} key={i} className={atoms({ mb: 2 })} variant={variant}>
         This is a {variant} message -{' '}
         <a href={window.location.href}>Check this out</a>
       </Toast>

@@ -1,11 +1,12 @@
 import { Box, Flex } from '@seed-ui/react';
 
 import { Icon } from '../Icon';
+import { InputBoxSize } from '../InputBox';
 import { Text } from '../Text';
 
-import TextInput, { TextInputProps, TextInputSize } from './TextInput';
+import TextInput, { TextInputProps } from './TextInput';
 
-const sizes: TextInputSize[] = ['sm', 'md', 'lg'];
+const sizes: InputBoxSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Inputs/TextInput',
@@ -51,6 +52,25 @@ export function Invalid(args: TextInputProps) {
         First Name
       </Text>
       <TextInput {...args} id="text-input-invalid" invalid />
+    </>
+  );
+}
+
+export function Success(args: TextInputProps) {
+  return (
+    <>
+      <Text
+        as="label"
+        fontSize="sm"
+        fontWeight="semiBold"
+        htmlFor="text-input-success"
+        letterSpacing="widest"
+        lineHeight="snug"
+        mb={1}
+      >
+        First Name
+      </Text>
+      <TextInput {...args} id="text-input-success" success />
     </>
   );
 }
@@ -164,7 +184,7 @@ export function WithIcon(args: TextInputProps) {
 
         <TextInput
           {...args}
-          endIcon={<Icon color="success500" name="check-circle" />}
+          endIcon={<Icon color="primary400" name="info-circle" />}
           id="text-input-with-end-icon"
         />
       </Box>

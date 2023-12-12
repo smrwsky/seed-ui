@@ -1,115 +1,88 @@
-'use client';
-
-import {
-  autoUpdate,
-  FloatingList,
-  FloatingTree,
-  useFloating,
-  useInteractions,
-  useListNavigation,
-  useRole,
-  useTypeahead,
-} from '@floating-ui/react';
-import { atoms } from '@seed-ui/styles';
-import cn from 'classnames';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  Children,
+  cloneElement,
+  isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { MenuContext, MenuContextType } from './Menu.context';
-import { MenuSize, MenuType, MenuVariant } from './types';
+import { MenuSize, MenuVariant } from './Menu.types';
+import cn from 'classnames';
+import { atoms } from '@seed-ui/styles';
+import { Submenu } from './Submenu';
+import { MenuItem } from './MenuItem';
+import { Maybe } from '../../types';
+import { getFirstItem, getLastItem } from '../../utils/list-navigation';
 
 export interface MenuProps extends React.HTMLAttributes<HTMLDivElement> {
-  block?: boolean;
   collapsed?: boolean;
-  type?: MenuType;
   size?: MenuSize;
   variant?: MenuVariant;
+  onCollapsedChange?: (collapsed: boolean) => void;
 }
 
 const Menu: React.FC<MenuProps> = ({
-  block = false,
   collapsed = false,
-  type = 'vertical',
   size = 'md',
   variant = 'primary',
+  onCollapsedChange,
   children,
   ...props
 }) => {
-  const [hasFocusInside, setHasFocusInside] = useState(false);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const elementsRef = useRef<Array<HTMLButtonElement | null>>([]);
-  const labelsRef = useRef<Array<string>>([]);
+  const [activeIndex, setActiveIndex] = useState<Maybe<number>>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  const { refs, context, floatingStyles } = useFloating<HTMLButtonElement>({
-    open: true,
-    strategy: 'absolute',
-    whileElementsMounted: autoUpdate,
-  });
+  const updateActiveIndex = useCallback((index: Maybe<number>) => {
+    setActiveIndex(index);
+  }, []);
 
-  const role = useRole(context, { role: 'menu' });
-
-  const listNavigation = useListNavigation(context, {
-    listRef: elementsRef,
-    activeIndex,
-    loop: true,
-    focusItemOnHover: hasFocusInside,
-    orientation: type === 'horizontal' ? 'horizontal' : 'vertical',
-    onNavigate: setActiveIndex,
-  });
-
-  const typeahead = useTypeahead(context, {
-    listRef: labelsRef,
-    onMatch: setActiveIndex,
-    activeIndex,
-  });
-
-  const { getFloatingProps, getItemProps, getReferenceProps } = useInteractions(
-    [role, listNavigation, typeahead],
-  );
-
-  const menuCtx = useMemo<MenuContextType>(
+  const menuCxt: MenuContextType = useMemo(
     () => ({
       activeIndex,
       collapsed,
-      context,
-      elementsRef,
-      floatingStyles,
-      getFloatingProps,
-      getItemProps,
-      getReferenceProps,
-      hasFocusInside,
       indent: 0,
-      isOpen: true,
-      labelsRef,
-      refs,
-      setActiveIndex,
-      setHasFocusInside,
+      menuRef,
       size,
-      type,
       variant,
+      updateActiveIndex,
+      onCollapsedChange,
     }),
     [
       activeIndex,
       collapsed,
-      context,
-      floatingStyles,
-      getFloatingProps,
-      getItemProps,
-      getReferenceProps,
-      hasFocusInside,
-      refs,
+      onCollapsedChange,
       size,
-      type,
+      updateActiveIndex,
       variant,
     ],
   );
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        e.stopPropagation();
+        const item = getLastItem(menuRef);
+        item?.focus();
+      }
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        e.stopPropagation();
+        const item = getFirstItem(menuRef);
+        item?.focus();
+      }
+    },
+    [menuRef],
+  );
+
   useEffect(() => {
     function handleOutsideClick(e: MouseEvent) {
-      if (
-        e.target instanceof Node &&
-        !refs.floating.current?.contains(e.target)
-      ) {
-        setHasFocusInside(false);
+      if (e.target instanceof Node && !menuRef.current?.contains(e.target)) {
         setActiveIndex(null);
       }
     }
@@ -119,46 +92,37 @@ const Menu: React.FC<MenuProps> = ({
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [refs.floating]);
+  }, []);
 
   return (
-    <MenuContext.Provider value={menuCtx}>
-      <FloatingTree>
-        <FloatingList elementsRef={elementsRef} labelsRef={labelsRef}>
-          <div
-            {...props}
-            className={cn(
-              atoms({
-                display: block ? 'flex' : 'inline-flex',
-                bg: variant === 'dark' ? 'primary700' : 'white',
-                boxShadow: {
-                  focusVisible: hasFocusInside ? 'none' : 'focus',
-                },
-              }),
-              type === 'horizontal'
-                ? atoms({
-                    px: 0.5,
-                    py: 0,
-                  })
-                : atoms({
-                    flexDirection: 'column',
-                    px: 0,
-                    py: 0.5,
-                  }),
-            )}
-            ref={refs.setFloating}
-            {...getFloatingProps({
-              tabIndex: activeIndex == null ? 0 : -1,
-            })}
-          >
-            {children}
-          </div>
-        </FloatingList>
-      </FloatingTree>
+    <MenuContext.Provider value={menuCxt}>
+      <div
+        {...props}
+        ref={menuRef}
+        className={cn(
+          atoms({
+            display: 'flex',
+            flexDirection: 'column',
+            bg: variant === 'dark' ? 'primary700' : 'white',
+            px: 0,
+            py: 0.5,
+          }),
+        )}
+        role="menu"
+        tabIndex={activeIndex == null ? 0 : -1}
+        onKeyDown={handleKeyDown}
+      >
+        {Children.map(children, (child, i) =>
+          isValidElement(child) ? cloneElement(child, { index: i }) : null,
+        )}
+      </div>
     </MenuContext.Provider>
   );
 };
 
 Menu.displayName = 'Menu';
 
-export default Menu;
+export default Object.assign(Menu, {
+  Submenu: Submenu,
+  Item: MenuItem,
+});

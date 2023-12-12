@@ -183,6 +183,7 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
     ref,
   ) => (
     <As
+      ref={ref}
       className={cn(
         atoms({
           position: 'relative',
@@ -206,7 +207,6 @@ const Button = forwardRef<HTMLElement, ButtonProps>(
         buttonVariantStyles[variant],
         className,
       )}
-      ref={ref}
       type={As === 'button' && type == null ? 'button' : type}
       {...props}
     >

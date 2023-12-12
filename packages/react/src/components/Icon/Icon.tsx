@@ -57,30 +57,28 @@ const Icon = forwardRef<HTMLElement, IconProps>(
       ...props
     },
     ref,
-  ) => {
-    return (
-      <i
-        className={cn(
-          atoms({
-            color,
-            fontSize,
-            verticalAlign: 'middle',
-          }),
-          'bx',
-          (type === 'solid' && `bxs-${name}`) ||
-            (type === 'logo' && `bxl-${name}`) ||
-            `bx-${name}`,
-          rotate !== 0 && `bx-rotate-${rotate}`,
-          flip !== 'none' && `bx-flip-${flip}`,
-          pull !== 'none' && `bx-pull-${pull}`,
-          animation !== 'none' && `bx-${animation}`,
-          className,
-        )}
-        ref={ref}
-        {...props}
-      />
-    );
-  },
+  ) => (
+    <i
+      ref={ref}
+      className={cn(
+        atoms({
+          color,
+          fontSize,
+          verticalAlign: 'middle',
+        }),
+        'bx',
+        (type === 'solid' && `bxs-${name}`) ||
+          (type === 'logo' && `bxl-${name}`) ||
+          `bx-${name}`,
+        rotate !== 0 && `bx-rotate-${rotate}`,
+        flip !== 'none' && `bx-flip-${flip}`,
+        pull !== 'none' && `bx-pull-${pull}`,
+        animation !== 'none' && `bx-${animation}`,
+        className,
+      )}
+      {...props}
+    />
+  ),
 );
 
 Icon.displayName = 'Icon';

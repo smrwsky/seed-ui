@@ -15,12 +15,17 @@ export interface TimeoutAPI {
 export function useTimeout(): TimeoutAPI {
   const timeouts = React.useRef<Map<TimeoutKey, NodeJS.Timeout>>(new Map());
 
-  const clearTimeout = React.useCallback((key?: TimeoutKey): void => {
-    global.clearTimeout(timeouts.current.get(key));
+  const clearTimeouts = React.useCallback((): void => {
+    timeouts.current.forEach((timeout) => global.clearTimeout(timeout));
+    timeouts.current.clear();
+  }, []);
+
+  const clear = React.useCallback((key?: TimeoutKey): void => {
+    clearTimeout(timeouts.current.get(key));
     timeouts.current.delete(key);
   }, []);
 
-  const setTimeout = React.useCallback(
+  const set = React.useCallback(
     (
       fn: () => void | Promise<void>,
       timeout?: number,
@@ -29,18 +34,13 @@ export function useTimeout(): TimeoutAPI {
       clearTimeout(key);
       timeouts.current.set(
         key,
-        global.setTimeout(() => {
+        setTimeout(() => {
           void fn();
         }, timeout),
       );
     },
-    [clearTimeout],
+    [],
   );
-
-  const clearTimeouts = React.useCallback((): void => {
-    timeouts.current.forEach((timeout) => global.clearTimeout(timeout));
-    timeouts.current.clear();
-  }, []);
 
   React.useEffect(
     () => () => {
@@ -49,5 +49,5 @@ export function useTimeout(): TimeoutAPI {
     [clearTimeouts],
   );
 
-  return { setTimeout, clearTimeout, clearTimeouts };
+  return { setTimeout: set, clearTimeout: clear, clearTimeouts };
 }

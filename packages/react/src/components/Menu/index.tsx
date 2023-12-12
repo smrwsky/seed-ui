@@ -1,7 +1,7 @@
-export * from './DropdownMenu';
+export * from './Menu.types';
+export * from './Menu';
+export * from './MenuButton';
 export * from './MenuItem';
 export * from './Submenu';
 
-export * from './types';
-export * from './Menu';
 export { default as Menu } from './Menu';

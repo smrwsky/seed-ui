@@ -12,7 +12,7 @@ export interface CheckboxProps
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ invalid, ...props }, ref) => (
-    <input {...props} data-invalid={invalid} ref={ref} type="checkbox" />
+    <input {...props} ref={ref} data-invalid={invalid} type="checkbox" />
   ),
 );
 

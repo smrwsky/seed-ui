@@ -6,7 +6,7 @@ export type MarkerProps = HTMLAttributes<HTMLSpanElement>;
 
 const Marker = forwardRef<HTMLSpanElement, MarkerProps>(
   ({ className, children, ...props }, ref) => (
-    <span className={cn(marker, className)} ref={ref} {...props}>
+    <span ref={ref} className={cn(marker, className)} {...props}>
       {children}
     </span>
   ),

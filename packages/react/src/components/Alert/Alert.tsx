@@ -64,36 +64,34 @@ const Alert: FC<AlertProps> = ({
   className,
   role = 'alert',
   ...props
-}) => {
-  return (
-    <Flex
+}) => (
+  <Flex
+    className={cn(
+      atoms({
+        borderStyle: 'solid',
+        border: 1,
+        borderRadius: 'lg',
+      }),
+      rootVariantStyles[variant],
+      className,
+    )}
+    p={3}
+    role={role}
+    {...props}
+  >
+    <Icon
       className={cn(
         atoms({
-          borderStyle: 'solid',
-          border: 1,
-          borderRadius: 'lg',
+          mr: 3,
         }),
-        rootVariantStyles[variant],
-        className,
+        iconVariantStyles[variant],
       )}
-      p={3}
-      role={role}
-      {...props}
-    >
-      <Icon
-        className={cn(
-          atoms({
-            mr: 3,
-          }),
-          iconVariantStyles[variant],
-        )}
-        fontSize="2xl"
-        name={iconByVariant[variant]}
-      />
+      fontSize="2xl"
+      name={iconByVariant[variant]}
+    />
 
-      <Text color="inherit">{children}</Text>
-    </Flex>
-  );
-};
+    <Text color="inherit">{children}</Text>
+  </Flex>
+);
 
 export default Alert;

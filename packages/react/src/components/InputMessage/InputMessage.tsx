@@ -1,16 +1,21 @@
 import { Atoms } from '@seed-ui/styles';
-import { FC, HTMLAttributes, memo } from 'react';
+import React, { memo } from 'react';
 
 import { Text } from '../Text';
 
 export interface InputMessageProps
   extends Pick<Atoms, 'color' | 'm' | 'mt' | 'mb' | 'ml' | 'mr' | 'mx' | 'my'>,
-    Omit<HTMLAttributes<HTMLDivElement>, 'color'> {
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
+  as?: React.ElementType;
   children?: string;
 }
 
-const InputMessage: FC<InputMessageProps> = ({ color, children, ...props }) => (
-  <Text as="div" color={color} fontSize="sm" {...props}>
+const InputMessage: React.FC<InputMessageProps> = ({
+  color = 'danger500',
+  children,
+  ...props
+}) => (
+  <Text color={color} fontSize="sm" {...props}>
     {children}
   </Text>
 );

@@ -12,7 +12,7 @@ export interface RadioProps
 
 const Radio = forwardRef<HTMLInputElement, RadioProps>(
   ({ invalid, ...props }, ref) => (
-    <input {...props} data-invalid={invalid} ref={ref} type="radio" />
+    <input {...props} ref={ref} data-invalid={invalid} type="radio" />
   ),
 );
 

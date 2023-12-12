@@ -19,9 +19,14 @@ import {
 } from '@floating-ui/react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import { DropdownMenuTrigger } from '../DropdownMenuTrigger';
-import { MenuContext, MenuContextType } from '../Menu.context';
-import { MenuItems } from '../MenuItems';
+import { DropdownMenuTrigger } from './DropdownMenuTrigger';
+import {
+  DropdownMenuContext,
+  DropdownMenuContextType,
+} from './DropdownMenu.context';
+import { DropdownMenuContent } from './DropdownMenuContent';
+import { DropdownSubmenu } from './DropdownSubmenu';
+import { DropdownMenuItem } from './DropdownMenuItem';
 
 type DropdownMenuPlacement = Placement;
 
@@ -93,7 +98,7 @@ const DropdownMenuBase: React.FC<DropdownMenuProps> = ({
     [click, role, dismiss, listNavigation, typeahead],
   );
 
-  const menuCtx = useMemo<MenuContextType>(
+  const menuCtx = useMemo<DropdownMenuContextType>(
     () => ({
       activeIndex,
       collapsed: false,
@@ -110,9 +115,6 @@ const DropdownMenuBase: React.FC<DropdownMenuProps> = ({
       refs,
       setActiveIndex,
       setHasFocusInside,
-      size: 'sm',
-      type: 'vertical',
-      variant: 'secondary',
     }),
     [
       activeIndex,
@@ -142,7 +144,9 @@ const DropdownMenuBase: React.FC<DropdownMenuProps> = ({
   }, [tree]);
 
   return (
-    <MenuContext.Provider value={menuCtx}>{children}</MenuContext.Provider>
+    <DropdownMenuContext.Provider value={menuCtx}>
+      {children}
+    </DropdownMenuContext.Provider>
   );
 };
 
@@ -156,5 +160,7 @@ DropdownMenu.displayName = 'DropdownMenu';
 
 export default Object.assign(DropdownMenu, {
   Trigger: DropdownMenuTrigger,
-  Items: MenuItems,
+  Content: DropdownMenuContent,
+  Submenu: DropdownSubmenu,
+  Item: DropdownMenuItem,
 });

@@ -151,6 +151,7 @@ const DialogContent: React.FC<DialogContentProps> = ({
             <FloatingFocusManager context={context}>
               <div
                 {...props}
+                ref={refs.setFloating}
                 aria-describedby={descriptionId}
                 aria-labelledby={labelId}
                 className={cn(
@@ -166,7 +167,6 @@ const DialogContent: React.FC<DialogContentProps> = ({
                   contentSizeStyles[size],
                   className,
                 )}
-                ref={refs.setFloating}
                 {...getFloatingProps()}
               >
                 {children}

@@ -46,6 +46,7 @@ const UList = forwardRef<HTMLUListElement, UListProps>(
     ref,
   ) => (
     <ul
+      ref={ref}
       className={cn(
         atoms({
           color,
@@ -66,7 +67,6 @@ const UList = forwardRef<HTMLUListElement, UListProps>(
         type === 'dash' && listTypeDash,
         className,
       )}
-      ref={ref}
       {...elemProps}
     >
       {children}

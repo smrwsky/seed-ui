@@ -37,6 +37,7 @@ export const DEFAULT_THEME: Theme = {
 
     focus: `0 0 0 4px ${hexToRgba(colors.blue400, 0.5)}`,
     focusDanger: `0 0 0 4px ${hexToRgba(colors.red400, 0.5)}`,
+    focusSuccess: `0 0 0 4px ${hexToRgba(colors.green400, 0.5)}`,
     inset: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
     none: 'none',
   },

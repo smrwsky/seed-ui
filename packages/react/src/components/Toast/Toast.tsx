@@ -134,6 +134,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
 
     return (
       <div
+        ref={ref}
         className={cn(
           atoms({
             position: 'relative',
@@ -157,7 +158,6 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
           }),
           className,
         )}
-        ref={ref}
         role={role}
         {...props}
       >

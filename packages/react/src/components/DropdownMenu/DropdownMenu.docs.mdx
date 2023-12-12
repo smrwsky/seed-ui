@@ -1,0 +1,32 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+import DropdownMenu, { Basic } from './DropdownMenu.stories';
+
+<Meta of={DropdownMenu} />
+
+# DropdownMenu
+
+A menu that opens when the user clicks on a trigger element.
+
+## When to use
+
+- To display a list of actions or links associated with a button or other control.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+## Guidelines
+
+- Use DropdownMenu.Trigger and DropdownMenu.Content inside DropdownMenu component to create a dropdown menu and bind it to a trigger element.
+
+- Use  DropdownMenu.Item and DropdownMenu.Submenu as children of DropdownMenu.Content component to create menu items.
+
+## Accessibility
+
+See [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/).
+
+## API
+
+<ArgTypes />

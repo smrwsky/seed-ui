@@ -11,6 +11,7 @@ export interface InputBoxProps extends HTMLAttributes<HTMLDivElement> {
   invalid?: boolean;
   readOnly?: boolean;
   size?: InputBoxSize;
+  success?: boolean;
 }
 
 const sizeStyles = {
@@ -31,18 +32,20 @@ const sizeStyles = {
 const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
   (
     {
-      size = 'md',
-      disabled,
       focused,
       invalid,
-      readOnly,
+      size = 'md',
+      success,
       className,
+      disabled,
+      readOnly,
       children,
       ...elementProps
     },
     ref,
   ) => (
     <div
+      ref={ref}
       className={cn(
         atoms({
           display: 'flex',
@@ -68,9 +71,18 @@ const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
             outlineColor: 'danger400',
           }),
 
+          ...(success && {
+            outlineColor: 'success400',
+          }),
+
           ...(focused &&
             invalid && {
               boxShadow: 'focusDanger',
+            }),
+
+          ...(focused &&
+            success && {
+              boxShadow: 'focusSuccess',
             }),
 
           ...(disabled && {
@@ -88,7 +100,6 @@ const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
         sizeStyles[size],
         className,
       )}
-      ref={ref}
       {...elementProps}
     >
       {children}

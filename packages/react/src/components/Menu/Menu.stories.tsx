@@ -1,18 +1,13 @@
 import { atoms } from '@seed-ui/styles';
 import { StoryFn } from '@storybook/react';
 import { capitalize } from 'lodash';
-import { Fragment } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 
 import { Icon } from '../Icon';
-import { IconButton } from '../IconButton';
 import { Text } from '../Text';
 
-import { DropdownMenu, DropdownMenuProps } from './DropdownMenu';
 import Menu, { MenuProps } from './Menu';
-import { MenuItem } from './MenuItem';
-import { Submenu } from './Submenu';
-
-const types: MenuProps['type'][] = ['horizontal', 'inline', 'vertical'];
+import { IconButton } from '../IconButton';
 
 const variants: MenuProps['variant'][] = ['primary', 'secondary', 'dark'];
 
@@ -30,16 +25,13 @@ const Template: StoryFn<MenuProps> = (args) => (
   <Menu
     {...args}
     className={atoms({
-      width:
-        args.type === 'horizontal'
-          ? 'full'
-          : { mobile: 'full', mobileLg: '1/2', desktop: '1/3' },
+      width: { mobile: 'full', mobileLg: '1/2', desktop: '1/3' },
     })}
   >
-    <MenuItem
+    <Menu.Item
       endIcon={
         <Icon
-          color={args.variant === 'dark' ? 'white' : 'accent400'}
+          color={args.variant === 'dark' ? 'white' : 'accent500'}
           fontSize="lg"
           name="crown"
           type="solid"
@@ -49,58 +41,36 @@ const Template: StoryFn<MenuProps> = (args) => (
       startIcon={<Icon name="home" />}
     >
       Option 1
-    </MenuItem>
+    </Menu.Item>
 
-    <MenuItem startIcon={<Icon name="envelope" />}>Option 2</MenuItem>
+    <Menu.Item startIcon={<Icon name="envelope" />}>Option 2</Menu.Item>
 
-    <MenuItem disabled startIcon={<Icon name="grid-alt" />}>
+    <Menu.Item disabled startIcon={<Icon name="grid-alt" />}>
       Option 3
-    </MenuItem>
+    </Menu.Item>
 
-    <Submenu icon={<Icon name="stats" />} label="Option 4">
-      <MenuItem>Option 4-1</MenuItem>
-      <MenuItem>Option 4-2</MenuItem>
-      <MenuItem>Option 4-3</MenuItem>
-    </Submenu>
+    <Menu.Submenu icon={<Icon name="stats" />} label="Option 4">
+      <Menu.Item>Option 4-1</Menu.Item>
+      <Menu.Item>Option 4-2</Menu.Item>
+      <Menu.Item>Option 4-3</Menu.Item>
+    </Menu.Submenu>
 
-    <Submenu icon={<Icon name="cog" />} label="Option 5">
-      <MenuItem>Option 5-1</MenuItem>
-      <MenuItem>Option 5-2</MenuItem>
+    <Menu.Submenu icon={<Icon name="cog" />} label="Option 5">
+      <Menu.Item>Option 5-1</Menu.Item>
+      <Menu.Item>Option 5-2</Menu.Item>
 
-      <Submenu label="Option 5-3">
-        <MenuItem>Option 5-3-1</MenuItem>
-        <MenuItem>Option 5-3-2</MenuItem>
-        <MenuItem>Option 5-3-3</MenuItem>
-      </Submenu>
-    </Submenu>
+      <Menu.Submenu label="Option 5-3">
+        <Menu.Item>Option 5-3-1</Menu.Item>
+        <Menu.Item>Option 5-3-2</Menu.Item>
+        <Menu.Item>Option 5-3-3</Menu.Item>
+      </Menu.Submenu>
+    </Menu.Submenu>
 
-    <MenuItem startIcon={<Icon name="support" />}>Option 6</MenuItem>
+    <Menu.Item startIcon={<Icon name="support" />}>Option 6</Menu.Item>
   </Menu>
 );
 
 export const Basic: StoryFn<MenuProps> = Template.bind({});
-
-export const Type: StoryFn<MenuProps> = (args) => (
-  <>
-    {types.map((type, i) => (
-      <Fragment key={i}>
-        <Text
-          as="h3"
-          className={atoms({ mt: i > 0 ? 4 : 0, mb: 1.5 })}
-          fontFamily="secondary"
-          fontSize="2xl"
-          fontWeight="semiBold"
-          letterSpacing="wide"
-          lineHeight="tight"
-        >
-          {capitalize(type)}
-        </Text>
-
-        <Template {...args} key={i} type={type} />
-      </Fragment>
-    ))}
-  </>
-);
 
 export const Size: StoryFn<MenuProps> = (args) => (
   <>
@@ -146,46 +116,29 @@ export const Variant: StoryFn<MenuProps> = (args) => (
   </>
 );
 
-export const Collapsed = Template.bind({});
+export const Collapsed: StoryFn<MenuProps> = (args) => {
+  const [collapsed, setCollapsed] = useState(true);
 
-export const Dropdown: StoryFn<DropdownMenuProps> = (args) => (
-  <DropdownMenu {...args}>
-    <DropdownMenu.Trigger>
-      <IconButton>
-        <Icon name="dots-vertical-rounded" />
+  const onCollapsedChange = useCallback((collapsed: boolean) => {
+    setCollapsed(collapsed);
+  }, []);
+
+  return (
+    <>
+      <IconButton
+        className={atoms({
+          m: 1,
+        })}
+        onClick={() => setCollapsed(!collapsed)}
+      >
+        <Icon name={collapsed ? 'right-indent' : 'left-indent'} />
       </IconButton>
-    </DropdownMenu.Trigger>
 
-    <DropdownMenu.Items>
-      <MenuItem>Option 1</MenuItem>
-
-      <MenuItem>Option 2</MenuItem>
-
-      <MenuItem disabled>Option 3</MenuItem>
-
-      <Submenu label="Option 4">
-        <MenuItem>Option 4-1</MenuItem>
-        <MenuItem>Option 4-2</MenuItem>
-        <MenuItem>Option 4-3</MenuItem>
-      </Submenu>
-
-      <Submenu label="Option 5">
-        <MenuItem>Option 5-1</MenuItem>
-        <MenuItem>Option 5-2</MenuItem>
-
-        <Submenu label="Option 5-3">
-          <MenuItem>Option 5-3-1</MenuItem>
-          <MenuItem>Option 5-3-2</MenuItem>
-          <MenuItem>Option 5-3-3</MenuItem>
-        </Submenu>
-      </Submenu>
-
-      <MenuItem>Option 6</MenuItem>
-    </DropdownMenu.Items>
-  </DropdownMenu>
-);
-
-Collapsed.args = {
-  collapsed: true,
-  type: 'horizontal',
+      <Template
+        {...args}
+        collapsed={collapsed}
+        onCollapsedChange={onCollapsedChange}
+      />
+    </>
+  );
 };

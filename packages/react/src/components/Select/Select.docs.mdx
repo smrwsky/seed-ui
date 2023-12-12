@@ -1,0 +1,76 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+import Select, {
+  Basic,
+  Sizes,
+  Invalid, Success,
+  Multiple, Disabled, WithIcon,
+} from './Select.stories';
+
+<Meta of={Select} />
+
+# Select
+
+A component that allows users to select one or more options from a list of
+pre-defined options.
+
+## When to use
+
+- When users need to select one or more options from a list of pre-defined
+options.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### Multiple
+
+The `multiple` property allows multiple values to be selected. Users will see tags displaying the selected values.
+
+<Canvas of={Multiple} />
+
+### Invalid
+
+Setting the `invalid` property to `true` indicates an error or issue with the input value.
+
+<Canvas of={Invalid} />
+
+### Success
+
+Setting the `success` property to `true` indicates a successful input value.
+
+<Canvas of={Success} />
+
+### Disabled
+
+Disabled input
+
+<Canvas of={Disabled} />
+
+### Sizes
+
+The `size` property can be used to specify the size of the input box. Available values are `sm`, `md`, and `lg`.
+
+<Canvas of={Sizes} />
+
+### With Icon
+
+Use `startIcon` and `endIcon` properties to add icons to the input box.
+
+<Canvas of={WithIcon} />
+
+## Guidelines
+
+- Use Text component for providing a label that accurately describes
+the purpose of the input. Text component should be associated
+with the Select component using the "htmlFor" and "id" properties.
+
+- Use ErrorMessage component for providing error feedback to indicate
+that the input value is invalid.
+
+## Component API
+
+<ArgTypes />
+
+

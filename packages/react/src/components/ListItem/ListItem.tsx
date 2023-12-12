@@ -24,6 +24,7 @@ const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
     ref: Ref<HTMLLIElement>,
   ): JSX.Element => (
     <li
+      ref={ref}
       className={cn(
         atoms({
           color,
@@ -33,7 +34,6 @@ const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
         truncate && textTruncate,
         className,
       )}
-      ref={ref}
       {...elemProps}
     >
       {children}

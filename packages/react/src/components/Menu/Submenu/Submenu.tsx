@@ -1,240 +1,219 @@
 'use client';
 
-import {
-  autoUpdate,
-  FloatingNode,
-  flip,
-  offset,
-  safePolygon,
-  shift,
-  useClick,
-  useDismiss,
-  useFloating,
-  useFloatingNodeId,
-  useFloatingParentNodeId,
-  useFloatingTree,
-  useHover,
-  useInteractions,
-  useListItem,
-  useListNavigation,
-  useRole,
-  useTypeahead,
-  useMergeRefs,
-} from '@floating-ui/react';
+import { Icon } from '../../Icon';
 import React, {
+  Children,
+  cloneElement,
+  isValidElement,
   useCallback,
   useContext,
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
 } from 'react';
 
-import { Icon } from '../../Icon';
 import { MenuContext, MenuContextType } from '../Menu.context';
 import { MenuButton } from '../MenuButton';
-import { MenuItems } from '../MenuItems';
+import cn from 'classnames';
+import { atoms } from '@seed-ui/styles';
+import { Transition } from 'react-transition-group';
+import { Maybe } from '../../../types';
+import { getFirstItem, getLastItem } from '../../../utils/list-navigation';
 
-export interface SubMenuProps {
-  children?: React.ReactNode;
+export interface SubmenuProps extends React.HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   icon?: React.ReactElement;
+  index?: number;
+  initialOpen?: boolean;
   label: string;
   selected?: boolean;
+  children?: React.ReactNode;
 }
 
-const Submenu: React.FC<SubMenuProps> = ({
+const TRANSITION_TIMEOUT = {
+  appear: 0,
+  enter: 0,
+  exit: 200,
+};
+
+const Submenu: React.FC<SubmenuProps> = ({
+  disabled,
   icon,
+  index,
+  initialOpen,
   label,
+  selected,
+  onClick,
+  onFocus,
   children,
-  ...props
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [hasFocusInside, setHasFocusInside] = useState(false);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const elementsRef = useRef<Array<HTMLButtonElement | null>>([]);
-  const labelsRef = useRef<Array<string>>([]);
+  const [isOpen, setIsOpen] = useState(initialOpen);
+  const [activeIndex, setActiveIndex] = useState<Maybe<number>>(null);
   const parent = useContext(MenuContext);
-  const tree = useFloatingTree();
-  const nodeId = useFloatingNodeId();
-  const parentId = useFloatingParentNodeId();
-  const item = useListItem();
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const isActive = parent.activeIndex === index;
+  const buttonId = useId();
+  const menuId = useId();
 
-  const { floatingStyles, refs, context } = useFloating<HTMLButtonElement>({
-    nodeId,
-    open: isOpen,
-    strategy: 'fixed',
-    onOpenChange: setIsOpen,
-    placement: parent.type === 'horizontal' ? 'bottom-start' : 'right-start',
-    middleware: [
-      offset(
-        parent.type === 'horizontal'
-          ? {
-              mainAxis: 4,
-            }
-          : {
-              mainAxis: 8,
-              alignmentAxis: -5,
-            },
-      ),
-      flip(),
-      shift(),
-    ],
-    whileElementsMounted: autoUpdate,
-  });
-
-  const buttonRef = useMergeRefs([refs.setReference, item.ref]);
-
-  const role = useRole(context, { role: 'menu' });
-
-  const hover = useHover(context, {
-    enabled: parent.type !== 'inline',
-    handleClose: safePolygon({ blockPointerEvents: true }),
-  });
-
-  const click = useClick(context, {
-    event: 'mousedown',
-    toggle: parent.type === 'inline',
-    ignoreMouse: parent.type !== 'inline',
-    keyboardHandlers: true,
-  });
-
-  const dismiss = useDismiss(context);
-
-  const listNavigation = useListNavigation(context, {
-    listRef: elementsRef,
-    activeIndex,
-    nested: true,
-    loop: true,
-    focusItemOnHover: hasFocusInside,
-    orientation:
-      parent.type === 'horizontal' && !hasFocusInside
-        ? 'horizontal'
-        : 'vertical',
-    onNavigate: setActiveIndex,
-  });
-
-  const typeahead = useTypeahead(context, {
-    listRef: labelsRef,
-    onMatch: setActiveIndex,
-    activeIndex,
-  });
-
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [hover, click, role, dismiss, listNavigation, typeahead],
-  );
+  const updateActiveIndex = useCallback((index: Maybe<number>) => {
+    setActiveIndex(index);
+  }, []);
 
   const menuCtx = useMemo<MenuContextType>(
     () => ({
       activeIndex,
       collapsed: false,
-      context,
-      elementsRef,
-      floatingStyles,
-      getFloatingProps,
-      getItemProps,
-      getReferenceProps,
-      hasFocusInside,
-      indent: parent.type === 'inline' ? parent.indent + 1 : 0,
-      isOpen,
-      labelsRef,
-      refs,
-      setActiveIndex,
-      setHasFocusInside,
-      size: parent.type === 'inline' ? parent.size : 'sm',
-      type: parent.type === 'inline' ? 'inline' : 'vertical',
-      variant: parent.variant === 'dark' ? 'dark' : 'secondary',
+      indent: parent.indent + 1,
+      menuRef: parent.menuRef,
+      size: parent.size,
+      variant: parent.variant,
+      updateActiveIndex,
     }),
     [
       activeIndex,
-      context,
-      floatingStyles,
-      getFloatingProps,
-      getItemProps,
-      getReferenceProps,
-      hasFocusInside,
-      isOpen,
       parent.indent,
+      parent.menuRef,
       parent.size,
-      parent.type,
       parent.variant,
-      refs,
+      updateActiveIndex,
     ],
   );
 
-  const handleFocus = useCallback(() => {
-    setHasFocusInside(false);
-    parent.setHasFocusInside(true);
-  }, [parent]);
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      setIsOpen((prev) => !prev);
+
+      if (parent.collapsed) {
+        parent.onCollapsedChange?.(false);
+      }
+
+      onClick?.(e);
+    },
+    [onClick, parent],
+  );
+
+  const handleFocus = useCallback(
+    (e: React.FocusEvent<HTMLButtonElement>) => {
+      setActiveIndex(null);
+      parent.updateActiveIndex(index);
+      onFocus?.(e);
+    },
+    [index, onFocus, parent],
+  );
+
+  const handleMenuKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        e.stopPropagation();
+        const item = getLastItem(menuRef);
+        item?.focus();
+      }
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        e.stopPropagation();
+        const item = getFirstItem(menuRef);
+        item?.focus();
+      }
+    },
+    [menuRef],
+  );
 
   useEffect(() => {
-    if (!tree) return;
-
-    function handleTreeClick() {
+    if (parent.collapsed) {
       setIsOpen(false);
     }
+  }, [parent.collapsed]);
 
-    function onSubMenuOpen(event: { nodeId: string; parentId: string }) {
-      if (event.nodeId !== nodeId && event.parentId === parentId) {
-        setIsOpen(false);
+  useEffect(() => {
+    function handleOutsideClick(e: MouseEvent) {
+      if (e.target instanceof Node && !menuRef.current?.contains(e.target)) {
+        setActiveIndex(null);
       }
     }
 
-    tree.events.on('click', handleTreeClick);
-    tree.events.on('menuopen', onSubMenuOpen);
+    document.addEventListener('mousedown', handleOutsideClick);
 
     return () => {
-      tree.events.off('click', handleTreeClick);
-      tree.events.off('menuopen', onSubMenuOpen);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [tree, nodeId, parentId]);
-
-  useEffect(() => {
-    if (isOpen && tree) {
-      tree.events.emit('menuopen', { parentId, nodeId });
-    }
-  }, [tree, isOpen, nodeId, parentId]);
-
-  const isActive = parent.activeIndex === item.index;
+  }, []);
 
   return (
-    <FloatingNode id={nodeId}>
+    <>
       <MenuButton
-        {...props}
-        collapsed={parent.collapsed}
-        endIcon={
-          parent.type === 'vertical' ? (
-            <Icon name="chevron-right" />
-          ) : (
-            <Icon
-              flip={
-                parent.type === 'horizontal' || !isOpen ? 'vertical' : 'none'
-              }
-              name="chevron-up"
-            />
-          )
-        }
-        indent={parent.indent}
         ref={buttonRef}
+        aria-controls={isOpen ? menuId : undefined}
+        aria-expanded={isOpen ? 'true' : 'false'}
+        aria-haspopup="menu"
+        disabled={disabled}
+        endIcon={
+          <Icon flip={!isOpen ? 'vertical' : 'none'} name="chevron-up" />
+        }
+        id={buttonId}
         role="menuitem"
-        size={parent.size}
+        selected={selected}
         startIcon={icon}
-        tabIndex={isActive ? 0 : -1}
-        type={parent.type}
-        variant={parent.variant}
-        {...getReferenceProps(
-          parent.getItemProps({
-            onFocus: handleFocus,
-          }),
-        )}
+        tabIndex={isActive && activeIndex === null ? 0 : -1}
+        onClick={handleClick}
+        onFocus={handleFocus}
       >
         {label}
       </MenuButton>
 
       <MenuContext.Provider value={menuCtx}>
-        <MenuItems initialFocus={-1}>{children}</MenuItems>
+        {!parent.collapsed && (
+          <Transition
+            in={isOpen}
+            mountOnEnter
+            timeout={TRANSITION_TIMEOUT}
+            unmountOnExit
+          >
+            {(status) => (
+              <div
+                ref={menuRef}
+                aria-labelledby={buttonId}
+                className={cn(
+                  atoms({
+                    display: 'flex',
+                    flexDirection: 'column',
+                    maxHeight: status === 'entered' ? 96 : 0,
+                    transition: 'collapse',
+                    overflow: 'hidden',
+                    px: 0,
+                    py: 0.5,
+                    m: 0,
+                  }),
+                  parent.variant === 'dark'
+                    ? atoms({
+                        bg: 'primary700',
+                        outlineColor: 'primary800',
+                      })
+                    : atoms({
+                        bg: 'white',
+                        outlineColor: 'neutral100',
+                      }),
+                )}
+                id={menuId}
+                role="menu"
+                tabIndex={-1}
+                onKeyDown={handleMenuKeyDown}
+              >
+                {Children.map(children, (child, i) =>
+                  isValidElement(child)
+                    ? cloneElement(child, { index: i })
+                    : null,
+                )}
+              </div>
+            )}
+          </Transition>
+        )}
       </MenuContext.Provider>
-    </FloatingNode>
+    </>
   );
 };
 

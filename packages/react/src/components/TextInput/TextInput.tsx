@@ -18,8 +18,6 @@ import { IconProps } from '../Icon';
 import { InputAction } from '../InputAction';
 import { InputBox, InputBoxSize } from '../InputBox';
 
-export type TextInputSize = InputBoxSize;
-
 export interface TextInputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -27,14 +25,15 @@ export interface TextInputProps
   > {
   clearable?: boolean;
   clearLabel?: string;
-  defaultValue?: string;
-  disabled?: boolean;
-  inputSize?: number;
+  htmlSize?: number;
   invalid?: boolean;
-  readOnly?: boolean;
-  size?: TextInputSize;
+  size?: InputBoxSize;
   startIcon?: React.ReactElement;
   endIcon?: React.ReactElement;
+  success?: boolean;
+  defaultValue?: string;
+  disabled?: boolean;
+  readOnly?: boolean;
   value?: string;
   onChange?: (value: string) => void;
 }
@@ -44,14 +43,15 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     {
       clearable,
       clearLabel = 'Clear',
-      defaultValue,
-      disabled,
-      inputSize,
+      htmlSize,
       invalid,
-      readOnly,
       size,
       startIcon,
       endIcon,
+      success,
+      defaultValue,
+      disabled,
+      readOnly,
       value,
       onChange,
       onFocus,
@@ -126,6 +126,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         invalid={invalid}
         readOnly={readOnly}
         size={size}
+        success={success}
       >
         {isValidElement<IconProps>(startIcon) && (
           <InputAction
@@ -139,10 +140,10 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 
         <input
           {...props}
+          ref={mergedRefs}
           disabled={disabled}
           readOnly={readOnly}
-          ref={mergedRefs}
-          size={inputSize}
+          size={htmlSize}
           type="text"
           value={valueState}
           onBlur={handleBlur}

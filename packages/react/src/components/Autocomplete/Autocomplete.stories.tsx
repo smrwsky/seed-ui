@@ -2,14 +2,12 @@ import { Box, Flex } from '@seed-ui/react';
 import { StoryFn } from '@storybook/react';
 
 import { Icon } from '../Icon';
+import { InputBoxSize } from '../InputBox';
 import { Text } from '../Text';
 
-import Autocomplete, {
-  AutocompleteProps,
-  AutocompleteSize,
-} from './Autocomplete';
+import Autocomplete, { AutocompleteProps } from './Autocomplete';
 
-const SIZE_OPTIONS: AutocompleteSize[] = ['sm', 'md', 'lg'];
+const SIZE_OPTIONS: InputBoxSize[] = ['sm', 'md', 'lg'];
 
 const OPTIONS_LIST = ['Peter', 'Louis', 'Mag', 'Chris', 'Stewie', 'Bryan'];
 
@@ -58,6 +56,13 @@ export const Invalid = Template.bind({});
 Invalid.args = {
   id: 'autocomplete-invalid',
   invalid: true,
+};
+
+export const Success = Template.bind({});
+
+Success.args = {
+  id: 'autocomplete-success',
+  success: true,
 };
 
 export const Disabled = Template.bind({});
@@ -141,7 +146,7 @@ export function WithIcon(args: AutocompleteProps) {
 
         <Autocomplete
           {...args}
-          endIcon={<Icon color="success500" name="check-circle" />}
+          endIcon={<Icon color="primary400" name="info-circle" />}
           id="autocomplete-with-end-icon"
           options={OPTIONS_LIST}
         />

@@ -28,7 +28,7 @@ export const WithTitle: StoryFn<MessageProps> = (args) => (
 export const Variants: StoryFn<MessageProps> = (args) => (
   <Flex alignItems="center" flexDirection="column">
     {variants.map((variant, i) => (
-      <Message {...args} className={atoms({ mb: 2 })} key={i} variant={variant}>
+      <Message {...args} key={i} className={atoms({ mb: 2 })} variant={variant}>
         This is a {variant} message.
       </Message>
     ))}

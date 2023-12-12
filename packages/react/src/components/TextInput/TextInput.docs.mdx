@@ -1,5 +1,14 @@
 import { Meta, ArgTypes, Canvas } from '@storybook/addon-docs';
-import TextInput, { Basic, Invalid, Clearable, Disabled, ReadOnly, Sizes, WithIcon } from './TextInput.stories';
+import TextInput, {
+  Basic,
+  Invalid,
+  Clearable,
+  Disabled,
+  ReadOnly,
+  Sizes,
+  WithIcon,
+  Success,
+} from './TextInput.stories';
 
 <Meta of={TextInput} />
 
@@ -23,6 +32,12 @@ Setting the `invalid` property to `true` indicates an error or issue with the in
 
 <Canvas of={Invalid} />
 
+### Success
+
+Setting the `success` property to `true` indicates a successful input value.
+
+<Canvas of={Success} />
+
 ### Disabled
 
 Disabled input
@@ -41,13 +56,14 @@ The `size` property can be used to specify the size of the input box. Available 
 
 <Canvas of={Sizes} />
 
-### Clearable
 
 ### With Icon
 
 Use `startIcon` and `endIcon` props to add icons to the button.
 
 <Canvas of={WithIcon} />
+
+### Clearable
 
 The `clearable` property can be used to add a clear button to the input box. Clicking the clear button will clear the input value.
 
@@ -57,7 +73,7 @@ The `clearable` property can be used to add a clear button to the input box. Cli
 
 - Use Text component for providing a label that accurately describes
 the purpose of the input. Text component should be associated
-with the Autocomplete component using the "htmlFor" and "id" properties.
+with the TextInput component using the "htmlFor" and "id" properties.
 
 - Use ErrorMessage component for providing error feedback to indicate
 that the input value is invalid.
