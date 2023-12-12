@@ -1,5 +1,11 @@
 # @seed-ui/react
 
+## 1.5.1
+
+### Patch Changes
+
+- 4dc0501: Fixed imports.
+
 ## 1.5.0
 
 ### Minor Changes
