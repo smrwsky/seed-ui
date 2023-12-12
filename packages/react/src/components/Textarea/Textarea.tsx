@@ -1,41 +1,55 @@
 'use client';
 
-import {
-  FC,
-  FocusEvent,
+import { atoms } from '@seed-ui/styles';
+import React, {
+  cloneElement,
   forwardRef,
+  isValidElement,
   memo,
-  TextareaHTMLAttributes,
   useCallback,
   useState,
 } from 'react';
 
+import { IconProps } from '../Icon';
+import { InputAction } from '../InputAction';
 import { InputBox, InputBoxSize } from '../InputBox';
 
-export type TextareaSize = InputBoxSize;
-
 export interface TextareaProps
-  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  invalid?: boolean;
+  size?: InputBoxSize;
+  startIcon?: React.ReactElement;
+  endIcon?: React.ReactElement;
+  success?: boolean;
   defaultValue?: string;
   disabled?: boolean;
-  invalid?: boolean;
   readOnly?: boolean;
-  size?: TextareaSize;
   value?: string;
 }
 
-const Textarea: FC<TextareaProps> = forwardRef<
+const Textarea: React.FC<TextareaProps> = forwardRef<
   HTMLTextAreaElement,
   TextareaProps
 >(
   (
-    { size, disabled, invalid, readOnly, id, onFocus, onBlur, ...inputProps },
+    {
+      invalid,
+      size,
+      startIcon,
+      endIcon,
+      success,
+      disabled,
+      readOnly,
+      onFocus,
+      onBlur,
+      ...props
+    },
     ref,
   ) => {
     const [focused, setFocused] = useState(false);
 
     const handleFocus = useCallback(
-      (e: FocusEvent<HTMLTextAreaElement>): void => {
+      (e: React.FocusEvent<HTMLTextAreaElement>): void => {
         setFocused(true);
 
         onFocus?.(e);
@@ -44,7 +58,7 @@ const Textarea: FC<TextareaProps> = forwardRef<
     );
 
     const handleBlur = useCallback(
-      (e: FocusEvent<HTMLTextAreaElement>): void => {
+      (e: React.FocusEvent<HTMLTextAreaElement>): void => {
         setFocused(false);
         onBlur?.(e);
       },
@@ -58,16 +72,36 @@ const Textarea: FC<TextareaProps> = forwardRef<
         invalid={invalid}
         readOnly={readOnly}
         size={size}
+        success={success}
       >
+        {isValidElement<IconProps>(startIcon) && (
+          <InputAction
+            className={atoms({
+              mr: 1,
+            })}
+          >
+            {cloneElement(startIcon, { fontSize: 'lg' })}
+          </InputAction>
+        )}
+
         <textarea
-          disabled={disabled}
-          id={id}
-          readOnly={readOnly}
           ref={ref}
+          disabled={disabled}
+          readOnly={readOnly}
           onBlur={handleBlur}
           onFocus={handleFocus}
-          {...inputProps}
+          {...props}
         />
+
+        {isValidElement<IconProps>(endIcon) && (
+          <InputAction
+            className={atoms({
+              ml: 1,
+            })}
+          >
+            {cloneElement(endIcon, { fontSize: 'lg' })}
+          </InputAction>
+        )}
       </InputBox>
     );
   },

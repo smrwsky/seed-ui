@@ -42,6 +42,7 @@ const OList = forwardRef<HTMLOListElement, OListProps>(
     ref,
   ) => (
     <ol
+      ref={ref}
       className={cn(
         atoms({
           color,
@@ -60,7 +61,6 @@ const OList = forwardRef<HTMLOListElement, OListProps>(
         }),
         className,
       )}
-      ref={ref}
       {...elemProps}
     >
       {children}

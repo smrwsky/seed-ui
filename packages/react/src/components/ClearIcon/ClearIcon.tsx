@@ -14,6 +14,7 @@ export interface ClearIconProps
 const ClearIcon = React.forwardRef<HTMLElement, ClearIconProps>(
   ({ color, fontSize, className, ...props }, ref) => (
     <Icon
+      ref={ref}
       className={cn(
         atoms({
           opacity: {
@@ -28,7 +29,6 @@ const ClearIcon = React.forwardRef<HTMLElement, ClearIconProps>(
       color={color}
       fontSize={fontSize}
       name="x"
-      ref={ref}
       {...props}
     />
   ),

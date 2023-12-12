@@ -1,0 +1,58 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs';
+import Menu, { Basic, Size, Variant, Collapsed } from './Menu.stories';
+
+<Meta of={Menu} />
+
+# Menu
+
+Vertical menu component with collapsible submenus.
+
+## When to use
+
+- To navigate between pages.
+
+- To select one or more options from a list.
+
+## Examples
+
+### Basic
+
+<Canvas of={Basic} />
+
+### Sizes
+
+Use `size` property to change the size meu items.
+
+<Canvas of={Size} />
+
+### Variants
+
+Use `variant` property to change the variant of the menu. Available variants are `primary`, `secondary`, and `dark`.
+
+<Canvas of={Variant} />
+
+### Collapsed
+
+Use `collapsed` property to display the menu collapsed.
+
+<Canvas of={Collapsed} />
+
+## Guidelines
+
+- Use only Menu.Item and Menu.Submenu components as children of Menu component.
+
+- If using collapsed menu with submenus, provide onCollapsedChange callback to handle the collapsed state. It will be
+  called when the user clicks on the submenu item, because submenu items can not be displayed in collapsed mode.
+
+## Accessibility
+
+- Use `aria-label` or `aria-labelledby` to provide a meaningful label for the menu.
+
+- If it is a navigation menu, the menu should be inside a `nav` element.
+
+- Submenus of this menu are disabled not in the popup, but next to the menu item that opens them. So they are accessible
+  keyboard arrow up/down buttons similarly to the main menu items.
+
+## API
+
+<ArgTypes />

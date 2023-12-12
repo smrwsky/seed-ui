@@ -133,6 +133,7 @@ if (process.env.NODE_ENV !== 'development') {
 
   globalStyle('select', {
     appearance: 'none',
+    cursor: 'pointer',
   });
 
   globalStyle('::placeholder', {
@@ -155,7 +156,6 @@ if (process.env.NODE_ENV !== 'development') {
     width: '1rem',
     height: '1rem',
     border: `1px solid ${vars.color.neutral300}`,
-    color: vars.color.primary500,
     lineHeight: '100%',
     verticalAlign: 'baseline',
     backgroundColor: vars.color.neutral100,
@@ -177,6 +177,13 @@ if (process.env.NODE_ENV !== 'development') {
     borderRadius: vars.borderRadius.full,
   });
 
+  globalStyle(
+    '[type=checkbox]:hover:not(:disabled), [type=radio]:hover:not(:disabled)',
+    {
+      backgroundColor: vars.color.neutral200,
+    },
+  );
+
   globalStyle('[type=checkbox]:checked, [type=radio]:checked', {
     borderColor: 'transparent',
     backgroundColor: vars.color.primary500,
@@ -196,6 +203,20 @@ if (process.env.NODE_ENV !== 'development') {
     backgroundSize: '37.5%',
   });
 
+  globalStyle('[type=checkbox]:checked, [type=radio]:checked', {
+    borderColor: 'transparent',
+    backgroundColor: vars.color.primary500,
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  });
+
+  globalStyle(
+    '[type=checkbox]:checked:hover:not(:disabled), [type=radio]:checked:hover:not(:disabled)',
+    {
+      backgroundColor: vars.color.primary400,
+    },
+  );
+
   globalStyle('[type=checkbox]:focus, [type=radio]:focus', {
     boxShadow: vars.boxShadow.focus,
   });
@@ -212,6 +233,13 @@ if (process.env.NODE_ENV !== 'development') {
     {
       borderColor: 'transparent',
       backgroundColor: vars.color.danger500,
+    },
+  );
+
+  globalStyle(
+    '[type=checkbox][data-invalid="true"]:checked:hover:not(:disabled), [type=radio][data-invalid="true"]:checked:hover:not(:disabled)',
+    {
+      backgroundColor: vars.color.danger400,
     },
   );
 

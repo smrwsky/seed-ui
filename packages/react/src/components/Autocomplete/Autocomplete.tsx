@@ -39,8 +39,6 @@ import { InputBox, InputBoxSize } from '../InputBox';
 import { Option, OptionProps } from '../Option';
 import { Tag } from '../Tag';
 
-export type AutocompleteSize = InputBoxSize;
-
 export interface OptionComponentProps<OptionType> extends OptionProps {
   option: OptionType;
 }
@@ -155,7 +153,7 @@ export interface AutocompleteProps<
   /**
    * The size of the Autocomplete component.
    */
-  size?: AutocompleteSize;
+  size?: InputBoxSize;
 
   /**
    * Icon to display at the start of the input element.
@@ -166,6 +164,11 @@ export interface AutocompleteProps<
    * Icon to display at the end of the input element.
    */
   endIcon?: React.ReactElement;
+
+  /**
+   * If `true`, the input box will element a success style.
+   */
+  success?: boolean;
 
   /**
    * The current value of Autocomplete component.
@@ -193,7 +196,7 @@ export interface AutocompleteProps<
   onSearch?: (query: string) => void | Promise<void>;
 }
 
-type AutocompleteFn = <Value, IsMulti extends boolean = false>(
+type AutocompleteFn = <Value, IsMulti extends boolean>(
   props: AutocompleteProps<Value, IsMulti> & {
     ref?: React.Ref<HTMLInputElement>;
   },
@@ -209,13 +212,13 @@ const TRANSITION_TIMEOUT = {
   exit: 200,
 };
 
-const offsetXBySizeMap: Record<AutocompleteSize, number> = {
+const offsetXBySizeMap: Record<InputBoxSize, number> = {
   sm: -12,
   md: -12,
   lg: -14,
 };
 
-const offsetYBySizeMap: Record<AutocompleteSize, number> = {
+const offsetYBySizeMap: Record<InputBoxSize, number> = {
   sm: 6,
   md: 10,
   lg: 14,
@@ -265,14 +268,14 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
   <Value extends unknown = unknown, IsMulti extends boolean = false>(
     {
-      autoFocus = false,
+      autoFocus,
       clearLabel = 'Clear',
       defaultValue,
-      disabled = false,
+      disabled,
       getLabel = String,
       id,
-      invalid = false,
-      loading = false,
+      invalid,
+      loading,
       loadingError,
       loadingLabel = 'Searching...',
       multiple = false as IsMulti,
@@ -283,11 +286,12 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       >,
       options,
       placeholder,
-      readOnly = false,
+      readOnly,
       searchTimeout = 500,
       size = 'md',
       startIcon,
       endIcon,
+      success,
       value,
       onBlur,
       onChange,
@@ -541,12 +545,13 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     return (
       <>
         <InputBox
+          ref={containerRef}
           disabled={disabled}
           focused={isFocused}
           invalid={invalid}
           readOnly={readOnly}
-          ref={containerRef}
           size={size}
+          success={success}
         >
           {isValidElement<IconProps>(startIcon) && (
             <InputAction
@@ -561,7 +566,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
           <Flex as="span" flex={1} flexWrap="wrap" mt="-1" mx="-0.5">
             {multiple &&
               selectedOptions.map((item, idx) => (
-                <Box as="span" display="block" key={idx} mt={1} px={0.5}>
+                <Box key={idx} as="span" display="block" mt={1} px={0.5}>
                   <Tag
                     bg={disabled ? 'neutral100' : 'primary100'}
                     borderColor={disabled ? 'neutral200' : 'primary300'}
@@ -655,6 +660,7 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                 modal={false}
               >
                 <ul
+                  ref={refs.setFloating}
                   className={atoms({
                     display: 'flex',
                     flexDirection: 'column',
@@ -677,17 +683,15 @@ const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
                     zIndex: 10,
                   })}
                   id={slug(id, LISTBOX_ID)}
-                  ref={refs.setFloating}
                   style={floatingStyles}
                   {...getFloatingProps()}
                 >
                   {optionsState.map((item, idx) => (
                     <OptionComponent
+                      key={idx}
                       active={idx === activeIndex}
                       data-index={idx}
                       id={slug(id, OPTION_ID, idx)}
-                      key={idx}
-                      multiple={multiple}
                       option={item}
                       selected={selectedOptions.includes(item)}
                       {...getItemProps({

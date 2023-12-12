@@ -1,5 +1,4 @@
 import { render, screen, userEvent } from '../../utils/test-utils';
-import { Icon } from '../Icon';
 
 import NumericInput from './NumericInput';
 
@@ -57,11 +56,7 @@ describe('NumericInput', () => {
   describe('Given the NumericInput component with a valid `startIcon` component', () => {
     describe('When it is rendered', () => {
       it('Then it should render with the startIcon', () => {
-        render(
-          <NumericInput
-            startIcon={<Icon data-testid="start-icon" name="search" />}
-          />,
-        );
+        render(<NumericInput startIcon={<div data-testid="start-icon" />} />);
 
         expect(screen.getByTestId('start-icon')).toBeInTheDocument();
       });
@@ -71,11 +66,7 @@ describe('NumericInput', () => {
   describe('Given the NumericInput component with a valid `endIcon` component', () => {
     describe('When it is rendered', () => {
       it('Then it should render with the endIcon', () => {
-        render(
-          <NumericInput
-            endIcon={<Icon data-testid="end-icon" name="search" />}
-          />,
-        );
+        render(<NumericInput endIcon={<div data-testid="end-icon" />} />);
 
         expect(screen.getByTestId('end-icon')).toBeInTheDocument();
       });

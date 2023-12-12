@@ -1,10 +1,12 @@
 import { Box, Flex } from '@seed-ui/react';
 
+import { Icon } from '../Icon';
+import { InputBoxSize } from '../InputBox';
 import { Text } from '../Text';
 
-import Textarea, { TextareaProps, TextareaSize } from './Textarea';
+import Textarea, { TextareaProps } from './Textarea';
 
-const sizes: TextareaSize[] = ['sm', 'md', 'lg'];
+const sizes: InputBoxSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Inputs/Textarea',
@@ -51,6 +53,71 @@ export function Invalid(args: TextareaProps): JSX.Element {
       </Text>
       <Textarea {...args} id="textarea-invalid" invalid />
     </>
+  );
+}
+
+export function Success(args: TextareaProps): JSX.Element {
+  return (
+    <>
+      <Text
+        as="label"
+        fontSize="sm"
+        fontWeight="semiBold"
+        htmlFor="textarea-success"
+        letterSpacing="widest"
+        lineHeight="snug"
+        mb={1}
+      >
+        Bio
+      </Text>
+      <Textarea {...args} id="textarea-success" success />
+    </>
+  );
+}
+
+export function WithIcon(args: TextareaProps) {
+  return (
+    <Flex flexDirection="column">
+      <Box mt={4}>
+        <Text
+          as="label"
+          fontSize="sm"
+          fontWeight="semiBold"
+          htmlFor="textarea-with-start-icon"
+          letterSpacing="widest"
+          lineHeight="snug"
+          mb={1}
+        >
+          With Start Icon
+        </Text>
+
+        <Textarea
+          {...args}
+          id="textarea-with-start-icon"
+          startIcon={<Icon color="neutral500" name="search" />}
+        />
+      </Box>
+
+      <Box mt={4}>
+        <Text
+          as="label"
+          fontSize="sm"
+          fontWeight="semiBold"
+          htmlFor="textarea-with-end-icon"
+          letterSpacing="widest"
+          lineHeight="snug"
+          mb={1}
+        >
+          With End Icon
+        </Text>
+
+        <Textarea
+          {...args}
+          endIcon={<Icon color="primary400" name="info-circle" />}
+          id="textarea-with-end-icon"
+        />
+      </Box>
+    </Flex>
   );
 }
 

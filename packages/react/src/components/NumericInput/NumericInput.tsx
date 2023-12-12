@@ -17,8 +17,6 @@ import { InputBox, InputBoxSize } from '../InputBox';
 
 export type NumericValue = number | null;
 
-export type NumericInputSize = InputBoxSize;
-
 export interface NumericInputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -33,9 +31,10 @@ export interface NumericInputProps
   fixedDecimalScale?: boolean;
   isAllowed?: (values: NumberFormatValues) => boolean;
   prefix?: string;
-  size?: NumericInputSize;
+  size?: InputBoxSize;
   startIcon?: React.ReactElement;
   endIcon?: React.ReactElement;
+  success?: boolean;
   invalid?: boolean;
   suffix?: string;
   thousandSeparator?: boolean | string;
@@ -47,13 +46,14 @@ export interface NumericInputProps
 const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
   (
     {
-      defaultValue,
-      disabled,
       invalid = false,
-      readOnly,
       size = 'md',
       startIcon,
       endIcon,
+      success,
+      defaultValue,
+      disabled,
+      readOnly,
       value,
       onChange,
       onFocus,
@@ -105,6 +105,7 @@ const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
         invalid={invalid}
         readOnly={readOnly}
         size={size}
+        success={success}
       >
         {isValidElement<IconProps>(startIcon) && (
           <InputAction

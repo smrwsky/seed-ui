@@ -1,8 +1,6 @@
 import { atoms } from '@seed-ui/styles';
 import cn from 'classnames';
-import React, { Children, ForwardedRef } from 'react';
-
-import { Box } from '../Box';
+import React, { ForwardedRef } from 'react';
 
 export type ToastContainerPlacement =
   | 'top-left'
@@ -27,14 +25,14 @@ const placementStyles = {
       mobileLg: 0,
     },
     transform: {
-      mobile: 'translateMiddle',
+      mobile: 'translateXMiddle',
       mobileLg: 'none',
     },
   }),
   'top-center': atoms({
     top: 0,
     left: '1/2',
-    transform: 'translateMiddle',
+    transform: 'translateXMiddle',
   }),
   'top-right': atoms({
     top: 0,
@@ -43,7 +41,7 @@ const placementStyles = {
       mobileLg: 0,
     },
     transform: {
-      mobile: 'translateMiddle',
+      mobile: 'translateXMiddle',
       mobileLg: 'none',
     },
   }),
@@ -54,14 +52,14 @@ const placementStyles = {
       mobileLg: 0,
     },
     transform: {
-      mobile: 'translateMiddle',
+      mobile: 'translateXMiddle',
       mobileLg: 'none',
     },
   }),
   'bottom-center': atoms({
     bottom: 0,
     left: '1/2',
-    transform: 'translateMiddle',
+    transform: 'translateXMiddle',
   }),
   'bottom-right': atoms({
     bottom: 0,
@@ -70,7 +68,7 @@ const placementStyles = {
       mobileLg: 0,
     },
     transform: {
-      mobile: 'translateMiddle',
+      mobile: 'translateXMiddle',
       mobileLg: 'none',
     },
   }),
@@ -87,9 +85,13 @@ const ToastContainer = React.forwardRef(
     ref: ForwardedRef<HTMLDivElement>,
   ) => (
     <div
+      ref={ref}
       className={cn(
         atoms({
-          position: 'absolute',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          position: 'fixed',
           width: 'max',
           maxWidth: 'full',
           zIndex: 50,
@@ -98,12 +100,9 @@ const ToastContainer = React.forwardRef(
         placementStyles[placement],
         className,
       )}
-      ref={ref}
       {...props}
     >
-      {Children.map(children, (child, index) => (
-        <Box mt={index ? 2 : 0}>{child}</Box>
-      ))}
+      {children}
     </div>
   ),
 );

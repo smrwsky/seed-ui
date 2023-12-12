@@ -213,6 +213,7 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>(
   ) => (
     <As
       {...elemProps}
+      ref={ref}
       className={cn(
         atoms({
           display: 'inline-flex',
@@ -228,7 +229,6 @@ const IconButton = forwardRef<HTMLElement, IconButtonProps>(
         buttonVariantStyle[variant],
         className,
       )}
-      ref={ref}
       type={As === 'button' && type == null ? 'button' : type}
     >
       {avatar &&

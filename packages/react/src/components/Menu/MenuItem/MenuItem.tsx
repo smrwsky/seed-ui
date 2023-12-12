@@ -1,7 +1,6 @@
 'use client';
 
-import { useFloatingTree, useListItem } from '@floating-ui/react';
-import React, { memo, useCallback, useContext } from 'react';
+import React, { memo, useCallback, useContext, useRef } from 'react';
 
 import { MenuContext } from '../Menu.context';
 import { MenuButton } from '../MenuButton';
@@ -12,6 +11,7 @@ export interface MenuItemProps
     'children' | 'type'
   > {
   disabled?: boolean;
+  index?: number;
   selected?: boolean;
   startIcon?: React.ReactElement;
   endIcon?: React.ReactElement;
@@ -19,58 +19,32 @@ export interface MenuItemProps
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
-  children,
   disabled,
-  onClick,
+  index,
   onFocus,
+  children,
   ...props
 }) => {
-  const {
-    activeIndex,
-    collapsed,
-    getItemProps,
-    indent,
-    size,
-    setHasFocusInside,
-    type,
-    variant,
-  } = useContext(MenuContext);
+  const { activeIndex, updateActiveIndex } = useContext(MenuContext);
 
-  const item = useListItem({ label: disabled ? null : children });
-  const tree = useFloatingTree();
-  const isActive = item.index === activeIndex;
-
-  const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      onClick?.(e);
-      tree?.events.emit('click');
-    },
-    [onClick, tree?.events],
-  );
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const isActive = index === activeIndex;
 
   const handleFocus = useCallback(
     (e: React.FocusEvent<HTMLButtonElement>) => {
+      updateActiveIndex(index);
       onFocus?.(e);
-      setHasFocusInside(true);
     },
-    [onFocus, setHasFocusInside],
+    [index, onFocus, updateActiveIndex],
   );
 
   return (
     <MenuButton
       {...props}
-      collapsed={collapsed}
-      indent={indent}
-      ref={item.ref}
-      size={size}
+      ref={buttonRef}
+      disabled={disabled}
       tabIndex={isActive ? 0 : -1}
-      type={type}
-      variant={variant}
-      {...getItemProps({
-        disabled,
-        onClick: handleClick,
-        onFocus: handleFocus,
-      })}
+      onFocus={handleFocus}
     >
       {children}
     </MenuButton>

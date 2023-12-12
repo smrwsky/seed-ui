@@ -2,17 +2,11 @@
   "name": "@seed-ui/react",
   "version": "1.4.1",
   "description": "React components based on Seed UI styles",
-  "files": [
-    "dist",
-    "package.json",
-    "CHANGELOG.md"
-  ],
+  "files": ["dist", "package.json", "CHANGELOG.md"],
   "types": "dist/types/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": ["*.css"],
   "engines": {
     "node": ">=16.x"
   },

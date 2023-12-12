@@ -10,7 +10,12 @@
         "**/*.tsx"
       ],
       "rules": {
+        "@typescript-eslint/no-unused-vars": ["error", {
+          "ignoreRestSiblings": true
+        }],
         "@typescript-eslint/quotes": "off",
+        "arrow-body-style": ["error", "as-needed"],
+        "new-cap": "off",
         "react-perf/jsx-no-jsx-as-prop": "off",
         "react/prop-types": "off",
         "jsx-a11y/no-autofocus": "off",

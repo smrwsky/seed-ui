@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+
 export type Theme = {
   boxShadow: {
     focusDanger: string;
+    focusSuccess: string;
     inset: string;
     focus: string;
     none: string;
@@ -157,4 +160,4 @@ export type Theme = {
     thin: string;
   };
   transition: { fade: string; collapse: string; base: string };
-};
+}

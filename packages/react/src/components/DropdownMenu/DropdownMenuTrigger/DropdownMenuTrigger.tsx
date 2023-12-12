@@ -7,7 +7,7 @@ import React, {
   useContext,
 } from 'react';
 
-import { MenuContext } from '../Menu.context';
+import { DropdownMenuContext } from '../DropdownMenu.context';
 
 export interface DropdownMenuTriggerProps {
   children: React.ReactElement;
@@ -17,7 +17,7 @@ const DropdownMenuTrigger: React.FC<DropdownMenuTriggerProps> = ({
   children,
 }: DropdownMenuTriggerProps) => {
   const { refs, getReferenceProps, setHasFocusInside } =
-    useContext(MenuContext);
+    useContext(DropdownMenuContext);
 
   const handleFocus = useCallback(() => {
     setHasFocusInside(false);

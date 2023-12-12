@@ -57,6 +57,7 @@ const Text = forwardRef<HTMLElement, TextProps>(
     ref,
   ) => (
     <As
+      ref={ref}
       className={cn(
         atoms({
           color,
@@ -79,7 +80,6 @@ const Text = forwardRef<HTMLElement, TextProps>(
         truncate && textTruncate,
         className,
       )}
-      ref={ref}
       {...props}
     >
       {children}

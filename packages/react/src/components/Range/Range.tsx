@@ -13,7 +13,7 @@ export interface RangeProps
 
 const Range = forwardRef<HTMLInputElement, RangeProps>(
   ({ invalid, ...props }, ref) => (
-    <input {...props} data-invalid={invalid} ref={ref} type="range" />
+    <input {...props} ref={ref} data-invalid={invalid} type="range" />
   ),
 );
 

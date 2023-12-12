@@ -8,6 +8,7 @@ const Quote = forwardRef<HTMLQuoteElement, QuoteProps>(
   ({ className, children, ...props }, res) => (
     <blockquote
       {...props}
+      ref={res}
       className={cn(
         atoms({
           borderStyle: 'solid',
@@ -19,7 +20,6 @@ const Quote = forwardRef<HTMLQuoteElement, QuoteProps>(
         }),
         className,
       )}
-      ref={res}
     >
       {children}
     </blockquote>

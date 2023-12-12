@@ -2,14 +2,12 @@ import { Box, Flex } from '@seed-ui/react';
 import { capitalize } from 'lodash';
 
 import { Icon } from '../Icon';
+import { InputBoxSize } from '../InputBox';
 import { Text } from '../Text';
 
-import NumericInput, {
-  NumericInputProps,
-  NumericInputSize,
-} from './NumericInput';
+import NumericInput, { NumericInputProps } from './NumericInput';
 
-const sizes: NumericInputSize[] = ['sm', 'md', 'lg'];
+const sizes: InputBoxSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Inputs/NumericInput',
@@ -60,6 +58,25 @@ export function Invalid(args: NumericInputProps) {
         Max Price
       </Text>
       <NumericInput {...args} id="numeric-input-invalid" invalid />
+    </>
+  );
+}
+
+export function Success(args: NumericInputProps) {
+  return (
+    <>
+      <Text
+        as="label"
+        fontSize="sm"
+        fontWeight="semiBold"
+        htmlFor="numeric-input-success"
+        letterSpacing="widest"
+        lineHeight="snug"
+        mb={1}
+      >
+        Max Price
+      </Text>
+      <NumericInput {...args} id="numeric-input-success" success />
     </>
   );
 }
@@ -169,7 +186,7 @@ export function WithIcon(args: NumericInputProps) {
 
         <NumericInput
           {...args}
-          endIcon={<Icon color="success500" name="check-circle" />}
+          endIcon={<Icon color="primary400" name="info-circle" />}
           id="numeric-input-with-end-icon"
         />
       </Box>

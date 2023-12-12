@@ -99,6 +99,7 @@ const Avatar: FC<AvatarProps> = forwardRef<HTMLDivElement, AvatarProps>(
     ref,
   ) => (
     <span
+      ref={ref}
       className={cn(
         atoms({
           position: 'relative',
@@ -112,7 +113,6 @@ const Avatar: FC<AvatarProps> = forwardRef<HTMLDivElement, AvatarProps>(
         }),
         className,
       )}
-      ref={ref}
       {...props}
     >
       {!children && !icon && (

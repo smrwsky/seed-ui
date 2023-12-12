@@ -24,6 +24,7 @@ const Flex = forwardRef<HTMLElement, FlexProps>(
     ref,
   ) => (
     <Box
+      ref={ref}
       className={cn(
         atoms({
           alignItems,
@@ -34,7 +35,6 @@ const Flex = forwardRef<HTMLElement, FlexProps>(
         className,
       )}
       display={display}
-      ref={ref}
       {...props}
     >
       {children}

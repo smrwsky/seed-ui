@@ -79,6 +79,7 @@ const Box = forwardRef<HTMLElement, BoxProps>(
     ref,
   ) => (
     <Element
+      ref={ref}
       className={cn(
         atoms({
           display,
@@ -112,7 +113,6 @@ const Box = forwardRef<HTMLElement, BoxProps>(
         }),
         className,
       )}
-      ref={ref}
       {...elemProps}
     >
       {children}

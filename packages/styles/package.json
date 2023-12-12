@@ -2,19 +2,11 @@
   "name": "@seed-ui/styles",
   "version": "1.4.1",
   "description": "",
-  "files": [
-    "css",
-    "dist",
-    "fonts",
-    "package.json",
-    "CHANGELOG.md"
-  ],
+  "files": ["css", "dist", "fonts", "package.json", "CHANGELOG.md"],
   "types": "dist/types/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": ["*.css"],
   "publishConfig": {
     "access": "public"
   },

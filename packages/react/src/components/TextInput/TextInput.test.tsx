@@ -1,5 +1,4 @@
 import { render, screen, userEvent } from '../../utils/test-utils';
-import { Icon } from '../Icon';
 
 import TextInput from './TextInput';
 
@@ -119,11 +118,7 @@ describe('TextInput', () => {
   describe('Given the TextInput component with a valid `startIcon` component', () => {
     describe('When it is rendered', () => {
       it('Then it should render with the startIcon', () => {
-        render(
-          <TextInput
-            startIcon={<Icon data-testid="start-icon" name="search" />}
-          />,
-        );
+        render(<TextInput startIcon={<div data-testid="start-icon" />} />);
 
         expect(screen.getByTestId('start-icon')).toBeInTheDocument();
       });
@@ -133,9 +128,7 @@ describe('TextInput', () => {
   describe('Given the TextInput component with a valid `endIcon` component', () => {
     describe('When it is rendered', () => {
       it('Then it should render with the endIcon', () => {
-        render(
-          <TextInput endIcon={<Icon data-testid="end-icon" name="search" />} />,
-        );
+        render(<TextInput endIcon={<div data-testid="end-icon" />} />);
 
         expect(screen.getByTestId('end-icon')).toBeInTheDocument();
       });

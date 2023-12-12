@@ -41,6 +41,7 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
           <FloatingPortal>
             <FloatingFocusManager context={context} modal={modal}>
               <div
+                ref={meredRef}
                 aria-describedby={descriptionId}
                 aria-labelledby={labelId}
                 className={cn(
@@ -51,7 +52,6 @@ const PopoverContent = forwardRef<HTMLDivElement, PopoverContentProps>(
                   }),
                   className,
                 )}
-                ref={meredRef}
                 style={{
                   ...floatingStyles,
                   ...style,

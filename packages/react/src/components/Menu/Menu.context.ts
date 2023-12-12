@@ -1,63 +1,27 @@
-import { ExtendedRefs, FloatingContext } from '@floating-ui/react';
-import {
-  createContext,
-  CSSProperties,
-  Dispatch,
-  HTMLProps,
-  MutableRefObject,
-  SetStateAction,
-} from 'react';
+import { MenuSize, MenuVariant } from './Menu.types';
+import React, { createContext } from 'react';
+import { Maybe } from '../../types';
 
-import { MenuSize, MenuType, MenuVariant } from './types';
-
-export type MenuContextType = {
-  activeIndex: number | null;
+export interface MenuContextType {
+  activeIndex: Maybe<number>;
   collapsed: boolean;
-  context: FloatingContext<HTMLButtonElement>;
-  elementsRef: MutableRefObject<Array<HTMLButtonElement | null>>;
-  floatingStyles: CSSProperties;
-  getFloatingProps: (
-    userProps?: HTMLProps<HTMLElement>,
-  ) => Record<string, unknown>;
-  getItemProps: (
-    userProps?: HTMLProps<HTMLButtonElement>,
-  ) => Record<string, unknown>;
-  getReferenceProps: (
-    userProps?: HTMLProps<HTMLElement>,
-  ) => Record<string, unknown>;
-  hasFocusInside: boolean;
   indent: number;
-  isOpen: boolean;
-  labelsRef: MutableRefObject<Array<string>>;
-  refs: ExtendedRefs<HTMLButtonElement>;
-  setActiveIndex: Dispatch<SetStateAction<number | null>>;
-  setHasFocusInside: Dispatch<SetStateAction<boolean>>;
+  menuRef: React.RefObject<HTMLElement>;
   size: MenuSize;
-  type: MenuType;
   variant: MenuVariant;
-};
+  updateActiveIndex: (index: Maybe<number>) => void;
+  onCollapsedChange?: (collapsed: boolean) => void;
+}
 
 export const MenuContext = createContext<MenuContextType>({
   activeIndex: null,
   collapsed: false,
-  context: {} as FloatingContext<HTMLButtonElement>,
-  elementsRef: {} as MutableRefObject<Array<HTMLButtonElement>>,
-  floatingStyles: {},
-  getFloatingProps: () => ({}),
-  getItemProps: () => ({}),
-  getReferenceProps: () => ({}),
-  hasFocusInside: false,
   indent: 0,
-  isOpen: false,
-  labelsRef: {} as MutableRefObject<Array<string>>,
-  refs: {} as ExtendedRefs<HTMLButtonElement>,
-  setActiveIndex: () => {
-    // Do nothing
-  },
-  setHasFocusInside: () => {
-    // Do nothing
-  },
+  menuRef: { current: null },
   size: 'md',
-  type: 'vertical',
   variant: 'secondary',
+  updateActiveIndex: () => {
+    // do nothing
+  },
+  onCollapsedChange: undefined,
 });

@@ -1,10 +1,12 @@
 import { Box, Flex } from '@seed-ui/react';
 
+import { Icon } from '../Icon';
+import { InputBoxSize } from '../InputBox';
 import { Text } from '../Text';
 
-import Select, { SelectProps, SelectSize } from './Select';
+import Select, { SelectProps } from './Select';
 
-const SIZE_OPTIONS: SelectSize[] = ['sm', 'md', 'lg'];
+const SIZE_OPTIONS: InputBoxSize[] = ['sm', 'md', 'lg'];
 
 const SELECT_OPTIONS = [
   'Choose a person',
@@ -71,6 +73,89 @@ export function Invalid(args: SelectProps) {
         ))}
       </Select>
     </>
+  );
+}
+
+export function Success(args: SelectProps) {
+  return (
+    <>
+      <Text
+        as="label"
+        fontSize="sm"
+        fontWeight="semiBold"
+        htmlFor="select-success"
+        letterSpacing="widest"
+        lineHeight="snug"
+        mb={1}
+      >
+        Character
+      </Text>
+      <Select {...args} id="select-success" success>
+        {SELECT_OPTIONS.map((val, idx) => (
+          <option key={idx} value={idx}>
+            {val}
+          </option>
+        ))}
+      </Select>
+    </>
+  );
+}
+
+export function WithIcon(args: SelectProps) {
+  return (
+    <Flex flexDirection="column">
+      <Box mt={4}>
+        <Text
+          as="label"
+          fontSize="sm"
+          fontWeight="semiBold"
+          htmlFor="select-with-start-icon"
+          letterSpacing="widest"
+          lineHeight="snug"
+          mb={1}
+        >
+          With Start Icon
+        </Text>
+
+        <Select
+          {...args}
+          id="select-with-start-icon"
+          startIcon={<Icon color="neutral500" name="search" />}
+        >
+          {SELECT_OPTIONS.map((val, idx) => (
+            <option key={idx} value={idx}>
+              {val}
+            </option>
+          ))}
+        </Select>
+      </Box>
+
+      <Box mt={4}>
+        <Text
+          as="label"
+          fontSize="sm"
+          fontWeight="semiBold"
+          htmlFor="select-with-end-icon"
+          letterSpacing="widest"
+          lineHeight="snug"
+          mb={1}
+        >
+          With End Icon
+        </Text>
+
+        <Select
+          {...args}
+          endIcon={<Icon color="primary400" name="info-circle" />}
+          id="select-with-end-icon"
+        >
+          {SELECT_OPTIONS.map((val, idx) => (
+            <option key={idx} value={idx}>
+              {val}
+            </option>
+          ))}
+        </Select>
+      </Box>
+    </Flex>
   );
 }
 
