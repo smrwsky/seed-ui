@@ -6,7 +6,7 @@ import React, { memo, useCallback, useContext } from 'react';
 import { MenuBarContext } from '../MenuBar.context';
 import { MenuBarButton } from '../MenuBarButton';
 
-export interface MenuItemProps
+export interface MenuBarItemProps
   extends Omit<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     'children' | 'type'
@@ -18,7 +18,7 @@ export interface MenuItemProps
   children: string;
 }
 
-const MenuBarItem: React.FC<MenuItemProps> = ({
+const MenuBarItem: React.FC<MenuBarItemProps> = ({
   children,
   disabled,
   onClick,
